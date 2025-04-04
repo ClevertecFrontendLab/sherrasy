@@ -1,14 +1,24 @@
-import { Flex, Spacer } from '@chakra-ui/react';
+import { Button, Flex, Spacer } from '@chakra-ui/react';
+
+import { BookmarkIcon, HeartEyesIcon, PenIcon, PeopleIcon } from '~/assets/icons/icons';
 
 function Sidebar() {
+    const bookmarks = 185;
+    const people = 589;
+    const likes = 587;
     return (
-        <Flex>
-            <div>Главная</div>
-            <div>Поиск</div>
-            <div>Записать</div>
-            <div>Профиль</div>
+        <Flex direction='column'>
+            <Button leftIcon={<BookmarkIcon color='black' />} color='lime.600' bg='transparent'>
+                {bookmarks}
+            </Button>
+            <Button leftIcon={<PeopleIcon color='black' />} color='lime.600' bg='transparent'>
+                {people}
+            </Button>
+            <Button leftIcon={<HeartEyesIcon color='black' />} color='lime.600' bg='transparent'>
+                {likes}
+            </Button>
             <Spacer />
-            <div>Button</div>
+            <Button leftIcon={<PenIcon />}>Записать рецепт</Button>
         </Flex>
     );
 }

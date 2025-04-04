@@ -15,6 +15,8 @@ import {
     Text,
 } from '@chakra-ui/react';
 
+import { iconsByTag } from '~/utils/iconsByTag';
+
 import data from './mock-dishes.json';
 
 function MenuDishes() {
@@ -22,7 +24,13 @@ function MenuDishes() {
         <Flex direction='column' minW='256px' maxW='256px' minH='80vh'>
             <Menu isOpen flip={false}>
                 <MenuButton />
-                <MenuList maxH='644px' overflowY='auto' p={0}>
+                <MenuList
+                    maxH='644px'
+                    overflowY='auto'
+                    p={0}
+                    borderTop='none'
+                    borderTopEndRadius={0}
+                >
                     <Accordion allowToggle variant='ghost' w='auto'>
                         {data.map((item) => (
                             <AccordionItem border='none' key={item.groupName}>
@@ -31,7 +39,7 @@ function MenuDishes() {
                                     _expanded={{ bg: 'lime.100', fontWeight: '600' }}
                                 >
                                     <Box flex='1' textAlign='left'>
-                                        {item.groupName}
+                                        {iconsByTag[item.tag as string]} {item.groupName}
                                     </Box>
                                     <AccordionIcon />
                                 </AccordionButton>
