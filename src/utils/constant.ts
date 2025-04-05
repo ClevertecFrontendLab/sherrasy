@@ -9,3 +9,19 @@ export const AppRouteToName: { [key: string]: string } = {
     '/vegan': 'Веганская кухня',
     '/juiciest': 'Самое сочное',
 };
+
+export const TagToName: { [key: string]: string } = {
+    salad: 'Салаты',
+    aperitif: 'Закуски',
+    'first-course': 'Первые блюда',
+    'second-course': 'Вторые блюда',
+    dessert: 'Десерты, выпечка',
+    grilled: 'Блюда на гриле',
+    vegan: 'Веганская кухня',
+    kids: 'Детские блюда',
+    healthy: 'Лечебное питание',
+    national: 'Национальные',
+    sauce: 'Соусы',
+    drinks: 'Напитки',
+    preparations: 'Заготовки',
+};

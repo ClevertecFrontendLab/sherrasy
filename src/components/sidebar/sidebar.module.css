@@ -1,0 +1,27 @@
+.sidebarBtn {
+    padding: 10px 0;
+    width: 90px;
+    min-height: 84px;
+    font-weight: 400;
+}
+
+.sidebarBtn:focus,
+.sidebarBtn:hover {
+    font-weight: 600;
+    color: black;
+    background-image: radial-gradient(
+        62.52% 62.51% at 48.89% 37.5%,
+        #c4ff61 0%,
+        rgba(255, 255, 255, 0) 70%
+    );
+}
+
+.sidebarBtn:focus > div > .sidebarIcon,
+.sidebarBtn:hover > div > .sidebarIcon {
+    background-color: black;
+}
+
+.sidebarBtn:focus > div > .sidebarIcon svg,
+.sidebarBtn:hover > div > .sidebarIcon svg {
+    color: #ffffd3;
+}

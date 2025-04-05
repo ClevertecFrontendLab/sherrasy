@@ -1,0 +1,27 @@
+.footerBtn {
+    padding: 10px 0;
+    width: 90px;
+    min-height: 84px;
+    font-weight: 400;
+}
+
+.footerBtn:focus,
+.footerBtn:hover {
+    font-weight: 600;
+    color: black;
+    background-image: radial-gradient(
+        62.52% 62.51% at 48.89% 37.5%,
+        #c4ff61 0%,
+        rgba(255, 255, 255, 0) 70%
+    );
+}
+
+.footerBtn:focus > div > .footerIcon,
+.footerBtn:hover > div > .footerIcon {
+    background-color: black;
+}
+
+.footerBtn:focus > div > .footerIcon svg,
+.footerBtn:hover > div > .footerIcon svg {
+    color: #ffffd3;
+}

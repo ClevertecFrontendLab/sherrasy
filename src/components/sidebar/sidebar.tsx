@@ -1,6 +1,8 @@
-import { Button, Flex, Spacer } from '@chakra-ui/react';
+import { Button, Circle, Flex, Spacer, Text } from '@chakra-ui/react';
 
 import { BookmarkIcon, HeartEyesIcon, PenIcon, PeopleIcon } from '~/assets/icons/icons';
+
+import styles from './sidebar.module.css';
 
 function Sidebar() {
     const bookmarks = 185;
@@ -18,7 +20,14 @@ function Sidebar() {
                 {likes}
             </Button>
             <Spacer />
-            <Button leftIcon={<PenIcon />}>Записать рецепт</Button>
+            <Button variant='unstyled' color='blackAlpha.700' className={styles.sidebarBtn}>
+                <Flex direction='column' align='center' justify='center'>
+                    <Circle size='2.5rem' className={styles.sidebarIcon}>
+                        <PenIcon color='black' />
+                    </Circle>
+                    <Text fontSize='xs'>Записать рецепт</Text>
+                </Flex>
+            </Button>
         </Flex>
     );
 }
