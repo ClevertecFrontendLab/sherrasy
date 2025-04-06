@@ -1,13 +1,14 @@
 import { ChevronRightIcon } from '@chakra-ui/icons';
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, Text } from '@chakra-ui/react';
-import { Link, useLocation } from 'react-router';
+import { Link, useLocation, useSearchParams } from 'react-router';
 
 import { AppRouteToName } from '~/utils/constant';
 
 function Breadcrumbs() {
     const location = useLocation();
+    const [searchParams] = useSearchParams();
+    const subcategoryParam = searchParams.get('subcategory');
     const pathnames = location.pathname.split('/').filter((x) => x);
-
     let currentPath = '/';
 
     const breadcrumbItems = pathnames.map((name, index) => {
@@ -20,6 +21,14 @@ function Breadcrumbs() {
             </BreadcrumbItem>
         );
     });
+
+    if (subcategoryParam) {
+        breadcrumbItems.push(
+            <BreadcrumbItem key={subcategoryParam} isCurrentPage={true}>
+                <Text>{subcategoryParam}</Text>
+            </BreadcrumbItem>,
+        );
+    }
 
     return (
         <Breadcrumb ml={32} spacing='8px' separator={<ChevronRightIcon color='gray.500' />}>

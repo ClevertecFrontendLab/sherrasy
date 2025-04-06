@@ -9,7 +9,7 @@ function Sidebar() {
     const people = 589;
     const likes = 587;
     return (
-        <Flex direction='column'>
+        <Flex direction='column' maxH='80vh'>
             <Button leftIcon={<BookmarkIcon color='black' />} color='lime.600' bg='transparent'>
                 {bookmarks}
             </Button>

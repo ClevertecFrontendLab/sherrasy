@@ -84,6 +84,7 @@ function RKShortCard({ recipe }: RKCardProps) {
         </Card>
     );
 }
+
 function RelevantKitchenCard({ recipe, type }: RelevantKitchenCardProps) {
     return type === 'medium' ? <RKMediumCard recipe={recipe} /> : <RKShortCard recipe={recipe} />;
 }

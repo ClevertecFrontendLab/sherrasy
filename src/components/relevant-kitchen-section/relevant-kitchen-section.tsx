@@ -1,4 +1,4 @@
-import { Box, Flex, Heading, Text } from '@chakra-ui/react';
+import { Box, Divider, Flex, Heading, Text } from '@chakra-ui/react';
 import { useLocation } from 'react-router';
 
 import { textDessertList, textVeganList } from '~/components/cards/mock-cards.json';
@@ -27,6 +27,7 @@ function RelevantKitchenSection() {
 
     return (
         <Box p='1.5rem' mt='2.5rem'>
+            <Divider />
             <Flex align='center' justify='space-between'>
                 <Heading fontWeight={400}> {currentVariant.name}</Heading>
                 <Text maxW='50%' color='blackAlpha.700'>

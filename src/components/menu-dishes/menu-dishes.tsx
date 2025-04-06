@@ -5,13 +5,14 @@ import {
     AccordionItem,
     AccordionPanel,
     Box,
+    Button,
     Flex,
-    HStack,
     List,
     ListItem,
     Spacer,
     Text,
 } from '@chakra-ui/react';
+import { useNavigate, useSearchParams } from 'react-router';
 
 import { ExitIcon } from '~/assets/icons/icons';
 import { iconsByTag } from '~/utils/iconsByTag';
@@ -19,12 +20,19 @@ import { iconsByTag } from '~/utils/iconsByTag';
 import data from './mock-dishes.json';
 
 function MenuDishes() {
+    const navigate = useNavigate();
+    const [searchParams] = useSearchParams();
+    const subcategoryParam = searchParams.get('subcategory');
+    const handleSubcategoryClick = (category: string, subcategory: string) => {
+        navigate(`/${category}?subcategory=${subcategory}`);
+    };
     return (
         <Flex
             direction='column'
             minW='16rem'
             maxW='16rem'
             minH='80vh'
+            maxH='80vh'
             borderRight='1px solid'
             borderColor='blackAlpha.100'
         >
@@ -53,8 +61,19 @@ function MenuDishes() {
                             <AccordionPanel pb={4}>
                                 <List spacing={1}>
                                     {item.elements.map((subcategory) => (
-                                        <ListItem key={`${subcategory}-${item.tag}`}>
-                                            <Text>{subcategory}</Text>
+                                        <ListItem
+                                            key={`${subcategory}-${item.tag}`}
+                                            onClick={() =>
+                                                handleSubcategoryClick('vegan', subcategory)
+                                            }
+                                        >
+                                            <Text
+                                                fontWeight={
+                                                    subcategoryParam === subcategory ? '600' : 400
+                                                }
+                                            >
+                                                {subcategory}
+                                            </Text>
                                         </ListItem>
                                     ))}
                                 </List>
@@ -71,10 +90,9 @@ function MenuDishes() {
                 <Text color='blackAlpha.700' fontSize='xs' lineHeight={4}>
                     Все права защищены, ученический файл, ©Клевер Технолоджи, 2025
                 </Text>
-                <HStack>
-                    <ExitIcon />
-                    <Text> Выйти</Text>
-                </HStack>
+                <Button variant='unstyled' leftIcon={<ExitIcon />} w='min-content'>
+                    Выйти
+                </Button>
             </Box>
         </Flex>
     );
