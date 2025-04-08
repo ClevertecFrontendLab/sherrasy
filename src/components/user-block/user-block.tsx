@@ -3,7 +3,7 @@ import { Avatar, Box, Flex, Text } from '@chakra-ui/react';
 function UserBlock() {
     const name = 'Екатерина Константинопольская';
     return (
-        <Flex gap={3} mr='56px'>
+        <Flex gap={3} mr='4.25rem'>
             <Avatar name={name} src='/photo-dekstop.jpg' />
             <Box>
                 <Text fontSize='lg' fontFamily='Inter'>

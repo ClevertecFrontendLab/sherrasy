@@ -5,39 +5,109 @@ import { HomeIcon, PenIcon, SearchIcon } from '~/assets/icons/icons';
 import styles from './footer.module.css';
 
 function Footer() {
-    const [isDesktop] = useMediaQuery('(min-width: 1440px)');
+    const [isDesktop] = useMediaQuery('(min-width: 992px)');
     if (isDesktop) {
         return <></>;
     }
     return (
-        <Box position='absolute' bottom={0} minW='100%' data-test-id='footer'>
+        <Box
+            minW='100%'
+            maxH='84px'
+            data-test-id='footer'
+            position='fixed'
+            bottom={0}
+            left={0}
+            right={0}
+            zIndex={10}
+        >
             <Flex bg='lime.50' align='center' justify='center'>
-                <Button variant='unstyled' color='blackAlpha.700' className={styles.footerBtn}>
-                    <Flex direction='column' align='center' justify='center'>
-                        <Circle size='2.5rem' className={styles.footerIcon}>
+                <Button
+                    variant='ghost'
+                    color='blackAlpha.700'
+                    className={styles.footerBtn}
+                    _hover={{ bg: 'transparent' }}
+                    _active={{
+                        bg: 'transparent',
+                    }}
+                    _focus={{
+                        bg: 'transparent',
+                    }}
+                >
+                    <Flex direction='column' align='center' justify='center' gap={1}>
+                        <Circle
+                            size='2.5rem'
+                            className={styles.footerIcon}
+                            mt='1px'
+                            _hover={{ bg: 'transparent' }}
+                            _active={{
+                                bg: 'transparent',
+                            }}
+                            _focus={{
+                                bg: 'transparent',
+                            }}
+                        >
                             <HomeIcon color='black' />
                         </Circle>
-                        <Text fontSize='xs'>Главная</Text>
+                        <Text fontSize='xs' lineHeight={4}>
+                            Главная
+                        </Text>
                     </Flex>
                 </Button>
-                <Button variant='unstyled' color='blackAlpha.700' className={styles.footerBtn}>
-                    <Flex direction='column' align='center' justify='center'>
-                        <Circle size='2.5rem' className={styles.footerIcon}>
-                            <SearchIcon color='black' />
+                <Button
+                    variant='ghost'
+                    color='blackAlpha.700'
+                    className={styles.footerBtn}
+                    _hover={{ bg: 'transparent' }}
+                    _active={{
+                        bg: 'transparent',
+                    }}
+                    _focus={{
+                        bg: 'transparent',
+                    }}
+                >
+                    <Flex direction='column' align='center' justify='center' gap={1}>
+                        <Circle size='2.5rem' className={styles.footerIcon} mt='1px'>
+                            <SearchIcon color='black' boxSize={6} />
                         </Circle>
-                        <Text fontSize='xs'>Поиск</Text>
+                        <Text fontSize='xs' lineHeight={4}>
+                            Поиск
+                        </Text>
                     </Flex>
                 </Button>
-                <Button variant='unstyled' color='blackAlpha.700' className={styles.footerBtn}>
-                    <Flex direction='column' align='center' justify='center'>
-                        <Circle size='2.5rem' className={styles.footerIcon}>
-                            <PenIcon color='black' />
+                <Button
+                    variant='ghost'
+                    color='blackAlpha.700'
+                    className={styles.footerBtn}
+                    _hover={{ bg: 'transparent' }}
+                    _active={{
+                        bg: 'transparent',
+                    }}
+                    _focus={{
+                        bg: 'transparent',
+                    }}
+                >
+                    <Flex direction='column' align='center' justify='center' gap={1}>
+                        <Circle size='2.5rem' className={styles.footerIcon} mt='1px'>
+                            <PenIcon color='black' boxSize={6} />
                         </Circle>
-                        <Text fontSize='xs'>Записать</Text>
+                        <Text fontSize='xs' lineHeight={4}>
+                            Записать
+                        </Text>
                     </Flex>
                 </Button>
-                <Button variant='unstyled' color='blackAlpha.700' className={styles.footerBtn}>
-                    <Flex direction='column' align='center' justify='center'>
+                <Button
+                    variant='ghost'
+                    color='blackAlpha.700'
+                    className={styles.footerBtn}
+                    _hover={{ bg: 'transparent' }}
+                    _active={{
+                        bg: 'transparent',
+                    }}
+                    _focus={{
+                        bg: 'transparent',
+                    }}
+                >
+                    <Flex direction='column' align='center' justify='center' gap={1}>
                         <Avatar
                             name='Екатерина Константинопольская'
                             src='/photo-dekstop.jpg'
@@ -45,7 +115,9 @@ function Footer() {
                             maxH='2.5rem'
                             maxW='2.5rem'
                         />
-                        <Text fontSize='xs'>Профиль</Text>
+                        <Text fontSize='xs' lineHeight={4}>
+                            Мой профиль
+                        </Text>
                     </Flex>
                 </Button>
             </Flex>

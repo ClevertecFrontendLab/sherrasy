@@ -10,7 +10,15 @@ type ContentHeaderProps = {
 function ContentHeader({ headline, description }: ContentHeaderProps) {
     return (
         <Flex direction='column' justify='center' align='center' textAlign='center'>
-            <Heading my={4}>{headline}</Heading>
+            <Heading
+                mt={{ base: '1rem', lg: 4 }}
+                mb={{ base: '1rem', lg: 4 }}
+                ml={{ base: '0.0625rem', lg: 4 }}
+                fontSize={{ base: '2xl', lg: '5xl' }}
+                lineHeight={{ base: 8, lg: 'none' }}
+            >
+                {headline}
+            </Heading>
             {description && (
                 <Text color='blackAlpha.600' w='40%' my={2}>
                     {description}

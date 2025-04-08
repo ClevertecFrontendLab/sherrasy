@@ -26,19 +26,36 @@ function RelevantKitchenSection() {
     const currentData = pathname.includes(AppRoute.Vegan) ? textDessertList : textVeganList;
 
     return (
-        <Box p='1.5rem' mt='2.5rem'>
-            <Divider />
-            <Flex align='center' justify='space-between'>
-                <Heading fontWeight={400}> {currentVariant.name}</Heading>
-                <Text maxW='50%' color='blackAlpha.700'>
-                    {currentVariant.description}{' '}
+        <Box mt={{ base: 8, lg: '2.5rem' }}>
+            <Divider mb={2} />
+            <Flex
+                direction={{ base: 'column', lg: 'row' }}
+                align={{ lg: 'center' }}
+                justify='space-between'
+            >
+                <Heading
+                    fontWeight='500'
+                    fontSize={{ base: '2xl', lg: '4xl', '2xl': '5xl' }}
+                    lineHeight={{ base: 8, lg: 10, '2xl': 'none' }}
+                    mb={2.5}
+                >
+                    {' '}
+                    {currentVariant.name}
+                </Heading>
+                <Text
+                    maxW={{ base: '90%', md: '50%' }}
+                    fontSize={{ base: 'sm', lg: 'md' }}
+                    lineHeight={{ base: 5, lg: 6 }}
+                    color='blackAlpha.700'
+                >
+                    {currentVariant.description}
                 </Text>
             </Flex>
-            <Flex gap='1.5rem'>
+            <Flex mt={4} direction={{ base: 'column', lg: 'row' }} gap={{ base: 3, lg: 6 }}>
                 {currentData.slice(0, 2).map((item) => (
                     <RelevantKitchenCard key={item.id} recipe={item} type='medium' />
                 ))}
-                <Flex direction='column' gap='0.75rem'>
+                <Flex direction='column' gap={{ base: 4, lg: 3 }}>
                     {currentData.slice(2, 5).map((item) => (
                         <RelevantKitchenCard key={item.id} recipe={item} type='small' />
                     ))}

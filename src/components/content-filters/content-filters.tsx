@@ -15,11 +15,11 @@ import { FilterIcon, SearchIcon } from '~/assets/icons/icons';
 function ContentFilters() {
     return (
         <>
-            <Flex gap={3}>
+            <Flex gap={3} flex={1} w={{ base: '20.5rem', md: '28rem', lg: '32.375rem' }}>
                 <Button size='sm' p={0} variant='outline' borderColor='blackAlpha.600'>
                     <FilterIcon />
                 </Button>
-                <InputGroup size='sm' borderColor='blackAlpha.600' maxW='518px'>
+                <InputGroup size='sm' borderColor='blackAlpha.600' maxW='100%'>
                     <Input
                         variant='outline'
                         placeholder='Название или ингридиент...'
@@ -31,7 +31,7 @@ function ContentFilters() {
                     </InputRightElement>
                 </InputGroup>
             </Flex>
-            <Flex gap={3}>
+            <Flex gap={3} display={{ base: 'none', lg: 'flex' }}>
                 <FormControl display='flex' alignItems='center'>
                     <FormLabel htmlFor='allergies' mb='0' w='max-content'>
                         Исключить мои аллергены
@@ -41,7 +41,8 @@ function ContentFilters() {
                 <Select
                     size='sm'
                     borderRadius='0.25rem'
-                    placeholder='Выберите из списка...'
+                    isTruncated
+                    placeholder='Выберите из списка аллергенов...'
                     variant='outline'
                     borderColor='blackAlpha.600'
                     isDisabled

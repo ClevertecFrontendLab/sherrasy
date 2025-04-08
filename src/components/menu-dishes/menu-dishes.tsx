@@ -29,68 +29,57 @@ function MenuDishes() {
     return (
         <Flex
             direction='column'
-            minW='16rem'
-            maxW='16rem'
-            minH='80vh'
-            maxH='80vh'
+            justify='space-between'
             borderRight='1px solid'
+            w='16rem'
+            h='calc(100vh - 80px)'
             borderColor='blackAlpha.100'
+            position={{ lg: 'fixed' }}
+            left={0}
+            bg='white'
         >
-            <Box
-                maxH='644px'
-                overflowY='auto'
-                p={0}
-                bg='white'
-                border='1px solid'
-                borderColor='blackAlpha.100'
-                borderBottomRightRadius='10px'
-                position='absolute'
-            >
-                <Accordion allowToggle variant='ghost' w='auto'>
-                    {data.map((item) => (
-                        <AccordionItem border='none' key={item.groupName}>
-                            <AccordionButton
-                                data-test-id={item.tag === 'vegan' ? 'vegan-cuisine' : item.tag}
-                                _expanded={{ bg: 'lime.100', fontWeight: '600' }}
-                            >
-                                <Box flex='1' textAlign='left'>
-                                    {iconsByTag[item.tag as string]} {item.groupName}
-                                </Box>
-                                <AccordionIcon />
-                            </AccordionButton>
-                            <AccordionPanel pb={4}>
-                                <List spacing={1}>
-                                    {item.elements.map((subcategory) => (
-                                        <ListItem
-                                            key={`${subcategory}-${item.tag}`}
-                                            onClick={() =>
-                                                handleSubcategoryClick('vegan', subcategory)
+            <Accordion allowToggle variant='ghost' overflowY='auto'>
+                {data.map((item) => (
+                    <AccordionItem border='none' key={item.groupName}>
+                        <AccordionButton
+                            data-test-id={item.tag === 'vegan' ? 'vegan-cuisine' : item.tag}
+                            _expanded={{ bg: 'lime.100', fontWeight: '600' }}
+                        >
+                            <Box flex='1' textAlign='left'>
+                                {iconsByTag[item.tag as string]} {item.groupName}
+                            </Box>
+                            <AccordionIcon />
+                        </AccordionButton>
+                        <AccordionPanel pb={4}>
+                            <List spacing={1}>
+                                {item.elements.map((subcategory) => (
+                                    <ListItem
+                                        key={`${subcategory}-${item.tag}`}
+                                        onClick={() => handleSubcategoryClick('vegan', subcategory)}
+                                    >
+                                        <Text
+                                            fontWeight={
+                                                subcategoryParam === subcategory ? '600' : 400
                                             }
                                         >
-                                            <Text
-                                                fontWeight={
-                                                    subcategoryParam === subcategory ? '600' : 400
-                                                }
-                                            >
-                                                {subcategory}
-                                            </Text>
-                                        </ListItem>
-                                    ))}
-                                </List>
-                            </AccordionPanel>
-                        </AccordionItem>
-                    ))}
-                </Accordion>
-            </Box>
+                                            {subcategory}
+                                        </Text>
+                                    </ListItem>
+                                ))}
+                            </List>
+                        </AccordionPanel>
+                    </AccordionItem>
+                ))}
+            </Accordion>
             <Spacer />
-            <Box>
+            <Box p={6} pb={8} w='13.5rem' bottom={0}>
                 <Text color='blackAlpha.400' fontSize='xs' lineHeight={4}>
                     Версия программы 03.25
                 </Text>
-                <Text color='blackAlpha.700' fontSize='xs' lineHeight={4}>
+                <Text py={4} color='blackAlpha.700' fontSize='xs' lineHeight={4}>
                     Все права защищены, ученический файл, ©Клевер Технолоджи, 2025
                 </Text>
-                <Button variant='unstyled' leftIcon={<ExitIcon />} w='min-content'>
+                <Button variant='ghost' leftIcon={<ExitIcon />} p={0} fontSize='xs'>
                     Выйти
                 </Button>
             </Box>
