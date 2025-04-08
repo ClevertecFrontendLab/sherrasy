@@ -1,5 +1,3 @@
-import './App.css';
-
 import { Route, Routes } from 'react-router';
 
 import JuicyPage from '~/pages/juicy-page';

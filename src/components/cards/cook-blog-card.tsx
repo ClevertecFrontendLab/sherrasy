@@ -8,7 +8,6 @@ type CookCookBlogCardProps = {
 
 function CookBlogCard({ author }: CookCookBlogCardProps) {
     const { avatar, name, description, nick } = author;
-    console.log(avatar);
     return (
         <Card>
             <CardHeader>
