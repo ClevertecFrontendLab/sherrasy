@@ -1,4 +1,4 @@
-import { Button, Flex, SimpleGrid } from '@chakra-ui/react';
+import { Button, Flex, SimpleGrid, Text } from '@chakra-ui/react';
 
 import { RecipeWithImage } from '~/types/recipe.interface';
 
@@ -10,18 +10,32 @@ type RecipesListProps = {
 
 function RecipesList({ recipes }: RecipesListProps) {
     return (
-        <Flex p='1.5rem' mt='2.5rem' direction='column' justify='center'>
+        <Flex direction='column' gap={{ base: 3, lg: 6 }} justify='center'>
             <SimpleGrid
-                spacing={4}
-                templateColumns='repeat(auto-fill, minmax(41.75rem, 1fr))'
-                mb='2.5rem'
+                spacing={{ base: 4 }}
+                templateColumns={{
+                    base: 'repeat(auto-fill, minmax(20.375rem, 1fr))',
+                    lg: 'repeat(auto-fill, minmax(41.75rem, 1fr))',
+                }}
+                overflowX='hidden'
             >
                 {recipes.map((item: RecipeWithImage) => (
                     <RecipeCard key={item.id} recipe={item} type='horizontal' />
                 ))}
             </SimpleGrid>
-            <Button maxW='min-content' bg='lime.400' alignSelf='center'>
-                Загрузить еще
+            <Button
+                bg='lime.400'
+                mt={{ base: 1 }}
+                size={{ base: 'md', '2xl': 'lg' }}
+                alignSelf='center'
+            >
+                <Text
+                    fontWeight={600}
+                    fontSize={{ base: 'md', '2xl': 'lg' }}
+                    lineHeight={{ base: 6, '2xl': 7 }}
+                >
+                    Загрузить еще
+                </Text>
             </Button>
         </Flex>
     );

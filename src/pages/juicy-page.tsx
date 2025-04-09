@@ -1,3 +1,5 @@
+import { Box } from '@chakra-ui/react';
+
 import { juicyListLong } from '~/components/cards/mock-cards.json';
 import ContentHeader from '~/components/content-header/content-header';
 import Layout from '~/components/layout/layout';
@@ -9,7 +11,10 @@ function JuicyPage() {
         <>
             <Layout>
                 <ContentHeader headline='Самое сочное' />
-                <RecipesList recipes={juicyListLong} />
+                <Box mt='88px'>
+                    <RecipesList recipes={juicyListLong} />
+                </Box>
+
                 <RelevantKitchenSection />
             </Layout>
         </>

@@ -20,7 +20,13 @@ function ContentHeader({ headline, description }: ContentHeaderProps) {
                 {headline}
             </Heading>
             {description && (
-                <Text color='blackAlpha.600' w='40%' my={2}>
+                <Text
+                    color='blackAlpha.600'
+                    mb={4}
+                    w={{ base: '90%', '2xl': '50%' }}
+                    fontSize={{ base: 'sm', lg: 'md' }}
+                    lineHeight={{ base: 5, lg: 6 }}
+                >
                     {description}
                 </Text>
             )}

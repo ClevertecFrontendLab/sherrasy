@@ -39,7 +39,6 @@ function RelevantKitchenSection() {
                     lineHeight={{ base: 8, lg: 10, '2xl': 'none' }}
                     mb={2.5}
                 >
-                    {' '}
                     {currentVariant.name}
                 </Heading>
                 <Text
@@ -55,7 +54,7 @@ function RelevantKitchenSection() {
                 {currentData.slice(0, 2).map((item) => (
                     <RelevantKitchenCard key={item.id} recipe={item} type='medium' />
                 ))}
-                <Flex direction='column' gap={{ base: 4, lg: 3 }}>
+                <Flex direction='column' gap={3}>
                     {currentData.slice(2, 5).map((item) => (
                         <RelevantKitchenCard key={item.id} recipe={item} type='small' />
                     ))}

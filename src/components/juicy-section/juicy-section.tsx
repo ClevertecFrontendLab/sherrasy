@@ -29,6 +29,7 @@ function JuicySection() {
                     base: 'repeat(auto-fill, minmax(20.375rem, 1fr))',
                     lg: 'repeat(auto-fill, minmax(41.75rem, 1fr))',
                 }}
+                overflowX='hidden'
             >
                 {juicyListShort.map((item: RecipeWithImage) => (
                     <RecipeCard key={item.id} recipe={item} type='horizontal' />

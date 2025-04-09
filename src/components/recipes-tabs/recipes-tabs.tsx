@@ -1,4 +1,4 @@
-import { Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react';
+import { Box, Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router';
 
@@ -23,21 +23,39 @@ function RecipesTabs({ tabsNames, recipes }: RecipesTabsProps) {
         setActiveTabIndex(currentTab !== -1 ? currentTab : 0);
     }, [subcategoryParam, currentTab]);
     return (
-        <Tabs index={activeTabIndex} isLazy mt={5} color='lime.800'>
-            <TabList>
+        <Tabs
+            index={activeTabIndex}
+            isLazy
+            mt={{ base: 8 }}
+            color='lime.800'
+            size={{ base: 'sm', md: 'md' }}
+        >
+            <Box
+                overflowY='auto'
+                sx={{
+                    scrollbarWidth: 'none',
+                    '::-webkit-scrollbar': {
+                        display: 'none',
+                    },
+                }}
+            >
+                <TabList borderBottomColor='white'>
+                    {tabsNames.map((name) => (
+                        <Tab
+                            key={name}
+                            _selected={{ color: 'lime.600', borderColor: 'lime.600' }}
+                            minW='max-content'
+                            onClick={() => handleSubcategoryClick(name)}
+                            borderBottomColor='blackAlpha.400'
+                        >
+                            {name}
+                        </Tab>
+                    ))}
+                </TabList>
+            </Box>
+            <TabPanels p={0}>
                 {tabsNames.map((name) => (
-                    <Tab
-                        key={name}
-                        _selected={{ color: 'lime.600', borderColor: 'lime.600' }}
-                        onClick={() => handleSubcategoryClick(name)}
-                    >
-                        {name}
-                    </Tab>
-                ))}
-            </TabList>
-            <TabPanels>
-                {tabsNames.map((name) => (
-                    <TabPanel key={`${name}-panel`}>
+                    <TabPanel p={0} pt={6} key={`${name}-panel`}>
                         <RecipesList recipes={recipes} />
                     </TabPanel>
                 ))}

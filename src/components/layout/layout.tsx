@@ -23,6 +23,7 @@ function Layout({ children }: LayoutProps) {
                     overflowY='auto'
                     ml={{ base: 4, lg: '16rem' }}
                     mr={{ base: 4, lg: '17.5rem' }}
+                    mb={{ base: 4, lg: '17.5rem' }}
                 >
                     {children}
                 </Box>

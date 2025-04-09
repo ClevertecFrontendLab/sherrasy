@@ -6,7 +6,6 @@ import {
     CardBody,
     CardFooter,
     CardHeader,
-    Flex,
     Heading,
     HStack,
     Icon,
@@ -32,8 +31,9 @@ function RKMediumCard({ recipe }: RKCardProps) {
             minH={{ base: '10.5rem', lg: '11.25rem', '2xl': '12rem' }}
             maxH={{ base: '10.5rem', lg: '11.25rem', '2xl': '12rem' }}
             variant='outline'
+            p={{ base: 3, lg: 4 }}
         >
-            <CardHeader p={{ base: 3, lg: 4 }} pb={1}>
+            <CardHeader p={0} pb={2}>
                 <Text
                     mt='1px'
                     size={{ base: 'md', lg: 'xl' }}
@@ -43,7 +43,7 @@ function RKMediumCard({ recipe }: RKCardProps) {
                     {name}
                 </Text>
             </CardHeader>
-            <CardBody px={2.5} pt={1} pb={2}>
+            <CardBody p={0}>
                 <Text
                     noOfLines={3}
                     fontSize={{ base: 'xs', lg: 'sm' }}
@@ -53,60 +53,57 @@ function RKMediumCard({ recipe }: RKCardProps) {
                     {description}
                 </Text>
             </CardBody>
-            <CardFooter pr={3}>
-                <Flex w='100%' justify='space-between'>
-                    <Badge
-                        bgColor='lime.50'
-                        display='flex'
-                        h='1.5rem'
-                        borderRadius={2}
-                        alignItems='center'
-                        justifyContent='space-between'
-                        py='1px'
-                        px={0}
-                        fontSize='sm'
-                        lineHeight={5}
-                        fontWeight={400}
-                        textTransform='none'
-                    >
-                        <Icon boxSize={4} mb='3px' mr={2}>
-                            {iconsByTag[tag]}
-                        </Icon>
-                        <Text>{TagToName[tag]}</Text>
-                    </Badge>
-                    <ButtonGroup spacing={2} ml={{ base: 1, lg: 0 }} maxH='1.5rem'>
-                        {bookmarks > 0 && (
-                            <Button
-                                leftIcon={<BookmarkIcon color='black' boxSize={{ base: 3 }} />}
-                                color='lime.600'
-                                bg='transparent'
-                                p={0}
-                                size='sm'
-                                fontSize='xs'
-                                lineHeight={4}
-                                iconSpacing='0.375rem'
-                                h='100%'
-                            >
-                                {bookmarks}
-                            </Button>
-                        )}
-                        {likes > 0 && (
-                            <Button
-                                leftIcon={<HeartEyesIcon color='black' boxSize={{ base: 3 }} />}
-                                color='lime.600'
-                                bg='transparent'
-                                p={0}
-                                size='sm'
-                                fontSize='xs'
-                                lineHeight={4}
-                                iconSpacing='0.375rem'
-                                h='100%'
-                            >
-                                {likes}
-                            </Button>
-                        )}
-                    </ButtonGroup>
-                </Flex>
+            <CardFooter p={0} justify='space-between' maxH='1.5rem'>
+                <Badge
+                    bgColor='lime.50'
+                    display='flex'
+                    borderRadius={2}
+                    alignItems='center'
+                    justifyContent='space-between'
+                    py='0'
+                    px={2}
+                    fontSize='sm'
+                    lineHeight={5}
+                    fontWeight={400}
+                    textTransform='none'
+                >
+                    <Icon boxSize={4} mb='3px' mr={2}>
+                        {iconsByTag[tag]}
+                    </Icon>
+                    <Text>{TagToName[tag]}</Text>
+                </Badge>
+                <ButtonGroup spacing={2} ml={{ base: 1, lg: 0 }}>
+                    {bookmarks > 0 && (
+                        <Button
+                            leftIcon={<BookmarkIcon color='black' boxSize={{ base: 3 }} />}
+                            color='lime.600'
+                            bg='transparent'
+                            p={0}
+                            size='sm'
+                            fontSize='xs'
+                            lineHeight={4}
+                            iconSpacing='0.375rem'
+                            h='100%'
+                        >
+                            {bookmarks}
+                        </Button>
+                    )}
+                    {likes > 0 && (
+                        <Button
+                            leftIcon={<HeartEyesIcon color='black' boxSize={{ base: 3 }} />}
+                            color='lime.600'
+                            bg='transparent'
+                            p={0}
+                            size='sm'
+                            fontSize='xs'
+                            lineHeight={4}
+                            iconSpacing='0.375rem'
+                            h='100%'
+                        >
+                            {likes}
+                        </Button>
+                    )}
+                </ButtonGroup>
             </CardFooter>
         </Card>
     );
@@ -117,21 +114,35 @@ function RKShortCard({ recipe }: RKCardProps) {
     return (
         <Card
             variant='outline'
+            h='100%'
             minH={{ base: '3.25rem', '2xl': '3.5rem' }}
             maxH={{ base: '3.25rem', '2xl': '3.5rem' }}
+            p={{ base: 3, lg: 4 }}
         >
-            <CardBody p={1}>
-                <Flex justify='space-between'>
-                    <HStack width='70%'>
-                        {iconsByTag[tag]}
-                        <Heading size='sm' isTruncated>
-                            {name}
-                        </Heading>
-                    </HStack>
-                    <Button variant='outline' color='lime.600' borderColor='lime.600'>
+            <CardBody
+                p={0}
+                display='flex'
+                justifyContent='space-between'
+                alignContent='center'
+                maxH='32px'
+            >
+                <HStack width='70%' py={1}>
+                    {iconsByTag[tag]}
+                    <Heading size='sm' isTruncated>
+                        {name}
+                    </Heading>
+                </HStack>
+                <Button
+                    h='100%'
+                    variant='outline'
+                    color='lime.600'
+                    borderColor='lime.600'
+                    p={{ base: 2, lg: 4 }}
+                >
+                    <Text fontSize={{ base: 'xs', '2xl': 'sm' }} lineHeight={4}>
                         Готовить
-                    </Button>
-                </Flex>
+                    </Text>
+                </Button>
             </CardBody>
         </Card>
     );
