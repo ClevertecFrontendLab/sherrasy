@@ -13,7 +13,8 @@ function Header() {
 
     return (
         <Flex
-            p={4}
+            px={{ base: 4, md: 5 }}
+            py={4}
             bg='lime.50'
             align='center'
             data-test-id='header'

@@ -1,5 +1,7 @@
 import { extendTheme } from '@chakra-ui/react';
 
+import { cardTheme } from './ui-theme/card.theme';
+
 export const theme = extendTheme({
     colors: {
         lime: {
@@ -16,5 +18,8 @@ export const theme = extendTheme({
     fonts: {
         heading: `'Inter', sans-serif`,
         body: `'Inter', sans-serif`,
+    },
+    components: {
+        Card: cardTheme,
     },
 });

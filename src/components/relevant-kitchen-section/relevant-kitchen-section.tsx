@@ -26,7 +26,7 @@ function RelevantKitchenSection() {
     const currentData = pathname.includes(AppRoute.Vegan) ? textDessertList : textVeganList;
 
     return (
-        <Box mt={{ base: 8, lg: '2.5rem' }}>
+        <Box mt={{ base: 8, lg: '2.5rem' }} overflowX='hidden'>
             <Divider mb={2} />
             <Flex
                 direction={{ base: 'column', lg: 'row' }}
@@ -42,7 +42,7 @@ function RelevantKitchenSection() {
                     {currentVariant.name}
                 </Heading>
                 <Text
-                    maxW={{ base: '90%', md: '50%' }}
+                    maxW={{ base: '90%', md: '100%' }}
                     fontSize={{ base: 'sm', lg: 'md' }}
                     lineHeight={{ base: 5, lg: 6 }}
                     color='blackAlpha.700'
@@ -50,11 +50,15 @@ function RelevantKitchenSection() {
                     {currentVariant.description}
                 </Text>
             </Flex>
-            <Flex mt={4} direction={{ base: 'column', lg: 'row' }} gap={{ base: 3, lg: 6 }}>
+            <Flex
+                mt={4}
+                direction={{ base: 'column', md: 'row' }}
+                gap={{ base: 3, md: 3.5, lg: 6 }}
+            >
                 {currentData.slice(0, 2).map((item) => (
                     <RelevantKitchenCard key={item.id} recipe={item} type='medium' />
                 ))}
-                <Flex direction='column' gap={3}>
+                <Flex direction='column' gap={{ base: 3 }}>
                     {currentData.slice(2, 5).map((item) => (
                         <RelevantKitchenCard key={item.id} recipe={item} type='small' />
                     ))}

@@ -20,18 +20,13 @@ function Footer() {
             right={0}
             zIndex={10}
         >
-            <Flex bg='lime.50' align='center' justify='center'>
+            <Flex bg='lime.50' align='center' justify={{ base: 'center', md: 'space-evenly' }}>
                 <Button
-                    variant='ghost'
+                    variant='chost'
                     color='blackAlpha.700'
+                    size='lg'
+                    w={{ base: '5.625rem', md: '12rem' }}
                     className={styles.footerBtn}
-                    _hover={{ bg: 'transparent' }}
-                    _active={{
-                        bg: 'transparent',
-                    }}
-                    _focus={{
-                        bg: 'transparent',
-                    }}
                 >
                     <Flex direction='column' align='center' justify='center' gap={1}>
                         <Circle
@@ -54,16 +49,11 @@ function Footer() {
                     </Flex>
                 </Button>
                 <Button
-                    variant='ghost'
+                    variant='chost'
                     color='blackAlpha.700'
+                    size='lg'
+                    w={{ base: '5.625rem', md: '12rem' }}
                     className={styles.footerBtn}
-                    _hover={{ bg: 'transparent' }}
-                    _active={{
-                        bg: 'transparent',
-                    }}
-                    _focus={{
-                        bg: 'transparent',
-                    }}
                 >
                     <Flex direction='column' align='center' justify='center' gap={1}>
                         <Circle size='2.5rem' className={styles.footerIcon} mt='1px'>
@@ -75,16 +65,11 @@ function Footer() {
                     </Flex>
                 </Button>
                 <Button
-                    variant='ghost'
+                    variant='chost'
                     color='blackAlpha.700'
+                    size='lg'
+                    w={{ base: '5.625rem', md: '12rem' }}
                     className={styles.footerBtn}
-                    _hover={{ bg: 'transparent' }}
-                    _active={{
-                        bg: 'transparent',
-                    }}
-                    _focus={{
-                        bg: 'transparent',
-                    }}
                 >
                     <Flex direction='column' align='center' justify='center' gap={1}>
                         <Circle size='2.5rem' className={styles.footerIcon} mt='1px'>
@@ -96,16 +81,11 @@ function Footer() {
                     </Flex>
                 </Button>
                 <Button
-                    variant='ghost'
+                    variant='chost'
                     color='blackAlpha.700'
+                    size='lg'
+                    w={{ base: '5.625rem', md: '12rem' }}
                     className={styles.footerBtn}
-                    _hover={{ bg: 'transparent' }}
-                    _active={{
-                        bg: 'transparent',
-                    }}
-                    _focus={{
-                        bg: 'transparent',
-                    }}
                 >
                     <Flex direction='column' align='center' justify='center' gap={1}>
                         <Avatar

@@ -157,7 +157,7 @@ export const HealthyIcon = () => (
 );
 
 export const KidsIcon = () => (
-    <Icon viewBox='0 0 24 24' w='24px' h='24px' fill='none'>
+    <Icon viewBox='0 0 24 22' w='24px' h='22px' fill='none'>
         <path fill='url(#a-kids)' d='M0 0h24v24H0z' />
         <defs>
             <pattern id='a-kids' width='1' height='1' patternContentUnits='objectBoundingBox'>

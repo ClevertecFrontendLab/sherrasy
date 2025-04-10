@@ -14,7 +14,7 @@ function JuicySection() {
         navigate(`/juiciest`);
     };
     return (
-        <Flex direction='column' mt={{ base: 8, lg: '2.5rem' }} gap={{ base: 3, lg: 6 }}>
+        <Flex direction='column' mt={{ base: 8, lg: '2.5rem' }} gap={{ base: 3, md: 3.5, lg: 6 }}>
             <Heading
                 fontWeight='500'
                 fontSize={{ base: '2xl', lg: '4xl' }}

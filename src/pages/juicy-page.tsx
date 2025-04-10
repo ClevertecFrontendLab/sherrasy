@@ -11,10 +11,9 @@ function JuicyPage() {
         <>
             <Layout>
                 <ContentHeader headline='Самое сочное' />
-                <Box mt='88px'>
+                <Box mt={8}>
                     <RecipesList recipes={juicyListLong} />
                 </Box>
-
                 <RelevantKitchenSection />
             </Layout>
         </>

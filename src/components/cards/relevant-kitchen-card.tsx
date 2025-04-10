@@ -28,6 +28,7 @@ function RKMediumCard({ recipe }: RKCardProps) {
     const { name, description, tag, bookmarks, likes } = recipe;
     return (
         <Card
+            minW='232px'
             minH={{ base: '10.5rem', lg: '11.25rem', '2xl': '12rem' }}
             maxH={{ base: '10.5rem', lg: '11.25rem', '2xl': '12rem' }}
             variant='outline'
@@ -53,7 +54,7 @@ function RKMediumCard({ recipe }: RKCardProps) {
                     {description}
                 </Text>
             </CardBody>
-            <CardFooter p={0} justify='space-between' maxH='1.5rem'>
+            <CardFooter p={0} justify={{ base: 'space-between', md: 'center' }} maxH='1.5rem'>
                 <Badge
                     bgColor='lime.50'
                     display='flex'
@@ -67,12 +68,12 @@ function RKMediumCard({ recipe }: RKCardProps) {
                     fontWeight={400}
                     textTransform='none'
                 >
-                    <Icon boxSize={4} mb='3px' mr={2}>
+                    <Icon boxSize={4} mr={2}>
                         {iconsByTag[tag]}
                     </Icon>
                     <Text>{TagToName[tag]}</Text>
                 </Badge>
-                <ButtonGroup spacing={2} ml={{ base: 1, lg: 0 }}>
+                <ButtonGroup spacing={2} ml={{ base: 1, md: 0 }}>
                     {bookmarks > 0 && (
                         <Button
                             leftIcon={<BookmarkIcon color='black' boxSize={{ base: 3 }} />}
@@ -115,20 +116,21 @@ function RKShortCard({ recipe }: RKCardProps) {
         <Card
             variant='outline'
             h='100%'
-            minH={{ base: '3.25rem', '2xl': '3.5rem' }}
-            maxH={{ base: '3.25rem', '2xl': '3.5rem' }}
-            p={{ base: 3, lg: 4 }}
+            minH={{ base: '3.25rem', md: '3rem', lg: '3.25rem', '2xl': '3.5rem' }}
+            maxH={{ base: '3.25rem', md: '3rem', lg: '3.25rem', '2xl': '3.5rem' }}
+            maxW={{ md: '14.75rem', lg: '17.6875rem', '2xl': '41.75rem' }}
+            p={{ base: 3, md: 2, lg: 4 }}
         >
             <CardBody
                 p={0}
                 display='flex'
                 justifyContent='space-between'
-                alignContent='center'
+                alignItems='center'
                 maxH='32px'
             >
-                <HStack width='70%' py={1}>
+                <HStack py={1} maxW={{ base: '70%', md: '60%' }}>
                     {iconsByTag[tag]}
-                    <Heading size='sm' isTruncated>
+                    <Heading size='sm' p={0} isTruncated>
                         {name}
                     </Heading>
                 </HStack>
@@ -138,6 +140,8 @@ function RKShortCard({ recipe }: RKCardProps) {
                     color='lime.600'
                     borderColor='lime.600'
                     p={{ base: 2, lg: 4 }}
+                    size={{ md: 'xs', lg: 'sm' }}
+                    mr={{ md: 2 }}
                 >
                     <Text fontSize={{ base: 'xs', '2xl': 'sm' }} lineHeight={4}>
                         Готовить

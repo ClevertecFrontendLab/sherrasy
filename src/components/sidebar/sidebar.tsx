@@ -17,7 +17,7 @@ function Sidebar() {
             w={{ lg: '180px' }}
             position='fixed'
             top={{ base: 3, lg: '80px' }}
-            right={{ base: '64px', lg: 0 }}
+            right={{ base: '64px', md: '76px', lg: 0 }}
             zIndex='10'
         >
             <Flex flexDirection={{ lg: 'column' }}>

@@ -70,7 +70,7 @@ function VerticalRecipeCard({ recipe }: CardProps) {
                         h='1.5rem'
                         borderRadius={2}
                         bgColor='lime.150'
-                        alignContent='center'
+                        alignItems='center'
                         py='0.0625rem'
                         px='0.25rem'
                         position={{ base: 'absolute', lg: 'inherit' }}
@@ -81,7 +81,7 @@ function VerticalRecipeCard({ recipe }: CardProps) {
                         fontWeight={400}
                         textTransform='none'
                     >
-                        <Icon boxSize={4} mb='3px' mr='1px'>
+                        <Icon boxSize={4} mr='1px'>
                             {iconsByTag[tag]}
                         </Icon>
                         {TagToName[tag]}
@@ -140,7 +140,7 @@ function HorizontalRecipeCard({ recipe }: CardProps) {
                     objectFit='cover'
                     src={image}
                     alt='recipe-photo'
-                    width='100%'
+                    minW={{ base: '9.875rem', lg: '21.625rem' }}
                     maxW={{ base: '9.875rem', lg: '21.625rem' }}
                     h='100%'
                     borderTopLeftRadius={{ base: 'md', md: 'lg' }}
@@ -161,7 +161,7 @@ function HorizontalRecipeCard({ recipe }: CardProps) {
                     </Badge>
                 )}
             </Box>
-            <Stack spacing='3' py={1} pr={0} pl={2} maxW='50%'>
+            <Stack spacing='3' py={1} pr={0} pl={2} w='100%'>
                 <CardBody py={2} px={0} minW='163px'>
                     <Flex justify='space-between'>
                         <Badge
@@ -169,7 +169,7 @@ function HorizontalRecipeCard({ recipe }: CardProps) {
                             bgColor='lime.50'
                             h='1.5rem'
                             borderRadius={2}
-                            alignContent='center'
+                            alignItems='center'
                             py='1px'
                             px='4px'
                             position={{ base: 'absolute', lg: 'inherit' }}
@@ -180,7 +180,7 @@ function HorizontalRecipeCard({ recipe }: CardProps) {
                             fontWeight={400}
                             textTransform='none'
                         >
-                            <Icon boxSize={4} mb='3px' mr={0.5}>
+                            <Icon boxSize={4} mr={0.5}>
                                 {iconsByTag[tag]}
                             </Icon>
                             <Text>{TagToName[tag]}</Text>
@@ -232,12 +232,17 @@ function HorizontalRecipeCard({ recipe }: CardProps) {
                         {isDesktop && <Text noOfLines={{ lg: 2, '2xl': 3 }}>{description}</Text>}
                     </Box>
                 </CardBody>
-                <CardFooter justifyContent='flex-end' gap={2.5} p={0} pr={0.5}>
+                <CardFooter
+                    justifyContent='flex-end'
+                    gap={{ base: 3, lg: 4 }}
+                    py={0}
+                    px={{ base: '10px', md: 2 }}
+                >
                     <Button
                         variant='outline'
                         colorScheme='black'
                         size={{ base: 'xs', lg: 'sm' }}
-                        w={[4, 'initial']}
+                        w={{ base: 4, lg: 'initial' }}
                     >
                         <BookmarkIcon color='black' />
                         <Text ml={2} display={{ base: 'none', lg: 'inline' }}>

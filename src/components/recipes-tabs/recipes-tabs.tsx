@@ -28,7 +28,7 @@ function RecipesTabs({ tabsNames, recipes }: RecipesTabsProps) {
             isLazy
             mt={{ base: 8 }}
             color='lime.800'
-            size={{ base: 'sm', md: 'md' }}
+            size={{ base: 'sm', lg: 'md' }}
         >
             <Box
                 overflowY='auto'
@@ -55,7 +55,7 @@ function RecipesTabs({ tabsNames, recipes }: RecipesTabsProps) {
             </Box>
             <TabPanels p={0}>
                 {tabsNames.map((name) => (
-                    <TabPanel p={0} pt={6} key={`${name}-panel`}>
+                    <TabPanel p={0} pt={{ base: 6, md: '22px' }} key={`${name}-panel`}>
                         <RecipesList recipes={recipes} />
                     </TabPanel>
                 ))}
