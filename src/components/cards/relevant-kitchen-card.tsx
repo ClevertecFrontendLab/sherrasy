@@ -116,7 +116,13 @@ function RKShortCard({ recipe }: RKCardProps) {
             minH={{ base: '3.25rem', md: '3rem', lg: '3.25rem', '2xl': '3.5rem' }}
             maxH={{ base: '3.25rem', md: '3rem', lg: '3.25rem', '2xl': '3.5rem' }}
             minW={{ '2xl': '41.75rem' }}
-            maxW={{ md: '14.75rem', lg: '17.6875rem', '2xl': '41.75rem' }}
+            maxW={{
+                base: '20.5rem',
+                sm: '100%',
+                md: '14.75rem',
+                lg: '17.6875rem',
+                '2xl': '41.75rem',
+            }}
             p={{ base: 3, md: 2, '2xl': 3 }}
             pr={{ lg: 0.5 }}
         >
@@ -143,7 +149,8 @@ function RKShortCard({ recipe }: RKCardProps) {
                     variant='outline'
                     color='lime.600'
                     borderColor='lime.600'
-                    size={{ md: 'xs', lg: 'sm' }}
+                    size={{ base: 'xs', lg: 'sm' }}
+                    py={{ base: 4 }}
                     mr={{ md: 2, lg: 0 }}
                 >
                     <Text fontSize={{ base: 'xs', '2xl': 'sm' }} lineHeight={4}>

@@ -18,12 +18,12 @@ function ContentFilters() {
             <Flex gap='0.625rem' flex={1} w={{ base: '20.5rem', md: '28rem', lg: '32.375rem' }}>
                 <Button
                     size={{ base: 'sm', lg: 'lg' }}
-                    maxW={{ lg: 8 }}
+                    maxW={{ base: 4, lg: 8 }}
                     p={0}
                     variant='outline'
                     borderColor='blackAlpha.600'
                 >
-                    <FilterIcon boxSize={{ lg: 6 }} />
+                    <FilterIcon boxSize={{ base: 4, lg: 6 }} />
                 </Button>
                 <InputGroup
                     size={{ base: 'sm', lg: 'lg' }}
