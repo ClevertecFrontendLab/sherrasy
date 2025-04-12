@@ -9,11 +9,7 @@
 .sidebarBtn:hover {
     font-weight: 600;
     color: black;
-    background-image: radial-gradient(
-        62.52% 62.51% at 48.89% 37.5%,
-        #c4ff61 0%,
-        rgba(255, 255, 255, 0) 70%
-    );
+    background-image: radial-gradient(45% 45% at 45% 45%, #c4ff61 0%, rgb(255, 255, 255) 70%);
 }
 
 .sidebarBtn:focus > div > .sidebarIcon,

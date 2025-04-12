@@ -14,22 +14,45 @@ function JuicySection() {
         navigate(`/juiciest`);
     };
     return (
-        <Flex direction='column' mt={{ base: 8, lg: '2.5rem' }} gap={{ base: 3, md: 3.5, lg: 6 }}>
-            <Heading
-                fontWeight='500'
-                fontSize={{ base: '2xl', lg: '4xl' }}
-                lineHeight={{ base: 8, lg: 10 }}
-            >
-                {' '}
-                Самое сочное
-            </Heading>
+        <Flex
+            direction='column'
+            mt={{ base: 8, lg: '2.5rem' }}
+            gap={{ base: 3, md: 3.5, lg: 4, '2xl': '22px' }}
+        >
+            <Flex direction='row' justify='space-between' w='100%' align='center'>
+                <Heading
+                    fontWeight='500'
+                    fontSize={{ base: '2xl', lg: '4xl', '2xl': '5xl' }}
+                    lineHeight={{ base: 8, lg: 10, '2xl': 'none' }}
+                >
+                    Самое сочное
+                </Heading>
+                <Button
+                    mt={{ '2xl': 0.5 }}
+                    bg='lime.400'
+                    size={{ base: 'md', '2xl': 'lg' }}
+                    alignSelf='center'
+                    rightIcon={<ArrowRightIcon />}
+                    onClick={handleAllClick}
+                    data-test-id='juiciest-link'
+                    display={isDesktop ? 'flex' : 'none'}
+                >
+                    <Text
+                        fontWeight={600}
+                        fontSize={{ base: 'md', '2xl': 'lg' }}
+                        lineHeight={{ base: 6, '2xl': 7 }}
+                    >
+                        Вся подборка
+                    </Text>
+                </Button>
+            </Flex>
             <SimpleGrid
-                spacing={{ base: 3, lg: 4 }}
+                spacing={{ base: 3, lg: 4, '2xl': 5 }}
+                spacingY={{ '2xl': 6 }}
                 templateColumns={{
                     base: 'repeat(auto-fill, minmax(20.375rem, 1fr))',
                     lg: 'repeat(auto-fill, minmax(41.75rem, 1fr))',
                 }}
-                overflowX='hidden'
             >
                 {juicyListShort.map((item: RecipeWithImage) => (
                     <RecipeCard key={item.id} recipe={item} type='horizontal' />
@@ -37,18 +60,19 @@ function JuicySection() {
             </SimpleGrid>
             <Button
                 bg='lime.400'
-                size={{ base: 'md', '2xl': 'lg' }}
+                size='md'
                 alignSelf='center'
                 rightIcon={<ArrowRightIcon />}
                 onClick={handleAllClick}
-                data-test-id={isDesktop ? 'juiciest-link' : 'juiciest-link-mobile'}
+                data-test-id='juiciest-link-mobile'
+                display={isDesktop ? 'none' : 'flex'}
             >
                 <Text
                     fontWeight={600}
                     fontSize={{ base: 'md', '2xl': 'lg' }}
                     lineHeight={{ base: 6, '2xl': 7 }}
                 >
-                    Вся подборка{' '}
+                    Вся подборка
                 </Text>
             </Button>
         </Flex>

@@ -8,12 +8,18 @@ type ContentHeaderProps = {
 };
 
 function ContentHeader({ headline, description }: ContentHeaderProps) {
+    const currentBottomMargin = description ? 3 : 8;
     return (
-        <Flex direction='column' justify='center' align='center' textAlign='center'>
+        <Flex
+            direction='column'
+            justify='center'
+            align='center'
+            textAlign='center'
+            mt={{ base: '1rem', lg: 8 }}
+            ml={{ base: '0.0625rem', lg: 2 }}
+        >
             <Heading
-                mt={{ base: '1rem', lg: 4 }}
-                mb={{ base: '1rem', lg: 4 }}
-                ml={{ base: '0.0625rem', lg: 4 }}
+                mb={{ base: '1rem', lg: currentBottomMargin }}
                 fontSize={{ base: '2xl', lg: '5xl' }}
                 lineHeight={{ base: 8, lg: 'none' }}
             >
@@ -22,7 +28,7 @@ function ContentHeader({ headline, description }: ContentHeaderProps) {
             {description && (
                 <Text
                     color='blackAlpha.600'
-                    mb={4}
+                    mb={{ base: '1rem', lg: 8 }}
                     w={{ base: '90%', '2xl': '50%' }}
                     fontSize={{ base: 'sm', lg: 'md' }}
                     lineHeight={{ base: 5, lg: 6 }}

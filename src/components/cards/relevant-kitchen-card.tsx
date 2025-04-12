@@ -28,33 +28,30 @@ function RKMediumCard({ recipe }: RKCardProps) {
     const { name, description, tag, bookmarks, likes } = recipe;
     return (
         <Card
-            minW='232px'
+            minW='14.5rem'
+            maxW={{ '2xl': '20.125rem' }}
             minH={{ base: '10.5rem', lg: '11.25rem', '2xl': '12rem' }}
             maxH={{ base: '10.5rem', lg: '11.25rem', '2xl': '12rem' }}
             variant='outline'
-            p={{ base: 3, lg: 4 }}
+            p={{ base: 3, lg: 3.5, '2xl': '1.375rem' }}
+            pb={{ lg: 5, '2xl': '1.375rem' }}
         >
             <CardHeader p={0} pb={2}>
                 <Text
-                    mt='1px'
-                    size={{ base: 'md', lg: 'xl' }}
+                    fontSize={{ base: 'md', lg: 'xl' }}
                     lineHeight={{ base: 6, lg: 7 }}
+                    fontWeight={500}
                     isTruncated
                 >
                     {name}
                 </Text>
             </CardHeader>
             <CardBody p={0}>
-                <Text
-                    noOfLines={3}
-                    fontSize={{ base: 'xs', lg: 'sm' }}
-                    lineHeight={5}
-                    letterSpacing={1.1}
-                >
+                <Text fontSize='sm' lineHeight={5} noOfLines={3}>
                     {description}
                 </Text>
             </CardBody>
-            <CardFooter p={0} justify={{ base: 'space-between', md: 'center' }} maxH='1.5rem'>
+            <CardFooter p={0} justify={{ base: 'space-between' }} maxH='1.5rem'>
                 <Badge
                     bgColor='lime.50'
                     display='flex'
@@ -68,7 +65,7 @@ function RKMediumCard({ recipe }: RKCardProps) {
                     fontWeight={400}
                     textTransform='none'
                 >
-                    <Icon boxSize={4} mr={2}>
+                    <Icon boxSize={4} mr={{ base: 2, lg: 1.5 }}>
                         {iconsByTag[tag]}
                     </Icon>
                     <Text>{TagToName[tag]}</Text>
@@ -118,8 +115,10 @@ function RKShortCard({ recipe }: RKCardProps) {
             h='100%'
             minH={{ base: '3.25rem', md: '3rem', lg: '3.25rem', '2xl': '3.5rem' }}
             maxH={{ base: '3.25rem', md: '3rem', lg: '3.25rem', '2xl': '3.5rem' }}
+            minW={{ '2xl': '41.75rem' }}
             maxW={{ md: '14.75rem', lg: '17.6875rem', '2xl': '41.75rem' }}
-            p={{ base: 3, md: 2, lg: 4 }}
+            p={{ base: 3, md: 2, '2xl': 3 }}
+            pr={{ lg: 0.5 }}
         >
             <CardBody
                 p={0}
@@ -127,10 +126,15 @@ function RKShortCard({ recipe }: RKCardProps) {
                 justifyContent='space-between'
                 alignItems='center'
                 maxH='32px'
+                gap={{ lg: 6 }}
             >
-                <HStack py={1} maxW={{ base: '70%', md: '60%' }}>
+                <HStack
+                    py={1}
+                    ml={{ lg: 2, '2xl': 3 }}
+                    maxW={{ base: '70%', md: '60%', '2xl': 'max-content' }}
+                >
                     {iconsByTag[tag]}
-                    <Heading size='sm' p={0} isTruncated>
+                    <Heading size={{ base: 'sm', '2xl': 'md' }} ml={{ '2xl': 1 }} p={0} isTruncated>
                         {name}
                     </Heading>
                 </HStack>
@@ -139,9 +143,8 @@ function RKShortCard({ recipe }: RKCardProps) {
                     variant='outline'
                     color='lime.600'
                     borderColor='lime.600'
-                    p={{ base: 2, lg: 4 }}
                     size={{ md: 'xs', lg: 'sm' }}
-                    mr={{ md: 2 }}
+                    mr={{ md: 2, lg: 0 }}
                 >
                     <Text fontSize={{ base: 'xs', '2xl': 'sm' }} lineHeight={4}>
                         Готовить

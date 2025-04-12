@@ -21,9 +21,10 @@ function Layout({ children }: LayoutProps) {
                 <Box
                     flex='1'
                     overflowY='auto'
-                    ml={{ base: 4, md: 5, lg: '16rem' }}
-                    mr={{ base: 4, md: 5, lg: '17.5rem' }}
+                    ml={{ base: 4, md: 5, lg: '17.75rem' }}
+                    mr={{ base: 4, md: 5, lg: '17.375rem' }}
                     mb={{ base: 4, md: 0, lg: '17.5rem' }}
+                    overflowX='hidden'
                 >
                     {children}
                 </Box>

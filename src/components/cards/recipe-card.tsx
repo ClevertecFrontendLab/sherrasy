@@ -51,28 +51,37 @@ function VerticalRecipeCard({ recipe }: CardProps) {
                     borderTopLeftRadius={{ base: 'md', md: 'lg' }}
                     borderTopRightRadius={{ base: 'md', md: 'lg' }}
                 />
-                <Stack mt='0.25rem' spacing='3' px={2} py={1}>
+                <Stack
+                    mt='0.25rem'
+                    spacing={{ base: 3, lg: 2, '2xl': 3 }}
+                    px={{ base: 2, lg: 2.5, '2xl': '22px' }}
+                    py={{ base: 1, lg: 2.5, '2xl': 3 }}
+                >
                     <Text
+                        fontWeight={500}
+                        fontSize={{ base: 'md', lg: 'lg', '2xl': 'xl' }}
+                        lineHeight={{ base: 6, lg: 7 }}
                         isTruncated={isDesktop}
                         noOfLines={{ base: 2, lg: 1 }}
-                        fontWeight={500}
-                        fontSize={{ base: 'md', lg: 'lg' }}
-                        lineHeight={{ base: 6, lg: 7 }}
                     >
                         {name}
                     </Text>
-                    {isDesktop && <Text noOfLines={3}>{description}</Text>}
+                    {isDesktop && (
+                        <Text fontSize={{ lg: 'sm' }} lineHeight={{ lg: 5 }} noOfLines={3}>
+                            {description}
+                        </Text>
+                    )}
                 </Stack>
             </CardBody>
-            <CardFooter px={2} py={0}>
-                <Flex w='100%' justify='space-between'>
+            <CardFooter px={{ base: 2, lg: 3, '2xl': '22px' }} py={{ base: 0, lg: 1.5, '2xl': 3 }}>
+                <Flex w='100%' justify='space-between' align={{ lg: 'center' }}>
                     <Badge
                         h='1.5rem'
                         borderRadius={2}
                         bgColor='lime.150'
                         alignItems='center'
                         py='0.0625rem'
-                        px='0.25rem'
+                        px={{ base: '0.25rem', lg: 2 }}
                         position={{ base: 'absolute', lg: 'inherit' }}
                         top={2}
                         left={2}
@@ -81,7 +90,7 @@ function VerticalRecipeCard({ recipe }: CardProps) {
                         fontWeight={400}
                         textTransform='none'
                     >
-                        <Icon boxSize={4} mr='1px'>
+                        <Icon boxSize={4} mr={{ base: '1px', lg: 1.5 }}>
                             {iconsByTag[tag]}
                         </Icon>
                         {TagToName[tag]}
@@ -151,19 +160,29 @@ function HorizontalRecipeCard({ recipe }: CardProps) {
                         bgColor='lime.150'
                         p={0}
                         position='absolute'
-                        bottom='10px'
+                        bottom={{ base: '10px', lg: 5 }}
+                        left={{ lg: 6 }}
                         display={{ base: 'none', lg: 'unset' }}
                     >
-                        <Flex align='center' justify='space-evenly'>
-                            <Avatar size='xs' name={name} src={author.avatar} />
-                            <Text textTransform='none'>{author.name} рекомендует</Text>
+                        <Flex align='center' justify='space-evenly' px={1} py={0.5}>
+                            <Avatar size='xs' boxSize={4} name={name} src={author.avatar} mr={2} />
+                            <Text textTransform='none' fontSize='sm' lineHeight={5}>
+                                {author.name} рекомендует
+                            </Text>
                         </Flex>
                     </Badge>
                 )}
             </Box>
-            <Stack spacing='3' py={1} pr={0} pl={2} w='100%'>
-                <CardBody py={2} px={0} minW='163px'>
-                    <Flex justify='space-between'>
+            <Stack
+                spacing='3'
+                py={{ base: 1, lg: 4 }}
+                pr={{ base: 0, lg: 2.5, '2xl': 3 }}
+                pl={{ base: 2, lg: 6, '2xl': 9 }}
+                w='100%'
+                maxW={{ lg: '33.375rem', '2xl': '20.125rem' }}
+            >
+                <CardBody py={{ base: 2, lg: 1 }} px={0} minW='10.1875rem'>
+                    <Flex justify='space-between' align={{ lg: 'center' }}>
                         <Badge
                             display='flex'
                             bgColor='lime.50'
@@ -171,7 +190,7 @@ function HorizontalRecipeCard({ recipe }: CardProps) {
                             borderRadius={2}
                             alignItems='center'
                             py='1px'
-                            px='4px'
+                            px={{ base: '0.25rem', lg: 2 }}
                             position={{ base: 'absolute', lg: 'inherit' }}
                             top={2}
                             left={2}
@@ -180,12 +199,17 @@ function HorizontalRecipeCard({ recipe }: CardProps) {
                             fontWeight={400}
                             textTransform='none'
                         >
-                            <Icon boxSize={4} mr={0.5}>
+                            <Icon boxSize={4} mr={{ base: 0.5, lg: 1.5 }}>
                                 {iconsByTag[tag]}
                             </Icon>
                             <Text>{TagToName[tag]}</Text>
                         </Badge>
-                        <ButtonGroup spacing={4} ml={{ base: 1, lg: 0 }} maxH='1.5rem'>
+                        <ButtonGroup
+                            spacing={4}
+                            ml={{ base: 1, lg: 0 }}
+                            mr={{ lg: 4, '2xl': 1.5 }}
+                            maxH='1.5rem'
+                        >
                             {bookmarks > 0 && (
                                 <Button
                                     leftIcon={<BookmarkIcon color='black' boxSize={{ base: 3 }} />}
@@ -218,25 +242,36 @@ function HorizontalRecipeCard({ recipe }: CardProps) {
                             )}
                         </ButtonGroup>
                     </Flex>
-                    <Box mt={1}>
+                    <Box mt={{ base: 1, lg: 6, '2xl': '26px' }}>
                         <Text
                             size='md'
                             isTruncated={isDesktop}
-                            noOfLines={{ base: 2, lg: 1 }}
+                            noOfLines={!isDesktop ? { base: 2 } : {}}
                             fontWeight={500}
-                            fontSize={{ base: 'md', lg: 'lg' }}
+                            fontSize={{ base: 'md', lg: 'xl' }}
                             lineHeight={{ base: 6, lg: 7 }}
+                            mb={{ lg: 2 }}
+                            maxW={{ lg: '96%', '2xl': '92%' }}
                         >
                             {name}
                         </Text>
-                        {isDesktop && <Text noOfLines={{ lg: 2, '2xl': 3 }}>{description}</Text>}
+                        {isDesktop && (
+                            <Text
+                                fontSize='sm'
+                                lineHeight={5}
+                                maxW={{ '2xl': '94%' }}
+                                noOfLines={{ lg: 2, '2xl': 3 }}
+                            >
+                                {description}
+                            </Text>
+                        )}
                     </Box>
                 </CardBody>
                 <CardFooter
                     justifyContent='flex-end'
-                    gap={{ base: 3, lg: 4 }}
+                    gap={{ base: 3, lg: 2 }}
                     py={0}
-                    px={{ base: '10px', md: 2 }}
+                    px={{ base: '10px', md: 2, lg: 3, '2xl': 0.5 }}
                 >
                     <Button
                         variant='outline'

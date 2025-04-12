@@ -26,9 +26,10 @@ function RecipesTabs({ tabsNames, recipes }: RecipesTabsProps) {
         <Tabs
             index={activeTabIndex}
             isLazy
-            mt={{ base: 8 }}
+            mt={{ base: 8, lg: 4 }}
             color='lime.800'
             size={{ base: 'sm', lg: 'md' }}
+            align='center'
         >
             <Box
                 overflowY='auto'

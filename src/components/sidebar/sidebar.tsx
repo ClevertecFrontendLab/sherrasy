@@ -16,11 +16,11 @@ function Sidebar() {
             h={{ lg: 'calc(100vh - 80px)' }}
             w={{ lg: '180px' }}
             position='fixed'
-            top={{ base: 3, lg: '80px' }}
+            top={{ base: 3, lg: '96px' }}
             right={{ base: '64px', md: '76px', lg: 0 }}
             zIndex='10'
         >
-            <Flex flexDirection={{ lg: 'column' }}>
+            <Flex flexDirection={{ lg: 'column' }} gap={6}>
                 <Button
                     variant='ghost'
                     leftIcon={<BookmarkIcon color='black' />}
@@ -59,19 +59,22 @@ function Sidebar() {
                 </Button>
             </Flex>
             <Button
-                variant='ghost'
+                variant='сhost'
                 justifySelf='flex-end'
-                w='min-content'
                 color='blackAlpha.700'
+                size='lg'
+                w='208px'
+                h='208px'
                 className={styles.sidebarBtn}
                 display={{ base: 'none', lg: 'block' }}
-                mb={6}
             >
-                <Flex direction='column' align='center' justify='center'>
-                    <Circle size='2.5rem' className={styles.sidebarIcon}>
-                        <PenIcon color='black' />
+                <Flex direction='column' align='center' justify='baseline' gap={3} mr={7} mb={1}>
+                    <Circle size='3rem' className={styles.sidebarIcon}>
+                        <PenIcon color='black' boxSize={6} />
                     </Circle>
-                    <Text fontSize='xs'>Записать рецепт</Text>
+                    <Text fontSize='xs' lineHeight={4} color='blackAlpha.700'>
+                        Записать рецепт
+                    </Text>
                 </Flex>
             </Button>
         </Flex>

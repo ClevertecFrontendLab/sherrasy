@@ -7,6 +7,7 @@ import {
     Box,
     Button,
     Flex,
+    Icon,
     List,
     ListItem,
     Spacer,
@@ -57,6 +58,8 @@ function MenuDishes() {
             bg='white'
         >
             <Accordion
+                mt={9}
+                ml={1}
                 allowToggle
                 variant='ghost'
                 overflowY='auto'
@@ -64,28 +67,41 @@ function MenuDishes() {
                 onChange={(index) => setActiveIndex(index)}
             >
                 {data.map((item) => (
-                    <AccordionItem border='none' key={item.groupName}>
+                    <AccordionItem border='none' key={item.groupName} minH='48px'>
                         <AccordionButton
                             data-test-id={item.tag === 'vegan' ? 'vegan-cuisine' : item.tag}
                             _expanded={{ bg: 'lime.100', fontWeight: '600' }}
+                            _hover={{ bg: 'lime.50' }}
                             onClick={() => handleMenuClick('vegan')}
+                            pt={3}
                         >
-                            <Box flex='1' textAlign='left'>
-                                {iconsByTag[item.tag as string]} {item.groupName}
-                            </Box>
-                            <AccordionIcon />
+                            <Flex flex='1' textAlign='left'>
+                                <Icon mr={3} boxSize={6}>
+                                    {iconsByTag[item.tag as string]}
+                                </Icon>
+                                <Text fontSize='md' lineHeight={6}>
+                                    {item.groupName}
+                                </Text>
+                            </Flex>
+                            <AccordionIcon boxSize={6} />
                         </AccordionButton>
-                        <AccordionPanel pb={4}>
-                            <List spacing={1}>
+                        <AccordionPanel pb={4} pr={2}>
+                            <List spacing={3}>
                                 {item.elements.map((subcategory) => (
                                     <ListItem
                                         key={`${subcategory}-${item.tag}`}
                                         onClick={() => handleMenuClick('vegan', subcategory)}
+                                        pl={{ lg: subcategoryParam === subcategory ? 7 : 9 }}
                                     >
                                         <Text
                                             fontWeight={
-                                                subcategoryParam === subcategory ? '600' : 400
+                                                subcategoryParam === subcategory ? 600 : 400
                                             }
+                                            borderLeft={
+                                                subcategoryParam === subcategory ? '8px' : '1px'
+                                            }
+                                            borderColor='lime.300'
+                                            pl={3}
                                         >
                                             {subcategory}
                                         </Text>
@@ -97,13 +113,15 @@ function MenuDishes() {
                 ))}
             </Accordion>
             <Spacer />
-            <Box p={6} pb={8} w='13.5rem' bottom={0}>
+            <Box px={7} py={5} w='240px' bottom={0}>
                 <Text color='blackAlpha.400' fontSize='xs' lineHeight={4}>
                     Версия программы 03.25
                 </Text>
-                <Text py={4} color='blackAlpha.700' fontSize='xs' lineHeight={4}>
-                    Все права защищены, ученический файл, ©Клевер Технолоджи, 2025
-                </Text>
+                <Box pb={1} pt={4} color='blackAlpha.700' fontSize='xs' lineHeight={4}>
+                    <Text> Все права защищены, ученический файл,</Text>
+                    <Text>©Клевер Технолоджи, 2025</Text>
+                </Box>
+
                 <Button variant='ghost' leftIcon={<ExitIcon />} p={0} fontSize='xs'>
                     Выйти
                 </Button>

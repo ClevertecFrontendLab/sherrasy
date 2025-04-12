@@ -11,7 +11,7 @@ function JuicyPage() {
         <>
             <Layout>
                 <ContentHeader headline='Самое сочное' />
-                <Box mt={8}>
+                <Box mt={{ base: 8, lg: 3 }}>
                     <RecipesList recipes={juicyListLong} />
                 </Box>
                 <RelevantKitchenSection />

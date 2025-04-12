@@ -1,4 +1,4 @@
-import { Box, Divider, Flex, Heading, Text } from '@chakra-ui/react';
+import { Box, Divider, Flex, Heading, SimpleGrid, Text } from '@chakra-ui/react';
 import { useLocation } from 'react-router';
 
 import { textDessertList, textVeganList } from '~/components/cards/mock-cards.json';
@@ -26,23 +26,26 @@ function RelevantKitchenSection() {
     const currentData = pathname.includes(AppRoute.Vegan) ? textDessertList : textVeganList;
 
     return (
-        <Box mt={{ base: 8, lg: '2.5rem' }} overflowX='hidden'>
+        <Box mt={{ base: 8, lg: 14 }}>
             <Divider mb={2} />
             <Flex
                 direction={{ base: 'column', lg: 'row' }}
-                align={{ lg: 'center' }}
-                justify='space-between'
+                justify={{ base: 'space-between', lg: 'flex-start', '2xl': 'space-between' }}
+                gap={{ lg: 10 }}
             >
                 <Heading
                     fontWeight='500'
                     fontSize={{ base: '2xl', lg: '4xl', '2xl': '5xl' }}
                     lineHeight={{ base: 8, lg: 10, '2xl': 'none' }}
+                    maxW={{ lg: '30%', '2xl': '50%' }}
                     mb={2.5}
                 >
                     {currentVariant.name}
                 </Heading>
                 <Text
-                    maxW={{ base: '90%', md: '100%' }}
+                    maxW={{ base: '90%', md: '100%', lg: '64%', '2xl': '48%' }}
+                    mt={{ '2xl': 0.5 }}
+                    mr={{ '2xl': 2 }}
                     fontSize={{ base: 'sm', lg: 'md' }}
                     lineHeight={{ base: 5, lg: 6 }}
                     color='blackAlpha.700'
@@ -50,10 +53,10 @@ function RelevantKitchenSection() {
                     {currentVariant.description}
                 </Text>
             </Flex>
-            <Flex
+            <SimpleGrid
                 mt={4}
-                direction={{ base: 'column', md: 'row' }}
-                gap={{ base: 3, md: 3.5, lg: 6 }}
+                templateColumns={{ base: '1', md: 'repeat(3, 1fr)' }}
+                gap={{ base: 3, md: 3.5, lg: '1.125rem' }}
             >
                 {currentData.slice(0, 2).map((item) => (
                     <RelevantKitchenCard key={item.id} recipe={item} type='medium' />
@@ -63,7 +66,7 @@ function RelevantKitchenSection() {
                         <RelevantKitchenCard key={item.id} recipe={item} type='small' />
                     ))}
                 </Flex>
-            </Flex>
+            </SimpleGrid>
         </Box>
     );
 }
