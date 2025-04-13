@@ -15,7 +15,11 @@ import { FilterIcon, SearchIcon } from '~/assets/icons/icons';
 function ContentFilters() {
     return (
         <Flex direction='column' gap={{ lg: '18px' }} mb={4}>
-            <Flex gap='0.625rem' flex={1} w={{ base: '20.5rem', md: '28rem', lg: '32.375rem' }}>
+            <Flex
+                gap={{ base: 2, xs: '0.625rem' }}
+                flex={1}
+                w={{ base: '19.5rem', xs: '20.5rem', sm: '27.5rem', md: '28rem', lg: '32.375rem' }}
+            >
                 <Button
                     size={{ base: 'sm', lg: 'lg' }}
                     maxW={{ base: 4, lg: 8 }}
@@ -43,7 +47,7 @@ function ContentFilters() {
             </Flex>
             <Flex gap={4} display={{ base: 'none', lg: 'flex' }}>
                 <FormControl display='flex' alignItems='center' justifyContent='center'>
-                    <FormLabel htmlFor='allergies' mb='0' w='max-content'>
+                    <FormLabel htmlFor='allergies' mb='0' w='max-content' ml={{ lg: 2, '2xl': 0 }}>
                         Исключить мои аллергены
                     </FormLabel>
                     <Switch id='allergies' size='md' maxH='20px' />

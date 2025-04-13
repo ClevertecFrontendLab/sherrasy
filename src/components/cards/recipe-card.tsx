@@ -31,13 +31,13 @@ type RecipeCardProps = CardProps & {
 
 function VerticalRecipeCard({ recipe }: CardProps) {
     const { name, image, description, tag, bookmarks, likes } = recipe;
-    const [isDesktop] = useMediaQuery('(min-width: 992px)');
+    const [isDesktop] = useMediaQuery('(min-width: 1440px)');
     return (
         <Card
-            minW={{ base: '9.875rem', lg: '17.4375rem', '2xl': '20.125rem' }}
-            maxW={{ base: '9.875rem', lg: '17.4375rem', '2xl': '20.125rem' }}
-            minH={{ base: '13.75rem', lg: '25.125rem', '2xl': '25.875rem' }}
-            maxH={{ base: '13.75rem', lg: '25.125rem', '2xl': '25.875rem' }}
+            minW={['9.3125rem', '9.875rem', '9.75rem', '9.875rem', '17.4375rem', null, '20.125rem']}
+            maxW={['9.3125rem', '9.875rem', '9.75rem', '9.875rem', '17.4375rem', null, '20.125rem']}
+            minH={['13rem', '13.75rem', '13.5rem', '13.75rem', '25.125rem', null, '25.875rem']}
+            maxH={['13rem', '13.75rem', '13.5rem', '13.75rem', '25.125rem', null, '25.875rem']}
             position='relative'
             variant='outline'
         >
@@ -47,15 +47,17 @@ function VerticalRecipeCard({ recipe }: CardProps) {
                     src={image}
                     alt='recipe-photo'
                     width='100%'
-                    h={{ base: '8rem', lg: '14.375rem' }}
+                    h={['7.5rem', '8rem', '7.75rem', '8rem', '14.375rem']}
                     borderTopLeftRadius={{ base: 'md', md: 'lg' }}
                     borderTopRightRadius={{ base: 'md', md: 'lg' }}
                 />
                 <Stack
                     mt='0.25rem'
                     spacing={{ base: 3, lg: 2, '2xl': 3 }}
-                    px={{ base: 2, lg: 2.5, '2xl': '22px' }}
+                    px={{ base: 2, md: 1.5, lg: 2.5, '2xl': '22px' }}
                     py={{ base: 1, lg: 2.5, '2xl': 3 }}
+                    pb={{ base: 0.5, xs: 1 }}
+                    maxW={{ md: '90%', lg: '100%' }}
                 >
                     <Text
                         fontWeight={500}
@@ -73,7 +75,10 @@ function VerticalRecipeCard({ recipe }: CardProps) {
                     )}
                 </Stack>
             </CardBody>
-            <CardFooter px={{ base: 2, lg: 3, '2xl': '22px' }} py={{ base: 0, lg: 1.5, '2xl': 3 }}>
+            <CardFooter
+                px={{ base: 1.5, xs: 2, lg: 3, '2xl': '22px' }}
+                py={{ base: 0, lg: 1.5, '2xl': 3 }}
+            >
                 <Flex w='100%' justify='space-between' align={{ lg: 'center' }}>
                     <Badge
                         h='1.5rem'
@@ -136,11 +141,13 @@ function HorizontalRecipeCard({ recipe }: CardProps) {
     const author = recommendedBy
         ? cookBlog.find((item) => item.id === recommendedBy) || null
         : null;
-    const [isDesktop] = useMediaQuery('(min-width: 992px)');
+    const [isDesktop] = useMediaQuery('(min-width: 1440px)');
     return (
         <Card
-            minH={{ base: '8rem', lg: '15.25rem' }}
-            maxH={{ base: '8rem', lg: '15.25rem' }}
+            minH={{ base: '7.75rem', xs: '8rem', md: '8.0625rem', lg: '15.25rem' }}
+            maxH={{ base: '7.75rem', xs: '8rem', md: '8.0625rem', lg: '15.25rem' }}
+            minW={['19.375rem', '20.5rem', '21.75rem', '22.25rem', '55rem', null, '41.75rem']}
+            maxW={['19.375rem', '20.5rem', '21.75rem', '22.25rem', '55rem', null, '41.75rem']}
             direction='row'
             variant='outline'
         >
@@ -149,8 +156,8 @@ function HorizontalRecipeCard({ recipe }: CardProps) {
                     objectFit='cover'
                     src={image}
                     alt='recipe-photo'
-                    minW={{ base: '9.875rem', lg: '21.625rem' }}
-                    maxW={{ base: '9.875rem', lg: '21.625rem' }}
+                    minW={['9.25rem', '9.875rem', '9.625rem', '9.875rem', '21.625rem']}
+                    maxW={['9.25rem', '9.875rem', '9.625rem', '9.875rem', '21.625rem']}
                     h='100%'
                     borderTopLeftRadius={{ base: 'md', md: 'lg' }}
                     borderBottomLeftRadius={{ base: 'md', md: 'lg' }}
@@ -174,7 +181,7 @@ function HorizontalRecipeCard({ recipe }: CardProps) {
                 )}
             </Box>
             <Stack
-                spacing='3'
+                spacing={{ xs: 3, sm: 2, md: 3 }}
                 py={{ base: 1, lg: 4 }}
                 pr={{ base: 0, lg: 2.5, '2xl': 3 }}
                 pl={{ base: 2, lg: 6, '2xl': 9 }}
@@ -242,16 +249,23 @@ function HorizontalRecipeCard({ recipe }: CardProps) {
                             )}
                         </ButtonGroup>
                     </Flex>
-                    <Box mt={{ base: 1, lg: 6, '2xl': '26px' }}>
+                    <Box
+                        mt={{ base: 1, lg: 6, '2xl': '26px' }}
+                        pr={{ lg: 0.5, '2xl': 1 }}
+                        textAlign='start'
+                        minH={{ base: '55px', xs: '48px' }}
+                        maxW={{ base: '94%', lg: '100%' }}
+                    >
                         <Text
                             size='md'
-                            isTruncated={isDesktop}
+                            whiteSpace={{ lg: 'nowrap' }}
+                            overflow={{ lg: 'hidden' }}
+                            textOverflow={{ lg: 'ellipsis' }}
                             noOfLines={!isDesktop ? { base: 2 } : {}}
                             fontWeight={500}
                             fontSize={{ base: 'md', lg: 'xl' }}
                             lineHeight={{ base: 6, lg: 7 }}
                             mb={{ lg: 2 }}
-                            maxW={{ lg: '96%', '2xl': '92%' }}
                         >
                             {name}
                         </Text>
@@ -269,9 +283,11 @@ function HorizontalRecipeCard({ recipe }: CardProps) {
                 </CardBody>
                 <CardFooter
                     justifyContent='flex-end'
-                    gap={{ base: 3, lg: 2 }}
+                    gap={{ base: 2, xs: 3, sm: 7, md: 3, lg: 2 }}
                     py={0}
-                    px={{ base: '10px', md: 2, lg: 3, '2xl': 0.5 }}
+                    px={{ base: 3, xs: '10px', sm: 2, lg: 3, '2xl': 0 }}
+                    pr={{ base: 4, xs: '10px' }}
+                    pb={{ lg: 1, '2xl': 0.5 }}
                 >
                     <Button
                         variant='outline'

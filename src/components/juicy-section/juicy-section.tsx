@@ -8,7 +8,7 @@ import { RecipeWithImage } from '~/types/recipe.interface';
 import RecipeCard from '../cards/recipe-card';
 
 function JuicySection() {
-    const [isDesktop] = useMediaQuery('(min-width: 992px)');
+    const [isDesktop] = useMediaQuery('(min-width: 1440px)');
     const navigate = useNavigate();
     const handleAllClick = () => {
         navigate(`/juiciest`);
@@ -16,19 +16,21 @@ function JuicySection() {
     return (
         <Flex
             direction='column'
-            mt={{ base: 8, lg: '2.5rem' }}
-            gap={{ base: 3, md: 3.5, lg: 4, '2xl': '22px' }}
+            mt={{ base: 8, sm: '1.875rem', md: 8, lg: '2.5rem' }}
+            pl={{ base: 4, sm: 5, lg: '17.75rem' }}
+            pr={{ base: 0, sm: 5, lg: '17.375rem' }}
+            gap={{ base: 2, xs: 3, sm: 2.5, md: 3, lg: 4, '2xl': '1.375rem' }}
         >
             <Flex direction='row' justify='space-between' w='100%' align='center'>
                 <Heading
                     fontWeight='500'
-                    fontSize={{ base: '2xl', lg: '4xl', '2xl': '5xl' }}
+                    fontSize={{ base: '2xl', lg: '4xl', xl: '5xl' }}
                     lineHeight={{ base: 8, lg: 10, '2xl': 'none' }}
                 >
                     Самое сочное
                 </Heading>
                 <Button
-                    mt={{ '2xl': 0.5 }}
+                    mt={{ lg: 0.5 }}
                     bg='lime.400'
                     size={{ base: 'md', '2xl': 'lg' }}
                     alignSelf='center'
@@ -47,11 +49,12 @@ function JuicySection() {
                 </Button>
             </Flex>
             <SimpleGrid
-                spacing={{ base: 3, lg: 4, '2xl': 5 }}
+                spacing={{ base: 2.5, xs: 3, md: '14px', lg: 4, '2xl': 5 }}
                 spacingY={{ '2xl': 6 }}
                 templateColumns={{
                     base: 'repeat(auto-fill, minmax(20.375rem, 1fr))',
-                    lg: 'repeat(auto-fill, minmax(41.75rem, 1fr))',
+                    lg: 'repeat(1, minmax(41.75rem, 1fr))',
+                    xl: 'repeat(2, minmax(41.75rem, 1fr))',
                 }}
             >
                 {juicyListShort.map((item: RecipeWithImage) => (

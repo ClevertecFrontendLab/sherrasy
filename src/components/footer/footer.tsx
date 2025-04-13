@@ -5,7 +5,7 @@ import { HomeIcon, PenIcon, SearchIcon } from '~/assets/icons/icons';
 import styles from './footer.module.css';
 
 function Footer() {
-    const [isDesktop] = useMediaQuery('(min-width: 992px)');
+    const [isDesktop] = useMediaQuery('(min-width: 1440px)');
     if (isDesktop) {
         return <></>;
     }
@@ -14,7 +14,7 @@ function Footer() {
             minW='100%'
             maxH='84px'
             data-test-id='footer'
-            position='fixed'
+            sx={{ position: 'fixed !important' }}
             bottom={0}
             left={0}
             right={0}
@@ -25,7 +25,7 @@ function Footer() {
                     variant='chost'
                     color='blackAlpha.700'
                     size='lg'
-                    w={{ base: '5.625rem', md: '12rem' }}
+                    w={{ base: '5.625rem', sm: '12rem' }}
                     className={styles.footerBtn}
                 >
                     <Flex direction='column' align='center' justify='center' gap={1}>
@@ -52,7 +52,7 @@ function Footer() {
                     variant='chost'
                     color='blackAlpha.700'
                     size='lg'
-                    w={{ base: '5.625rem', md: '12rem' }}
+                    w={{ base: '5.625rem', sm: '12rem' }}
                     className={styles.footerBtn}
                 >
                     <Flex direction='column' align='center' justify='center' gap={1}>
@@ -68,7 +68,7 @@ function Footer() {
                     variant='chost'
                     color='blackAlpha.700'
                     size='lg'
-                    w={{ base: '5.625rem', md: '12rem' }}
+                    w={{ base: '5.625rem', sm: '12rem' }}
                     className={styles.footerBtn}
                 >
                     <Flex direction='column' align='center' justify='center' gap={1}>
@@ -84,7 +84,7 @@ function Footer() {
                     variant='chost'
                     color='blackAlpha.700'
                     size='lg'
-                    w={{ base: '5.625rem', md: '12rem' }}
+                    w={{ base: '5.625rem', sm: '12rem' }}
                     className={styles.footerBtn}
                 >
                     <Flex direction='column' align='center' justify='center' gap={1}>

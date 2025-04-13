@@ -1,4 +1,4 @@
-import { Box, Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react';
+import { Box, Tab, TabList, TabPanel, TabPanels, Tabs, useMediaQuery } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router';
 
@@ -12,6 +12,7 @@ type RecipesTabsProps = {
 };
 
 function RecipesTabs({ tabsNames, recipes }: RecipesTabsProps) {
+    const [isDesktop] = useMediaQuery('(min-width: 1440px)');
     const [searchParams, setSearchParams] = useSearchParams();
     const subcategoryParam = searchParams.get('subcategory') ?? '';
     const currentTab = tabsNames.indexOf(subcategoryParam);
@@ -26,10 +27,10 @@ function RecipesTabs({ tabsNames, recipes }: RecipesTabsProps) {
         <Tabs
             index={activeTabIndex}
             isLazy
-            mt={{ base: 8, lg: 4 }}
+            mt={{ base: 3, xs: 4 }}
             color='lime.800'
             size={{ base: 'sm', lg: 'md' }}
-            align='center'
+            align={isDesktop ? 'center' : 'start'}
         >
             <Box
                 overflowY='auto'
@@ -56,7 +57,7 @@ function RecipesTabs({ tabsNames, recipes }: RecipesTabsProps) {
             </Box>
             <TabPanels p={0}>
                 {tabsNames.map((name) => (
-                    <TabPanel p={0} pt={{ base: 6, md: '22px' }} key={`${name}-panel`}>
+                    <TabPanel p={0} pt={{ base: 5, xs: 6, md: '22px' }} key={`${name}-panel`}>
                         <RecipesList recipes={recipes} />
                     </TabPanel>
                 ))}

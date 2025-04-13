@@ -26,7 +26,11 @@ function RelevantKitchenSection() {
     const currentData = pathname.includes(AppRoute.Vegan) ? textDessertList : textVeganList;
 
     return (
-        <Box mt={{ base: 8, lg: 14 }}>
+        <Box
+            mt={{ base: '30px', xs: 8, lg: 14 }}
+            pl={{ base: 4, sm: '1.25rem', md: 5, lg: '284px' }}
+            pr={{ xs: 4, md: 5, lg: '278px' }}
+        >
             <Divider mb={2} />
             <Flex
                 direction={{ base: 'column', lg: 'row' }}
@@ -35,16 +39,16 @@ function RelevantKitchenSection() {
             >
                 <Heading
                     fontWeight='500'
-                    fontSize={{ base: '2xl', lg: '4xl', '2xl': '5xl' }}
+                    fontSize={{ base: '2xl', lg: '4xl', xl: '5xl' }}
                     lineHeight={{ base: 8, lg: 10, '2xl': 'none' }}
                     maxW={{ lg: '30%', '2xl': '50%' }}
-                    mb={2.5}
+                    mb={{ base: 2, xs: 2.5 }}
                 >
                     {currentVariant.name}
                 </Heading>
                 <Text
-                    maxW={{ base: '90%', md: '100%', lg: '64%', '2xl': '48%' }}
-                    mt={{ '2xl': 0.5 }}
+                    maxW={{ base: '90%', sm: '98%', md: '100%', lg: '64%', '2xl': '48%' }}
+                    mt={{ base: 0.5, '2xl': 0.5 }}
                     mr={{ '2xl': 2 }}
                     fontSize={{ base: 'sm', lg: 'md' }}
                     lineHeight={{ base: 5, lg: 6 }}
@@ -54,14 +58,14 @@ function RelevantKitchenSection() {
                 </Text>
             </Flex>
             <SimpleGrid
-                mt={4}
-                templateColumns={{ base: '1', md: 'repeat(3, 1fr)' }}
-                gap={{ base: 3, md: 3.5, lg: '1.125rem' }}
+                mt={{ base: 3, xs: 4, sm: 3.5, md: 4 }}
+                templateColumns={{ base: '1', sm: 'repeat(3, 1fr)' }}
+                gap={{ base: 3, sm: '0.1875rem', md: 3, lg: '1.125rem' }}
             >
                 {currentData.slice(0, 2).map((item) => (
                     <RelevantKitchenCard key={item.id} recipe={item} type='medium' />
                 ))}
-                <Flex direction='column' gap={{ base: 3 }}>
+                <Flex direction='column' gap={{ base: 3, sm: 1, md: 2, lg: 3 }}>
                     {currentData.slice(2, 5).map((item) => (
                         <RelevantKitchenCard key={item.id} recipe={item} type='small' />
                     ))}

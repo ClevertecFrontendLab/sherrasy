@@ -11,24 +11,24 @@ type LayoutProps = {
 };
 
 function Layout({ children }: LayoutProps) {
-    const [isDesktop] = useMediaQuery('(min-width: 992px)');
+    const [isDesktop] = useMediaQuery('(min-width: 1440px)');
 
     return (
-        <Flex direction='column' minH='100vh'>
+        <Flex direction='column' minH='100vh' maxH='100vh'>
             <Header />
             <Flex flex={1} pt={{ base: '4rem', lg: '5rem' }} pb={{ base: '5.25rem', lg: '2rem' }}>
                 {isDesktop && <MenuDishes />}
                 <Box
                     flex='1'
                     overflowY='auto'
-                    ml={{ base: 4, md: 5, lg: '17.75rem' }}
-                    mr={{ base: 4, md: 5, lg: '17.375rem' }}
-                    mb={{ base: 4, md: 0, lg: '17.5rem' }}
+                    mb={{ base: 4, md: 0, lg: '0' }}
+                    w='100%'
+                    maxW='100%'
                     overflowX='hidden'
                 >
                     {children}
                 </Box>
-                <Sidebar />
+                {isDesktop && <Sidebar />}
             </Flex>
             <Footer />
         </Flex>

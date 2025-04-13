@@ -50,7 +50,7 @@ function MenuDishes() {
             direction='column'
             justify='space-between'
             borderRight='1px solid'
-            w='16rem'
+            w={{ lg: '16rem', xl: '16.125rem', '2xl': '16rem' }}
             h='calc(100vh - 80px)'
             borderColor='blackAlpha.100'
             position={{ lg: 'fixed' }}
@@ -58,8 +58,8 @@ function MenuDishes() {
             bg='white'
         >
             <Accordion
-                mt={9}
-                ml={1}
+                mt={{ lg: 9, xl: 8, '2xl': 9 }}
+                ml={{ lg: 1, xl: 2, '2xl': 1 }}
                 allowToggle
                 variant='ghost'
                 overflowY='auto'
@@ -67,7 +67,7 @@ function MenuDishes() {
                 onChange={(index) => setActiveIndex(index)}
             >
                 {data.map((item) => (
-                    <AccordionItem border='none' key={item.groupName} minH='48px'>
+                    <AccordionItem border='none' key={item.groupName} minH='3rem'>
                         <AccordionButton
                             data-test-id={item.tag === 'vegan' ? 'vegan-cuisine' : item.tag}
                             _expanded={{ bg: 'lime.100', fontWeight: '600' }}
@@ -85,7 +85,7 @@ function MenuDishes() {
                             </Flex>
                             <AccordionIcon boxSize={6} />
                         </AccordionButton>
-                        <AccordionPanel pb={4} pr={2}>
+                        <AccordionPanel pb={2} pr={2}>
                             <List spacing={3}>
                                 {item.elements.map((subcategory) => (
                                     <ListItem
@@ -97,7 +97,8 @@ function MenuDishes() {
                                             fontWeight={
                                                 subcategoryParam === subcategory ? 600 : 400
                                             }
-                                            borderLeft={
+                                            borderLeftStyle='solid'
+                                            borderLeftWidth={
                                                 subcategoryParam === subcategory ? '8px' : '1px'
                                             }
                                             borderColor='lime.300'

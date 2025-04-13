@@ -10,13 +10,14 @@ type RecipesListProps = {
 
 function RecipesList({ recipes }: RecipesListProps) {
     return (
-        <Flex direction='column' gap={{ base: 3, lg: 3.5 }} justify='center'>
+        <Flex direction='column' gap={{ base: 3, sm: 3.5 }} justify='center'>
             <SimpleGrid
-                spacing={{ base: 4, '2xl': 5 }}
+                spacing={{ base: '13px', xs: 4, sm: 3.5, lg: 4, '2xl': '24px' }}
                 spacingY={{ '2xl': 4 }}
                 templateColumns={{
                     base: 'repeat(auto-fill, minmax(20.375rem, 1fr))',
-                    lg: 'repeat(auto-fill, minmax(41.75rem, 1fr))',
+                    lg: 'repeat(1, minmax(41.75rem, 1fr))',
+                    xl: 'repeat(2, minmax(41.75rem, 1fr))',
                 }}
             >
                 {recipes.map((item: RecipeWithImage) => (

@@ -10,13 +10,27 @@ function CookBlogCard({ author }: CookCookBlogCardProps) {
     const { avatar, name, description, nick } = author;
     return (
         <Card
-            minH={{ base: '9.5rem', lg: '10rem', '2xl': '11.5rem' }}
-            maxH={{ base: '9.5rem', lg: '10rem', '2xl': '11.5rem' }}
+            minH={{
+                base: '9rem',
+                xs: '9.5rem',
+                sm: '9.25rem',
+                md: '9.5rem',
+                lg: '10rem',
+                '2xl': '11.5rem',
+            }}
+            maxH={{
+                base: '9rem',
+                xs: '9.5rem',
+                sm: '9.25rem',
+                md: '9.5rem',
+                lg: '10rem',
+                '2xl': '11.5rem',
+            }}
         >
-            <CardHeader p={{ base: 4, '2xl': 6 }}>
+            <CardHeader p={{ base: 3.5, xs: 4, '2xl': 6 }}>
                 <Flex flex='1' gap={{ base: 2, lg: 4, '2xl': 3.5 }} alignItems='center'>
                     <Avatar size={{ base: 'sm', lg: 'md' }} name={name} src={avatar} />
-                    <Box maxW={{ base: '85%', lg: '70%', '2xl': '80%' }}>
+                    <Box maxW={{ base: '85%', md: '80%', lg: '70%', '2xl': '80%' }}>
                         <Text fontSize={{ base: 'md', lg: 'lg' }} isTruncated>
                             {name}
                         </Text>
@@ -31,7 +45,7 @@ function CookBlogCard({ author }: CookCookBlogCardProps) {
                 </Flex>
             </CardHeader>
             <CardBody
-                px={{ base: 4, '2xl': 6 }}
+                px={{ base: 3.5, xs: 4, '2xl': 6 }}
                 pb={{ base: 4, '2xl': 4 }}
                 pt={{ base: 0, '2xl': 1 }}
             >

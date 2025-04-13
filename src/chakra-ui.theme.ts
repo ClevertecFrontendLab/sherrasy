@@ -22,4 +22,13 @@ export const theme = extendTheme({
     components: {
         Card: cardTheme,
     },
+    breakpoints: {
+        base: '0em', //0px
+        xs: '22em', //352px
+        sm: '30em', //480px
+        md: '48em', //768px
+        lg: '90em', //1440px
+        xl: '100em', //1760px
+        '2xl': '120em', //1920px
+    },
 });

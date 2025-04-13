@@ -1,3 +1,5 @@
+import { Box } from '@chakra-ui/react';
+
 import { veganList } from '~/components/cards/mock-cards.json';
 import ContentHeader from '~/components/content-header/content-header';
 import Layout from '~/components/layout/layout';
@@ -19,7 +21,12 @@ function VeganPage() {
                     headline={contentData.headline}
                     description={contentData.description}
                 />
-                <RecipesTabs tabsNames={tabsNames} recipes={veganList} />
+                <Box
+                    pl={{ base: 4, sm: 5, lg: '17.75rem' }}
+                    pr={{ base: 0, sm: 5, lg: '17.375rem' }}
+                >
+                    <RecipesTabs tabsNames={tabsNames} recipes={veganList} />
+                </Box>
                 <RelevantKitchenSection />
             </Layout>
         </>
