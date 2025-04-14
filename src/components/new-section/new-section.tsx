@@ -34,30 +34,30 @@ function NewSection() {
                 </Flex>
                 <Button
                     paddingInline={0}
-                    minW={{ lg: '2rem', '2xl': '2.5rem' }}
-                    minH={{ lg: '2rem', '2xl': '3rem' }}
-                    leftIcon={<ArrowLeftIcon boxSize={{ lg: 4, '2xl': 6 }} />}
+                    minW={{ lg: '2.5rem', '2xl': '3rem' }}
+                    minH={{ lg: '2.5rem', '2xl': '3rem' }}
                     bg='black'
                     colorScheme='black'
                     display={{ base: 'none', lg: 'initial' }}
-                    borderLeftRadius={0}
                     position='absolute'
-                    top={{ lg: '38%', '2xl': '36%' }}
-                    left={0}
-                />
+                    top={{ lg: '37.5%', '2xl': '36%' }}
+                    left='-2'
+                >
+                    <ArrowLeftIcon boxSize={{ lg: 4, '2xl': 6 }} />
+                </Button>
                 <Button
-                    minW={{ lg: '2rem', '2xl': '2.5rem' }}
-                    minH={{ lg: '2rem', '2xl': '3rem' }}
-                    rightIcon={<ArrowRightIcon boxSize={{ lg: 4, '2xl': 6 }} />}
+                    minW={{ lg: '2.5rem', '2xl': '3rem' }}
+                    minH={{ lg: '2.5rem', '2xl': '3rem' }}
                     bg='black'
                     colorScheme='black'
                     paddingInline={0}
                     display={{ base: 'none', lg: 'initial' }}
-                    borderRightRadius={0}
                     position='absolute'
-                    top={{ lg: '38%', '2xl': '36%' }}
-                    right={0}
-                />
+                    top={{ lg: '37.5%', '2xl': '36%' }}
+                    right='-2'
+                >
+                    <ArrowRightIcon boxSize={{ lg: 4, '2xl': 6 }} />
+                </Button>
             </Box>
         </Box>
     );

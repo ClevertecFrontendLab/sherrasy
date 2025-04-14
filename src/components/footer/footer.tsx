@@ -87,7 +87,13 @@ function Footer() {
                     w={{ base: '5.625rem', sm: '12rem' }}
                     className={styles.footerBtn}
                 >
-                    <Flex direction='column' align='center' justify='center' gap={1}>
+                    <Flex
+                        h={{ base: '61px' }}
+                        direction='column'
+                        align='center'
+                        justify='center'
+                        gap={{ base: 1.5, sm: 1 }}
+                    >
                         <Avatar
                             name='Екатерина Константинопольская'
                             src='/photo-dekstop.jpg'

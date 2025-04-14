@@ -19,6 +19,7 @@ import { useLocation, useNavigate, useSearchParams } from 'react-router';
 import { ExitIcon } from '~/assets/icons/icons';
 import { iconsByTag } from '~/utils/iconsByTag';
 
+import ScrollArea from '../scrollarea/scrollarea';
 import data from './mock-dishes.json';
 
 function MenuDishes() {
@@ -57,62 +58,64 @@ function MenuDishes() {
             left={0}
             bg='white'
         >
-            <Accordion
-                mt={{ lg: 9, xl: 8, '2xl': 9 }}
-                ml={{ lg: 1, xl: 2, '2xl': 1 }}
-                allowToggle
-                variant='ghost'
-                overflowY='auto'
-                index={activeIndex}
-                onChange={(index) => setActiveIndex(index)}
-            >
-                {data.map((item) => (
-                    <AccordionItem border='none' key={item.groupName} minH='3rem'>
-                        <AccordionButton
-                            data-test-id={item.tag === 'vegan' ? 'vegan-cuisine' : item.tag}
-                            _expanded={{ bg: 'lime.100', fontWeight: '600' }}
-                            _hover={{ bg: 'lime.50' }}
-                            onClick={() => handleMenuClick('vegan')}
-                            pt={3}
-                        >
-                            <Flex flex='1' textAlign='left'>
-                                <Icon mr={3} boxSize={6}>
-                                    {iconsByTag[item.tag as string]}
-                                </Icon>
-                                <Text fontSize='md' lineHeight={6}>
-                                    {item.groupName}
-                                </Text>
-                            </Flex>
-                            <AccordionIcon boxSize={6} />
-                        </AccordionButton>
-                        <AccordionPanel pb={2} pr={2}>
-                            <List spacing={3}>
-                                {item.elements.map((subcategory) => (
-                                    <ListItem
-                                        key={`${subcategory}-${item.tag}`}
-                                        onClick={() => handleMenuClick('vegan', subcategory)}
-                                        pl={{ lg: subcategoryParam === subcategory ? 7 : 9 }}
-                                    >
-                                        <Text
-                                            fontWeight={
-                                                subcategoryParam === subcategory ? 600 : 400
-                                            }
-                                            borderLeftStyle='solid'
-                                            borderLeftWidth={
-                                                subcategoryParam === subcategory ? '8px' : '1px'
-                                            }
-                                            borderColor='lime.300'
-                                            pl={3}
+            <ScrollArea>
+                <Accordion
+                    ml={{ lg: 1, xl: 2, '2xl': 1 }}
+                    allowToggle
+                    variant='ghost'
+                    overflowY='auto'
+                    index={activeIndex}
+                    onChange={(index) => setActiveIndex(index)}
+                >
+                    {data.map((item) => (
+                        <AccordionItem border='none' key={item.groupName} minH='3rem'>
+                            <AccordionButton
+                                data-test-id={item.tag === 'vegan' ? 'vegan-cuisine' : item.tag}
+                                _expanded={{ bg: 'lime.100', fontWeight: '600' }}
+                                _hover={{ bg: 'lime.50' }}
+                                onClick={() => handleMenuClick('vegan', item.elements[0])}
+                                pt={3}
+                                pr={2}
+                            >
+                                <Flex flex='1' textAlign='left'>
+                                    <Icon mr={3} boxSize={6}>
+                                        {iconsByTag[item.tag as string]}
+                                    </Icon>
+                                    <Text fontSize='md' lineHeight={6}>
+                                        {item.groupName}
+                                    </Text>
+                                </Flex>
+                                <AccordionIcon boxSize={6} />
+                            </AccordionButton>
+                            <AccordionPanel pb={2} pr={1}>
+                                <List spacing={3}>
+                                    {item.elements.map((subcategory) => (
+                                        <ListItem
+                                            key={`${subcategory}-${item.tag}`}
+                                            onClick={() => handleMenuClick('vegan', subcategory)}
+                                            pl={{ lg: subcategoryParam === subcategory ? 7 : 9 }}
                                         >
-                                            {subcategory}
-                                        </Text>
-                                    </ListItem>
-                                ))}
-                            </List>
-                        </AccordionPanel>
-                    </AccordionItem>
-                ))}
-            </Accordion>
+                                            <Text
+                                                fontWeight={
+                                                    subcategoryParam === subcategory ? 600 : 400
+                                                }
+                                                borderLeftStyle='solid'
+                                                borderLeftWidth={
+                                                    subcategoryParam === subcategory ? '8px' : '1px'
+                                                }
+                                                borderColor='lime.300'
+                                                pl={3}
+                                            >
+                                                {subcategory}
+                                            </Text>
+                                        </ListItem>
+                                    ))}
+                                </List>
+                            </AccordionPanel>
+                        </AccordionItem>
+                    ))}
+                </Accordion>
+            </ScrollArea>
             <Spacer />
             <Box px={7} py={5} w='240px' bottom={0}>
                 <Text color='blackAlpha.400' fontSize='xs' lineHeight={4}>

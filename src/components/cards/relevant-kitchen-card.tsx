@@ -9,6 +9,7 @@ import {
     Heading,
     HStack,
     Icon,
+    Spacer,
     Text,
 } from '@chakra-ui/react';
 
@@ -97,10 +98,11 @@ function RKMediumCard({ recipe }: RKCardProps) {
                     </Icon>
                     <Text>{TagToName[tag]}</Text>
                 </Badge>
+                <Spacer />
                 <ButtonGroup
-                    spacing={{ base: 2 }}
+                    spacing={{ base: 2, sm: 0, lg: 2 }}
                     ml={{ base: 1, md: 0 }}
-                    mr={3}
+                    mr={{ base: 3, sm: 2, lg: 3 }}
                     gap={0}
                     position='absolute'
                     bottom='3px'
@@ -108,7 +110,6 @@ function RKMediumCard({ recipe }: RKCardProps) {
                 >
                     {bookmarks > 0 && (
                         <Button
-                            leftIcon={<BookmarkIcon color='black' boxSize={{ base: 3 }} />}
                             color='lime.600'
                             bg='transparent'
                             p={0}
@@ -118,12 +119,16 @@ function RKMediumCard({ recipe }: RKCardProps) {
                             iconSpacing='0.375rem'
                             h='100%'
                         >
+                            <BookmarkIcon
+                                mr={{ base: 1, sm: 0.5, lg: 1 }}
+                                color='black'
+                                boxSize={{ base: 3 }}
+                            />
                             {bookmarks}
                         </Button>
                     )}
                     {likes > 0 && (
                         <Button
-                            leftIcon={<HeartEyesIcon color='black' boxSize={{ base: 3 }} />}
                             color='lime.600'
                             bg='transparent'
                             p={0}
@@ -133,6 +138,11 @@ function RKMediumCard({ recipe }: RKCardProps) {
                             iconSpacing='0.375rem'
                             h='100%'
                         >
+                            <HeartEyesIcon
+                                mr={{ base: 1, sm: 0.5, lg: 1 }}
+                                color='black'
+                                boxSize={{ base: 3 }}
+                            />
                             {likes}
                         </Button>
                     )}
@@ -170,6 +180,7 @@ function RKShortCard({ recipe }: RKCardProps) {
                 maxH='32px'
                 gap={{ base: 2, xs: 1, lg: 0 }}
                 pb={{ base: 2, xs: 1.5 }}
+                position='relative'
             >
                 <HStack
                     py={1}
@@ -190,6 +201,7 @@ function RKShortCard({ recipe }: RKCardProps) {
                         {name}
                     </Heading>
                 </HStack>
+                <Spacer />
                 <Button
                     maxH='32px'
                     minW={{ base: '70px', '2xl': '87px' }}
@@ -198,7 +210,8 @@ function RKShortCard({ recipe }: RKCardProps) {
                     color='lime.600'
                     borderColor='lime.600'
                     py={{ base: 4 }}
-                    mr={{ md: 2, lg: 1, '2xl': 2 }}
+                    right={{ base: 0, lg: 2 }}
+                    position='absolute'
                 >
                     <Text fontSize={{ base: 'xs', '2xl': 'sm' }} lineHeight={4}>
                         Готовить

@@ -73,7 +73,7 @@ function Sidebar() {
                     <Circle size='3rem' className={styles.sidebarIcon}>
                         <PenIcon color='black' boxSize={6} />
                     </Circle>
-                    <Text fontSize='xs' lineHeight={4} color='blackAlpha.700'>
+                    <Text fontSize='xs' lineHeight={4} fontWeight='normal' color='blackAlpha.700'>
                         Записать рецепт
                     </Text>
                 </Flex>

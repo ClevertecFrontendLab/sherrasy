@@ -4,9 +4,10 @@
     font-weight: 400;
 }
 
+.footerBtn:first-of-type,
 .footerBtn:focus,
 .footerBtn:hover {
-    font-weight: 600;
+    font-weight: 500;
     color: black;
     background-image: radial-gradient(
         62.52% 62.51% at 48.89% 37.5%,
@@ -15,11 +16,13 @@
     );
 }
 
+.footerBtn:first-of-type > div > .footerIcon,
 .footerBtn:focus > div > .footerIcon,
 .footerBtn:hover > div > .footerIcon {
     background-color: black;
 }
 
+.footerBtn:first-of-type > div > .footerIcon svg,
 .footerBtn:focus > div > .footerIcon svg,
 .footerBtn:hover > div > .footerIcon svg {
     color: #ffffd3;
