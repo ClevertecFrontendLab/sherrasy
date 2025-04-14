@@ -1,0 +1,34 @@
+.sidebarBtn {
+    padding: 10px 0;
+    width: 90px;
+    min-height: 84px;
+    font-weight: 400;
+}
+
+.sidebarBtn:focus,
+.sidebarBtn:hover {
+    font-weight: 600;
+    color: black;
+    background-image: radial-gradient(55% 60% at 43% 40%, #c4ff61 10%, rgb(255, 255, 255) 70%);
+}
+
+.sidebarBtn:focus > div > .sidebarIcon,
+.sidebarBtn:hover > div > .sidebarIcon {
+    background-color: black;
+}
+
+.sidebarBtn:focus > div > .sidebarIcon svg,
+.sidebarBtn:hover > div > .sidebarIcon svg {
+    color: #ffffd3;
+}
+
+.sidebarBtn:has(> div > .sidebarIcon) {
+    background-image: radial-gradient(70% 70% at 43% 45%, #c4ff61 0%, rgba(255, 255, 255, 0) 50%);
+}
+.sidebarIcon {
+    background-color: black;
+}
+
+.sidebarIcon svg {
+    color: #ffffd3;
+}
