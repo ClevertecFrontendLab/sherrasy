@@ -26,3 +26,10 @@ export const TagToName: { [key: string]: string } = {
     drinks: 'Напитки',
     preparations: 'Заготовки',
 };
+
+export const NutritionToName: { [key: string]: string } = {
+    calories: 'калорийность',
+    proteins: 'белки',
+    fats: 'жиры',
+    carbohydrates: 'углеводы',
+};
