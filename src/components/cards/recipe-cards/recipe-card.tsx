@@ -20,7 +20,7 @@ import { RecipeWithImage } from '~/types/recipe.interface';
 import { TagToName } from '~/utils/constant';
 import { iconsByTag } from '~/utils/iconsByTag';
 
-import { cookBlog } from './mock-cards.json';
+import { cookBlog } from '../mock-cards.json';
 
 type CardProps = {
     recipe: RecipeWithImage;
@@ -81,19 +81,12 @@ function VerticalRecipeCard({ recipe }: CardProps) {
             >
                 <Flex w='100%' justify='space-between' align={{ lg: 'center' }}>
                     <Badge
-                        h='1.5rem'
-                        borderRadius={2}
-                        bgColor='lime.150'
-                        alignItems='center'
                         py='0.0625rem'
                         px={{ base: '0.25rem', lg: 2 }}
                         position={{ base: 'absolute', lg: 'inherit' }}
                         top={2}
                         left={2}
-                        fontSize='sm'
-                        lineHeight={5}
-                        fontWeight={400}
-                        textTransform='none'
+                        variant='vCard'
                     >
                         <Icon boxSize={4} mr={{ base: '1px', lg: 1.5 }}>
                             {iconsByTag[tag]}
@@ -164,8 +157,7 @@ function HorizontalRecipeCard({ recipe }: CardProps) {
                 />
                 {author && (
                     <Badge
-                        bgColor='lime.150'
-                        p={0}
+                        variant='author'
                         position='absolute'
                         bottom={{ base: '10px', lg: 5 }}
                         left={{ lg: 6 }}
@@ -179,9 +171,7 @@ function HorizontalRecipeCard({ recipe }: CardProps) {
                                 src={author.avatar}
                                 mr={2}
                             />
-                            <Text textTransform='none' fontSize='sm' lineHeight={5}>
-                                {author.name} рекомендует
-                            </Text>
+                            <Text>{author.name} рекомендует</Text>
                         </Flex>
                     </Badge>
                 )}
@@ -197,20 +187,12 @@ function HorizontalRecipeCard({ recipe }: CardProps) {
                 <CardBody py={{ base: 2, lg: 1 }} px={0} minW='10.1875rem'>
                     <Flex justify='space-between' align={{ lg: 'center' }}>
                         <Badge
-                            display='flex'
-                            bgColor='lime.50'
-                            h='1.5rem'
-                            borderRadius={2}
-                            alignItems='center'
                             py='1px'
                             px={{ base: '0.25rem', lg: 2 }}
                             position={{ base: 'absolute', lg: 'inherit' }}
                             top={2}
                             left={2}
-                            fontSize='sm'
-                            lineHeight={5}
-                            fontWeight={400}
-                            textTransform='none'
+                            variant='hCard'
                         >
                             <Icon boxSize={4} mr={{ base: 0.5, lg: 1.5 }}>
                                 {iconsByTag[tag]}

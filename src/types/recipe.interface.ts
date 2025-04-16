@@ -19,13 +19,13 @@ export interface NutritionValue {
 }
 export interface Ingredient {
     title: string;
-    count: number;
+    count: string;
     measureUnit: string;
 }
 export interface RecipeStep {
     stepNumber: number;
     description: string;
-    image: string;
+    image?: string;
 }
 
 export interface FullRecipe {

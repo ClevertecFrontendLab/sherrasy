@@ -4,7 +4,7 @@ import { ArrowLeftIcon, ArrowRightIcon } from '~/assets/icons/icons';
 import { newList } from '~/components/cards/mock-cards.json';
 import { RecipeWithImage } from '~/types/recipe.interface';
 
-import RecipeCard from '../cards/recipe-card';
+import RecipeCard from '../cards/recipe-cards/recipe-card';
 
 function NewSection() {
     return (

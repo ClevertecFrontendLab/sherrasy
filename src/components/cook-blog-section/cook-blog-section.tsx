@@ -4,7 +4,7 @@ import { ArrowRightIcon } from '~/assets/icons/icons';
 import { cookBlog } from '~/components/cards/mock-cards.json';
 import { Author } from '~/types/author.interface';
 
-import CookBlogCard from '../cards/cook-blog-card';
+import CookBlogCard from '../cards/user-cards/cook-blog-card';
 
 function CookBlogSection() {
     return (

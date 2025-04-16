@@ -2,6 +2,7 @@ export const AppRoute = {
     Main: '/',
     Vegan: '/vegan',
     Juiciest: '/juiciest',
+    Recipe: '/:categoryId/:subcategoryId/:recipeId',
 } as const;
 
 export const AppRouteToName: { [key: string]: string } = {
@@ -12,9 +13,9 @@ export const AppRouteToName: { [key: string]: string } = {
 
 export const TagToName: { [key: string]: string } = {
     salads: 'Салаты',
-    aperitif: 'Закуски',
-    'first-course': 'Первые блюда',
-    'second-course': 'Вторые блюда',
+    snacks: 'Закуски',
+    'first-dish': 'Первые блюда',
+    'second-dish': 'Вторые блюда',
     dessert: 'Десерты, выпечка',
     grilled: 'Блюда на гриле',
     vegan: 'Веганская кухня',

@@ -4,7 +4,7 @@ import { useLocation } from 'react-router';
 import { textDessertList, textVeganList } from '~/components/cards/mock-cards.json';
 import { AppRoute } from '~/utils/constant';
 
-import RelevantKitchenCard from '../cards/relevant-kitchen-card';
+import RelevantKitchenCard from '../cards/recipe-cards/relevant-kitchen-card';
 
 function RelevantKitchenSection() {
     const kitchenVariants = {

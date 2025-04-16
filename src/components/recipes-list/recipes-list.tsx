@@ -2,7 +2,7 @@ import { Button, Flex, SimpleGrid, Text } from '@chakra-ui/react';
 
 import { RecipeWithImage } from '~/types/recipe.interface';
 
-import RecipeCard from '../cards/recipe-card';
+import RecipeCard from '../cards/recipe-cards/recipe-card';
 
 type RecipesListProps = {
     recipes: RecipeWithImage[];

@@ -80,19 +80,7 @@ function RKMediumCard({ recipe }: RKCardProps) {
                 maxH='1.5rem'
                 position='relative'
             >
-                <Badge
-                    bgColor='lime.50'
-                    display='flex'
-                    borderRadius={2}
-                    alignItems='center'
-                    justifyContent='space-between'
-                    py={{ base: 1, md: 0 }}
-                    px={2}
-                    fontSize='sm'
-                    lineHeight={5}
-                    fontWeight={400}
-                    textTransform='none'
-                >
+                <Badge py={{ base: 1, md: 0 }} px={2} variant='rkCard'>
                     <Icon boxSize={4} mr={{ base: 2, lg: 1.5 }}>
                         {iconsByTag[tag]}
                     </Icon>

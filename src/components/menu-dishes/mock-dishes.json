@@ -6,7 +6,7 @@
     },
     {
         "groupName": "Закуски",
-        "tag": "aperitif",
+        "tag": "snacks",
         "elements": [
             "Мясные закуски",
             "Рыбные закуски",
@@ -18,12 +18,12 @@
     },
     {
         "groupName": "Первые блюда",
-        "tag": "first-course",
+        "tag": "first-dish",
         "elements": ["Мясные супы", "Овощные супы", "Бульоны", "Холодные супы", "Диетические супы"]
     },
     {
         "groupName": "Вторые блюда",
-        "tag": "second-course",
+        "tag": "second-dish",
         "elements": [
             "Мясные",
             "Рыбные",

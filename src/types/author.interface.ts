@@ -4,4 +4,5 @@ export interface Author {
     name: string;
     nick: string;
     description: string;
+    subscribers: number;
 }

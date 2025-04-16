@@ -18,9 +18,9 @@ import {
 
 export const iconsByTag: { [key: string]: ReactNode } = {
     salads: <SaladsIcon />,
-    aperitif: <AperitifIcon />,
-    'first-course': <FirstCourseIcon />,
-    'second-course': <SecondCourseIcon />,
+    snacks: <AperitifIcon />,
+    'first-dish': <FirstCourseIcon />,
+    'second-dish': <SecondCourseIcon />,
     dessert: <DessertsIcon />,
     grilled: <GrilledIcon />,
     vegan: <VeganIcon />,

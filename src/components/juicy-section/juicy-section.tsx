@@ -5,7 +5,7 @@ import { ArrowRightIcon } from '~/assets/icons/icons';
 import { juicyListShort } from '~/components/cards/mock-cards.json';
 import { RecipeWithImage } from '~/types/recipe.interface';
 
-import RecipeCard from '../cards/recipe-card';
+import RecipeCard from '../cards/recipe-cards/recipe-card';
 
 function JuicySection() {
     const [isDesktop] = useMediaQuery('(min-width: 1440px)');
