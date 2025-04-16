@@ -70,7 +70,7 @@ function MenuDishes() {
                     {data.map((item) => (
                         <AccordionItem border='none' key={item.groupName} minH='3rem'>
                             <AccordionButton
-                                data-test-id={item.tag === 'vegan' ? 'vegan-cuisine' : item.tag}
+                                data-test-id={item.tag}
                                 _expanded={{ bg: 'lime.100', fontWeight: '600' }}
                                 _hover={{ bg: 'lime.50' }}
                                 onClick={() => handleMenuClick('vegan', item.elements[0])}
@@ -94,6 +94,10 @@ function MenuDishes() {
                                             key={`${subcategory}-${item.tag}`}
                                             onClick={() => handleMenuClick('vegan', subcategory)}
                                             pl={{ lg: subcategoryParam === subcategory ? 7 : 9 }}
+                                            data-test-id={
+                                                subcategoryParam === subcategory &&
+                                                `tab-${subcategory}-active`
+                                            }
                                         >
                                             <Text
                                                 fontWeight={

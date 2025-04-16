@@ -11,7 +11,7 @@ export const AppRouteToName: { [key: string]: string } = {
 };
 
 export const TagToName: { [key: string]: string } = {
-    salad: 'Салаты',
+    salads: 'Салаты',
     aperitif: 'Закуски',
     'first-course': 'Первые блюда',
     'second-course': 'Вторые блюда',

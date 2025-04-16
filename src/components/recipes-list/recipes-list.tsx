@@ -20,8 +20,13 @@ function RecipesList({ recipes }: RecipesListProps) {
                     xl: 'repeat(2, minmax(41.75rem, 1fr))',
                 }}
             >
-                {recipes.map((item: RecipeWithImage) => (
-                    <RecipeCard key={item.id} recipe={item} type='horizontal' />
+                {recipes.map((item: RecipeWithImage, i: number) => (
+                    <RecipeCard
+                        key={item.id}
+                        recipe={item}
+                        type='horizontal'
+                        data-test-id={`food-card-${i}`}
+                    />
                 ))}
             </SimpleGrid>
             <Button bg='lime.400' mt={1} size='md' alignSelf='center'>

@@ -30,7 +30,7 @@ type RecipeCardProps = CardProps & {
 };
 
 function VerticalRecipeCard({ recipe }: CardProps) {
-    const { name, image, description, tag, bookmarks, likes } = recipe;
+    const { title, image, description, tag, bookmarks, likes } = recipe;
     const [isDesktop] = useMediaQuery('(min-width: 1440px)');
     return (
         <Card
@@ -66,7 +66,7 @@ function VerticalRecipeCard({ recipe }: CardProps) {
                         isTruncated={isDesktop}
                         noOfLines={{ base: 2, lg: 1 }}
                     >
-                        {name}
+                        {title}
                     </Text>
                     {isDesktop && (
                         <Text fontSize={{ lg: 'sm' }} lineHeight={{ lg: 5 }} noOfLines={3}>
@@ -137,7 +137,7 @@ function VerticalRecipeCard({ recipe }: CardProps) {
 }
 
 function HorizontalRecipeCard({ recipe }: CardProps) {
-    const { name, image, description, tag, bookmarks, likes, recommendedBy } = recipe;
+    const { title, image, description, tag, bookmarks, likes, recommendedBy } = recipe;
     const author = recommendedBy
         ? cookBlog.find((item) => item.id === recommendedBy) || null
         : null;
@@ -172,7 +172,13 @@ function HorizontalRecipeCard({ recipe }: CardProps) {
                         display={{ base: 'none', lg: 'unset' }}
                     >
                         <Flex align='center' justify='space-evenly' px={1} py={0.5}>
-                            <Avatar size='xs' boxSize={4} name={name} src={author.avatar} mr={2} />
+                            <Avatar
+                                size='xs'
+                                boxSize={4}
+                                name={author.name}
+                                src={author.avatar}
+                                mr={2}
+                            />
                             <Text textTransform='none' fontSize='sm' lineHeight={5}>
                                 {author.name} рекомендует
                             </Text>
@@ -267,7 +273,7 @@ function HorizontalRecipeCard({ recipe }: CardProps) {
                             lineHeight={{ base: 6, lg: 7 }}
                             mb={{ lg: 2 }}
                         >
-                            {name}
+                            {title}
                         </Text>
                         {isDesktop && (
                             <Text

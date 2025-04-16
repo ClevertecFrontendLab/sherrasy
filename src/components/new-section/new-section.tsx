@@ -21,15 +21,20 @@ function NewSection() {
             >
                 Новые рецепты
             </Heading>
-            <Box position='relative'>
+            <Box position='relative' data-test-id='carousel'>
                 <Flex
                     gap={{ base: 3, sm: 2.5, md: 3, lg: 2.5, '2xl': 6 }}
                     overflowX='auto'
                     overflowY='hidden'
                     sx={{ scrollbarWidth: 'none' }}
                 >
-                    {newList.map((item: RecipeWithImage) => (
-                        <RecipeCard key={item.id} recipe={item} type='vertical' />
+                    {newList.map((item: RecipeWithImage, i: number) => (
+                        <RecipeCard
+                            key={item.id}
+                            recipe={item}
+                            type='vertical'
+                            data-test-id={`carousel-card-${i}`}
+                        />
                     ))}
                 </Flex>
                 <Button
@@ -42,6 +47,7 @@ function NewSection() {
                     position='absolute'
                     top={{ lg: '37.5%', '2xl': '36%' }}
                     left='-2'
+                    data-test-id='carousel-back'
                 >
                     <ArrowLeftIcon boxSize={{ lg: 4, '2xl': 6 }} />
                 </Button>
@@ -55,6 +61,7 @@ function NewSection() {
                     position='absolute'
                     top={{ lg: '37.5%', '2xl': '36%' }}
                     right='-2'
+                    data-test-id='carousel-forward'
                 >
                     <ArrowRightIcon boxSize={{ lg: 4, '2xl': 6 }} />
                 </Button>

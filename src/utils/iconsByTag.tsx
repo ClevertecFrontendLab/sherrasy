@@ -17,7 +17,7 @@ import {
 } from '~/assets/icons/icons';
 
 export const iconsByTag: { [key: string]: ReactNode } = {
-    salad: <SaladsIcon />,
+    salads: <SaladsIcon />,
     aperitif: <AperitifIcon />,
     'first-course': <FirstCourseIcon />,
     'second-course': <SecondCourseIcon />,

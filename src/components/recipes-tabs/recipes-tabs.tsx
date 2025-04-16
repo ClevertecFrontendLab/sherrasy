@@ -42,13 +42,14 @@ function RecipesTabs({ tabsNames, recipes }: RecipesTabsProps) {
                 }}
             >
                 <TabList borderBottomColor='white'>
-                    {tabsNames.map((name) => (
+                    {tabsNames.map((name, i) => (
                         <Tab
                             key={name}
                             _selected={{ color: 'lime.600', borderColor: 'lime.600' }}
                             minW='max-content'
                             onClick={() => handleSubcategoryClick(name)}
                             borderBottomColor='blackAlpha.400'
+                            data-test-id={`tab-${name}-${i}`}
                         >
                             {name}
                         </Tab>

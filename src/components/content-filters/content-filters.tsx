@@ -39,8 +39,9 @@ function ContentFilters() {
                         placeholder='Название или ингридиент...'
                         _placeholder={{ color: 'lime.800' }}
                         borderRadius='0.25rem'
+                        data-test-id='search-input'
                     />
-                    <InputRightElement>
+                    <InputRightElement data-test-id='search-button'>
                         <SearchIcon />
                     </InputRightElement>
                 </InputGroup>

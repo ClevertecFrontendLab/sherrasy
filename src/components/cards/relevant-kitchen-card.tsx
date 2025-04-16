@@ -26,7 +26,7 @@ type RelevantKitchenCardProps = RKCardProps & {
 };
 
 function RKMediumCard({ recipe }: RKCardProps) {
-    const { name, description, tag, bookmarks, likes } = recipe;
+    const { title, description, tag, bookmarks, likes } = recipe;
     return (
         <Card
             minW={{ base: '19.375rem', xs: '20.5rem', sm: '14.25rem', md: '14.5rem' }}
@@ -65,7 +65,7 @@ function RKMediumCard({ recipe }: RKCardProps) {
                     fontWeight={500}
                     isTruncated
                 >
-                    {name}
+                    {title}
                 </Text>
             </CardHeader>
             <CardBody p={0}>
@@ -153,7 +153,7 @@ function RKMediumCard({ recipe }: RKCardProps) {
 }
 
 function RKShortCard({ recipe }: RKCardProps) {
-    const { name, tag } = recipe;
+    const { title, tag } = recipe;
     return (
         <Card
             variant='outline'
@@ -198,7 +198,7 @@ function RKShortCard({ recipe }: RKCardProps) {
                         p={0}
                         isTruncated
                     >
-                        {name}
+                        {title}
                     </Heading>
                 </HStack>
                 <Spacer />

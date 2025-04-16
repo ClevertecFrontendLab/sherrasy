@@ -31,7 +31,13 @@ function Breadcrumbs() {
     }
 
     return (
-        <Breadcrumb ml={32} spacing='2px' separator={<ChevronRightIcon color='gray.500' />}>
+        <Breadcrumb
+            ml={32}
+            spacing='2px'
+            data-test-id='breadcrumbs'
+            separator={<ChevronRightIcon color='gray.500' />}
+        >
+            {' '}
             <BreadcrumbItem>
                 <BreadcrumbLink as={Link} to='/'>
                     Главная
