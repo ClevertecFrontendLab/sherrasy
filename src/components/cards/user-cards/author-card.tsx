@@ -10,30 +10,58 @@ type AuthorCardProps = {
 function AuthorCard({ author }: AuthorCardProps) {
     const { avatar, name, subscribers, nick } = author;
     return (
-        <Card variant='solid' bgColor='lime.400' direction='row' alignItems='center'>
-            <Avatar size={{ base: 'md', lg: 'xl' }} name={name} src={avatar} />
-            <Flex direction='column'>
-                <CardHeader p={{ base: 3.5, xs: 4, '2xl': 6 }}>
-                    <Flex flex='1' gap={{ base: 2, lg: 4, '2xl': 3.5 }} alignItems='center'>
-                        <Box maxW={{ base: '85%', md: '80%', lg: '70%', '2xl': '80%' }}>
-                            <Text fontSize={{ base: 'md', lg: 'lg' }} isTruncated>
+        <Card
+            variant='solid'
+            bgColor='lime.400'
+            direction='row'
+            alignItems='center'
+            minW={['19.375rem', '20.5rem', '21.75rem', '22.25rem', '55rem', null, '41.75rem']}
+            maxW={['19.375rem', '20.5rem', '21.75rem', '22.25rem', '55rem', null, '41.75rem']}
+            mt={{ base: 6 }}
+            ml={{ base: 4, sm: 5, lg: '17.75rem' }}
+            mr={{ base: 4, sm: 5, lg: '17.375rem' }}
+            p={{ base: 3 }}
+        >
+            <Avatar size={{ base: 'xl' }} name={name} src={avatar} />
+            <Flex direction='column' minW='70%'>
+                <CardHeader
+                    px={{ base: 2 }}
+                    pt={{ base: 2 }}
+                    pb={{ base: 3.5 }}
+                    position='relative'
+                >
+                    <Flex>
+                        <Box>
+                            <Text
+                                fontSize={{ base: 'lg', lg: 'lg' }}
+                                lineHeight={7}
+                                fontWeight='semibold'
+                                isTruncated
+                            >
                                 {name}
                             </Text>
                             <Text
-                                fontSize={{ base: 'xs', lg: 'sm' }}
-                                lineHeight={{ base: 4, lg: 5 }}
+                                fontSize={{ base: 'sm' }}
+                                lineHeight={{ base: 5 }}
                                 color='blackAlpha.700'
                             >
                                 {nick}
                             </Text>
                         </Box>
-                        <Text>Автор рецепта</Text>
+                        <Text
+                            fontSize={{ base: 'xs' }}
+                            lineHeight={4}
+                            position='absolute'
+                            top={-1}
+                            right={0}
+                        >
+                            Автор рецепта
+                        </Text>
                     </Flex>
                 </CardHeader>
                 <CardBody
-                    px={{ base: 3.5, xs: 4, '2xl': 6 }}
-                    pb={{ base: 4, '2xl': 4 }}
-                    pt={{ base: 0, '2xl': 1 }}
+                    py={0}
+                    px={{ base: 2 }}
                     display='flex'
                     alignItems='center'
                     justifyContent='space-between'
@@ -43,8 +71,8 @@ function AuthorCard({ author }: AuthorCardProps) {
                         variant='solid'
                         colorScheme='black'
                         bg='black'
+                        size='xs'
                     >
-                        {' '}
                         Подписаться
                     </Button>
                     <Button

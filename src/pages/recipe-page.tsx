@@ -1,4 +1,4 @@
-import { Flex } from '@chakra-ui/react';
+import { Box, Flex } from '@chakra-ui/react';
 
 import { newMockData } from '~/components/cards/mock-cards.json';
 import AuthorCard from '~/components/cards/user-cards/author-card';
@@ -11,7 +11,7 @@ import { FullRecipe } from '~/types/recipe.interface';
 
 const MockAuthor = {
     id: 16,
-    avatar: '/img/avatar-3.png',
+    avatar: '/img/author-avatar.jpg',
     name: 'Сергей Разумов',
     nick: '@serge25',
     description: '',
@@ -20,7 +20,7 @@ const MockAuthor = {
 
 function RecipePage() {
     const recipe: FullRecipe = newMockData[0];
-    const { nutritionValue, ingredients, steps } = recipe;
+    const { portions, nutritionValue, ingredients, steps } = recipe;
     return (
         <>
             <Layout>
@@ -28,17 +28,20 @@ function RecipePage() {
                     direction='column'
                     justify='center'
                     align='center'
-                    textAlign='center'
-                    mt={{ base: 8, sm: '1.875rem', md: 8, lg: '2.5rem' }}
-                    pl={{ base: 4, sm: 5, lg: '17.75rem' }}
-                    pr={{ base: 0, sm: 5, lg: '17.375rem' }}
+                    mt={{ base: 4, sm: '1.875rem', md: 8, lg: '2.5rem' }}
                 >
                     <RecipeHeader recipe={recipe} />
-                    <RecipeDetails nutritionValue={nutritionValue} ingredients={ingredients} />
+                    <RecipeDetails
+                        portions={portions}
+                        nutritionValue={nutritionValue}
+                        ingredients={ingredients}
+                    />
                     <RecipeSteps steps={steps} />
                     <AuthorCard author={MockAuthor} />
                 </Flex>
-                <NewSection />
+                <Box mt={{ base: 10 }}>
+                    <NewSection />
+                </Box>
             </Layout>
         </>
     );

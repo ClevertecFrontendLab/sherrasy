@@ -28,29 +28,34 @@ type RecipeHeaderProps = {
 function RecipeHeader({ recipe }: RecipeHeaderProps) {
     const { id, title, time, description, category, bookmarks, likes, image } = recipe;
     return (
-        <Card direction='row' variant='ghost' _hover={{ boxShadow: 'none' }}>
-            <Box position='relative'>
+        <Card
+            direction={{ base: 'column', sm: 'row' }}
+            variant='ghost'
+            _hover={{ boxShadow: 'none' }}
+            w={{ base: '20.5rem', sm: '14.5rem', lg: '22.0625rem', xl: '34.5625rem' }}
+            ml={{ base: 0, sm: 5, lg: '17.75rem' }}
+            mr={{ base: 0, sm: 5, lg: '17.375rem' }}
+        >
+            <Box>
                 <Image
                     objectFit='cover'
                     src={image}
                     alt='recipe-photo'
-                    h='100%'
+                    w='100%'
+                    h={{ base: '14rem', sm: '100%' }}
                     borderTopLeftRadius={{ base: 'md', md: 'lg' }}
                     borderBottomLeftRadius={{ base: 'md', md: 'lg' }}
                 />
             </Box>
             <Stack w='100%'>
-                <CardHeader>
+                <CardHeader py={{ base: 4, sm: 2 }} px={0}>
                     <Flex justify='space-between' align={{ lg: 'center' }}>
-                        <SimpleGrid>
+                        <SimpleGrid gap={2}>
                             {category.map((item) => (
                                 <Badge
                                     key={`${item}-${id}`}
                                     py='1px'
                                     px={{ base: '0.25rem', lg: 2 }}
-                                    position={{ base: 'absolute', lg: 'inherit' }}
-                                    top={2}
-                                    left={2}
                                     variant='hCard'
                                 >
                                     <Icon boxSize={4} mr={{ base: 0.5, lg: 1.5 }}>
@@ -60,11 +65,10 @@ function RecipeHeader({ recipe }: RecipeHeaderProps) {
                                 </Badge>
                             ))}
                         </SimpleGrid>
-
                         <ButtonGroup
-                            spacing={4}
+                            spacing={{ base: 7, lg: 4 }}
                             ml={{ base: 1, lg: 0 }}
-                            mr={{ lg: 4, '2xl': 1.5 }}
+                            mr={{ base: 1.5, lg: 4, '2xl': 1.5 }}
                             maxH='1.5rem'
                         >
                             <Button
@@ -96,7 +100,7 @@ function RecipeHeader({ recipe }: RecipeHeaderProps) {
                         </ButtonGroup>
                     </Flex>
                 </CardHeader>
-                <CardBody textAlign='start'>
+                <CardBody px={0} pt={2} pb={0}>
                     <Heading
                         mb={{
                             base: '13px',
@@ -122,35 +126,31 @@ function RecipeHeader({ recipe }: RecipeHeaderProps) {
                         {description}
                     </Text>
                 </CardBody>
-                <CardFooter>
-                    <Badge variant='time'>
-                        <Icon>
+                <CardFooter
+                    display='flex'
+                    flexDir={{ base: 'column', sm: 'row' }}
+                    gap={3}
+                    px={0}
+                    py={0}
+                >
+                    <Badge variant='time' minW='6.5rem' maxW='min-content' px={2}>
+                        <Icon boxSize={4} mr={{ base: 2 }}>
                             <TimeIcon />
                         </Icon>
                         <Text>{time}</Text>
                     </Badge>
-                    <ButtonGroup>
+                    <ButtonGroup gap={0.5}>
                         <Button
                             variant='outline'
                             colorScheme='black'
                             size={{ base: 'xs', lg: 'sm' }}
-                            w={{ base: 4, lg: 'initial' }}
                         >
                             <HeartEyesIcon color='black' />
-                            <Text ml={2} display={{ base: 'none', lg: 'inline' }}>
-                                Оценить рецепт
-                            </Text>
+                            <Text ml={2}>Оценить рецепт</Text>
                         </Button>
-                        <Button
-                            variant='solid'
-                            bg='lime.400'
-                            size={{ base: 'xs', lg: 'sm' }}
-                            w={{ base: 4, lg: 'initial' }}
-                        >
+                        <Button variant='solid' bg='lime.400' size={{ base: 'xs', lg: 'sm' }}>
                             <BookmarkIcon color='black' />
-                            <Text ml={2} display={{ base: 'none', lg: 'inline' }}>
-                                Сохранить в закладки
-                            </Text>
+                            <Text ml={2}>Сохранить в закладки</Text>
                         </Button>
                     </ButtonGroup>
                 </CardFooter>

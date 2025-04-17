@@ -2,7 +2,7 @@ import { defineStyle, defineStyleConfig } from '@chakra-ui/react';
 
 const defaultBadgeStyle = {
     h: '1.5rem',
-    borderRadius: 2,
+    borderRadius: 3,
     fontSize: 'sm',
     fontWeight: 400,
     lineHeight: 5,

@@ -680,6 +680,7 @@
             "likes": 80,
             "date": "2023-03-20T00:00:00Z",
             "time": "25 минут",
+            "portions": 4,
             "nutritionValue": { "calories": 150, "proteins": 4, "fats": 6, "carbohydrates": 20 },
             "ingredients": [
                 { "title": "цуккини", "count": "1", "measureUnit": "шт." },
@@ -711,6 +712,7 @@
             "likes": 1,
             "date": "2023-03-22T00:00:00Z",
             "time": "20 минут",
+            "portions": 3,
             "nutritionValue": { "calories": 10, "proteins": 4, "fats": 6, "carbohydrates": 20 },
             "ingredients": [
                 { "title": "мука", "count": "150", "measureUnit": "г" },
@@ -742,6 +744,7 @@
             "likes": 0,
             "date": "2022-07-26T00:00:00Z",
             "time": "10 минут",
+            "portions": 4,
             "nutritionValue": { "calories": 10, "proteins": 4, "fats": 6, "carbohydrates": 26 },
             "ingredients": [
                 { "title": "сельдерей", "count": "1", "measureUnit": "шт." },
@@ -772,6 +775,7 @@
             "likes": 1,
             "date": "2023-03-22T00:00:00Z",
             "time": "20 минут",
+            "portions": 3,
             "nutritionValue": { "calories": 10, "proteins": 4, "fats": 6, "carbohydrates": 20 },
             "ingredients": [
                 { "title": "мука", "count": "150", "measureUnit": "г" },

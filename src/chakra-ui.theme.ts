@@ -2,6 +2,7 @@ import { extendTheme } from '@chakra-ui/react';
 
 import { badgeTheme } from './ui-theme/badge.theme';
 import { cardTheme } from './ui-theme/card.theme';
+import { tableTheme } from './ui-theme/table.theme';
 
 export const theme = extendTheme({
     colors: {
@@ -23,6 +24,7 @@ export const theme = extendTheme({
     components: {
         Card: cardTheme,
         Badge: badgeTheme,
+        Table: tableTheme,
     },
     breakpoints: {
         base: '0em', //0px

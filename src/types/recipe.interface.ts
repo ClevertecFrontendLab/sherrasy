@@ -39,6 +39,7 @@ export interface FullRecipe {
     likes: number;
     date: string;
     time: string;
+    portions: number;
     nutritionValue: NutritionValue;
     ingredients: Ingredient[];
     steps: RecipeStep[];

@@ -4,26 +4,43 @@ import { RecipeStep } from '~/types/recipe.interface';
 
 type StepCardProps = {
     step: RecipeStep;
+    isLast: boolean;
 };
 
-function StepCard({ step }: StepCardProps) {
+function StepCard({ step, isLast }: StepCardProps) {
     const { image, stepNumber, description } = step;
     return (
-        <Card direction={{ base: 'column', sm: 'row' }} overflow='hidden' variant='outline'>
+        <Card
+            direction='row'
+            overflow='hidden'
+            variant='outline'
+            minW={['19.375rem', '20.5rem', '21.75rem', '22.25rem', '55rem', null, '41.75rem']}
+            maxW={['19.375rem', '20.5rem', '21.75rem', '22.25rem', '55rem', null, '41.75rem']}
+            minH={{ base: '7.75rem', xs: '8rem', md: '8.0625rem', lg: '15.25rem' }}
+            maxH={{ base: '7.75rem', xs: '8rem', md: '8.0625rem', lg: '15.25rem' }}
+        >
             {image && (
                 <Image
                     objectFit='cover'
-                    maxW={{ base: '100%', sm: '200px' }}
+                    w={{ base: '158px', sm: '200px' }}
+                    minH={{ base: '7.75rem', xs: '8rem', md: '8.0625rem', lg: '15.25rem' }}
                     src={image}
                     alt={`Фото шаг ${stepNumber}`}
                 />
             )}
             <Stack>
-                <CardBody>
-                    <Badge py='1px' px={{ base: '0.25rem', lg: 2 }} variant='time'>
+                <CardBody p={2}>
+                    <Badge
+                        py={0}
+                        px={{ base: '8px', lg: 2 }}
+                        variant={isLast ? 'hCard' : 'time'}
+                        maxW='min-content'
+                    >
                         <Text>Шаг {stepNumber}</Text>
                     </Badge>
-                    <Text py='2'>{description}</Text>
+                    <Text pt={3} fontSize={{ base: 'sm' }} lineHeight={{ base: 5 }} noOfLines={4}>
+                        {description}
+                    </Text>
                 </CardBody>
             </Stack>
         </Card>
