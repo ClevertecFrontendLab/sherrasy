@@ -1,6 +1,6 @@
 export const AppRoute = {
     Main: '/',
-    Vegan: '/vegan',
+    Vegan: '/:categoryId/:subcategoryId',
     Juiciest: '/juiciest',
     Recipe: '/:categoryId/:subcategoryId/:recipeId',
 } as const;
@@ -24,7 +24,7 @@ export const TagToName: { [key: string]: string } = {
     national: 'Национальные',
     sauce: 'Соусы',
     drinks: 'Напитки',
-    preparations: 'Заготовки',
+    preserves: 'Заготовки',
 };
 
 export const NutritionToName: { [key: string]: string } = {

@@ -2,170 +2,184 @@
     {
         "groupName": "Салаты",
         "tag": "salads",
-        "elements": ["Мясные салаты", "Рыбные салаты", "Овощные салаты", "Теплые салаты"]
+        "elements": [
+            { "id": "meat_salads", "name": "Мясные салаты" },
+            { "id": "fish_salads", "name": "Рыбные салаты" },
+            { "id": "vegetable_salads", "name": "Овощные салаты" },
+            { "id": "warm_salads", "name": "Теплые салаты" }
+        ]
     },
     {
         "groupName": "Закуски",
         "tag": "snacks",
         "elements": [
-            "Мясные закуски",
-            "Рыбные закуски",
-            "Овощные закуски",
-            "Теплые закуски",
-            "Бутерброды",
-            "Фастфуд"
+            { "id": "meat_snacks", "name": "Мясные закуски" },
+            { "id": "fish_snacks", "name": "Рыбные закуски" },
+            { "id": "vegetable_snacks", "name": "Овощные закуски" },
+            { "id": "warm_snacks", "name": "Теплые закуски" },
+            { "id": "sandwiches", "name": "Бутерброды" },
+            { "id": "fast_food", "name": "Фастфуд" }
         ]
     },
     {
         "groupName": "Первые блюда",
         "tag": "first-dish",
-        "elements": ["Мясные супы", "Овощные супы", "Бульоны", "Холодные супы", "Диетические супы"]
+        "elements": [
+            { "id": "meat_soups", "name": "Мясные супы" },
+            { "id": "vegetable_soups", "name": "Овощные супы" },
+            { "id": "broths", "name": "Бульоны" },
+            { "id": "cold_soups", "name": "Холодные супы" },
+            { "id": "dietary_soups", "name": "Диетические супы" }
+        ]
     },
     {
         "groupName": "Вторые блюда",
         "tag": "second-dish",
         "elements": [
-            "Мясные",
-            "Рыбные",
-            "Овощные",
-            "Из птицы",
-            "Из грибов",
-            "Из субпродуктов",
-            "На пару",
-            "Пельмени, вареники",
-            "Мучные гарниры",
-            "Овощные гарниры",
-            "Пицца",
-            "Суши"
+            { "id": "meat_dishes", "name": "Мясные" },
+            { "id": "fish_dishes", "name": "Рыбные" },
+            { "id": "vegetable_dishes", "name": "Овощные" },
+            { "id": "poultry_dishes", "name": "Из птицы" },
+            { "id": "mushroom_dishes", "name": "Из грибов" },
+            { "id": "offal_dishes", "name": "Из субпродуктов" },
+            { "id": "steamed_dishes", "name": "На пару" },
+            { "id": "dumplings", "name": "Пельмени, вареники" },
+            { "id": "flour_side_dishes", "name": "Мучные гарниры" },
+            { "id": "vegetable_side_dishes", "name": "Овощные гарниры" },
+            { "id": "pizza", "name": "Пицца" },
+            { "id": "sushi", "name": "Суши" }
         ]
     },
     {
         "groupName": "Десерты, выпечка",
         "tag": "dessert",
         "elements": [
-            "Блины и оладьи",
-            "Пироги и пончики",
-            "Торты",
-            "Рулеты",
-            "Кексы и маффины",
-            "Сырники и ватрушки",
-            "Из слоеного теста",
-            "Из заварного теста",
-            "Из дрожжевого теста",
-            "Булочки и сдоба",
-            "Хлеб",
-            "Тесто на пиццу",
-            "Кремы"
+            { "id": "pancakes_and_fritters", "name": "Блины и оладьи" },
+            { "id": "pies_and_donuts", "name": "Пироги и пончики" },
+            { "id": "cakes", "name": "Торты" },
+            { "id": "rolls", "name": "Рулеты" },
+            { "id": "cupcakes_and_muffins", "name": "Кексы и маффины" },
+            { "id": "cheesecakes_and_vatrushki", "name": "Сырники и ватрушки" },
+            { "id": "puff_pastry", "name": "Из слоеного теста" },
+            { "id": "choux_pastry", "name": "Из заварного теста" },
+            { "id": "yeast_dough", "name": "Из дрожжевого теста" },
+            { "id": "buns_and_pastries", "name": "Булочки и сдоба" },
+            { "id": "bread", "name": "Хлеб" },
+            { "id": "pizza_dough", "name": "Тесто на пиццу" },
+            { "id": "creams", "name": "Кремы" }
         ]
     },
     {
         "groupName": "Блюда на гриле",
         "tag": "grilled",
-        "elements": ["Говядина", "Свинина", "Птица", "Рыба", "Грибы", "Овощи"]
+        "elements": [
+            { "id": "beef", "name": "Говядина" },
+            { "id": "pork", "name": "Свинина" },
+            { "id": "poultry", "name": "Птица" },
+            { "id": "fish", "name": "Рыба" },
+            { "id": "mushrooms", "name": "Грибы" },
+            { "id": "vegetables", "name": "Овощи" }
+        ]
     },
     {
         "groupName": "Веганская кухня",
         "tag": "vegan",
         "elements": [
-            "Закуски",
-            "Первые блюда",
-            "Вторые блюда",
-            "Гарниры",
-            "Десерты",
-            "Выпечка",
-            "Сыроедческие блюда",
-            "Напитки"
+            { "id": "snacks", "name": "Закуски" },
+            { "id": "first_courses", "name": "Первые блюда" },
+            { "id": "second_courses", "name": "Вторые блюда" },
+            { "id": "side_dishes", "name": "Гарниры" },
+            { "id": "desserts", "name": "Десерты" },
+            { "id": "baking", "name": "Выпечка" },
+            { "id": "raw_food", "name": "Сыроедческие блюда" },
+            { "id": "drinks", "name": "Напитки" }
         ]
     },
     {
         "groupName": "Детские блюда",
         "tag": "kids",
         "elements": [
-            "Первые блюда",
-            "Вторые блюда",
-            "Гарниры",
-            "Выпечка",
-            "Без глютена",
-            "Без сахара",
-            "Без аллергенов",
-            "Блюда для прикорма"
+            { "id": "first_courses", "name": "Первые блюда" },
+            { "id": "second_courses", "name": "Вторые блюда" },
+            { "id": "side_dishes", "name": "Гарниры" },
+            { "id": "baking", "name": "Выпечка" },
+            { "id": "gluten_free", "name": "Без глютена" },
+            { "id": "sugar_free", "name": "Без сахара" },
+            { "id": "allergen_free", "name": "Без аллергенов" },
+            { "id": "baby_food", "name": "Блюда для прикорма" }
         ]
     },
     {
         "groupName": "Лечебное питание",
         "tag": "healthy",
         "elements": [
-            "Детская диета",
-            "Диета №1",
-            "Диета №2",
-            "Диета №3",
-            "Диета №5",
-            "Диета №6",
-            "Диета №7",
-            "Диета №8",
-            "Диета №9",
-            "Диета №10",
-            "Диета №11",
-            "Диета №12",
-            "Диета №13",
-            "Диета №14",
-            "Без глютена",
-            "Без аллергенов"
+            { "id": "first_courses", "name": "Первые блюда" },
+            { "id": "second_courses", "name": "Вторые блюда" },
+            { "id": "side_dishes", "name": "Гарниры" },
+            { "id": "baking", "name": "Выпечка" },
+            { "id": "gluten_free", "name": "Без глютена" },
+            { "id": "sugar_free", "name": "Без сахара" },
+            { "id": "allergen_free", "name": "Без аллергенов" },
+            { "id": "baby_food", "name": "Блюда для прикорма" }
         ]
     },
     {
         "groupName": "Национальные",
         "tag": "national",
         "elements": [
-            "Американская кухня",
-            "Армянская кухня",
-            "Греческая кухня",
-            "Грузинская кухня",
-            "Итальянская кухня",
-            "Испанская кухня",
-            "Китайская кухня",
-            "Мексиканская кухня",
-            "Паназиатская кухня",
-            "Русская кухня",
-            "Турецкая кухня",
-            "Французская кухня",
-            "Шведская кухня",
-            "Японская кухня",
-            "Другая кухня"
+            { "id": "american_cuisine", "name": "Американская кухня" },
+            { "id": "armenian_cuisine", "name": "Армянская кухня" },
+            { "id": "greek_cuisine", "name": "Греческая кухня" },
+            { "id": "georgian_cuisine", "name": "Грузинская кухня" },
+            { "id": "italian_cuisine", "name": "Итальянская кухня" },
+            { "id": "spanish_cuisine", "name": "Испанская кухня" },
+            { "id": "chinese_cuisine", "name": "Китайская кухня" },
+            { "id": "mexican_cuisine", "name": "Мексиканская кухня" },
+            { "id": "pan_asian_cuisine", "name": "Паназиатская кухня" },
+            { "id": "russian_cuisine", "name": "Русская кухня" },
+            { "id": "turkish_cuisine", "name": "Турецкая кухня" },
+            { "id": "french_cuisine", "name": "Французская кухня" },
+            { "id": "swedish_cuisine", "name": "Шведская кухня" },
+            { "id": "japanese_cuisine", "name": "Японская кухня" },
+            { "id": "other_cuisine", "name": "Другая кухня" }
         ]
     },
     {
         "groupName": "Соусы",
         "tag": "sauce",
-        "elements": ["Соусы мясные", "Соусы сырные", "Маринады"]
+        "elements": [
+            { "id": "meat_sauces", "name": "Соусы мясные" },
+            { "id": "cheese_sauces", "name": "Соусы сырные" },
+            { "id": "marinades", "name": "Маринады" }
+        ]
     },
     {
         "groupName": "Напитки",
         "tag": "drinks",
         "elements": [
-            "Соки и фреши",
-            "Смузи",
-            "Компоты",
-            "Кисели",
-            "Кофе",
-            "Лечебный чай",
-            "Квас",
-            "Коктейли",
-            "Алкогольные"
+            { "id": "juices_and_fresh", "name": "Соки и фреши" },
+            { "id": "smoothies", "name": "Смузи" },
+            { "id": "compotes", "name": "Компоты" },
+            { "id": "kissels", "name": "Кисели" },
+            { "id": "coffee", "name": "Кофе" },
+            { "id": "medicinal_tea", "name": "Лечебный чай" },
+            { "id": "kvass", "name": "Квас" },
+            { "id": "cocktails", "name": "Коктейли" },
+            { "id": "alcoholic", "name": "Алкогольные" }
         ]
     },
     {
         "groupName": "Заготовки",
-        "tag": "preparations",
+        "tag": "preserves",
         "elements": [
-            "Мясные заготовки",
-            "Рыбные заготовки",
-            "Из огурцов",
-            "Из томатов",
-            "Из грибов",
-            "Овощные заготовки",
-            "Салаты, икра",
-            "Из фруктов и ягод"
+            { "id": "meat_preserves", "name": "Мясные заготовки" },
+            { "id": "fish_preserves", "name": "Рыбные заготовки" },
+            { "id": "cucumber_preserves", "name": "Из огурцов" },
+            { "id": "tomato_preserves", "name": "Из томатов" },
+            { "id": "mushroom_preserves", "name": "Из грибов" },
+            { "id": "vegetable_preserves", "name": "Овощные заготовки" },
+            { "id": "salads_and_caviar", "name": "Салаты, икра" },
+            { "id": "fruit_and_berry_preserves", "name": "Из фруктов и ягод" }
         ]
     }
 ]

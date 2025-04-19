@@ -1,28 +1,30 @@
 import { Box, Tab, TabList, TabPanel, TabPanels, Tabs, useMediaQuery } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
-import { useSearchParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 
+import { MenuSubcategory } from '~/types/menu-item.type';
+import { PathParams } from '~/types/params.type';
 import { RecipeWithImage } from '~/types/recipe.interface';
 
 import RecipesList from '../recipes-list/recipes-list';
 
 type RecipesTabsProps = {
-    tabsNames: string[];
+    tabsNames: MenuSubcategory[];
     recipes: RecipeWithImage[];
 };
 
 function RecipesTabs({ tabsNames, recipes }: RecipesTabsProps) {
     const [isDesktop] = useMediaQuery('(min-width: 1440px)');
-    const [searchParams, setSearchParams] = useSearchParams();
-    const subcategoryParam = searchParams.get('subcategory') ?? '';
-    const currentTab = tabsNames.indexOf(subcategoryParam);
+    const { categoryId, subcategoryId } = useParams<PathParams>();
+    const navigate = useNavigate();
+    const currentTab = subcategoryId ? tabsNames.findIndex((tab) => tab.id === subcategoryId) : -1;
     const [activeTabIndex, setActiveTabIndex] = useState(0);
     const handleSubcategoryClick = (name: string) => {
-        setSearchParams(new URLSearchParams({ subcategory: name }));
+        navigate(`/${categoryId}/${name}`);
     };
     useEffect(() => {
         setActiveTabIndex(currentTab !== -1 ? currentTab : 0);
-    }, [subcategoryParam, currentTab]);
+    }, [subcategoryId, currentTab]);
     return (
         <Tabs
             index={activeTabIndex}
@@ -42,7 +44,7 @@ function RecipesTabs({ tabsNames, recipes }: RecipesTabsProps) {
                 }}
             >
                 <TabList borderBottomColor='white'>
-                    {tabsNames.map((name, i) => (
+                    {tabsNames.map(({ name }, i) => (
                         <Tab
                             key={name}
                             _selected={{ color: 'lime.600', borderColor: 'lime.600' }}

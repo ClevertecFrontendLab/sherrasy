@@ -29,5 +29,5 @@ export const iconsByTag: { [key: string]: ReactNode } = {
     national: <NationalIcon />,
     sauce: <SauceIcon />,
     drinks: <DrinksIcon />,
-    preparations: <PreparationsIcon />,
+    preserves: <PreparationsIcon />,
 };

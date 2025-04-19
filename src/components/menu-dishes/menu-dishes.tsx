@@ -14,9 +14,11 @@ import {
     Text,
 } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
-import { useLocation, useNavigate, useSearchParams } from 'react-router';
+import { useLocation, useNavigate, useParams } from 'react-router';
 
 import { ExitIcon } from '~/assets/icons/icons';
+import { MenuItem } from '~/types/menu-item.type';
+import { PathParams } from '~/types/params.type';
 import { iconsByTag } from '~/utils/iconsByTag';
 
 import ScrollArea from '../scrollarea/scrollarea';
@@ -25,18 +27,17 @@ import data from './mock-dishes.json';
 function MenuDishes() {
     const navigate = useNavigate();
     const { pathname } = useLocation();
-    const [searchParams] = useSearchParams();
-    const subcategoryParam = searchParams.get('subcategory');
+    const { categoryId, subcategoryId } = useParams<PathParams>();
+    const subcategoryParam = subcategoryId;
     const [activeIndex, setActiveIndex] = useState<number | number[]>(-1);
-
-    const handleMenuClick = (category: string, subcategory?: string) => {
-        const link = subcategory ? `/${category}?subcategory=${subcategory}` : `/${category}`;
+    const handleMenuClick = (category: string, subcategory: string) => {
+        const link = `/${category}/${subcategory}`;
         navigate(link);
     };
 
     useEffect(() => {
         const currentIndex = data.findIndex(
-            (item) => location.pathname.includes(item.tag) && location.pathname !== '/',
+            (item) => categoryId === item.tag && location.pathname !== '/',
         );
 
         if (currentIndex !== -1) {
@@ -44,7 +45,7 @@ function MenuDishes() {
         } else {
             setActiveIndex(-1);
         }
-    }, [pathname]);
+    }, [pathname, categoryId]);
 
     return (
         <Flex
@@ -67,13 +68,13 @@ function MenuDishes() {
                     index={activeIndex}
                     onChange={(index) => setActiveIndex(index)}
                 >
-                    {data.map((item) => (
+                    {data.map((item: MenuItem) => (
                         <AccordionItem border='none' key={item.groupName} minH='3rem'>
                             <AccordionButton
                                 data-test-id={item.tag}
                                 _expanded={{ bg: 'lime.100', fontWeight: '600' }}
                                 _hover={{ bg: 'lime.50' }}
-                                onClick={() => handleMenuClick('vegan', item.elements[0])}
+                                onClick={() => handleMenuClick('vegan', item.elements[0].id)}
                                 pt={3}
                                 pr={2}
                             >
@@ -91,26 +92,28 @@ function MenuDishes() {
                                 <List spacing={3}>
                                     {item.elements.map((subcategory) => (
                                         <ListItem
-                                            key={`${subcategory}-${item.tag}`}
-                                            onClick={() => handleMenuClick('vegan', subcategory)}
-                                            pl={{ lg: subcategoryParam === subcategory ? 7 : 9 }}
+                                            key={`${subcategory.id}-${item.tag}`}
+                                            onClick={() => handleMenuClick('vegan', subcategory.id)}
+                                            pl={{ lg: subcategoryParam === subcategory.id ? 7 : 9 }}
                                             data-test-id={
-                                                subcategoryParam === subcategory &&
+                                                subcategoryParam === subcategory.id &&
                                                 `tab-${subcategory}-active`
                                             }
                                         >
                                             <Text
                                                 fontWeight={
-                                                    subcategoryParam === subcategory ? 600 : 400
+                                                    subcategoryParam === subcategory.id ? 600 : 400
                                                 }
                                                 borderLeftStyle='solid'
                                                 borderLeftWidth={
-                                                    subcategoryParam === subcategory ? '8px' : '1px'
+                                                    subcategoryParam === subcategory.id
+                                                        ? '8px'
+                                                        : '1px'
                                                 }
                                                 borderColor='lime.300'
                                                 pl={3}
                                             >
-                                                {subcategory}
+                                                {subcategory.name}
                                             </Text>
                                         </ListItem>
                                     ))}
