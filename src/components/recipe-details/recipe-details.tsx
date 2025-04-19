@@ -15,7 +15,7 @@ function RecipeDetails({ portions, nutritionValue, ingredients }: RecipeDetailsP
     return (
         <Flex
             direction='column'
-            mt='1.375rem'
+            mt={{ base: '1.375rem', lg: 10 }}
             pl={{ base: 4, sm: 5, lg: '17.75rem' }}
             pr={{ base: 4, sm: 5, lg: '17.375rem' }}
             align={{ base: 'start', sm: 'center' }}

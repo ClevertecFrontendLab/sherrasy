@@ -15,27 +15,28 @@ function AuthorCard({ author }: AuthorCardProps) {
             bgColor='lime.400'
             direction='row'
             alignItems='center'
-            minW={['19.375rem', '20.5rem', '21.75rem', '22.25rem', '55rem', null, '41.75rem']}
-            maxW={['19.375rem', '20.5rem', '21.75rem', '22.25rem', '55rem', null, '41.75rem']}
-            mt={{ base: 6 }}
+            minW={['19.375rem', '20.5rem', '37.25rem', '37.75rem', '36.125rem', null, '41.75rem']}
+            maxW={['19.375rem', '20.5rem', '37.25rem', '37.75rem', '36.125rem', null, '41.75rem']}
+            mt={{ base: 6, lg: 10 }}
             ml={{ base: 4, sm: 5, lg: '17.75rem' }}
             mr={{ base: 4, sm: 5, lg: '17.375rem' }}
-            p={{ base: 3 }}
+            p={{ base: 3, sm: '22px' }}
         >
             <Avatar size={{ base: 'xl' }} name={name} src={avatar} />
-            <Flex direction='column' minW='70%'>
+            <Flex direction='column' minW={{ base: '70%', sm: '82%', xl: '84%' }}>
                 <CardHeader
-                    px={{ base: 2 }}
-                    pt={{ base: 2 }}
-                    pb={{ base: 3.5 }}
+                    px={{ base: 2, sm: '1.125rem' }}
+                    pt={{ base: 2, sm: 0.5 }}
+                    pb={{ base: 3.5, sm: 4 }}
                     position='relative'
                 >
                     <Flex>
                         <Box>
                             <Text
-                                fontSize={{ base: 'lg', lg: 'lg' }}
-                                lineHeight={7}
-                                fontWeight='semibold'
+                                fontSize={{ base: 'lg', sm: '2xl' }}
+                                lineHeight={{ base: 7, sm: 8 }}
+                                fontWeight={{ base: 'semibold', sm: 'bold' }}
+                                mb={{ sm: 1 }}
                                 isTruncated
                             >
                                 {name}
@@ -49,10 +50,10 @@ function AuthorCard({ author }: AuthorCardProps) {
                             </Text>
                         </Box>
                         <Text
-                            fontSize={{ base: 'xs' }}
-                            lineHeight={4}
+                            fontSize={{ base: 'xs', sm: 'sm' }}
+                            lineHeight={{ base: 4, sm: 5 }}
                             position='absolute'
-                            top={-1}
+                            top={{ base: -1, sm: 0.5 }}
                             right={0}
                         >
                             Автор рецепта
@@ -61,12 +62,13 @@ function AuthorCard({ author }: AuthorCardProps) {
                 </CardHeader>
                 <CardBody
                     py={0}
-                    px={{ base: 2 }}
+                    px={{ base: 2, sm: 1 }}
                     display='flex'
                     alignItems='center'
                     justifyContent='space-between'
                 >
                     <Button
+                        ml={{ sm: 3.5 }}
                         leftIcon={<SubscribeIcon />}
                         variant='solid'
                         colorScheme='black'

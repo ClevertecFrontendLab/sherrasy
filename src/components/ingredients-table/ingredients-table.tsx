@@ -31,18 +31,20 @@ function IngredientsTable({ portions, ingredients }: IngredientsTableProps) {
     };
 
     return (
-        <TableContainer mt={{ base: 5 }}>
-            <Table variant='customTable' colorScheme='blackAlpha'>
+        <TableContainer mt={{ base: '1.375rem', sm: 5, lg: 9 }}>
+            <Table
+                variant='customTable'
+                colorScheme='blackAlpha'
+                w={{ base: '20.5rem', sm: '37.75rem', lg: '36.125rem', xl: '41.75rem' }}
+            >
                 <Thead>
                     <Tr>
-                        <Th w={{ base: '188px' }} color='lime.600'>
-                            Ингридиенты
-                        </Th>
+                        <Th color='lime.600'>Ингридиенты</Th>
                         <Th
                             display='flex'
                             alignItems='center'
-                            w={{ base: '140px' }}
-                            gap={{ base: 3 }}
+                            justifyContent='flex-end'
+                            gap={{ base: 3, sm: 3.5 }}
                         >
                             <Text pl={0} color='lime.600'>
                                 Порций
@@ -51,7 +53,7 @@ function IngredientsTable({ portions, ingredients }: IngredientsTableProps) {
                                 defaultValue={portions}
                                 min={1}
                                 max={20}
-                                w={{ base: '4.375rem' }}
+                                w={{ base: '4.375rem', sm: '5.625rem' }}
                                 onChange={(value) => handlePortionsChange(+value)}
                             >
                                 <NumberInputField />

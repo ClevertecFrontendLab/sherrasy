@@ -28,7 +28,7 @@ function RecipePage() {
                     direction='column'
                     justify='center'
                     align='center'
-                    mt={{ base: 4, sm: '1.875rem', md: 8, lg: '2.5rem' }}
+                    mt={{ base: 4, sm: '1.125rem', md: 4, lg: 14 }}
                 >
                     <RecipeHeader recipe={recipe} />
                     <RecipeDetails
@@ -39,7 +39,7 @@ function RecipePage() {
                     <RecipeSteps steps={steps} />
                     <AuthorCard author={MockAuthor} />
                 </Flex>
-                <Box mt={{ base: 10 }}>
+                <Box mt={{ base: 10, lg: '3.75rem' }}>
                     <NewSection />
                 </Box>
             </Layout>

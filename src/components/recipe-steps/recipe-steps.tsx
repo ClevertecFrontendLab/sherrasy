@@ -13,11 +13,17 @@ function RecipeSteps({ steps }: RecipeStepsProps) {
     return (
         <Flex
             direction='column'
-            mt={{ base: 1 }}
+            mt={{ base: 6, lg: 9, xl: '2.375rem' }}
             pl={{ base: 4, sm: 5, lg: '17.75rem' }}
             pr={{ base: 4, sm: 5, lg: '17.375rem' }}
         >
-            <Heading fontSize={{ base: '2xl' }} mb={{ base: 4 }}>
+            <Heading
+                fontWeight={{ base: 'medium', xl: 'semibold' }}
+                fontSize={{ base: '2xl', lg: '5xl' }}
+                lineHeight={{ base: 8, lg: 'none' }}
+                mb={{ base: '1.125rem', xl: '1.375rem' }}
+                alignSelf='start'
+            >
                 Шаги приготовления
             </Heading>
             <Flex direction='column' gap={{ base: 5 }}>

@@ -16,11 +16,21 @@ function NutritionDetails({ nutritionValue }: NutritionDetailsProps) {
         name: NutritionToName[key],
     }));
     return (
-        <Flex direction='column' w='100%' mt={0.5}>
-            <Text fontSize='sm' lineHeight={5} ml={0.5}>
+        <Flex
+            direction='column'
+            w='100%'
+            mt={0.5}
+            align='center'
+            maxW={{ lg: '36.125rem', xl: '41.75rem' }}
+        >
+            <Text fontSize='sm' lineHeight={5} ml={{ base: 0.5, lg: 0 }} alignSelf='start'>
                 * Калорийность на 1 порцию
             </Text>
-            <Flex direction={{ base: 'column', sm: 'row' }} mt={3} gap={3}>
+            <Flex
+                direction={{ base: 'column', sm: 'row' }}
+                mt={{ base: 3, sm: 5, lg: '1.125rem' }}
+                gap={{ base: 2.5, lg: 3, xl: 6 }}
+            >
                 {nutrition.map(({ key, name, val }) => (
                     <NutritionCard key={key} name={name} amount={val} />
                 ))}

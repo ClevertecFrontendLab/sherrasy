@@ -32,25 +32,29 @@ function RecipeHeader({ recipe }: RecipeHeaderProps) {
             direction={{ base: 'column', sm: 'row' }}
             variant='ghost'
             _hover={{ boxShadow: 'none' }}
-            w={{ base: '20.5rem', sm: '14.5rem', lg: '22.0625rem', xl: '34.5625rem' }}
-            ml={{ base: 0, sm: 5, lg: '17.75rem' }}
-            mr={{ base: 0, sm: 5, lg: '17.375rem' }}
+            minW={{ base: '20.5rem', sm: '45.5rem', lg: '55rem', xl: '85rem' }}
+            ml={{ base: 4, sm: 5, lg: '17.75rem' }}
+            mr={{ base: 4, sm: 5, lg: '17.375rem' }}
+            gap={{ sm: 4, lg: 6 }}
         >
             <Box>
                 <Image
                     objectFit='cover'
                     src={image}
                     alt='recipe-photo'
+                    minW={{ sm: '14.5rem', lg: '22.0625rem', xl: '34.5625rem' }}
                     w='100%'
-                    h={{ base: '14rem', sm: '100%' }}
-                    borderTopLeftRadius={{ base: 'md', md: 'lg' }}
-                    borderBottomLeftRadius={{ base: 'md', md: 'lg' }}
+                    h={{ base: '14rem', lg: '25.625rem' }}
+                    borderRadius={{ base: 'md', md: 'lg' }}
                 />
             </Box>
             <Stack w='100%'>
-                <CardHeader py={{ base: 4, sm: 2 }} px={0}>
-                    <Flex justify='space-between' align={{ lg: 'center' }}>
-                        <SimpleGrid gap={2}>
+                <CardHeader py={{ base: 4, sm: 0 }} px={0}>
+                    <Flex justify='space-between'>
+                        <SimpleGrid
+                            gap={2}
+                            templateColumns={{ sm: 'repeat(2, 1fr)', xl: 'repeat(3,1fr)' }}
+                        >
                             {category.map((item) => (
                                 <Badge
                                     key={`${item}-${id}`}
@@ -66,32 +70,43 @@ function RecipeHeader({ recipe }: RecipeHeaderProps) {
                             ))}
                         </SimpleGrid>
                         <ButtonGroup
-                            spacing={{ base: 7, lg: 4 }}
+                            spacing={{ base: 7, lg: 4, xl: 10 }}
+                            mt={{ xl: 1.5 }}
                             ml={{ base: 1, lg: 0 }}
-                            mr={{ base: 1.5, lg: 4, '2xl': 1.5 }}
-                            maxH='1.5rem'
+                            mr={{ base: 1.5, lg: 4, xl: 5 }}
+                            maxH={{ base: '1.5rem', xl: '2rem' }}
                         >
                             <Button
-                                leftIcon={<BookmarkIcon color='black' boxSize={{ base: 3 }} />}
+                                leftIcon={
+                                    <BookmarkIcon
+                                        color='black'
+                                        boxSize={{ base: 3, xl: '0.875rem' }}
+                                    />
+                                }
                                 color='lime.600'
                                 bg='transparent'
                                 p={0}
                                 size='sm'
-                                fontSize='xs'
-                                lineHeight={4}
+                                fontSize={{ base: 'xs', xl: 'sm' }}
+                                lineHeight={{ base: 4, xl: 5 }}
                                 iconSpacing='0.375rem'
                                 h='100%'
                             >
                                 {bookmarks}
                             </Button>
                             <Button
-                                leftIcon={<HeartEyesIcon color='black' boxSize={{ base: 3 }} />}
+                                leftIcon={
+                                    <HeartEyesIcon
+                                        color='black'
+                                        boxSize={{ base: 3, xl: '0.875rem' }}
+                                    />
+                                }
                                 color='lime.600'
                                 bg='transparent'
                                 p={0}
                                 size='sm'
-                                fontSize='xs'
-                                lineHeight={4}
+                                fontSize={{ base: 'xs', xl: 'sm' }}
+                                lineHeight={{ base: 4, xl: 5 }}
                                 iconSpacing='0.375rem'
                                 h='100%'
                             >
@@ -100,28 +115,26 @@ function RecipeHeader({ recipe }: RecipeHeaderProps) {
                         </ButtonGroup>
                     </Flex>
                 </CardHeader>
-                <CardBody px={0} pt={2} pb={0}>
+                <CardBody px={0} pt={{ base: 2, sm: 6, xl: '1.875rem' }} pb={0}>
                     <Heading
                         mb={{
                             base: '13px',
                             xs: '1rem',
                             sm: '0.75rem',
                             md: '1rem',
-                            lg: 3,
-                            xl: 3 - 1,
-                            '2xl': 3,
+                            lg: 6,
                         }}
                         fontSize={{ base: '2xl', lg: '5xl' }}
                         lineHeight={{ base: 8, lg: 'none' }}
+                        noOfLines={{ base: 2, sm: 1, lg: 2 }}
                     >
                         {title}
                     </Heading>
                     <Text
-                        color='blackAlpha.600'
-                        mb={{ base: '13px', xs: '1rem', lg: 8 }}
-                        fontSize={{ base: 'sm', lg: 'md' }}
-                        lineHeight={{ base: 5, lg: 6 }}
-                        noOfLines={4}
+                        mb={{ base: '13px', xs: '1rem' }}
+                        fontSize={{ base: 'sm' }}
+                        lineHeight={{ base: 5 }}
+                        noOfLines={{ base: 3, sm: 2 }}
                     >
                         {description}
                     </Text>
@@ -129,11 +142,13 @@ function RecipeHeader({ recipe }: RecipeHeaderProps) {
                 <CardFooter
                     display='flex'
                     flexDir={{ base: 'column', sm: 'row' }}
+                    alignItems={{ lg: 'center' }}
+                    justify={{ sm: 'space-between' }}
                     gap={3}
                     px={0}
                     py={0}
                 >
-                    <Badge variant='time' minW='6.5rem' maxW='min-content' px={2}>
+                    <Badge variant='time' minW='6.5rem' maxW='min-content' px={2} mt={{ lg: 1.5 }}>
                         <Icon boxSize={4} mr={{ base: 2 }}>
                             <TimeIcon />
                         </Icon>
@@ -143,12 +158,16 @@ function RecipeHeader({ recipe }: RecipeHeaderProps) {
                         <Button
                             variant='outline'
                             colorScheme='black'
-                            size={{ base: 'xs', lg: 'sm' }}
+                            size={{ base: 'xs', lg: 'sm', xl: 'lg' }}
                         >
                             <HeartEyesIcon color='black' />
                             <Text ml={2}>Оценить рецепт</Text>
                         </Button>
-                        <Button variant='solid' bg='lime.400' size={{ base: 'xs', lg: 'sm' }}>
+                        <Button
+                            variant='solid'
+                            bg='lime.400'
+                            size={{ base: 'xs', lg: 'sm', xl: 'lg' }}
+                        >
                             <BookmarkIcon color='black' />
                             <Text ml={2}>Сохранить в закладки</Text>
                         </Button>

@@ -14,22 +14,21 @@ function StepCard({ step, isLast }: StepCardProps) {
             direction='row'
             overflow='hidden'
             variant='outline'
-            minW={['19.375rem', '20.5rem', '21.75rem', '22.25rem', '55rem', null, '41.75rem']}
-            maxW={['19.375rem', '20.5rem', '21.75rem', '22.25rem', '55rem', null, '41.75rem']}
-            minH={{ base: '7.75rem', xs: '8rem', md: '8.0625rem', lg: '15.25rem' }}
+            minW={['19.375rem', '20.5rem', '37.25rem', '37.75rem', '36.125rem', null, '41.75rem']}
+            maxW={['19.375rem', '20.5rem', '37.25rem', '37.75rem', '36.125rem', null, '41.75rem']}
             maxH={{ base: '7.75rem', xs: '8rem', md: '8.0625rem', lg: '15.25rem' }}
         >
             {image && (
                 <Image
                     objectFit='cover'
-                    w={{ base: '158px', sm: '200px' }}
+                    w={{ base: '9.875rem', lg: '21.625rem' }}
                     minH={{ base: '7.75rem', xs: '8rem', md: '8.0625rem', lg: '15.25rem' }}
                     src={image}
                     alt={`Фото шаг ${stepNumber}`}
                 />
             )}
             <Stack>
-                <CardBody p={2}>
+                <CardBody p={{ base: 2, lg: '1.375rem', xl: '1.25rem 1.5rem' }}>
                     <Badge
                         py={0}
                         px={{ base: '8px', lg: 2 }}

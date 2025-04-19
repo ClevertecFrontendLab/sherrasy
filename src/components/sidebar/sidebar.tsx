@@ -20,7 +20,7 @@ function Sidebar() {
             right={{ base: '60px', xs: '64px', sm: '76px', lg: 0 }}
             zIndex='10'
         >
-            <Flex flexDirection={{ lg: 'column' }} gap={{ base: 0, sm: 6 }}>
+            <Flex flexDirection={{ lg: 'column' }} gap={{ base: 0, lg: 6 }}>
                 <Button
                     variant='ghost'
                     leftIcon={<BookmarkIcon color='black' />}

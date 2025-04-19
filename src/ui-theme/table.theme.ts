@@ -12,18 +12,18 @@ const customTable = definePartsStyle((props) => {
         th: {
             paddingY: '10px',
             '&:first-of-type': {
-                paddingX: '0.5rem',
+                paddingX: ['0.5rem', null, '1.5rem'],
             },
             '&:last-of-type': {
                 paddingX: 0,
             },
         },
         td: {
-            paddingX: '0.5rem',
-            paddingY: '0.625rem',
+            paddingX: ['0.5rem', null, '1.5rem'],
+            paddingY: ['0.625rem', null, null, null, '1rem'],
         },
         tr: {
-            'td:first-child': {
+            'td:first-of-type': {
                 textAlign: 'start',
             },
             'td:last-child': {
