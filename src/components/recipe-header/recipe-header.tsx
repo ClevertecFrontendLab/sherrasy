@@ -61,6 +61,7 @@ function RecipeHeader({ recipe }: RecipeHeaderProps) {
                                     py='1px'
                                     px={{ base: '0.25rem', lg: 2 }}
                                     variant='hCard'
+                                    maxW='min-content'
                                 >
                                     <Icon boxSize={4} mr={{ base: 0.5, lg: 1.5 }}>
                                         {iconsByTag[item]}

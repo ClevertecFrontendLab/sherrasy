@@ -1,4 +1,5 @@
-import { Box, Flex } from '@chakra-ui/react';
+import { Box, Flex, Text } from '@chakra-ui/react';
+import { useParams } from 'react-router';
 
 import { newMockData } from '~/components/cards/mock-cards.json';
 import AuthorCard from '~/components/cards/user-cards/author-card';
@@ -7,7 +8,6 @@ import NewSection from '~/components/new-section/new-section';
 import RecipeDetails from '~/components/recipe-details/recipe-details';
 import RecipeHeader from '~/components/recipe-header/recipe-header';
 import RecipeSteps from '~/components/recipe-steps/recipe-steps';
-import { FullRecipe } from '~/types/recipe.interface';
 
 const MockAuthor = {
     id: 16,
@@ -19,7 +19,14 @@ const MockAuthor = {
 };
 
 function RecipePage() {
-    const recipe: FullRecipe = newMockData[0];
+    const { recipeId } = useParams();
+    if (!recipeId) {
+        return <Text>No data found</Text>;
+    }
+    const recipe = newMockData.find((item) => item.id === recipeId);
+    if (!recipe) {
+        return <Text>No data found</Text>;
+    }
     const { portions, nutritionValue, ingredients, steps } = recipe;
     return (
         <>

@@ -16,6 +16,7 @@ import {
 } from '@chakra-ui/react';
 
 import { BookmarkIcon, HeartEyesIcon } from '~/assets/icons/icons';
+import { withRecipeNavigation } from '~/hoc/withRecipeNavigation';
 import { FullRecipe } from '~/types/recipe.interface';
 import { TagToName } from '~/utils/constant';
 import { iconsByTag } from '~/utils/iconsByTag';
@@ -24,16 +25,17 @@ import { cookBlog } from '../mock-cards.json';
 
 type CardProps = {
     recipe: FullRecipe;
+    onClick: () => void;
 };
 type RecipeCardProps = CardProps & {
     type: 'horizontal' | 'vertical';
 };
 
-function VerticalRecipeCard({ recipe }: CardProps) {
+function VerticalRecipeCard({ recipe, onClick }: CardProps) {
     const { title, image, description, category, bookmarks, likes } = recipe;
     const [isDesktop] = useMediaQuery('(min-width: 1440px)');
     return (
-        <Card position='relative' variant='vCard'>
+        <Card position='relative' variant='vCard' onClick={onClick}>
             <CardBody>
                 <Image
                     objectFit='cover'
@@ -56,8 +58,8 @@ function VerticalRecipeCard({ recipe }: CardProps) {
                         fontWeight={500}
                         fontSize={{ base: 'md', lg: 'lg', '2xl': 'xl' }}
                         lineHeight={{ base: 6, lg: 7 }}
-                        isTruncated={isDesktop}
                         noOfLines={{ base: 2, lg: 1 }}
+                        wordBreak={{ lg: 'break-all' }}
                     >
                         {title}
                     </Text>
@@ -119,14 +121,14 @@ function VerticalRecipeCard({ recipe }: CardProps) {
     );
 }
 
-function HorizontalRecipeCard({ recipe }: CardProps) {
+function HorizontalRecipeCard({ recipe, onClick }: CardProps) {
     const { title, image, description, category, bookmarks, likes, recommendedBy } = recipe;
     const author = recommendedBy
         ? cookBlog.find((item) => item.id === recommendedBy) || null
         : null;
     const [isDesktop] = useMediaQuery('(min-width: 1440px)');
     return (
-        <Card direction='row' variant='hCard'>
+        <Card direction='row' variant='hCard' onClick={onClick}>
             <Box position='relative' maxW='50%' maxH='100%'>
                 <Image
                     objectFit='cover'
@@ -280,12 +282,14 @@ function HorizontalRecipeCard({ recipe }: CardProps) {
     );
 }
 
-function RecipeCard({ recipe, type }: RecipeCardProps) {
+function RecipeCardComponent({ recipe, type, onClick }: RecipeCardProps) {
     return type === 'vertical' ? (
-        <VerticalRecipeCard recipe={recipe} />
+        <VerticalRecipeCard recipe={recipe} onClick={onClick} />
     ) : (
-        <HorizontalRecipeCard recipe={recipe} />
+        <HorizontalRecipeCard recipe={recipe} onClick={onClick} />
     );
 }
+
+const RecipeCard = withRecipeNavigation(RecipeCardComponent);
 
 export default RecipeCard;

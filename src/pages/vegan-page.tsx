@@ -6,9 +6,10 @@ import Layout from '~/components/layout/layout';
 import data from '~/components/menu-dishes/mock-dishes.json';
 import RecipesTabs from '~/components/recipes-tabs/recipes-tabs';
 import RelevantKitchenSection from '~/components/relevant-kitchen-section/relevant-kitchen-section';
+import { getTabNames } from '~/utils/helpers';
 
 function VeganPage() {
-    const tabsNames = data.find(({ tag }) => tag === 'vegan')?.elements || [];
+    const tabsNames = getTabNames(data);
     const contentData = {
         headline: 'Веганская кухня',
         description:

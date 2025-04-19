@@ -1,12 +1,36 @@
-import { Box, Button, Flex, Heading } from '@chakra-ui/react';
+import { Box, Button, Heading } from '@chakra-ui/react';
+import { useRef } from 'react';
+import { Swiper as SwiperType } from 'swiper';
+import { Navigation } from 'swiper/modules';
+import { Swiper, SwiperSlide } from 'swiper/react';
 
 import { ArrowLeftIcon, ArrowRightIcon } from '~/assets/icons/icons';
-import { newList } from '~/components/cards/mock-cards.json';
-import { RecipeWithImage } from '~/types/recipe.interface';
+import { newMockData } from '~/components/cards/mock-cards.json';
+import { FullRecipe } from '~/types/recipe.interface';
+import { getSortedNewRecipes } from '~/utils/helpers';
 
 import RecipeCard from '../cards/recipe-cards/recipe-card';
 
 function NewSection() {
+    const swiperBreakponts = {
+        0: {
+            spaceBetween: 12,
+        },
+        480: {
+            spaceBetween: 10,
+        },
+        768: {
+            spaceBetween: 12,
+        },
+        1440: {
+            spaceBetween: 10,
+        },
+        1920: {
+            spaceBetween: 24,
+        },
+    };
+    const swiperRef = useRef<SwiperType>(null);
+    const currentRecipes = getSortedNewRecipes(newMockData);
     return (
         <Box
             mt={{ base: 3.5, xs: 4, lg: '2.5rem' }}
@@ -22,21 +46,26 @@ function NewSection() {
                 Новые рецепты
             </Heading>
             <Box position='relative' data-test-id='carousel'>
-                <Flex
-                    gap={{ base: 3, sm: 2.5, md: 3, lg: 2.5, '2xl': 6 }}
-                    overflowX='auto'
-                    overflowY='hidden'
-                    sx={{ scrollbarWidth: 'none' }}
+                <Swiper
+                    modules={[Navigation]}
+                    onBeforeInit={(swiper) => {
+                        swiperRef.current = swiper;
+                    }}
+                    spaceBetween={6}
+                    slidesPerView='auto'
+                    loop={true}
+                    breakpoints={swiperBreakponts}
                 >
-                    {newList.map((item: RecipeWithImage, i: number) => (
-                        <RecipeCard
-                            key={item.id}
-                            recipe={item}
-                            type='vertical'
-                            data-test-id={`carousel-card-${i}`}
-                        />
+                    {currentRecipes.map((item: FullRecipe, i: number) => (
+                        <SwiperSlide key={item.id} style={{ width: 'auto' }}>
+                            <RecipeCard
+                                recipe={item}
+                                type='vertical'
+                                data-test-id={`carousel-card-${i}`}
+                            />
+                        </SwiperSlide>
                     ))}
-                </Flex>
+                </Swiper>
                 <Button
                     paddingInline={0}
                     minW={{ lg: '2.5rem', '2xl': '3rem' }}
@@ -48,6 +77,8 @@ function NewSection() {
                     top={{ lg: '37.5%', '2xl': '36%' }}
                     left='-2'
                     data-test-id='carousel-back'
+                    onClick={() => swiperRef.current?.slidePrev()}
+                    zIndex={9}
                 >
                     <ArrowLeftIcon boxSize={{ lg: 4, '2xl': 6 }} />
                 </Button>
@@ -62,6 +93,8 @@ function NewSection() {
                     top={{ lg: '37.5%', '2xl': '36%' }}
                     right='-2'
                     data-test-id='carousel-forward'
+                    onClick={() => swiperRef.current?.slideNext()}
+                    zIndex={9}
                 >
                     <ArrowRightIcon boxSize={{ lg: 4, '2xl': 6 }} />
                 </Button>
