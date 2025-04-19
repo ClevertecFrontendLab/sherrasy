@@ -7,23 +7,8 @@ type NutritionCardProps = {
 
 function NutritionCard({ name, amount }: NutritionCardProps) {
     return (
-        <Card
-            textAlign='start'
-            px={3}
-            py={4}
-            borderRadius='0.875rem'
-            variant='outline'
-            w={{ base: '20.5rem', sm: '10.8125rem', lg: '8.4375rem', xl: '9.3125rem' }}
-        >
-            <CardBody
-                p={0}
-                display='flex'
-                flexDirection={{ base: 'row', sm: 'column' }}
-                alignItems='center'
-                justifyContent='space-between'
-                textAlign={{ sm: 'center' }}
-                gap={{ sm: 3 }}
-            >
+        <Card variant='nutrition'>
+            <CardBody>
                 <Text
                     fontSize={{ base: 'sm' }}
                     lineHeight={5}

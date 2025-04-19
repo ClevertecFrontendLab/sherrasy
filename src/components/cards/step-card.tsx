@@ -10,14 +10,7 @@ type StepCardProps = {
 function StepCard({ step, isLast }: StepCardProps) {
     const { image, stepNumber, description } = step;
     return (
-        <Card
-            direction='row'
-            overflow='hidden'
-            variant='outline'
-            minW={['19.375rem', '20.5rem', '37.25rem', '37.75rem', '36.125rem', null, '41.75rem']}
-            maxW={['19.375rem', '20.5rem', '37.25rem', '37.75rem', '36.125rem', null, '41.75rem']}
-            maxH={{ base: '7.75rem', xs: '8rem', md: '8.0625rem', lg: '15.25rem' }}
-        >
+        <Card direction='row' variant='recipeStep'>
             {image && (
                 <Image
                     objectFit='cover'
@@ -28,7 +21,7 @@ function StepCard({ step, isLast }: StepCardProps) {
                 />
             )}
             <Stack>
-                <CardBody p={{ base: 2, lg: '1.375rem', xl: '1.25rem 1.5rem' }}>
+                <CardBody>
                     <Badge
                         py={0}
                         px={{ base: '8px', lg: 2 }}

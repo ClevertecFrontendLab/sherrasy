@@ -28,37 +28,8 @@ type RelevantKitchenCardProps = RKCardProps & {
 function RKMediumCard({ recipe }: RKCardProps) {
     const { title, description, tag, bookmarks, likes } = recipe;
     return (
-        <Card
-            minW={{ base: '19.375rem', xs: '20.5rem', sm: '14.25rem', md: '14.5rem' }}
-            maxW={{
-                base: '19.375rem',
-                xs: '20.5rem',
-                sm: '14.25rem',
-                md: '14.5rem',
-                lg: '17.625rem',
-                '2xl': '20.125rem',
-            }}
-            minH={{
-                base: '10rem',
-                xs: '10.5rem',
-                sm: '10.25rem',
-                md: '10.5rem',
-                lg: '11.25rem',
-                '2xl': '12rem',
-            }}
-            maxH={{
-                base: '10rem',
-                xs: '10.5rem',
-                sm: '10.25rem',
-                md: '10.5rem',
-                lg: '11.25rem',
-                '2xl': '12rem',
-            }}
-            variant='outline'
-            p={{ base: 2.5, xs: 3, lg: 3.5, '2xl': '1.375rem' }}
-            pb={{ lg: '1rem', '2xl': '1.375rem' }}
-        >
-            <CardHeader p={0} pb={2}>
+        <Card variant='rkMedium'>
+            <CardHeader>
                 <Text
                     fontSize={{ base: 'md', lg: 'xl' }}
                     lineHeight={{ base: 6, lg: 7 }}
@@ -68,18 +39,12 @@ function RKMediumCard({ recipe }: RKCardProps) {
                     {title}
                 </Text>
             </CardHeader>
-            <CardBody p={0}>
+            <CardBody>
                 <Text fontSize='sm' lineHeight={5} noOfLines={3}>
                     {description}
                 </Text>
             </CardBody>
-            <CardFooter
-                p={0}
-                pb={{ md: 0.5 }}
-                justify={{ base: 'space-between' }}
-                maxH='1.5rem'
-                position='relative'
-            >
+            <CardFooter position='relative'>
                 <Badge py={{ base: 1, md: 0 }} px={2} variant='rkCard'>
                     <Icon boxSize={4} mr={{ base: 2, lg: 1.5 }}>
                         {iconsByTag[tag]}
@@ -143,33 +108,8 @@ function RKMediumCard({ recipe }: RKCardProps) {
 function RKShortCard({ recipe }: RKCardProps) {
     const { title, tag } = recipe;
     return (
-        <Card
-            variant='outline'
-            h='100%'
-            minH={{ base: '3rem', xs: '3.25rem', md: '3.125rem', lg: '3.25rem', '2xl': '3.5rem' }}
-            maxH={{ base: '3rem', xs: '3.25rem', md: '3.125rem', lg: '3.25rem', '2xl': '3.5rem' }}
-            minW={{ '2xl': '41.75rem' }}
-            maxW={{
-                base: '19.375rem',
-                xs: '20.5rem',
-                sm: '14.5rem',
-                md: '14.875rem',
-                lg: '17.6875rem',
-                '2xl': '41.75rem',
-            }}
-            p={{ base: 2.5, xs: 3, '2xl': 3 }}
-            pr={{ lg: 0.5 }}
-        >
-            <CardBody
-                p={0}
-                display='flex'
-                justifyContent='space-between'
-                alignItems='center'
-                maxH='32px'
-                gap={{ base: 2, xs: 1, lg: 0 }}
-                pb={{ base: 2, xs: 1.5 }}
-                position='relative'
-            >
+        <Card variant='rkShort'>
+            <CardBody position='relative'>
                 <HStack
                     py={1}
                     ml={{ '2xl': 3 }}

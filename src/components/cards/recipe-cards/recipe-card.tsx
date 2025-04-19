@@ -33,15 +33,8 @@ function VerticalRecipeCard({ recipe }: CardProps) {
     const { title, image, description, tag, bookmarks, likes } = recipe;
     const [isDesktop] = useMediaQuery('(min-width: 1440px)');
     return (
-        <Card
-            minW={['9.3125rem', '9.875rem', '9.75rem', '9.875rem', '17.4375rem', null, '20.125rem']}
-            maxW={['9.3125rem', '9.875rem', '9.75rem', '9.875rem', '17.4375rem', null, '20.125rem']}
-            minH={['13rem', '13.75rem', '13.5rem', '13.75rem', '25.125rem', null, '25.875rem']}
-            maxH={['13rem', '13.75rem', '13.5rem', '13.75rem', '25.125rem', null, '25.875rem']}
-            position='relative'
-            variant='outline'
-        >
-            <CardBody p={0}>
+        <Card position='relative' variant='vCard'>
+            <CardBody>
                 <Image
                     objectFit='cover'
                     src={image}
@@ -75,10 +68,7 @@ function VerticalRecipeCard({ recipe }: CardProps) {
                     )}
                 </Stack>
             </CardBody>
-            <CardFooter
-                px={{ base: 1.5, xs: 2, lg: 3, '2xl': '22px' }}
-                py={{ base: 0, lg: 1.5, '2xl': 3 }}
-            >
+            <CardFooter>
                 <Flex w='100%' justify='space-between' align={{ lg: 'center' }}>
                     <Badge
                         py='0.0625rem'
@@ -136,14 +126,7 @@ function HorizontalRecipeCard({ recipe }: CardProps) {
         : null;
     const [isDesktop] = useMediaQuery('(min-width: 1440px)');
     return (
-        <Card
-            minH={{ base: '7.75rem', xs: '8rem', md: '8.0625rem', lg: '15.25rem' }}
-            maxH={{ base: '7.75rem', xs: '8rem', md: '8.0625rem', lg: '15.25rem' }}
-            minW={['19.375rem', '20.5rem', '21.75rem', '22.25rem', '55rem', null, '41.75rem']}
-            maxW={['19.375rem', '20.5rem', '21.75rem', '22.25rem', '55rem', null, '41.75rem']}
-            direction='row'
-            variant='outline'
-        >
+        <Card direction='row' variant='hCard'>
             <Box position='relative' maxW='50%' maxH='100%'>
                 <Image
                     objectFit='cover'
@@ -184,7 +167,7 @@ function HorizontalRecipeCard({ recipe }: CardProps) {
                 w='100%'
                 maxW={{ lg: '33.375rem', '2xl': '20.125rem' }}
             >
-                <CardBody py={{ base: 2, lg: 1 }} px={0} minW='10.1875rem'>
+                <CardBody>
                     <Flex justify='space-between' align={{ lg: 'center' }}>
                         <Badge
                             py='1px'
@@ -269,14 +252,7 @@ function HorizontalRecipeCard({ recipe }: CardProps) {
                         )}
                     </Box>
                 </CardBody>
-                <CardFooter
-                    justifyContent='flex-end'
-                    gap={{ base: 2, xs: 3, sm: 7, md: 3, lg: 2 }}
-                    py={0}
-                    px={{ base: 3, xs: '10px', sm: 2, lg: 3, '2xl': 0 }}
-                    pr={{ base: 4, xs: '10px' }}
-                    pb={{ lg: 1, '2xl': 0.5 }}
-                >
+                <CardFooter>
                     <Button
                         variant='outline'
                         colorScheme='black'
