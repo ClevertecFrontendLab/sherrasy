@@ -1,11 +1,11 @@
 import { Button, Flex, SimpleGrid, Text } from '@chakra-ui/react';
 
-import { RecipeWithImage } from '~/types/recipe.interface';
+import { FullRecipe } from '~/types/recipe.interface';
 
 import RecipeCard from '../cards/recipe-cards/recipe-card';
 
 type RecipesListProps = {
-    recipes: RecipeWithImage[];
+    recipes: FullRecipe[];
 };
 
 function RecipesList({ recipes }: RecipesListProps) {
@@ -20,7 +20,7 @@ function RecipesList({ recipes }: RecipesListProps) {
                     xl: 'repeat(2, minmax(41.75rem, 1fr))',
                 }}
             >
-                {recipes.map((item: RecipeWithImage, i: number) => (
+                {recipes.map((item: FullRecipe, i: number) => (
                     <RecipeCard
                         key={item.id}
                         recipe={item}

@@ -16,21 +16,21 @@ import {
 } from '@chakra-ui/react';
 
 import { BookmarkIcon, HeartEyesIcon } from '~/assets/icons/icons';
-import { RecipeWithImage } from '~/types/recipe.interface';
+import { FullRecipe } from '~/types/recipe.interface';
 import { TagToName } from '~/utils/constant';
 import { iconsByTag } from '~/utils/iconsByTag';
 
 import { cookBlog } from '../mock-cards.json';
 
 type CardProps = {
-    recipe: RecipeWithImage;
+    recipe: FullRecipe;
 };
 type RecipeCardProps = CardProps & {
     type: 'horizontal' | 'vertical';
 };
 
 function VerticalRecipeCard({ recipe }: CardProps) {
-    const { title, image, description, tag, bookmarks, likes } = recipe;
+    const { title, image, description, category, bookmarks, likes } = recipe;
     const [isDesktop] = useMediaQuery('(min-width: 1440px)');
     return (
         <Card position='relative' variant='vCard'>
@@ -79,9 +79,9 @@ function VerticalRecipeCard({ recipe }: CardProps) {
                         variant='vCard'
                     >
                         <Icon boxSize={4} mr={{ base: '1px', lg: 1.5 }}>
-                            {iconsByTag[tag]}
+                            {iconsByTag[category[0]]}
                         </Icon>
-                        {TagToName[tag]}
+                        {TagToName[category[0]]}
                     </Badge>
                     <ButtonGroup spacing='9px'>
                         {bookmarks > 0 && (
@@ -120,7 +120,7 @@ function VerticalRecipeCard({ recipe }: CardProps) {
 }
 
 function HorizontalRecipeCard({ recipe }: CardProps) {
-    const { title, image, description, tag, bookmarks, likes, recommendedBy } = recipe;
+    const { title, image, description, category, bookmarks, likes, recommendedBy } = recipe;
     const author = recommendedBy
         ? cookBlog.find((item) => item.id === recommendedBy) || null
         : null;
@@ -178,9 +178,9 @@ function HorizontalRecipeCard({ recipe }: CardProps) {
                             variant='hCard'
                         >
                             <Icon boxSize={4} mr={{ base: 0.5, lg: 1.5 }}>
-                                {iconsByTag[tag]}
+                                {iconsByTag[category[0]]}
                             </Icon>
-                            <Text>{TagToName[tag]}</Text>
+                            <Text>{TagToName[category[0]]}</Text>
                         </Badge>
                         <ButtonGroup
                             spacing={4}

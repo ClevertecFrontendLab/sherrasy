@@ -2,8 +2,8 @@ import { Button, Flex, Heading, SimpleGrid, Text, useMediaQuery } from '@chakra-
 import { useNavigate } from 'react-router';
 
 import { ArrowRightIcon } from '~/assets/icons/icons';
-import { juicyListShort } from '~/components/cards/mock-cards.json';
-import { RecipeWithImage } from '~/types/recipe.interface';
+import { newMockData } from '~/components/cards/mock-cards.json';
+import { FullRecipe } from '~/types/recipe.interface';
 
 import RecipeCard from '../cards/recipe-cards/recipe-card';
 
@@ -57,7 +57,7 @@ function JuicySection() {
                     xl: 'repeat(2, minmax(41.75rem, 1fr))',
                 }}
             >
-                {juicyListShort.map((item: RecipeWithImage) => (
+                {newMockData.map((item: FullRecipe) => (
                     <RecipeCard key={item.id} recipe={item} type='horizontal' />
                 ))}
             </SimpleGrid>

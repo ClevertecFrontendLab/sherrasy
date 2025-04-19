@@ -14,19 +14,19 @@ import {
 } from '@chakra-ui/react';
 
 import { BookmarkIcon, HeartEyesIcon } from '~/assets/icons/icons';
-import { Recipe } from '~/types/recipe.interface';
+import { FullRecipe } from '~/types/recipe.interface';
 import { TagToName } from '~/utils/constant';
 import { iconsByTag } from '~/utils/iconsByTag';
 
 type RKCardProps = {
-    recipe: Recipe;
+    recipe: FullRecipe;
 };
 type RelevantKitchenCardProps = RKCardProps & {
     type: 'medium' | 'small';
 };
 
 function RKMediumCard({ recipe }: RKCardProps) {
-    const { title, description, tag, bookmarks, likes } = recipe;
+    const { title, description, category, bookmarks, likes } = recipe;
     return (
         <Card variant='rkMedium'>
             <CardHeader>
@@ -47,9 +47,9 @@ function RKMediumCard({ recipe }: RKCardProps) {
             <CardFooter position='relative'>
                 <Badge py={{ base: 1, md: 0 }} px={2} variant='rkCard'>
                     <Icon boxSize={4} mr={{ base: 2, lg: 1.5 }}>
-                        {iconsByTag[tag]}
+                        {iconsByTag[category[0]]}
                     </Icon>
-                    <Text>{TagToName[tag]}</Text>
+                    <Text>{TagToName[category[0]]}</Text>
                 </Badge>
                 <Spacer />
                 <ButtonGroup
@@ -106,7 +106,7 @@ function RKMediumCard({ recipe }: RKCardProps) {
 }
 
 function RKShortCard({ recipe }: RKCardProps) {
-    const { title, tag } = recipe;
+    const { title, category } = recipe;
     return (
         <Card variant='rkShort'>
             <CardBody position='relative'>
@@ -119,7 +119,7 @@ function RKShortCard({ recipe }: RKCardProps) {
                         '2xl': 'max-content',
                     }}
                 >
-                    {iconsByTag[tag]}
+                    {iconsByTag[category[0]]}
                     <Heading
                         size={{ base: 'sm', '2xl': 'md' }}
                         ml={{ lg: 0.5, '2xl': 1 }}

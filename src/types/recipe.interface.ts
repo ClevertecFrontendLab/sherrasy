@@ -1,16 +1,3 @@
-export interface Recipe {
-    id: number;
-    title: string;
-    description: string;
-    tag: string;
-    bookmarks: number;
-    likes: number;
-}
-export interface RecipeWithImage extends Recipe {
-    image: string;
-    recommendedBy?: number | null;
-}
-
 export interface NutritionValue {
     calories: number;
     proteins: number;
@@ -45,4 +32,5 @@ export interface FullRecipe {
     steps: RecipeStep[];
     meat?: string;
     side?: string;
+    recommendedBy?: number | null; //temp
 }
