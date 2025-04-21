@@ -1,11 +1,11 @@
 import { Box } from '@chakra-ui/react';
 
-import { newMockData } from '~/components/cards/mock-cards.json';
 import ContentHeader from '~/components/content-header/content-header';
 import Layout from '~/components/layout/layout';
-import data from '~/components/menu-dishes/mock-dishes.json';
 import RecipesTabs from '~/components/recipes-tabs/recipes-tabs';
 import RelevantKitchenSection from '~/components/relevant-kitchen-section/relevant-kitchen-section';
+import { newMockData } from '~/utils/data/mock-cards.json';
+import data from '~/utils/data/mock-dishes.json';
 import { getTabNames } from '~/utils/helpers';
 
 function VeganPage() {

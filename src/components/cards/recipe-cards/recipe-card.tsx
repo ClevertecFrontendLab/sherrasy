@@ -19,9 +19,8 @@ import { BookmarkIcon, HeartEyesIcon } from '~/assets/icons/icons';
 import { withRecipeNavigation } from '~/hoc/withRecipeNavigation';
 import { FullRecipe } from '~/types/recipe.interface';
 import { TagToName } from '~/utils/constant';
+import { cookBlog } from '~/utils/data/mock-cards.json';
 import { iconsByTag } from '~/utils/iconsByTag';
-
-import { cookBlog } from '../mock-cards.json';
 
 type CardProps = {
     recipe: FullRecipe;

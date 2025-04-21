@@ -2,10 +2,10 @@ import { ChevronRightIcon } from '@chakra-ui/icons';
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, Text } from '@chakra-ui/react';
 import { Link, useLocation, useParams } from 'react-router';
 
-import data from '~/components/menu-dishes/mock-dishes.json';
 import { MenuSubcategory } from '~/types/menu-item.type';
 import { PathParams } from '~/types/params.type';
 import { AppRoute, TagToName } from '~/utils/constant';
+import data from '~/utils/data/mock-dishes.json';
 import { getTabNames } from '~/utils/helpers';
 
 const renderSubcategoryBreadcrumb = (
@@ -28,7 +28,7 @@ const renderSubcategoryBreadcrumb = (
 
 const renderRecipeBreadcrumb = (recipeName: string, recipeId: string, isLast: boolean) => (
     <BreadcrumbItem key={recipeId} isCurrentPage={isLast}>
-        <BreadcrumbLink maxW={{ lg: '70%', xl: '90%' }}>
+        <BreadcrumbLink maxW={{ base: '50%', lg: '70%', xl: '90%' }}>
             <Text isTruncated>{recipeName}</Text>
         </BreadcrumbLink>
     </BreadcrumbItem>
@@ -72,7 +72,7 @@ function Breadcrumbs() {
 
     return (
         <Breadcrumb
-            ml={32}
+            ml={{ lg: 32 }}
             spacing='2px'
             data-test-id='breadcrumbs'
             separator={<ChevronRightIcon />}

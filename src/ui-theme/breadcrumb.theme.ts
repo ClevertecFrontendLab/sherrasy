@@ -5,6 +5,11 @@ const { definePartsStyle, defineMultiStyleConfig } = createMultiStyleConfigHelpe
     breadcrumbAnatomy.keys,
 );
 const breadcrumbStyle = definePartsStyle({
+    list: {
+        flexWrap: ['wrap', null, null, null, null, 'nowrap'],
+        display: 'flex',
+        alignItems: 'center',
+    },
     link: {
         color: 'blackAlpha.700',
         "&[aria-current='page']": {

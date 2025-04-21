@@ -116,7 +116,7 @@ function RKShortCard({ recipe }: RKCardProps) {
                     maxW={{
                         base: 'calc(100% - 74px)',
                         lg: 'calc(100% - 80px)',
-                        '2xl': 'max-content',
+                        '2xl': 'calc(100% - 150px)',
                     }}
                 >
                     {iconsByTag[category[0]]}

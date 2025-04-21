@@ -1,10 +1,10 @@
 import { Box } from '@chakra-ui/react';
 
-import { newMockData } from '~/components/cards/mock-cards.json';
 import ContentHeader from '~/components/content-header/content-header';
 import Layout from '~/components/layout/layout';
 import RecipesList from '~/components/recipes-list/recipes-list';
 import RelevantKitchenSection from '~/components/relevant-kitchen-section/relevant-kitchen-section';
+import { newMockData } from '~/utils/data/mock-cards.json';
 
 function JuicyPage() {
     return (

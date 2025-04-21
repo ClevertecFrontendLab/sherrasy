@@ -19,10 +19,10 @@ import { useLocation, useNavigate, useParams } from 'react-router';
 import { ExitIcon } from '~/assets/icons/icons';
 import { MenuItem } from '~/types/menu-item.type';
 import { PathParams } from '~/types/params.type';
+import data from '~/utils/data/mock-dishes.json';
 import { iconsByTag } from '~/utils/iconsByTag';
 
 import ScrollArea from '../scrollarea/scrollarea';
-import data from './mock-dishes.json';
 
 function MenuDishes() {
     const navigate = useNavigate();
@@ -52,16 +52,17 @@ function MenuDishes() {
             direction='column'
             justify='space-between'
             borderRight='1px solid'
-            w={{ lg: '16rem', xl: '16.125rem', '2xl': '16rem' }}
-            h='calc(100vh - 80px)'
+            w={{ base: '302px', sm: '314px', lg: '16rem', xl: '16.125rem', '2xl': '16rem' }}
+            h={{ base: 'calc(100vh - 240px)', lg: 'calc(100vh - 80px)' }}
             borderColor='blackAlpha.100'
             position={{ lg: 'fixed' }}
             left={0}
+            mt={{ base: 5, sm: 8, lg: 0 }}
             bg='white'
         >
             <ScrollArea>
                 <Accordion
-                    ml={{ lg: 1, xl: 2, '2xl': 1 }}
+                    ml={{ base: 0, lg: 1, xl: 2, '2xl': 1 }}
                     allowToggle
                     variant='ghost'
                     overflowY='auto'
@@ -75,8 +76,9 @@ function MenuDishes() {
                                 _expanded={{ bg: 'lime.100', fontWeight: '600' }}
                                 _hover={{ bg: 'lime.50' }}
                                 onClick={() => handleMenuClick('vegan', item.elements[0].id)}
-                                pt={3}
+                                pt={{ base: 3, xl: 2 }}
                                 pr={2}
+                                pl={{ base: 0, lg: 4 }}
                             >
                                 <Flex flex='1' textAlign='left'>
                                     <Icon mr={3} boxSize={6}>
@@ -86,7 +88,7 @@ function MenuDishes() {
                                         {item.groupName}
                                     </Text>
                                 </Flex>
-                                <AccordionIcon boxSize={6} />
+                                <AccordionIcon boxSize={{ base: 6, xl: 7 }} mr={{ xl: 2 }} />
                             </AccordionButton>
                             <AccordionPanel pb={2} pr={1}>
                                 <List spacing={3}>
@@ -94,10 +96,13 @@ function MenuDishes() {
                                         <ListItem
                                             key={`${subcategory.id}-${item.tag}`}
                                             onClick={() => handleMenuClick('vegan', subcategory.id)}
-                                            pl={{ lg: subcategoryParam === subcategory.id ? 7 : 9 }}
+                                            pl={{
+                                                base: subcategoryParam === subcategory.id ? 3 : 5,
+                                                lg: subcategoryParam === subcategory.id ? 7 : 9,
+                                            }}
                                             data-test-id={
                                                 subcategoryParam === subcategory.id &&
-                                                `tab-${subcategory}-active`
+                                                `${subcategory}-active`
                                             }
                                         >
                                             <Text
@@ -124,7 +129,7 @@ function MenuDishes() {
                 </Accordion>
             </ScrollArea>
             <Spacer />
-            <Box px={7} py={5} w='240px' bottom={0}>
+            <Box px={{ base: 1, lg: 7 }} py={{ base: 2, lg: 5 }} w={{ lg: '240px' }} bottom={0}>
                 <Text color='blackAlpha.400' fontSize='xs' lineHeight={4}>
                     Версия программы 03.25
                 </Text>
@@ -132,7 +137,6 @@ function MenuDishes() {
                     <Text> Все права защищены, ученический файл,</Text>
                     <Text>©Клевер Технолоджи, 2025</Text>
                 </Box>
-
                 <Button variant='ghost' leftIcon={<ExitIcon />} p={0} fontSize='xs'>
                     Выйти
                 </Button>

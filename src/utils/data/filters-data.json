@@ -1,0 +1,42 @@
+[
+    {
+        "id": "meat",
+        "name": "Мясо",
+        "elements": [
+            { "id": "chicken", "name": "Курица" },
+            { "id": "pork", "name": "Свинина" },
+            { "id": "beef", "name": "Говядина" },
+            { "id": "turkey", "name": "Индейка" },
+            { "id": "duck", "name": "Утка" }
+        ]
+    },
+    {
+        "id": "side_dishes",
+        "name": "Гарнир",
+        "elements": [
+            { "id": "potatoes", "name": "Картошка" },
+            { "id": "buckwheat", "name": "Гречка" },
+            { "id": "pasta", "name": "Паста" },
+            { "id": "spaghetti", "name": "Спагетти" },
+            { "id": "rice", "name": "Рис" },
+            { "id": "cabbage", "name": "Капуста" },
+            { "id": "beans", "name": "Фасоль" },
+            { "id": "other_vegetables", "name": "Другие овощи" }
+        ]
+    },
+    {
+        "id": "allergens",
+        "name": "Аллергены",
+        "elements": [
+            { "id": "dairy_products", "name": "Молочные продукты" },
+            { "id": "egg", "name": "Яйцо" },
+            { "id": "fish", "name": "Рыба" },
+            { "id": "shellfish", "name": "Моллюски" },
+            { "id": "nuts", "name": "Орехи" },
+            { "id": "tomato", "name": "Томат (помидор)" },
+            { "id": "citrus", "name": "Цитрусовые" },
+            { "id": "strawberries_berries", "name": "Клубника (ягоды)" },
+            { "id": "chocolate", "name": "Шоколад" }
+        ]
+    }
+]

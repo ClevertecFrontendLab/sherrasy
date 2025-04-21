@@ -2,8 +2,8 @@ import { Button, Flex, Heading, SimpleGrid, Text, useMediaQuery } from '@chakra-
 import { useNavigate } from 'react-router';
 
 import { ArrowRightIcon } from '~/assets/icons/icons';
-import { newMockData } from '~/components/cards/mock-cards.json';
 import { FullRecipe } from '~/types/recipe.interface';
+import { newMockData } from '~/utils/data/mock-cards.json';
 
 import RecipeCard from '../cards/recipe-cards/recipe-card';
 

@@ -1,8 +1,8 @@
 import { Button, Flex, Heading, SimpleGrid, Text } from '@chakra-ui/react';
 
 import { ArrowRightIcon } from '~/assets/icons/icons';
-import { cookBlog } from '~/components/cards/mock-cards.json';
 import { Author } from '~/types/author.interface';
+import { cookBlog } from '~/utils/data/mock-cards.json';
 
 import CookBlogCard from '../cards/user-cards/cook-blog-card';
 

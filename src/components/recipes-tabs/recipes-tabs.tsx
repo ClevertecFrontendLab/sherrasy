@@ -1,16 +1,16 @@
-import { Box, Tab, TabList, TabPanel, TabPanels, Tabs, useMediaQuery } from '@chakra-ui/react';
+import { Tab, TabList, TabPanel, TabPanels, Tabs, useMediaQuery } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
 
 import { MenuSubcategory } from '~/types/menu-item.type';
 import { PathParams } from '~/types/params.type';
-import { RecipeWithImage } from '~/types/recipe.interface';
+import { FullRecipe } from '~/types/recipe.interface';
 
 import RecipesList from '../recipes-list/recipes-list';
 
 type RecipesTabsProps = {
     tabsNames: MenuSubcategory[];
-    recipes: RecipeWithImage[];
+    recipes: FullRecipe[];
 };
 
 function RecipesTabs({ tabsNames, recipes }: RecipesTabsProps) {
@@ -34,8 +34,11 @@ function RecipesTabs({ tabsNames, recipes }: RecipesTabsProps) {
             size={{ base: 'sm', lg: 'md' }}
             align={isDesktop ? 'center' : 'start'}
         >
-            <Box
-                overflowY='auto'
+            <TabList
+                borderBottomColor='blackAlpha.320'
+                display='flex'
+                flexWrap={isDesktop ? 'wrap' : 'nowrap'}
+                overflowX={isDesktop ? 'visible' : 'auto'}
                 sx={{
                     scrollbarWidth: 'none',
                     '::-webkit-scrollbar': {
@@ -43,21 +46,22 @@ function RecipesTabs({ tabsNames, recipes }: RecipesTabsProps) {
                     },
                 }}
             >
-                <TabList borderBottomColor='white'>
-                    {tabsNames.map(({ name }, i) => (
-                        <Tab
-                            key={name}
-                            _selected={{ color: 'lime.600', borderColor: 'lime.600' }}
-                            minW='max-content'
-                            onClick={() => handleSubcategoryClick(name)}
-                            borderBottomColor='blackAlpha.400'
-                            data-test-id={`tab-${name}-${i}`}
-                        >
-                            {name}
-                        </Tab>
-                    ))}
-                </TabList>
-            </Box>
+                {tabsNames.map(({ name, id }, i) => (
+                    <Tab
+                        key={name}
+                        _selected={{ color: 'lime.600', borderColor: 'lime.600' }}
+                        minW='max-content'
+                        onClick={() => handleSubcategoryClick(id)}
+                        borderBottomColor='transparent'
+                        data-test-id={`tab-${name}-${i}`}
+                        flexShrink={0}
+                        mb={0}
+                        mr={isDesktop ? 4 : 0}
+                    >
+                        {name}
+                    </Tab>
+                ))}
+            </TabList>
             <TabPanels p={0}>
                 {tabsNames.map((name) => (
                     <TabPanel p={0} pt={{ base: 5, xs: 6, md: '22px' }} key={`${name}-panel`}>

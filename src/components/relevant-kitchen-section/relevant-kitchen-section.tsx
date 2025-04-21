@@ -1,8 +1,9 @@
 import { Box, Divider, Flex, Heading, SimpleGrid, Text } from '@chakra-ui/react';
 import { useLocation } from 'react-router';
 
-import { textDessertList, textVeganList } from '~/components/cards/mock-cards.json';
+import { FullRecipe } from '~/types/recipe.interface';
 import { AppRoute } from '~/utils/constant';
+import { newMockData } from '~/utils/data/mock-cards.json';
 
 import RelevantKitchenCard from '../cards/recipe-cards/relevant-kitchen-card';
 
@@ -23,8 +24,9 @@ function RelevantKitchenSection() {
     const currentVariant = pathname.includes(AppRoute.Vegan)
         ? kitchenVariants.dessert
         : kitchenVariants.vegan;
-    const currentData = pathname.includes(AppRoute.Vegan) ? textDessertList : textVeganList;
-
+    const currentData: FullRecipe[] = pathname.includes('vegan')
+        ? newMockData.slice(0, 5)
+        : newMockData.slice(5, 10);
     return (
         <Box
             mt={{ base: '30px', xs: 8, lg: 14 }}

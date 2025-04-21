@@ -5,8 +5,8 @@ import { Navigation } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import { ArrowLeftIcon, ArrowRightIcon } from '~/assets/icons/icons';
-import { newMockData } from '~/components/cards/mock-cards.json';
 import { FullRecipe } from '~/types/recipe.interface';
+import { newMockData } from '~/utils/data/mock-cards.json';
 import { getSortedNewRecipes } from '~/utils/helpers';
 
 import RecipeCard from '../cards/recipe-cards/recipe-card';
