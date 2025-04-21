@@ -1,16 +1,9 @@
-import {
-    Button,
-    Flex,
-    FormControl,
-    FormLabel,
-    Input,
-    InputGroup,
-    InputRightElement,
-    Select,
-    Switch,
-} from '@chakra-ui/react';
+import { Flex, Input, InputGroup, InputRightElement } from '@chakra-ui/react';
 
-import { FilterIcon, SearchIcon } from '~/assets/icons/icons';
+import { SearchIcon } from '~/assets/icons/icons';
+
+import AlergiesFilter from '../allergies-filter/allergies-filter';
+import FilterDrawer from '../filter-drawer/filter-drawer';
 
 function ContentFilters() {
     return (
@@ -20,15 +13,7 @@ function ContentFilters() {
                 flex={1}
                 w={{ base: '19.5rem', xs: '20.5rem', sm: '27.5rem', md: '28rem', lg: '32.375rem' }}
             >
-                <Button
-                    size={{ base: 'sm', lg: 'lg' }}
-                    maxW={{ base: 4, lg: 8 }}
-                    p={0}
-                    variant='outline'
-                    borderColor='blackAlpha.600'
-                >
-                    <FilterIcon boxSize={{ base: 4, lg: 6 }} />
-                </Button>
+                <FilterDrawer />
                 <InputGroup
                     size={{ base: 'sm', lg: 'lg' }}
                     borderColor='blackAlpha.600'
@@ -46,24 +31,7 @@ function ContentFilters() {
                     </InputRightElement>
                 </InputGroup>
             </Flex>
-            <Flex gap={4} display={{ base: 'none', lg: 'flex' }}>
-                <FormControl display='flex' alignItems='center' justifyContent='center'>
-                    <FormLabel htmlFor='allergies' mb='0' w='max-content' ml={{ lg: 2, '2xl': 0 }}>
-                        Исключить мои аллергены
-                    </FormLabel>
-                    <Switch id='allergies' size='md' maxH='20px' />
-                </FormControl>
-                <Select
-                    size={{ base: 'sm', lg: 'md' }}
-                    maxW={{ lg: '14.625rem' }}
-                    borderRadius='0.25rem'
-                    isTruncated
-                    placeholder='Выберите из списка аллергенов...'
-                    variant='outline'
-                    borderColor='blackAlpha.600'
-                    isDisabled
-                ></Select>
-            </Flex>
+            <AlergiesFilter type='filter' />
         </Flex>
     );
 }

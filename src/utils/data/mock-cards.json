@@ -1,7 +1,7 @@
 {
     "cookBlog": [
         {
-            "id": 14,
+            "id": "14",
             "avatar": "/img/avatar-1.png",
             "name": "Елена Высоцкая",
             "nick": "@elenapovar",
@@ -9,7 +9,7 @@
             "subscribers": 0
         },
         {
-            "id": 15,
+            "id": "15",
             "avatar": "/img/avatar-2.png",
             "name": "Alex Cook",
             "nick": "@funtasticooking",
@@ -17,7 +17,7 @@
             "subscribers": 0
         },
         {
-            "id": 16,
+            "id": "16",
             "avatar": "/img/avatar-3.png",
             "name": "Екатерина Константинопольская",
             "nick": "@bake_and_pie",

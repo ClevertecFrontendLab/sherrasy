@@ -28,8 +28,16 @@ const renderSubcategoryBreadcrumb = (
 
 const renderRecipeBreadcrumb = (recipeName: string, recipeId: string, isLast: boolean) => (
     <BreadcrumbItem key={recipeId} isCurrentPage={isLast}>
-        <BreadcrumbLink maxW={{ base: '50%', lg: '70%', xl: '90%' }}>
-            <Text isTruncated>{recipeName}</Text>
+        <BreadcrumbLink maxH={6}>
+            <Text
+                whiteSpace='nowrap'
+                overflow='hidden'
+                textOverflow='ellipsis'
+                display='inline-block'
+                maxW={{ base: '19rem', lg: '38rem', xl: '56.25rem' }}
+            >
+                {recipeName}
+            </Text>
         </BreadcrumbLink>
     </BreadcrumbItem>
 );

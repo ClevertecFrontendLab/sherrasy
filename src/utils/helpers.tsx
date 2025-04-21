@@ -1,3 +1,4 @@
+import { MultiselectItem } from '~/types/filter-item.type';
 import { MenuItem, MenuSubcategory } from '~/types/menu-item.type';
 import { FullRecipe } from '~/types/recipe.interface';
 
@@ -8,3 +9,6 @@ export const getSortedNewRecipes = (recipes: FullRecipe[]) =>
 
 export const getTabNames = (data: MenuItem[]): MenuSubcategory[] =>
     data.find(({ tag }) => tag === 'vegan')?.elements || [];
+
+export const getMultiselectCategories = (data: MenuItem[]): MultiselectItem[] =>
+    data.map((item) => ({ name: item.groupName, id: item.tag }));

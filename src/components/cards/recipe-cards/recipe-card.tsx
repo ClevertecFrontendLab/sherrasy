@@ -8,6 +8,7 @@ import {
     CardBody,
     CardFooter,
     Flex,
+    Highlight,
     Icon,
     Image,
     Stack,
@@ -123,7 +124,7 @@ function VerticalRecipeCard({ recipe, onClick }: CardProps) {
 function HorizontalRecipeCard({ recipe, onClick }: CardProps) {
     const { title, image, description, category, bookmarks, likes, recommendedBy } = recipe;
     const author = recommendedBy
-        ? cookBlog.find((item) => item.id === recommendedBy) || null
+        ? cookBlog.find((item) => +item.id === recommendedBy) || null
         : null;
     const [isDesktop] = useMediaQuery('(min-width: 1440px)');
     return (
@@ -239,7 +240,9 @@ function HorizontalRecipeCard({ recipe, onClick }: CardProps) {
                             lineHeight={{ base: 6, lg: 7 }}
                             mb={{ lg: 2 }}
                         >
-                            {title}
+                            <Highlight query={['карт']} styles={{ color: 'lime.600' }}>
+                                {title}
+                            </Highlight>
                         </Text>
                         {isDesktop && (
                             <Text

@@ -45,7 +45,11 @@ function NewSection() {
             >
                 Новые рецепты
             </Heading>
-            <Box position='relative' data-test-id='carousel'>
+            <Box
+                position='relative'
+                data-test-id='carousel'
+                maxW={{ base: '360px', sm: '728px', lg: '880px', xl: '1360px' }}
+            >
                 <Swiper
                     modules={[Navigation]}
                     onBeforeInit={(swiper) => {

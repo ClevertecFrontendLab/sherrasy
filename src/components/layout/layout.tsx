@@ -1,4 +1,4 @@
-import { Box, Flex, useMediaQuery } from '@chakra-ui/react';
+import { Flex, useMediaQuery } from '@chakra-ui/react';
 import { ReactNode } from 'react';
 
 import Footer from '../footer/footer';
@@ -18,8 +18,10 @@ function Layout({ children }: LayoutProps) {
             <Header />
             <Flex flex={1} pt={{ base: '4rem', lg: '5rem' }} pb={{ base: '5.25rem', lg: '2rem' }}>
                 {isDesktop && <MenuDishes />}
-                <Box
+                <Flex
                     flex='1'
+                    direction='column'
+                    alignItems='center'
                     overflowY='auto'
                     mb={{ base: 4, md: 0, lg: '0' }}
                     w='100%'
@@ -27,7 +29,7 @@ function Layout({ children }: LayoutProps) {
                     overflowX='hidden'
                 >
                     {children}
-                </Box>
+                </Flex>
                 {isDesktop && <Sidebar />}
             </Flex>
             <Footer />

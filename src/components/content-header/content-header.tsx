@@ -15,9 +15,17 @@ function ContentHeader({ headline, description }: ContentHeaderProps) {
             justify='center'
             align='center'
             textAlign='center'
+            borderRadius={6}
+            w={{ base: '22.5rem', sm: '30rem', lg: '36.125rem', xl: '56.125rem' }}
             mt={{ base: 3, xs: '1rem', lg: 8 }}
             mr={{ base: 2, xs: 0 }}
             ml={{ base: 2, xs: '0.0625rem', lg: 2 }}
+            sx={{
+                '&:has(:focus, :active)': {
+                    boxShadow:
+                        '0 10px 10px -5px rgba(0, 0, 0, 0.04), 0 20px 25px -5px rgba(0, 0, 0, 0.1)',
+                },
+            }}
         >
             <Heading
                 mb={{
@@ -38,7 +46,7 @@ function ContentHeader({ headline, description }: ContentHeaderProps) {
                 <Text
                     color='blackAlpha.600'
                     mb={{ base: '13px', xs: '1rem', lg: 8 }}
-                    w={{ base: '90%', sm: '96%', lg: '50%', '2xl': '40%' }}
+                    w={{ base: '90%', sm: '96%', lg: '50%', '2xl': '80%' }}
                     fontSize={{ base: 'sm', lg: 'md' }}
                     lineHeight={{ base: 5, lg: 6 }}
                     noOfLines={4}

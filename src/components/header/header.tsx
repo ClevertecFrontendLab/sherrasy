@@ -27,7 +27,7 @@ function Header() {
             top={0}
             left={0}
             right={0}
-            zIndex={9999}
+            zIndex={isMenuOpen ? 9999 : 9}
             maxH={{ base: '4rem', lg: '5rem' }}
         >
             {isMobile ? (
@@ -37,7 +37,7 @@ function Header() {
             )}
             {isDesktop && <Breadcrumbs />}
             {!isDesktop && !isMenuOpen && <Sidebar />}
-            <Spacer />
+            <Spacer minW={isDesktop ? '300px' : 0} />
             {isDesktop ? <UserBlock /> : <BurgerMenu handleMenuOpen={handleMenuOpen} />}
         </Flex>
     );

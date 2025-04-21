@@ -6,7 +6,7 @@ const { definePartsStyle, defineMultiStyleConfig } = createMultiStyleConfigHelpe
 );
 const breadcrumbStyle = definePartsStyle({
     list: {
-        flexWrap: ['wrap', null, null, null, null, 'nowrap'],
+        flexWrap: ['wrap', null, null, null, 'nowrap'],
         display: 'flex',
         alignItems: 'center',
     },
