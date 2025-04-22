@@ -18,6 +18,8 @@ import {
 
 import { BookmarkIcon, HeartEyesIcon } from '~/assets/icons/icons';
 import { withRecipeNavigation } from '~/hoc/withRecipeNavigation';
+import { useAppSelector } from '~/store/hooks';
+import { getRecipesSearchString } from '~/store/recipes/selectors';
 import { FullRecipe } from '~/types/recipe.interface';
 import { TagToName } from '~/utils/constant';
 import { cookBlog } from '~/utils/data/mock-cards.json';
@@ -123,6 +125,7 @@ function VerticalRecipeCard({ recipe, onClick }: CardProps) {
 
 function HorizontalRecipeCard({ recipe, onClick }: CardProps) {
     const { title, image, description, category, bookmarks, likes, recommendedBy } = recipe;
+    const searchString = useAppSelector(getRecipesSearchString);
     const author = recommendedBy
         ? cookBlog.find((item) => +item.id === recommendedBy) || null
         : null;
@@ -240,7 +243,7 @@ function HorizontalRecipeCard({ recipe, onClick }: CardProps) {
                             lineHeight={{ base: 6, lg: 7 }}
                             mb={{ lg: 2 }}
                         >
-                            <Highlight query={['карт']} styles={{ color: 'lime.600' }}>
+                            <Highlight query={[searchString]} styles={{ color: 'lime.600' }}>
                                 {title}
                             </Highlight>
                         </Text>

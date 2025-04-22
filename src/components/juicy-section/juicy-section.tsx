@@ -3,11 +3,14 @@ import { useNavigate } from 'react-router';
 
 import { ArrowRightIcon } from '~/assets/icons/icons';
 import { FullRecipe } from '~/types/recipe.interface';
-import { newMockData } from '~/utils/data/mock-cards.json';
 
 import RecipeCard from '../cards/recipe-cards/recipe-card';
 
-function JuicySection() {
+type JuicySectionProps = {
+    recipes: FullRecipe[];
+};
+
+function JuicySection({ recipes }: JuicySectionProps) {
     const [isDesktop] = useMediaQuery('(min-width: 1440px)');
     const navigate = useNavigate();
     const handleAllClick = () => {
@@ -57,7 +60,7 @@ function JuicySection() {
                     xl: 'repeat(2, minmax(41.75rem, 1fr))',
                 }}
             >
-                {newMockData.map((item: FullRecipe) => (
+                {recipes.map((item: FullRecipe) => (
                     <RecipeCard key={item.id} recipe={item} type='horizontal' />
                 ))}
             </SimpleGrid>

@@ -2,20 +2,21 @@ import { Tab, TabList, TabPanel, TabPanels, Tabs, useMediaQuery } from '@chakra-
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
 
+import { useAppSelector } from '~/store/hooks';
+import { getRecipesByTab } from '~/store/recipes/selectors';
 import { MenuSubcategory } from '~/types/menu-item.type';
 import { PathParams } from '~/types/params.type';
-import { FullRecipe } from '~/types/recipe.interface';
 
 import RecipesList from '../recipes-list/recipes-list';
 
 type RecipesTabsProps = {
     tabsNames: MenuSubcategory[];
-    recipes: FullRecipe[];
 };
 
-function RecipesTabs({ tabsNames, recipes }: RecipesTabsProps) {
+function RecipesTabs({ tabsNames }: RecipesTabsProps) {
     const [isDesktop] = useMediaQuery('(min-width: 1440px)');
     const { categoryId, subcategoryId } = useParams<PathParams>();
+    const recipes = useAppSelector((state) => getRecipesByTab(state, categoryId, subcategoryId));
     const navigate = useNavigate();
     const currentTab = subcategoryId ? tabsNames.findIndex((tab) => tab.id === subcategoryId) : -1;
     const [activeTabIndex, setActiveTabIndex] = useState(0);

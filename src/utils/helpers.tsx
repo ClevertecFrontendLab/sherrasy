@@ -7,8 +7,8 @@ export const getSortedNewRecipes = (recipes: FullRecipe[]) =>
         .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
         .slice(0, 10);
 
-export const getTabNames = (data: MenuItem[]): MenuSubcategory[] =>
-    data.find(({ tag }) => tag === 'vegan')?.elements || [];
+export const getTabNames = (data: MenuItem[], categoryId?: string): MenuSubcategory[] =>
+    data.find(({ tag }) => tag === categoryId)?.elements || [];
 
 export const getMultiselectCategories = (data: MenuItem[]): MultiselectItem[] =>
     data.map((item) => ({ name: item.groupName, id: item.tag }));

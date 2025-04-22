@@ -3,9 +3,11 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { apiSlice } from '~/query/create-api';
 
 import appReducer, { appSlice } from './app-slice';
+import recipeReducer, { recipeSlice } from './recipes/recipes-slice';
 const isProduction = false;
 const rootReducer = combineReducers({
     [appSlice.name]: appReducer,
+    [recipeSlice.name]: recipeReducer,
     [apiSlice.reducerPath]: apiSlice.reducer,
 });
 

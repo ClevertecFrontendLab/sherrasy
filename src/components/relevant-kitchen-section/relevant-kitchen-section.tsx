@@ -3,11 +3,14 @@ import { useLocation } from 'react-router';
 
 import { FullRecipe } from '~/types/recipe.interface';
 import { AppRoute } from '~/utils/constant';
-import { newMockData } from '~/utils/data/mock-cards.json';
 
 import RelevantKitchenCard from '../cards/recipe-cards/relevant-kitchen-card';
 
-function RelevantKitchenSection() {
+type RelevantKitchenSectionProps = {
+    recipes: FullRecipe[];
+};
+
+function RelevantKitchenSection({ recipes }: RelevantKitchenSectionProps) {
     const kitchenVariants = {
         vegan: {
             name: 'Веганская кухня',
@@ -25,8 +28,8 @@ function RelevantKitchenSection() {
         ? kitchenVariants.dessert
         : kitchenVariants.vegan;
     const currentData: FullRecipe[] = pathname.includes('vegan')
-        ? newMockData.slice(0, 5)
-        : newMockData.slice(5, 10);
+        ? recipes.slice(0, 5)
+        : recipes.slice(5, 10);
     return (
         <Box
             mt={{ base: '30px', xs: 8, lg: 14 }}

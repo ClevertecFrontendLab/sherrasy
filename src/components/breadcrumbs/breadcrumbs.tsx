@@ -60,7 +60,7 @@ function Breadcrumbs() {
     const { recipeName } = location.state || {};
     const pathnames = location.pathname.split('/').filter(Boolean);
     const isJuiciestPath = pathnames.includes('juiciest');
-    const tabsNames = getTabNames(data);
+    const tabsNames = getTabNames(data, categoryId);
 
     const breadcrumbItems = pathnames.map((segment, index) => {
         const isLast = index === pathnames.length - 1;

@@ -5,8 +5,9 @@ import { Navigation } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import { ArrowLeftIcon, ArrowRightIcon } from '~/assets/icons/icons';
+import { useAppSelector } from '~/store/hooks';
+import { getRecipes } from '~/store/recipes/selectors';
 import { FullRecipe } from '~/types/recipe.interface';
-import { newMockData } from '~/utils/data/mock-cards.json';
 import { getSortedNewRecipes } from '~/utils/helpers';
 
 import RecipeCard from '../cards/recipe-cards/recipe-card';
@@ -30,7 +31,12 @@ function NewSection() {
         },
     };
     const swiperRef = useRef<SwiperType>(null);
-    const currentRecipes = getSortedNewRecipes(newMockData);
+    const recipes = useAppSelector(getRecipes);
+    if (!recipes) {
+        return <Heading>An error occured</Heading>;
+    }
+    const currentRecipes = getSortedNewRecipes(recipes);
+
     return (
         <Box
             mt={{ base: 3.5, xs: 4, lg: '2.5rem' }}

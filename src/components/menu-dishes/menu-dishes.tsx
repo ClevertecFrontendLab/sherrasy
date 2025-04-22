@@ -75,7 +75,7 @@ function MenuDishes() {
                                 data-test-id={item.tag}
                                 _expanded={{ bg: 'lime.100', fontWeight: '600' }}
                                 _hover={{ bg: 'lime.50' }}
-                                onClick={() => handleMenuClick('vegan', item.elements[0].id)}
+                                onClick={() => handleMenuClick(item.tag, item.elements[0].id)}
                                 pt={{ base: 3, xl: 2 }}
                                 pr={2}
                                 pl={{ base: 0, lg: 4 }}
@@ -95,7 +95,9 @@ function MenuDishes() {
                                     {item.elements.map((subcategory) => (
                                         <ListItem
                                             key={`${subcategory.id}-${item.tag}`}
-                                            onClick={() => handleMenuClick('vegan', subcategory.id)}
+                                            onClick={() =>
+                                                handleMenuClick(item.tag, subcategory.id)
+                                            }
                                             pl={{
                                                 base: subcategoryParam === subcategory.id ? 3 : 5,
                                                 lg: subcategoryParam === subcategory.id ? 7 : 9,
