@@ -1,4 +1,4 @@
-import { ChevronDownIcon, CloseIcon, SmallAddIcon } from '@chakra-ui/icons';
+import { ChevronDownIcon, ChevronUpIcon, CloseIcon, SmallAddIcon } from '@chakra-ui/icons';
 import {
     Box,
     Button,
@@ -14,29 +14,73 @@ import {
     MenuOptionGroup,
     Tag,
     TagLabel,
+    useDisclosure,
 } from '@chakra-ui/react';
-import { KeyboardEvent, useRef, useState } from 'react';
+import { KeyboardEvent, useRef } from 'react';
 
+import { useAppDispatch, useAppSelector } from '~/store/hooks';
+import { updateFilter, updateIsFiltering } from '~/store/recipes/recipes-slice';
+import { getRecipesFilters } from '~/store/recipes/selectors';
 import { MultiselectItem } from '~/types/filter-item.type';
+import { RecipeFilters } from '~/types/state.type';
 
 type MultiSelectProps = {
     data: MultiselectItem[];
-    type: string;
+    type: ComponentType;
     text: string;
     isActive?: boolean;
 };
 
+export type ComponentType = 'categories' | 'allergies-drawer' | 'allergies-filter' | 'author';
+
+export type TestIdKeys = 'menu' | 'checkbox' | 'list' | 'input' | 'addBtn';
+
+const dataTestIdByType: Record<ComponentType, Record<TestIdKeys, string>> = {
+    author: { menu: '', checkbox: 'checkbox', list: '', input: '', addBtn: '' },
+    categories: {
+        menu: 'filter-menu-button-категория',
+        checkbox: 'checkbox',
+        list: '',
+        input: '',
+        addBtn: '',
+    },
+    'allergies-drawer': {
+        menu: 'allergens-menu-button-filter',
+        list: '',
+        checkbox: `allergen`,
+        input: 'add-other-allergen',
+        addBtn: 'add-allergen-button',
+    },
+    'allergies-filter': {
+        menu: 'allergens-menu-button',
+        list: 'allergens-menu',
+        checkbox: `allergen`,
+        input: 'add-other-allergen',
+        addBtn: 'add-allergen-button',
+    },
+};
 const MultiSelect = ({ data, type, text, isActive = true }: MultiSelectProps) => {
-    const [selectedItems, setSelectedItems] = useState<string[]>([]);
+    const { isOpen, onOpen, onClose } = useDisclosure();
+    const dispatch = useAppDispatch();
     const inputRef = useRef<HTMLInputElement>(null);
+    const isAllergiesSelect = type.includes('allergies');
+    const key = (isAllergiesSelect ? 'allergens' : type) as keyof RecipeFilters;
+    const filterStatus = isAllergiesSelect ? 'active' : 'pending';
+    const selectedItems =
+        useAppSelector((state) => getRecipesFilters(state, filterStatus))[key] ?? [];
+    const updateData = (values: string[]) => {
+        dispatch(updateFilter({ key, value: values, type: filterStatus }));
+        dispatch(updateIsFiltering());
+    };
 
     const handleSelect = (values: string | string[]) => {
         const selectedValues = Array.isArray(values) ? values : [values];
-        setSelectedItems(selectedValues);
+        updateData(selectedValues);
     };
 
     const removeItem = (itemToRemove: string) => {
-        setSelectedItems(selectedItems.filter((item) => item !== itemToRemove));
+        const selectedValues = selectedItems.filter((item) => item !== itemToRemove);
+        updateData(selectedValues);
     };
 
     const getNameById = (id: string) => data.find((item) => item.id === id)?.name || id;
@@ -44,7 +88,8 @@ const MultiSelect = ({ data, type, text, isActive = true }: MultiSelectProps) =>
     const handleAddCustomItem = () => {
         const value = inputRef.current?.value.trim();
         if (value && !selectedItems.includes(value)) {
-            setSelectedItems([...selectedItems, value]);
+            const selectedValues = [...selectedItems, value];
+            updateData(selectedValues);
             if (inputRef.current) inputRef.current.value = '';
         }
     };
@@ -57,25 +102,28 @@ const MultiSelect = ({ data, type, text, isActive = true }: MultiSelectProps) =>
     };
 
     return (
-        <Menu closeOnSelect={false}>
+        <Menu
+            closeOnSelect={false}
+            isOpen={isOpen}
+            onOpen={onOpen}
+            onClose={onClose}
+            variant='customMenu'
+            colorScheme='blackAlpha'
+        >
             <MenuButton
                 as={Button}
-                rightIcon={<ChevronDownIcon boxSize={5} />}
+                rightIcon={
+                    !isOpen ? <ChevronDownIcon boxSize={5} /> : <ChevronUpIcon boxSize={5} />
+                }
+                variant='outlineMenu'
                 width='100%'
                 textAlign='left'
-                bg='white'
-                border='1px'
-                _hover={{ outline: 'lime.150' }}
-                _expanded={{ outline: 'lime.150', bgColor: 'white' }}
-                minH='2.5rem'
-                h='auto'
                 fontWeight='normal'
                 size={{ base: 'sm', lg: 'md' }}
                 maxW={{ lg: '14.625rem' }}
                 borderRadius='0.25rem'
-                variant='outline'
-                borderColor='blackAlpha.600'
                 isDisabled={!isActive}
+                data-test-id={dataTestIdByType[type].menu}
             >
                 {selectedItems.length > 0 ? (
                     <Flex wrap='wrap' gap={2} zIndex={10000}>
@@ -87,6 +135,7 @@ const MultiSelect = ({ data, type, text, isActive = true }: MultiSelectProps) =>
                                 colorScheme='lime'
                                 color='lime.600'
                                 maxW='15.5rem'
+                                data-test-id='filter-tag'
                             >
                                 <TagLabel
                                     whiteSpace='nowrap'
@@ -111,21 +160,30 @@ const MultiSelect = ({ data, type, text, isActive = true }: MultiSelectProps) =>
                     text
                 )}
             </MenuButton>
-            <MenuList minWidth='240px'>
+            <MenuList minWidth='240px' data-test-id={dataTestIdByType[type].list} zIndex={8}>
                 <MenuOptionGroup type='checkbox' value={selectedItems} onChange={handleSelect}>
-                    {data.map(({ id, name }) => (
-                        <MenuItemOption key={id} value={id}>
+                    {data.map(({ id, name }, i) => (
+                        <MenuItemOption
+                            key={id}
+                            value={id}
+                            data-test-id={
+                                isAllergiesSelect
+                                    ? `${dataTestIdByType[type].checkbox}-${i}`
+                                    : `${dataTestIdByType[type].checkbox}-${name.toLowerCase()}`
+                            }
+                        >
                             {name}
                         </MenuItemOption>
                     ))}
                 </MenuOptionGroup>
-                {type === 'allergies' && (
+                {isAllergiesSelect && (
                     <Box>
                         <InputGroup>
                             <Input
                                 ref={inputRef}
                                 placeholder='Другой аллерген'
                                 onKeyDown={handleKeyDown}
+                                data-test-id={dataTestIdByType[type].input}
                             />
                             <InputRightElement>
                                 <IconButton
@@ -134,6 +192,7 @@ const MultiSelect = ({ data, type, text, isActive = true }: MultiSelectProps) =>
                                     size='sm'
                                     onClick={handleAddCustomItem}
                                     variant='ghost'
+                                    data-test-id={dataTestIdByType[type].addBtn}
                                 />
                             </InputRightElement>
                         </InputGroup>

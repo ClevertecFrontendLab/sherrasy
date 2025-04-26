@@ -1,6 +1,8 @@
 import { Flex, Switch, Text } from '@chakra-ui/react';
 import { useState } from 'react';
 
+import { useAppDispatch } from '~/store/hooks';
+import { clearAllergens } from '~/store/recipes/recipes-slice';
 import filterData from '~/utils/data/filters-data.json';
 
 import MultiSelect from '../multiselect/multiselect';
@@ -10,9 +12,15 @@ type AlergiesFilterProps = {
 };
 
 function AlergiesFilter({ type }: AlergiesFilterProps) {
-    const [isAlergensActive, setIsAlergensActive] = useState<boolean>(false);
+    const [isAlergensActive, setIsAlergensActive] = useState<boolean>(true);
+    const dispatch = useAppDispatch();
     const isDrawer = type === 'drawer';
-    const handleAlergensActive = () => setIsAlergensActive((prev) => !prev);
+    const handleAlergensActive = () => {
+        setIsAlergensActive((prev) => !prev);
+        if (isAlergensActive) {
+            dispatch(clearAllergens());
+        }
+    };
     return (
         <>
             <Flex
@@ -34,11 +42,14 @@ function AlergiesFilter({ type }: AlergiesFilterProps) {
                         maxH='20px'
                         colorScheme='lime'
                         onChange={handleAlergensActive}
+                        data-test-id={
+                            !isDrawer ? 'allergens-switcher' : 'allergens-switcher-filter'
+                        }
                     />
                 </Flex>
                 <MultiSelect
                     data={filterData[2].elements}
-                    type='allergies'
+                    type={`allergies-${type}`}
                     text='Выберите из списка...'
                     isActive={isAlergensActive}
                 />

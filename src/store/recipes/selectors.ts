@@ -1,24 +1,38 @@
 import { createSelector } from '@reduxjs/toolkit';
 
 import { FullRecipe } from '~/types/recipe.interface';
-import { State } from '~/types/state.type';
+import { RecipeFilters, State } from '~/types/state.type';
+import {
+    getAllergensMatch,
+    getCategoriesMatch,
+    getMeatSideMatch,
+    getSearchMatch,
+} from '~/utils/helpers';
 
 export const getRecipes = (state: Pick<State, 'RECIPE'>): FullRecipe[] | null =>
     state['RECIPE'].recipes;
 
+export const getIsFilteringRecipes = (state: Pick<State, 'RECIPE'>): boolean =>
+    state['RECIPE'].isFiltering;
+
 export const getRecipeId = (_state: Pick<State, 'RECIPE'>, id?: string) => id;
 
-export const getTabInfo = (
-    _state: Pick<State, 'RECIPE'>,
-    category?: string,
-    subcategory?: string,
-) => ({
-    category,
-    subcategory,
-});
+export const getTabInfo = createSelector(
+    [
+        (state: Pick<State, 'RECIPE'>) => state['RECIPE'].category,
+        (state: Pick<State, 'RECIPE'>) => state['RECIPE'].subcategory,
+    ],
+    (category, subcategory) => ({ category, subcategory }),
+);
 
 export const getRecipesSearchString = (state: Pick<State, 'RECIPE'>): string =>
     state['RECIPE'].searchString || '';
+
+export const getRecipesFilters = (
+    state: Pick<State, 'RECIPE'>,
+    type: 'active' | 'pending',
+): RecipeFilters =>
+    type === 'active' ? state['RECIPE'].currentFilters : state['RECIPE'].pendingFilters;
 
 export const getRecipeById = createSelector(
     [getRecipes, getRecipeId],
@@ -28,16 +42,19 @@ export const getRecipeById = createSelector(
 
 export const getRecipesByTab = createSelector(
     [getRecipes, getTabInfo],
-    (recipes, { category, subcategory }) => {
+    (recipes, { category: tabCategory, subcategory: tabSubcategory }) => {
         if (!recipes || recipes.length === 0) {
             return [];
         }
-
-        return recipes.filter((recipe) => {
-            if (category !== undefined && subcategory !== undefined) {
-                const matchingIndex = recipe.category.findIndex(
-                    (cat, index) => cat === category && recipe.subcategory[index] === subcategory,
-                );
+        if (!tabCategory && !tabSubcategory) {
+            return recipes;
+        }
+        return recipes.filter(({ category, subcategory }) => {
+            if (tabCategory !== undefined && tabSubcategory !== undefined) {
+                const matchingIndex = subcategory.findIndex((sub, index) => {
+                    const catIndex = index > category?.length - 1 ? 0 : index;
+                    return sub === tabSubcategory && category[catIndex] === tabCategory;
+                });
                 return matchingIndex !== -1;
             }
             return true;
@@ -45,13 +62,21 @@ export const getRecipesByTab = createSelector(
     },
 );
 
-export const getFilteredRecipesByName = createSelector(
-    [getRecipes, getRecipesSearchString],
-    (recipes, searchString): FullRecipe[] | null => {
+export const getFilteredRecipes = createSelector(
+    [getRecipesByTab, getRecipesSearchString, getRecipesFilters],
+    (
+        recipes,
+        searchString,
+        { categories, meat_type, side_type, allergens },
+    ): FullRecipe[] | null => {
         if (!recipes) return null;
         return recipes.filter(
-            (recipe) =>
-                !searchString || recipe.title.toLowerCase().includes(searchString.toLowerCase()),
+            ({ title, category, ingredients, meat, side }) =>
+                getSearchMatch(title, searchString) &&
+                !getAllergensMatch(ingredients, allergens) &&
+                getCategoriesMatch(category, categories) &&
+                getMeatSideMatch(meat, meat_type) &&
+                getMeatSideMatch(side, side_type),
         );
     },
 );

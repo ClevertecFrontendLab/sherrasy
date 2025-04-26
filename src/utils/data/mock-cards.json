@@ -145,7 +145,8 @@
                     "description": "Запекать 30 минут.",
                     "image": "/img/juicy-food-7.jpg"
                 }
-            ]
+            ],
+            "side": "other_vegetables"
         },
         {
             "id": "3",
@@ -182,7 +183,8 @@
                     "description": "Подавать с соусом.",
                     "image": "/img/juicy-food-8.jpg"
                 }
-            ]
+            ],
+            "side": "beans"
         },
         {
             "id": "4",
@@ -256,7 +258,8 @@
                     "description": "Обжарить до золотистой корочки.",
                     "image": "/img/new-food-2.jpg"
                 }
-            ]
+            ],
+            "side": "other_vegetables"
         },
         {
             "id": "6",
@@ -363,7 +366,8 @@
                     "description": "Смешать с заправкой и подавать.",
                     "image": "/img/new-food-4.jpg"
                 }
-            ]
+            ],
+            "meat": "chicken"
         },
         {
             "id": "9",
@@ -426,7 +430,8 @@
                     "description": "Смешать с заправкой и подавать.",
                     "image": "/img/new-food-4.jpg"
                 }
-            ]
+            ],
+            "side": "other_vegetables"
         },
         {
             "id": "11",

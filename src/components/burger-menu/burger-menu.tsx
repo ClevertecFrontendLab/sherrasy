@@ -31,7 +31,11 @@ function BurgerMenu({ handleMenuOpen }: BurgerMenuProps) {
                 maxW='min-content'
                 pr={{ base: isOpen ? 2 : 4 }}
             >
-                {isOpen ? <CloseIcon boxSize={3} /> : <HamburgerIcon boxSize={5} />}
+                {isOpen ? (
+                    <CloseIcon boxSize={3} data-test-id='close-icon' />
+                ) : (
+                    <HamburgerIcon boxSize={5} data-test-id='hamburger-icon' />
+                )}
             </Button>
             <Modal onClose={toggleMenu} isOpen={isOpen} motionPreset='slideInRight'>
                 <ModalOverlay />
@@ -43,7 +47,7 @@ function BurgerMenu({ handleMenuOpen }: BurgerMenuProps) {
                     borderTopRadius={0}
                     borderBottomRadius={8}
                 >
-                    <ModalBody px={5} py={4} overflowY='auto'>
+                    <ModalBody px={5} py={4} overflowY='auto' data-test-id='nav'>
                         <Breadcrumbs />
                         <MenuDishes />
                     </ModalBody>

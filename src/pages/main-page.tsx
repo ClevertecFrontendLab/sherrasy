@@ -1,16 +1,19 @@
-import { Heading } from '@chakra-ui/react';
+import { Box, Heading } from '@chakra-ui/react';
 
 import ContentHeader from '~/components/content-header/content-header';
 import CookBlogSection from '~/components/cook-blog-section/cook-blog-section';
 import JuicySection from '~/components/juicy-section/juicy-section';
 import Layout from '~/components/layout/layout';
 import NewSection from '~/components/new-section/new-section';
+import RecipesList from '~/components/recipes-list/recipes-list';
 import RelevantKitchenSection from '~/components/relevant-kitchen-section/relevant-kitchen-section';
 import { useAppSelector } from '~/store/hooks';
-import { getRecipes } from '~/store/recipes/selectors';
+import { getFilteredRecipes, getIsFilteringRecipes, getRecipes } from '~/store/recipes/selectors';
 
 function MainPage() {
-    const recipes = useAppSelector(getRecipes);
+    const isFiltering = useAppSelector(getIsFilteringRecipes);
+    const recipes = useAppSelector((state) => getFilteredRecipes(state, 'active'));
+    const rkRecipes = useAppSelector(getRecipes) ?? [];
     if (!recipes) {
         return <Heading>An error occured</Heading>;
     }
@@ -18,10 +21,18 @@ function MainPage() {
         <>
             <Layout>
                 <ContentHeader headline='Приятного аппетита!' />
-                <NewSection />
-                <JuicySection recipes={recipes} />
-                <CookBlogSection />
-                <RelevantKitchenSection recipes={recipes} />
+                {isFiltering ? (
+                    <Box mt={{ base: 8, sm: 4, lg: 3 }}>
+                        <RecipesList recipes={recipes} />
+                    </Box>
+                ) : (
+                    <>
+                        <NewSection />
+                        <JuicySection recipes={recipes} />
+                        <CookBlogSection />
+                    </>
+                )}{' '}
+                <RelevantKitchenSection recipes={rkRecipes} />
             </Layout>
         </>
     );

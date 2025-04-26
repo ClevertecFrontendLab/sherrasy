@@ -58,18 +58,18 @@ function IngredientsTable({ portions, ingredients }: IngredientsTableProps) {
                             >
                                 <NumberInputField />
                                 <NumberInputStepper>
-                                    <NumberIncrementStepper />
-                                    <NumberDecrementStepper />
+                                    <NumberIncrementStepper data-test-id='increment-stepper' />
+                                    <NumberDecrementStepper data-test-id='decrement-stepper' />
                                 </NumberInputStepper>
                             </NumberInput>
                         </Th>
                     </Tr>
                 </Thead>
                 <Tbody fontSize={{ base: 'sm' }} lineHeight={5}>
-                    {ingredients.map(({ title, count, measureUnit }) => (
+                    {ingredients.map(({ title, count, measureUnit }, i) => (
                         <Tr key={title}>
                             <Td>{title}</Td>
-                            <Td>
+                            <Td data-test-id={`ingredient-quantity-${i}`}>
                                 {+count > 0 && +count * scale} {measureUnit}
                             </Td>
                         </Tr>

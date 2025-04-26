@@ -2,7 +2,9 @@ import { extendTheme } from '@chakra-ui/react';
 
 import { badgeTheme } from './ui-theme/badge.theme';
 import { breadCrumbTheme } from './ui-theme/breadcrumb.theme';
+import { buttonTheme } from './ui-theme/button.theme';
 import { cardTheme } from './ui-theme/card.theme';
+import { menuTheme } from './ui-theme/menu.theme';
 import { tableTheme } from './ui-theme/table.theme';
 
 export const theme = extendTheme({
@@ -28,6 +30,8 @@ export const theme = extendTheme({
         Badge: badgeTheme,
         Table: tableTheme,
         Breadcrumb: breadCrumbTheme,
+        Button: buttonTheme,
+        Menu: menuTheme,
     },
     breakpoints: {
         base: '0em', //0px

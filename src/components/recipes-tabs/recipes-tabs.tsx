@@ -2,8 +2,9 @@ import { Tab, TabList, TabPanel, TabPanels, Tabs, useMediaQuery } from '@chakra-
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
 
-import { useAppSelector } from '~/store/hooks';
-import { getRecipesByTab } from '~/store/recipes/selectors';
+import { useAppDispatch, useAppSelector } from '~/store/hooks';
+import { setCurrentParams } from '~/store/recipes/recipes-slice';
+import { getFilteredRecipes } from '~/store/recipes/selectors';
 import { MenuSubcategory } from '~/types/menu-item.type';
 import { PathParams } from '~/types/params.type';
 
@@ -15,8 +16,9 @@ type RecipesTabsProps = {
 
 function RecipesTabs({ tabsNames }: RecipesTabsProps) {
     const [isDesktop] = useMediaQuery('(min-width: 1440px)');
+    const dispatch = useAppDispatch();
     const { categoryId, subcategoryId } = useParams<PathParams>();
-    const recipes = useAppSelector((state) => getRecipesByTab(state, categoryId, subcategoryId));
+    const recipes = useAppSelector((state) => getFilteredRecipes(state, 'active'));
     const navigate = useNavigate();
     const currentTab = subcategoryId ? tabsNames.findIndex((tab) => tab.id === subcategoryId) : -1;
     const [activeTabIndex, setActiveTabIndex] = useState(0);
@@ -25,7 +27,11 @@ function RecipesTabs({ tabsNames }: RecipesTabsProps) {
     };
     useEffect(() => {
         setActiveTabIndex(currentTab !== -1 ? currentTab : 0);
-    }, [subcategoryId, currentTab]);
+        dispatch(setCurrentParams({ category: categoryId, subcategory: subcategoryId }));
+        return () => {
+            dispatch(setCurrentParams({}));
+        };
+    }, [categoryId, subcategoryId, currentTab, dispatch]);
     return (
         <Tabs
             index={activeTabIndex}

@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router';
 
 import { ArrowRightIcon } from '~/assets/icons/icons';
 import { FullRecipe } from '~/types/recipe.interface';
+import { getSortedJuicyRecipes } from '~/utils/helpers';
 
 import RecipeCard from '../cards/recipe-cards/recipe-card';
 
@@ -12,6 +13,7 @@ type JuicySectionProps = {
 
 function JuicySection({ recipes }: JuicySectionProps) {
     const [isDesktop] = useMediaQuery('(min-width: 1440px)');
+    const currentRecipes = getSortedJuicyRecipes(recipes);
     const navigate = useNavigate();
     const handleAllClick = () => {
         navigate(`/juiciest`);
@@ -60,8 +62,8 @@ function JuicySection({ recipes }: JuicySectionProps) {
                     xl: 'repeat(2, minmax(41.75rem, 1fr))',
                 }}
             >
-                {recipes.map((item: FullRecipe) => (
-                    <RecipeCard key={item.id} recipe={item} type='horizontal' />
+                {currentRecipes.map((item: FullRecipe, i) => (
+                    <RecipeCard key={item.id} recipe={item} type='horizontal' testI={i} />
                 ))}
             </SimpleGrid>
             <Button

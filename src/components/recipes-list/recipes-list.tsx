@@ -5,10 +5,13 @@ import { FullRecipe } from '~/types/recipe.interface';
 import RecipeCard from '../cards/recipe-cards/recipe-card';
 
 type RecipesListProps = {
-    recipes: FullRecipe[];
+    recipes: FullRecipe[] | null;
 };
 
 function RecipesList({ recipes }: RecipesListProps) {
+    if (!recipes || recipes.length === 0) {
+        return <Text> Элементы с такими данными не найдены</Text>;
+    }
     return (
         <Flex direction='column' gap={{ base: 3, sm: 3.5 }} justify='center'>
             <SimpleGrid
@@ -29,11 +32,13 @@ function RecipesList({ recipes }: RecipesListProps) {
                     />
                 ))}
             </SimpleGrid>
-            <Button bg='lime.400' mt={1} size='md' alignSelf='center'>
-                <Text fontWeight={600} fontSize='md' lineHeight={6}>
-                    Загрузить еще
-                </Text>
-            </Button>
+            {recipes.length >= 8 && (
+                <Button bg='lime.400' mt={1} size='md' alignSelf='center'>
+                    <Text fontWeight={600} fontSize='md' lineHeight={6}>
+                        Загрузить еще
+                    </Text>
+                </Button>
+            )}
         </Flex>
     );
 }

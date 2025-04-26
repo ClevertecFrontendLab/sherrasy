@@ -88,7 +88,7 @@ function NewSection() {
                     left='-2'
                     data-test-id='carousel-back'
                     onClick={() => swiperRef.current?.slidePrev()}
-                    zIndex={9}
+                    zIndex={7}
                 >
                     <ArrowLeftIcon boxSize={{ lg: 4, '2xl': 6 }} />
                 </Button>
@@ -104,7 +104,7 @@ function NewSection() {
                     right='-2'
                     data-test-id='carousel-forward'
                     onClick={() => swiperRef.current?.slideNext()}
-                    zIndex={9}
+                    zIndex={7}
                 >
                     <ArrowRightIcon boxSize={{ lg: 4, '2xl': 6 }} />
                 </Button>

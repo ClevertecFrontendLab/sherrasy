@@ -5,13 +5,17 @@ import Layout from '~/components/layout/layout';
 import RecipesList from '~/components/recipes-list/recipes-list';
 import RelevantKitchenSection from '~/components/relevant-kitchen-section/relevant-kitchen-section';
 import { useAppSelector } from '~/store/hooks';
-import { getRecipes } from '~/store/recipes/selectors';
+import { getFilteredRecipes, getRecipes } from '~/store/recipes/selectors';
+import { getSortedJuicyRecipes } from '~/utils/helpers';
 
 function JuicyPage() {
-    const recipes = useAppSelector(getRecipes);
+    const recipes = useAppSelector((state) => getFilteredRecipes(state, 'active'));
+    const rkRecipes = useAppSelector(getRecipes) ?? [];
     if (!recipes) {
         return <Heading>An error occured</Heading>;
     }
+    const currentRecipes = getSortedJuicyRecipes(recipes);
+
     return (
         <>
             <Layout>
@@ -21,9 +25,9 @@ function JuicyPage() {
                     pl={{ base: 4, sm: 5, lg: '17.75rem' }}
                     pr={{ base: 0, sm: 5, lg: '17.375rem' }}
                 >
-                    <RecipesList recipes={recipes} />
+                    <RecipesList recipes={currentRecipes} />
                 </Box>
-                <RelevantKitchenSection recipes={recipes} />
+                <RelevantKitchenSection recipes={rkRecipes} />
             </Layout>
         </>
     );

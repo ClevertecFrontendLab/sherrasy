@@ -1,9 +1,10 @@
+import { SmallCloseIcon } from '@chakra-ui/icons';
 import { Flex, Input, InputGroup, InputRightElement } from '@chakra-ui/react';
-import { KeyboardEvent, useRef } from 'react';
+import { KeyboardEvent, useEffect, useRef } from 'react';
 
 import { SearchIcon } from '~/assets/icons/icons';
 import { useAppDispatch } from '~/store/hooks';
-import { setSearchRecipeString } from '~/store/recipes/recipes-slice';
+import { setSearchRecipeString, updateIsFiltering } from '~/store/recipes/recipes-slice';
 
 import AlergiesFilter from '../allergies-filter/allergies-filter';
 import FilterDrawer from '../filter-drawer/filter-drawer';
@@ -12,10 +13,20 @@ function ContentFilters() {
     const searchRef = useRef<HTMLInputElement>(null);
     const dispatch = useAppDispatch();
     const handleSearchInput = () => {
-        const value = searchRef.current?.value.trim();
-        if (value && value.length >= 3) {
-            dispatch(setSearchRecipeString(value));
+        if (searchRef.current) {
+            const value = searchRef.current?.value.trim();
+            if (value && value.length >= 3) {
+                dispatch(setSearchRecipeString(value));
+                dispatch(updateIsFiltering());
+            }
         }
+    };
+    const handleClearSearchInput = () => {
+        if (searchRef.current) {
+            searchRef.current.value = '';
+        }
+        dispatch(setSearchRecipeString(null));
+        dispatch(updateIsFiltering());
     };
 
     const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
@@ -24,6 +35,14 @@ function ContentFilters() {
             handleSearchInput();
         }
     };
+
+    useEffect(
+        () => () => {
+            dispatch(setSearchRecipeString(null));
+            dispatch(updateIsFiltering());
+        },
+        [dispatch],
+    );
 
     return (
         <Flex direction='column' gap={{ lg: '18px' }} mb={4}>
@@ -47,7 +66,18 @@ function ContentFilters() {
                         onKeyDown={handleKeyDown}
                         ref={searchRef}
                     />
-                    <InputRightElement data-test-id='search-button'>
+                    <InputRightElement
+                        right={8}
+                        onClick={handleClearSearchInput}
+                        _hover={{ cursor: 'pointer' }}
+                    >
+                        <SmallCloseIcon />
+                    </InputRightElement>
+                    <InputRightElement
+                        data-test-id='search-button'
+                        onClick={handleSearchInput}
+                        _hover={{ cursor: 'pointer' }}
+                    >
                         <SearchIcon />
                     </InputRightElement>
                 </InputGroup>
