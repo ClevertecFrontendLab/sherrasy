@@ -24,6 +24,8 @@ function JuicyPage() {
                     mt={{ base: 8, sm: 4, lg: 3 }}
                     pl={{ base: 4, sm: 5, lg: '17.75rem' }}
                     pr={{ base: 0, sm: 5, lg: '17.375rem' }}
+                    alignSelf='start'
+                    width='100%'
                 >
                     <RecipesList recipes={currentRecipes} />
                 </Box>

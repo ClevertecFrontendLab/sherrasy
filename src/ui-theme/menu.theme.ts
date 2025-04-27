@@ -13,7 +13,7 @@ const customMenu = definePartsStyle((props) => {
             borderRadius: '6px',
         },
         item: {
-            color: 'gray.800',
+            color: 'blackAlpha.800',
             _hover: {
                 bg: 'lime.50',
             },

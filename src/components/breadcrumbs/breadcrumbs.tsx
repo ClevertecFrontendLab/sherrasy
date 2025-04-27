@@ -59,13 +59,13 @@ function Breadcrumbs() {
     const { categoryId, subcategoryId, recipeId } = useParams<PathParams>();
     const { recipeName } = location.state || {};
     const pathnames = location.pathname.split('/').filter(Boolean);
-    const isJuiciestPath = pathnames.includes('juiciest');
+    const isJuiciestPath = pathnames.includes('the-juiciest');
     const tabsNames = getTabNames(data, categoryId);
 
     const breadcrumbItems = pathnames.map((segment, index) => {
         const isLast = index === pathnames.length - 1;
 
-        if (segment === 'juiciest') return null;
+        if (segment === 'the-juiciest') return null;
 
         if (subcategoryId && segment === subcategoryId) {
             return renderSubcategoryBreadcrumb(subcategoryId, tabsNames, categoryId!, isLast);

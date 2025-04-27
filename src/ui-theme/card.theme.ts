@@ -15,7 +15,7 @@ const vCard = definePartsStyle({
         ...outlineStyles,
         minW: ['9.3125rem', '9.875rem', '9.75rem', '9.875rem', '17.4375rem', null, '20.125rem'],
         maxW: ['9.3125rem', '9.875rem', '9.75rem', '9.875rem', '17.4375rem', null, '20.125rem'],
-        minH: ['13rem', '13.75rem', '13.5rem', '13.75rem', '25.125rem', null, '25.875rem'],
+        minH: ['13rem', '13.5rem', '13.75rem', '13.75rem', '25.125rem', null, '25.875rem'],
         maxH: ['13rem', '13.75rem', '13.5rem', '13.75rem', '25.125rem', null, '25.875rem'],
     },
     body: {

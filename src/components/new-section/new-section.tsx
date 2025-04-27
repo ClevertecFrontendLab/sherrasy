@@ -53,10 +53,16 @@ function NewSection() {
             </Heading>
             <Box
                 position='relative'
-                data-test-id='carousel'
-                maxW={{ base: '360px', sm: '728px', lg: '880px', xl: '1360px' }}
+                maxW={{ base: '342px', sm: '45.5rem', lg: '55rem', xl: '85rem' }}
+                w='100%'
+                sx={{
+                    '.swiper-slide': {
+                        width: 'auto !important',
+                    },
+                }}
             >
                 <Swiper
+                    data-test-id='carousel'
                     modules={[Navigation]}
                     onBeforeInit={(swiper) => {
                         swiperRef.current = swiper;
@@ -71,7 +77,7 @@ function NewSection() {
                             <RecipeCard
                                 recipe={item}
                                 type='vertical'
-                                data-test-id={`carousel-card-${i}`}
+                                testI={`carousel-card-${i}`}
                             />
                         </SwiperSlide>
                     ))}

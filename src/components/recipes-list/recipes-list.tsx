@@ -25,10 +25,10 @@ function RecipesList({ recipes }: RecipesListProps) {
             >
                 {recipes.map((item: FullRecipe, i: number) => (
                     <RecipeCard
-                        key={item.id}
                         recipe={item}
                         type='horizontal'
-                        data-test-id={`food-card-${i}`}
+                        key={item.id}
+                        testI={`food-card-${i}`}
                     />
                 ))}
             </SimpleGrid>

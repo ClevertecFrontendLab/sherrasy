@@ -1,19 +1,19 @@
-import { ChevronDownIcon, ChevronUpIcon, CloseIcon, SmallAddIcon } from '@chakra-ui/icons';
+import { ChevronDownIcon, ChevronUpIcon, SmallAddIcon } from '@chakra-ui/icons';
 import {
-    Box,
     Button,
     Flex,
+    Icon,
     IconButton,
     Input,
-    InputGroup,
-    InputRightElement,
     Menu,
     MenuButton,
     MenuItemOption,
     MenuList,
     MenuOptionGroup,
     Tag,
+    TagCloseButton,
     TagLabel,
+    Text,
     useDisclosure,
 } from '@chakra-ui/react';
 import { KeyboardEvent, useRef } from 'react';
@@ -24,42 +24,39 @@ import { getRecipesFilters } from '~/store/recipes/selectors';
 import { MultiselectItem } from '~/types/filter-item.type';
 import { RecipeFilters } from '~/types/state.type';
 
+import ScrollArea from '../scrollarea/scrollarea';
+
 type MultiSelectProps = {
     data: MultiselectItem[];
     type: ComponentType;
     text: string;
     isActive?: boolean;
+    isDrawerActive?: boolean;
 };
 
 export type ComponentType = 'categories' | 'allergies-drawer' | 'allergies-filter' | 'author';
 
-export type TestIdKeys = 'menu' | 'checkbox' | 'list' | 'input' | 'addBtn';
+export type TestIdKeys = 'menu' | 'checkbox' | 'list';
 
 const dataTestIdByType: Record<ComponentType, Record<TestIdKeys, string>> = {
-    author: { menu: '', checkbox: 'checkbox', list: '', input: '', addBtn: '' },
+    author: { menu: '', checkbox: 'checkbox', list: '' },
     categories: {
         menu: 'filter-menu-button-категория',
         checkbox: 'checkbox',
         list: '',
-        input: '',
-        addBtn: '',
     },
     'allergies-drawer': {
         menu: 'allergens-menu-button-filter',
         list: '',
         checkbox: `allergen`,
-        input: 'add-other-allergen',
-        addBtn: 'add-allergen-button',
     },
     'allergies-filter': {
         menu: 'allergens-menu-button',
         list: 'allergens-menu',
         checkbox: `allergen`,
-        input: 'add-other-allergen',
-        addBtn: 'add-allergen-button',
     },
 };
-const MultiSelect = ({ data, type, text, isActive = true }: MultiSelectProps) => {
+const MultiSelect = ({ data, type, text, isActive = true, isDrawerActive }: MultiSelectProps) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const dispatch = useAppDispatch();
     const inputRef = useRef<HTMLInputElement>(null);
@@ -72,10 +69,27 @@ const MultiSelect = ({ data, type, text, isActive = true }: MultiSelectProps) =>
         dispatch(updateFilter({ key, value: values, type: filterStatus }));
         dispatch(updateIsFiltering());
     };
+    const isIdShowing =
+        (type === 'allergies-drawer' && isDrawerActive) ||
+        (type === 'allergies-filter' && !isDrawerActive);
+    const inputTestId = isIdShowing ? 'add-other-allergen' : '';
+    const buttonTestId = isIdShowing ? 'add-allergen-button' : '';
+
+    const returnFocusToInput = () => {
+        setTimeout(() => {
+            inputRef.current?.focus();
+            if (window.Cypress) {
+                document
+                    .querySelector<HTMLInputElement>(`[data-test-id="${inputTestId}"]`)
+                    ?.focus();
+            }
+        }, 50);
+    };
 
     const handleSelect = (values: string | string[]) => {
         const selectedValues = Array.isArray(values) ? values : [values];
         updateData(selectedValues);
+        returnFocusToInput();
     };
 
     const removeItem = (itemToRemove: string) => {
@@ -116,38 +130,24 @@ const MultiSelect = ({ data, type, text, isActive = true }: MultiSelectProps) =>
                     !isOpen ? <ChevronDownIcon boxSize={5} /> : <ChevronUpIcon boxSize={5} />
                 }
                 variant='outlineMenu'
+                color='blackAlpha.700'
                 width='100%'
                 textAlign='left'
                 fontWeight='normal'
                 size={{ base: 'sm', lg: 'md' }}
-                maxW={{ lg: '14.625rem' }}
+                lineHeight={6}
+                maxW={{ lg: `${type === 'allergies-filter' ? '14.625rem' : '100%'}` }}
                 borderRadius='0.25rem'
                 isDisabled={!isActive}
                 data-test-id={dataTestIdByType[type].menu}
             >
-                {selectedItems.length > 0 ? (
-                    <Flex wrap='wrap' gap={2} zIndex={10000}>
-                        {selectedItems.map((item) => (
-                            <Tag
-                                key={item}
-                                size='md'
-                                variant='outline'
-                                colorScheme='lime'
-                                color='lime.600'
-                                maxW='15.5rem'
-                                data-test-id='filter-tag'
-                            >
-                                <TagLabel
-                                    whiteSpace='nowrap'
-                                    overflow='hidden'
-                                    textOverflow='ellipsis'
-                                    display='inline-block'
-                                    maxW='12.5rem'
-                                >
-                                    {getNameById(item)}
-                                </TagLabel>
-                                <CloseIcon
-                                    boxSize={2}
+                {selectedItems.length > 0 && type === 'allergies-filter' && !isDrawerActive ? (
+                    <Flex wrap='wrap' gap={2}>
+                        {selectedItems.map((item: string) => (
+                            <Tag key={item} size='md' colorScheme='lime' data-test-id='filter-tag'>
+                                <TagLabel display='inline-block'>{getNameById(item)}</TagLabel>
+                                <TagCloseButton
+                                    as={Icon}
                                     onClick={() => {
                                         removeItem(item);
                                     }}
@@ -160,43 +160,74 @@ const MultiSelect = ({ data, type, text, isActive = true }: MultiSelectProps) =>
                     text
                 )}
             </MenuButton>
-            <MenuList minWidth='240px' data-test-id={dataTestIdByType[type].list} zIndex={8}>
-                <MenuOptionGroup type='checkbox' value={selectedItems} onChange={handleSelect}>
-                    {data.map(({ id, name }, i) => (
-                        <MenuItemOption
-                            key={id}
-                            value={id}
-                            data-test-id={
-                                isAllergiesSelect
-                                    ? `${dataTestIdByType[type].checkbox}-${i}`
-                                    : `${dataTestIdByType[type].checkbox}-${name.toLowerCase()}`
-                            }
-                        >
-                            {name}
-                        </MenuItemOption>
-                    ))}
-                </MenuOptionGroup>
+
+            <MenuList
+                minWidth='240px'
+                minW={{ base: '308px', sm: '351px' }}
+                maxW={{ base: '308px', sm: '351px' }}
+                data-test-id={dataTestIdByType[type].list}
+                zIndex={8}
+            >
+                <ScrollArea extraStylesType='multiselect'>
+                    <MenuOptionGroup
+                        overflowY='auto'
+                        type='checkbox'
+                        value={selectedItems}
+                        onChange={handleSelect}
+                    >
+                        {data.map(({ id, name }, i) => (
+                            <MenuItemOption
+                                key={id}
+                                value={id}
+                                data-test-id={
+                                    isAllergiesSelect
+                                        ? `${isIdShowing ? `${dataTestIdByType[type].checkbox}-${i}` : ''}`
+                                        : `${dataTestIdByType[type].checkbox}-${name.toLowerCase()}`
+                                }
+                            >
+                                <Text
+                                    maxW='90%'
+                                    whiteSpace='nowrap'
+                                    overflow='hidden'
+                                    textOverflow='ellipsis'
+                                    fontSize='sm'
+                                >
+                                    {name}
+                                </Text>
+                            </MenuItemOption>
+                        ))}
+                    </MenuOptionGroup>
+                </ScrollArea>
                 {isAllergiesSelect && (
-                    <Box>
-                        <InputGroup>
-                            <Input
-                                ref={inputRef}
-                                placeholder='Другой аллерген'
-                                onKeyDown={handleKeyDown}
-                                data-test-id={dataTestIdByType[type].input}
-                            />
-                            <InputRightElement>
-                                <IconButton
-                                    aria-label='Add custom item'
-                                    icon={<SmallAddIcon />}
-                                    size='sm'
-                                    onClick={handleAddCustomItem}
-                                    variant='ghost'
-                                    data-test-id={dataTestIdByType[type].addBtn}
-                                />
-                            </InputRightElement>
-                        </InputGroup>
-                    </Box>
+                    <Flex alignItems='center' p={2} pl={6} w='100%' gap={2}>
+                        <Input
+                            ref={inputRef}
+                            placeholder='Другой аллерген'
+                            onKeyDown={handleKeyDown}
+                            data-test-id={inputTestId}
+                            size='sm'
+                            flex={1}
+                            autoFocus={isOpen}
+                            _placeholder={{ color: 'lime.800' }}
+                            _focusVisible={{ borderColor: 'lime.600' }}
+                            color='lime.800'
+                            borderRadius={6}
+                        />
+                        <IconButton
+                            aria-label='Add custom item'
+                            icon={<SmallAddIcon minW={3} minH={3} />}
+                            size='sm'
+                            onClick={handleAddCustomItem}
+                            variant='ghost'
+                            data-test-id={buttonTestId}
+                            p={0}
+                            minW='24px !important'
+                            h='24px !important'
+                            borderRadius='50%'
+                            color='white'
+                            bg='lime.600'
+                        />
+                    </Flex>
                 )}
             </MenuList>
         </Menu>

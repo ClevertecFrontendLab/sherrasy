@@ -17,7 +17,7 @@ function Layout({ children }: LayoutProps) {
         <Flex direction='column' minH='100vh' maxH='100vh'>
             <Header />
             <Flex flex={1} pt={{ base: '4rem', lg: '5rem' }} pb={{ base: '5.25rem', lg: '2rem' }}>
-                {isDesktop && <MenuDishes />}
+                {isDesktop && <MenuDishes isBurgerMenu={false} />}
                 <Flex
                     flex='1'
                     direction='column'

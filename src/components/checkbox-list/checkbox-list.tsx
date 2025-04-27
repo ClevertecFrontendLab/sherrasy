@@ -27,7 +27,7 @@ const CheckboxList = ({ data, type }: CheckboxListProps) => {
 
     return (
         <Flex direction='column' align='start'>
-            <Text fontWeight='bold' mb={2}>
+            <Text fontWeight='bold' mb={2} fontSize='md' lineHeight={6}>
                 {title}
             </Text>
             <VStack align='start' spacing={2}>
@@ -39,6 +39,8 @@ const CheckboxList = ({ data, type }: CheckboxListProps) => {
                         onChange={(e) => handleCheckboxChange(id, e.target.checked)}
                         colorScheme='lime'
                         iconColor='black'
+                        fontSize='sm'
+                        lineHeight={5}
                         data-test-id={`checkbox-${name.toLocaleLowerCase()}`}
                     >
                         {name}

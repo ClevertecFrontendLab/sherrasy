@@ -57,9 +57,13 @@ export const recipeSlice = createSlice({
             action.payload.type === 'active'
                 ? (state.currentFilters[action.payload.key] = action.payload.value)
                 : (state.pendingFilters[action.payload.key] = action.payload.value);
+            if (action.payload.key === 'allergens') {
+                state.pendingFilters['allergens'] = action.payload.value;
+            }
         },
         updateCurrentFilters: (state) => {
             state.currentFilters = state.pendingFilters;
+            state.pendingFilters = initialState.currentFilters;
         },
         clearAllergens: (state) => {
             state.currentFilters.allergens = initialState.currentFilters.allergens;

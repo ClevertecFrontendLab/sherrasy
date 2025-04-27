@@ -60,7 +60,7 @@ function RecipesTabs({ tabsNames }: RecipesTabsProps) {
                         minW='max-content'
                         onClick={() => handleSubcategoryClick(id)}
                         borderBottomColor='transparent'
-                        data-test-id={`tab-${name}-${i}`}
+                        data-test-id={`tab-${id}-${i}`}
                         flexShrink={0}
                         mb={0}
                         mr={isDesktop ? 4 : 0}

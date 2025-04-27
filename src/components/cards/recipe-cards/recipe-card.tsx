@@ -28,16 +28,17 @@ import { iconsByTag } from '~/utils/iconsByTag';
 type CardProps = {
     recipe: FullRecipe;
     onClick: () => void;
+    testI?: string;
 };
 type RecipeCardProps = CardProps & {
     type: 'horizontal' | 'vertical';
 };
 
-function VerticalRecipeCard({ recipe, onClick }: CardProps) {
+function VerticalRecipeCard({ recipe, onClick, testI }: CardProps) {
     const { title, image, description, category, bookmarks, likes } = recipe;
     const [isDesktop] = useMediaQuery('(min-width: 1440px)');
     return (
-        <Card position='relative' variant='vCard' onClick={onClick}>
+        <Card position='relative' variant='vCard' onClick={onClick} data-test-id={testI}>
             <CardBody>
                 <Image
                     objectFit='cover'
@@ -123,7 +124,7 @@ function VerticalRecipeCard({ recipe, onClick }: CardProps) {
     );
 }
 
-function HorizontalRecipeCard({ recipe, onClick }: CardProps) {
+function HorizontalRecipeCard({ recipe, onClick, testI }: CardProps) {
     const { title, image, description, category, bookmarks, likes, recommendedBy } = recipe;
     const searchString = useAppSelector(getRecipesSearchString);
     const author = recommendedBy
@@ -131,7 +132,7 @@ function HorizontalRecipeCard({ recipe, onClick }: CardProps) {
         : null;
     const [isDesktop] = useMediaQuery('(min-width: 1440px)');
     return (
-        <Card direction='row' variant='hCard' onClick={onClick}>
+        <Card direction='row' variant='hCard' data-test-id={testI?.includes('food') ? testI : ''}>
             <Box position='relative' maxW='50%' maxH='100%'>
                 <Image
                     objectFit='cover'
@@ -278,6 +279,8 @@ function HorizontalRecipeCard({ recipe, onClick }: CardProps) {
                         size={{ base: 'xs', lg: 'sm' }}
                         px={{ base: 2, lg: '12px' }}
                         py={{ base: 1, lg: '6px' }}
+                        data-test-id={testI?.includes('food') ? '' : `card-link-${testI}`}
+                        onClick={onClick}
                     >
                         Готовить
                     </Button>
@@ -287,11 +290,11 @@ function HorizontalRecipeCard({ recipe, onClick }: CardProps) {
     );
 }
 
-function RecipeCardComponent({ recipe, type, onClick }: RecipeCardProps) {
+function RecipeCardComponent({ recipe, type, testI, onClick }: RecipeCardProps) {
     return type === 'vertical' ? (
-        <VerticalRecipeCard recipe={recipe} onClick={onClick} />
+        <VerticalRecipeCard recipe={recipe} onClick={onClick} testI={testI} />
     ) : (
-        <HorizontalRecipeCard recipe={recipe} onClick={onClick} />
+        <HorizontalRecipeCard recipe={recipe} onClick={onClick} testI={testI} />
     );
 }
 

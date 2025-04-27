@@ -6,6 +6,7 @@ import { buttonTheme } from './ui-theme/button.theme';
 import { cardTheme } from './ui-theme/card.theme';
 import { menuTheme } from './ui-theme/menu.theme';
 import { tableTheme } from './ui-theme/table.theme';
+import { tagTheme } from './ui-theme/tag.theme';
 
 export const theme = extendTheme({
     colors: {
@@ -32,6 +33,7 @@ export const theme = extendTheme({
         Breadcrumb: breadCrumbTheme,
         Button: buttonTheme,
         Menu: menuTheme,
+        Tag: tagTheme,
     },
     breakpoints: {
         base: '0em', //0px

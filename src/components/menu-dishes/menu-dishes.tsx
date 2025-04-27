@@ -24,7 +24,11 @@ import { iconsByTag } from '~/utils/iconsByTag';
 
 import ScrollArea from '../scrollarea/scrollarea';
 
-function MenuDishes() {
+type MenuDishesProps = {
+    isBurgerMenu: boolean;
+};
+
+function MenuDishes({ isBurgerMenu }: MenuDishesProps) {
     const navigate = useNavigate();
     const { pathname } = useLocation();
     const { categoryId, subcategoryId } = useParams<PathParams>();
@@ -32,7 +36,7 @@ function MenuDishes() {
     const [activeIndex, setActiveIndex] = useState<number | number[]>(-1);
     const handleMenuClick = (category: string, subcategory: string) => {
         const link = `/${category}/${subcategory}`;
-        navigate(link);
+        navigate(link, { state: { keepMenuOpen: isBurgerMenu } });
     };
 
     useEffect(() => {
@@ -52,15 +56,15 @@ function MenuDishes() {
             direction='column'
             justify='space-between'
             borderRight='1px solid'
-            w={{ base: '302px', sm: '314px', lg: '16rem', xl: '16.125rem', '2xl': '16rem' }}
+            w={{ base: '18.875rem', sm: '19.625rem', lg: '16rem', xl: '16.125rem', '2xl': '16rem' }}
             h={{ base: 'calc(100vh - 240px)', lg: 'calc(100vh - 80px)' }}
             borderColor='blackAlpha.100'
             position={{ lg: 'fixed' }}
-            left={0}
+            left={isBurgerMenu ? 'auto' : 0}
             mt={{ base: 5, sm: 8, lg: 0 }}
             bg='white'
         >
-            <ScrollArea>
+            <ScrollArea extraStylesType='menu'>
                 <Accordion
                     ml={{ base: 0, lg: 1, xl: 2, '2xl': 1 }}
                     allowToggle
@@ -72,7 +76,7 @@ function MenuDishes() {
                     {data.map((item: MenuItem) => (
                         <AccordionItem border='none' key={item.groupName} minH='3rem'>
                             <AccordionButton
-                                data-test-id={item.tag}
+                                data-test-id={item.tag === 'vegan' ? 'vegan-cuisine' : item.tag}
                                 _expanded={{ bg: 'lime.100', fontWeight: '600' }}
                                 _hover={{ bg: 'lime.50' }}
                                 onClick={() => handleMenuClick(item.tag, item.elements[0].id)}
@@ -104,7 +108,7 @@ function MenuDishes() {
                                             }}
                                             data-test-id={
                                                 subcategoryParam === subcategory.id &&
-                                                `${subcategory}-active`
+                                                `${subcategory.id}-active`
                                             }
                                         >
                                             <Text

@@ -16,7 +16,7 @@ function CookBlogSection() {
             borderRadius='2xl'
             p={{ base: 3, lg: '22px' }}
             ml={{ base: 4, sm: 5, lg: '284px' }}
-            mr={{ base: 4, sm: 5, lg: '278px' }}
+            mr={{ base: 8, sm: 5, lg: '278px' }}
             position='relative'
         >
             <Heading

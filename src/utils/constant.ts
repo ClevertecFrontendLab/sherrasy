@@ -1,14 +1,14 @@
 export const AppRoute = {
     Main: '/',
     Vegan: '/:categoryId/:subcategoryId',
-    Juiciest: '/juiciest',
+    Juiciest: '/the-juiciest',
     Recipe: '/:categoryId/:subcategoryId/:recipeId',
 } as const;
 
 export const AppRouteToName: { [key: string]: string } = {
     '/': 'Главная',
     '/vegan': 'Веганская кухня',
-    '/juiciest': 'Самое сочное',
+    '/the-juiciest': 'Самое сочное',
 };
 
 export const TagToName: { [key: string]: string } = {

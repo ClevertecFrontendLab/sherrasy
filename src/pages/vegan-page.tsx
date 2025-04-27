@@ -33,6 +33,8 @@ function VeganPage() {
                 <Box
                     pl={{ base: 4, sm: 5, lg: '17.75rem' }}
                     pr={{ base: 0, sm: 5, lg: '17.375rem' }}
+                    w='100%'
+                    alignSelf='start'
                 >
                     <RecipesTabs tabsNames={tabsNames} />
                 </Box>

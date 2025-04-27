@@ -8,7 +8,7 @@ import {
     DrawerHeader,
     DrawerOverlay,
     Text,
-    useDisclosure,
+    VStack,
 } from '@chakra-ui/react';
 
 import { FilterIcon } from '~/assets/icons/icons';
@@ -27,20 +27,28 @@ import { getMultiselectCategories } from '~/utils/helpers';
 import AlergiesFilter from '../allergies-filter/allergies-filter';
 import CheckboxList from '../checkbox-list/checkbox-list';
 import MultiSelect from '../multiselect/multiselect';
+import { FilterTags } from './filter-tags';
 
-function FilterDrawer() {
-    const { isOpen, onOpen, onClose } = useDisclosure();
+type FilterDrawerProps = {
+    isOpenDrawer: boolean;
+    handleOpen: () => void;
+    handleClose: () => void;
+};
+
+function FilterDrawer({ isOpenDrawer, handleOpen, handleClose }: FilterDrawerProps) {
     const filtersData = useAppSelector((state) => getRecipesFilters(state, 'pending'));
     const isFiltersFilled = Object.values(filtersData).some((filter) => filter?.length ?? 0 > 0);
     const dispatch = useAppDispatch();
     const handleFilterCards = () => {
         dispatch(updateCurrentFilters());
         dispatch(updateIsFiltering());
+        handleClose();
     };
     const handleClearFilters = () => {
         dispatch(clearFilters());
         dispatch(updateIsFiltering());
     };
+
     return (
         <>
             <Button
@@ -49,19 +57,21 @@ function FilterDrawer() {
                 p={0}
                 variant='outline'
                 borderColor='blackAlpha.600'
-                onClick={onOpen}
+                onClick={handleOpen}
                 data-test-id='filter-button'
             >
                 <FilterIcon boxSize={{ base: 4, lg: 6 }} />
             </Button>
             <Drawer
-                isOpen={isOpen}
+                isOpen={isOpenDrawer}
                 placement='right'
-                onClose={onClose}
-                data-test-id='filter-drawer'
+                onClose={() => {
+                    handleClearFilters();
+                    handleClose();
+                }}
             >
                 <DrawerOverlay />
-                <DrawerContent>
+                <DrawerContent minW={{ base: '320px', sm: '399px' }} data-test-id='filter-drawer'>
                     <DrawerHeader>
                         <Text size='2xl' lineHeight={8} fontWeight='bold'>
                             Фильтр
@@ -75,17 +85,20 @@ function FilterDrawer() {
                         />
                     </DrawerHeader>
 
-                    <DrawerBody display='flex' flexDirection='column' gap={4}>
-                        <MultiSelect
-                            data={getMultiselectCategories(categoriesData)}
-                            type='categories'
-                            text='Категория'
-                        />
+                    <DrawerBody>
+                        <VStack align='start' gap={4} mb={4}>
+                            <MultiSelect
+                                data={getMultiselectCategories(categoriesData)}
+                                type='categories'
+                                text='Категория'
+                            />
 
-                        <MultiSelect data={cookBlog} type='author' text='Поиск по автору' />
-                        <CheckboxList data={filterData[0]} type='meat_type' />
-                        <CheckboxList data={filterData[1]} type='side_type' />
-                        <AlergiesFilter type='drawer' />
+                            <MultiSelect data={cookBlog} type='author' text='Поиск по автору' />
+                            <CheckboxList data={filterData[0]} type='meat_type' />
+                            <CheckboxList data={filterData[1]} type='side_type' />
+                            <AlergiesFilter type='drawer' isDrawerActive={isOpenDrawer} />
+                        </VStack>
+                        <FilterTags filters={filtersData} />
                     </DrawerBody>
 
                     <DrawerFooter gap={2}>
@@ -93,13 +106,10 @@ function FilterDrawer() {
                             variant='outline'
                             colorScheme='black'
                             size={{ base: 'xs', lg: 'sm' }}
-                            w={{ base: 4, lg: 'initial' }}
                             data-test-id='clear-filter-button'
                             onClick={handleClearFilters}
                         >
-                            <Text ml={2} display={{ base: 'none', lg: 'inline' }}>
-                                Очистить фильтр
-                            </Text>
+                            Очистить фильтр
                         </Button>
                         <Button
                             variant='solid'
@@ -111,6 +121,7 @@ function FilterDrawer() {
                             data-test-id='find-recipe-button'
                             onClick={handleFilterCards}
                             isDisabled={!isFiltersFilled}
+                            pointerEvents={!isFiltersFilled ? 'none' : 'auto'}
                         >
                             Найти рецепт
                         </Button>

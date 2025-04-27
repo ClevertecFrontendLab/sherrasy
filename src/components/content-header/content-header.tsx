@@ -16,7 +16,8 @@ function ContentHeader({ headline, description }: ContentHeaderProps) {
             align='center'
             textAlign='center'
             borderRadius={6}
-            w={{ base: '22.5rem', sm: '30rem', lg: '36.125rem', xl: '56.125rem' }}
+            minW={{ base: '22.5rem', sm: '30.625rem', lg: '36.125rem', xl: '56.125rem' }}
+            w='100%'
             mt={{ base: 3, xs: '1rem', lg: 8 }}
             mr={{ base: 2, xs: 0 }}
             ml={{ base: 2, xs: '0.0625rem', lg: 2 }}

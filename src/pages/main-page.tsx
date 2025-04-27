@@ -22,15 +22,20 @@ function MainPage() {
             <Layout>
                 <ContentHeader headline='Приятного аппетита!' />
                 {isFiltering ? (
-                    <Box mt={{ base: 8, sm: 4, lg: 3 }}>
+                    <Box
+                        mt={{ base: 8, sm: 4, lg: 3 }}
+                        px={{ base: 4, lg: 0 }}
+                        w={{ base: '100%', lg: 'auto' }}
+                        alignSelf='center'
+                    >
                         <RecipesList recipes={recipes} />
                     </Box>
                 ) : (
-                    <>
+                    <Box alignSelf='start'>
                         <NewSection />
                         <JuicySection recipes={recipes} />
                         <CookBlogSection />
-                    </>
+                    </Box>
                 )}{' '}
                 <RelevantKitchenSection recipes={rkRecipes} />
             </Layout>

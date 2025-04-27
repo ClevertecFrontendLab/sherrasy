@@ -9,10 +9,11 @@ import MultiSelect from '../multiselect/multiselect';
 
 type AlergiesFilterProps = {
     type: 'drawer' | 'filter';
+    isDrawerActive: boolean;
 };
 
-function AlergiesFilter({ type }: AlergiesFilterProps) {
-    const [isAlergensActive, setIsAlergensActive] = useState<boolean>(true);
+function AlergiesFilter({ type, isDrawerActive }: AlergiesFilterProps) {
+    const [isAlergensActive, setIsAlergensActive] = useState<boolean>(false);
     const dispatch = useAppDispatch();
     const isDrawer = type === 'drawer';
     const handleAlergensActive = () => {
@@ -27,6 +28,7 @@ function AlergiesFilter({ type }: AlergiesFilterProps) {
                 gap={4}
                 display={isDrawer ? 'flex' : { base: 'none', lg: 'flex' }}
                 flexDirection={isDrawer ? 'column' : 'row'}
+                minW={isDrawer ? { base: '308px', sm: '351px' } : undefined}
             >
                 <Flex
                     display='flex'
@@ -52,6 +54,7 @@ function AlergiesFilter({ type }: AlergiesFilterProps) {
                     type={`allergies-${type}`}
                     text='Выберите из списка...'
                     isActive={isAlergensActive}
+                    isDrawerActive={isDrawerActive}
                 />
             </Flex>
         </>
