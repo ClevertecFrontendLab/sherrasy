@@ -141,18 +141,29 @@ const MultiSelect = ({ data, type, text, isActive = true, isDrawerActive }: Mult
                 isDisabled={!isActive}
                 data-test-id={dataTestIdByType[type].menu}
             >
-                {selectedItems.length > 0 && type === 'allergies-filter' && !isDrawerActive ? (
+                {selectedItems.length > 0 ? (
                     <Flex wrap='wrap' gap={2}>
                         {selectedItems.map((item: string) => (
-                            <Tag key={item} size='md' colorScheme='lime' data-test-id='filter-tag'>
+                            <Tag
+                                key={item}
+                                size='md'
+                                colorScheme='lime'
+                                data-test-id={
+                                    !isDrawerActive && type === 'allergies-filter'
+                                        ? 'filter-tag'
+                                        : ''
+                                }
+                            >
                                 <TagLabel display='inline-block'>{getNameById(item)}</TagLabel>
-                                <TagCloseButton
-                                    as={Icon}
-                                    onClick={() => {
-                                        removeItem(item);
-                                    }}
-                                    style={{ pointerEvents: 'auto' }}
-                                />
+                                {!isDrawerActive && type === 'allergies-filter' && (
+                                    <TagCloseButton
+                                        as={Icon}
+                                        onClick={() => {
+                                            removeItem(item);
+                                        }}
+                                        style={{ pointerEvents: 'auto' }}
+                                    />
+                                )}
                             </Tag>
                         ))}
                     </Flex>

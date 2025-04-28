@@ -32,7 +32,7 @@ function MainPage() {
                     </Box>
                 ) : (
                     <Box alignSelf='start'>
-                        <NewSection />
+                        <NewSection isRecipePage={false} />
                         <JuicySection recipes={recipes} />
                         <CookBlogSection />
                     </Box>

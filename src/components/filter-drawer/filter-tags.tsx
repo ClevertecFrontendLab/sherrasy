@@ -27,8 +27,6 @@ const FilterTag = ({ filterType, value, onRemove }: FilterTagProps) => {
                 return filterData[0].elements.find((m) => m.id === id)?.name || id;
             case 'side_type':
                 return filterData[1].elements.find((s) => s.id === id)?.name || id;
-            // case 'allergens':
-            //   return id;
             default:
                 return id;
         }

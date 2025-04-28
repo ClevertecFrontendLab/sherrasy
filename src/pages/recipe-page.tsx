@@ -45,7 +45,7 @@ function RecipePage() {
                     <AuthorCard author={MockAuthor} />
                 </Flex>
                 <Box mt={{ base: 10, lg: '3.75rem' }}>
-                    <NewSection />
+                    <NewSection isRecipePage={true} />
                 </Box>
             </Layout>
         </>

@@ -37,10 +37,6 @@ const CheckboxList = ({ data, type }: CheckboxListProps) => {
                         value={id}
                         isChecked={selectedItems.includes(id)}
                         onChange={(e) => handleCheckboxChange(id, e.target.checked)}
-                        colorScheme='lime'
-                        iconColor='black'
-                        fontSize='sm'
-                        lineHeight={5}
                         data-test-id={`checkbox-${name.toLocaleLowerCase()}`}
                     >
                         {name}

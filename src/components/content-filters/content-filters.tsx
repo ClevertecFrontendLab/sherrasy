@@ -16,6 +16,8 @@ function ContentFilters() {
     const searchString = useAppSelector(getRecipesSearchString);
     const filteredRecipies = useAppSelector((state) => getFilteredRecipes(state, 'active'));
     const isEmpty = (!filteredRecipies || !filteredRecipies.length) && searchString;
+    const isNotEmpty = filteredRecipies && filteredRecipies.length > 0 && searchString;
+    const isSearchDisabled = inputValue.trim().length < 3;
     const { isOpen: isOpenDrawer, onOpen, onClose } = useDisclosure();
     const dispatch = useAppDispatch();
     const handleSearchInput = () => {
@@ -43,15 +45,10 @@ function ContentFilters() {
         setInputValue(e.target.value);
     };
 
-    const isSearchDisabled = inputValue.trim().length < 3;
-
-    useEffect(
-        () => () => {
-            dispatch(setSearchRecipeString(null));
-            dispatch(updateIsFiltering());
-        },
-        [dispatch],
-    );
+    useEffect(() => {
+        dispatch(setSearchRecipeString(null));
+        dispatch(updateIsFiltering());
+    }, [dispatch]);
 
     return (
         <Flex direction='column' gap={{ lg: '18px' }} mb={4}>
@@ -75,14 +72,23 @@ function ContentFilters() {
                         placeholder='Название или ингридиент...'
                         color='lime.800'
                         _placeholder={{ color: 'lime.800' }}
-                        _focusVisible={{ borderColor: 'lime.600' }}
-                        border={isEmpty ? '2px' : '1px'}
-                        borderColor={isEmpty ? 'red.500' : 'blackAlpha.600'}
+                        _focusVisible={{
+                            borderColor: isEmpty
+                                ? 'red.500'
+                                : isNotEmpty
+                                  ? 'lime.600'
+                                  : 'blackAlpha.600',
+                        }}
+                        border={isEmpty || isNotEmpty ? '2px' : '1px'}
+                        borderColor={
+                            isEmpty ? 'red.500' : isNotEmpty ? 'lime.600' : 'blackAlpha.600'
+                        }
                         borderRadius='0.25rem'
                         data-test-id='search-input'
                         onKeyDown={handleKeyDown}
                         onChange={handleInputChange}
                         ref={searchRef}
+                        value={inputValue}
                     />
                     <InputRightElement
                         right={8}

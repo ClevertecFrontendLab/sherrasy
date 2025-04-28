@@ -28,7 +28,8 @@ function AlergiesFilter({ type, isDrawerActive }: AlergiesFilterProps) {
                 gap={4}
                 display={isDrawer ? 'flex' : { base: 'none', lg: 'flex' }}
                 flexDirection={isDrawer ? 'column' : 'row'}
-                minW={isDrawer ? { base: '308px', sm: '351px' } : undefined}
+                minW={isDrawer ? { base: '272x', sm: '351px' } : undefined}
+                w='100%'
             >
                 <Flex
                     display='flex'

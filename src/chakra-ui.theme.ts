@@ -4,6 +4,7 @@ import { badgeTheme } from './ui-theme/badge.theme';
 import { breadCrumbTheme } from './ui-theme/breadcrumb.theme';
 import { buttonTheme } from './ui-theme/button.theme';
 import { cardTheme } from './ui-theme/card.theme';
+import { checkboxTheme } from './ui-theme/checkbox.theme';
 import { menuTheme } from './ui-theme/menu.theme';
 import { tableTheme } from './ui-theme/table.theme';
 import { tagTheme } from './ui-theme/tag.theme';
@@ -34,6 +35,7 @@ export const theme = extendTheme({
         Button: buttonTheme,
         Menu: menuTheme,
         Tag: tagTheme,
+        Checkbox: checkboxTheme,
     },
     breakpoints: {
         base: '0em', //0px

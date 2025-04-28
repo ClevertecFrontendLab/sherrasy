@@ -128,6 +128,7 @@ function RecipeHeader({ recipe }: RecipeHeaderProps) {
                         fontSize={{ base: '2xl', lg: '5xl' }}
                         lineHeight={{ base: 8, lg: 'none' }}
                         noOfLines={{ base: 2, sm: 1, lg: 2 }}
+                        maxW={{ lg: '31.4375rem', xl: '33rem' }}
                     >
                         {title}
                     </Heading>
@@ -136,6 +137,7 @@ function RecipeHeader({ recipe }: RecipeHeaderProps) {
                         fontSize={{ base: 'sm' }}
                         lineHeight={{ base: 5 }}
                         noOfLines={{ base: 3, sm: 2 }}
+                        maxW={{ lg: '31.4375rem', xl: '33rem' }}
                     >
                         {description}
                     </Text>

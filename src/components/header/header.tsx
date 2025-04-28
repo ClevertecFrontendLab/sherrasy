@@ -50,7 +50,7 @@ function Header() {
                 )}
                 {isDesktop && <Breadcrumbs />}
                 {!isDesktop && !isMenuOpen && <Sidebar />}
-                <Spacer minW={isDesktop ? '300px' : 0} />
+                <Spacer minW={isDesktop ? '200px' : 0} />
                 {isDesktop && <UserBlock />}
                 <BurgerMenu isMenuOpen={isMenuOpen} handleMenuOpen={handleMenuOpen} />
             </Flex>

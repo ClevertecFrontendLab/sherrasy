@@ -28,7 +28,7 @@ const customMenu = definePartsStyle((props) => {
             },
             '& > .chakra-menu__icon-wrapper': {
                 border: '2px',
-                borderColor: 'lime.150',
+                borderColor: 'lime.100',
                 borderRadius: '2px',
                 opacity: 1,
                 '> svg': {
@@ -36,7 +36,8 @@ const customMenu = definePartsStyle((props) => {
                 },
             },
             '&[aria-checked=true]> .chakra-menu__icon-wrapper': {
-                bg: 'lime.150',
+                bg: 'lime.400',
+                borderColor: 'lime.400',
                 '> svg': {
                     opacity: 1,
                 },

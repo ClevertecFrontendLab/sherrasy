@@ -11,8 +11,11 @@ import { FullRecipe } from '~/types/recipe.interface';
 import { getSortedNewRecipes } from '~/utils/helpers';
 
 import RecipeCard from '../cards/recipe-cards/recipe-card';
+type NewSectionProps = {
+    isRecipePage: boolean;
+};
 
-function NewSection() {
+function NewSection({ isRecipePage }: NewSectionProps) {
     const swiperBreakponts = {
         0: {
             spaceBetween: 12,
@@ -38,13 +41,16 @@ function NewSection() {
     const currentRecipes = getSortedNewRecipes(recipes);
 
     return (
-        <Box mt={{ base: 3.5, xs: 4, lg: '2.5rem' }} pl={{ base: 2.5, sm: 5, lg: '17.75rem' }}>
+        <Box
+            mt={{ base: 3.5, xs: 4, lg: '2.5rem' }}
+            pl={isRecipePage ? 0 : { base: 2.5, sm: 5, lg: '17.75rem' }}
+        >
             <Heading
                 fontWeight='500'
                 fontSize={{ base: '2xl', lg: '4xl', xl: '5xl' }}
                 lineHeight={{ base: 8, lg: 10, '2xl': 'none' }}
                 mb={{ base: '0.625rem', xs: 3, lg: '1.25rem' }}
-                pr={{ base: 0, sm: 5, lg: '17.375rem' }}
+                pr={{ base: 0, sm: 5, lg: '16.25rem' }}
             >
                 Новые рецепты
             </Heading>

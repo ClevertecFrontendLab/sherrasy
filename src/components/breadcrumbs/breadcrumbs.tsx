@@ -20,7 +20,7 @@ const renderSubcategoryBreadcrumb = (
     return (
         <BreadcrumbItem key={name} isCurrentPage={isLast}>
             <BreadcrumbLink as={Link} to={`/${categoryId}/${subcategoryId}`}>
-                <Text>{name}</Text>
+                <Text w='max-content'>{name}</Text>
             </BreadcrumbLink>
         </BreadcrumbItem>
     );

@@ -27,6 +27,7 @@ import { getMultiselectCategories } from '~/utils/helpers';
 import AlergiesFilter from '../allergies-filter/allergies-filter';
 import CheckboxList from '../checkbox-list/checkbox-list';
 import MultiSelect from '../multiselect/multiselect';
+import ScrollArea from '../scrollarea/scrollarea';
 import { FilterTags } from './filter-tags';
 
 type FilterDrawerProps = {
@@ -84,23 +85,23 @@ function FilterDrawer({ isOpenDrawer, handleOpen, handleClose }: FilterDrawerPro
                             data-test-id='close-filter-drawer'
                         />
                     </DrawerHeader>
+                    <ScrollArea extraStylesType='drawer-filters'>
+                        <DrawerBody>
+                            <VStack align='start' gap={4} mb={4}>
+                                <MultiSelect
+                                    data={getMultiselectCategories(categoriesData)}
+                                    type='categories'
+                                    text='Категория'
+                                />
 
-                    <DrawerBody>
-                        <VStack align='start' gap={4} mb={4}>
-                            <MultiSelect
-                                data={getMultiselectCategories(categoriesData)}
-                                type='categories'
-                                text='Категория'
-                            />
-
-                            <MultiSelect data={cookBlog} type='author' text='Поиск по автору' />
-                            <CheckboxList data={filterData[0]} type='meat_type' />
-                            <CheckboxList data={filterData[1]} type='side_type' />
-                            <AlergiesFilter type='drawer' isDrawerActive={isOpenDrawer} />
-                        </VStack>
-                        <FilterTags filters={filtersData} />
-                    </DrawerBody>
-
+                                <MultiSelect data={cookBlog} type='author' text='Поиск по автору' />
+                                <CheckboxList data={filterData[0]} type='meat_type' />
+                                <CheckboxList data={filterData[1]} type='side_type' />
+                                <AlergiesFilter type='drawer' isDrawerActive={isOpenDrawer} />
+                            </VStack>
+                            <FilterTags filters={filtersData} />
+                        </DrawerBody>
+                    </ScrollArea>
                     <DrawerFooter gap={2}>
                         <Button
                             variant='outline'

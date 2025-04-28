@@ -16,7 +16,8 @@ function ContentHeader({ headline, description }: ContentHeaderProps) {
             align='center'
             textAlign='center'
             borderRadius={6}
-            minW={{ xs: '320px', sm: '30.625rem', lg: '36.125rem', xl: '56.125rem' }}
+            minW={{ xs: '20rem', sm: '30.625rem', lg: '36.125rem', xl: '56.125rem' }}
+            maxW={{ lg: '36.125rem', xl: '56.125rem' }}
             w='98%'
             mt={{ base: 3, xs: '1rem', lg: 8 }}
             mr={{ base: 0, xs: 0 }}
@@ -47,7 +48,7 @@ function ContentHeader({ headline, description }: ContentHeaderProps) {
                 <Text
                     color='blackAlpha.600'
                     mb={{ base: '13px', xs: '1rem', lg: 8 }}
-                    w={{ base: '90%', sm: '96%', lg: '50%', '2xl': '80%' }}
+                    w={{ base: '90%', sm: '96%', lg: '90%' }}
                     fontSize={{ base: 'sm', lg: 'md' }}
                     lineHeight={{ base: 5, lg: 6 }}
                     noOfLines={4}

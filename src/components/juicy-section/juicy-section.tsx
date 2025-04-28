@@ -24,7 +24,7 @@ function JuicySection({ recipes }: JuicySectionProps) {
             direction='column'
             mt={{ base: 8, sm: '1.875rem', md: 8, lg: '2.5rem' }}
             pl={{ base: 4, lg: '17.75rem' }}
-            pr={{ base: 0, sm: 5, lg: '17.375rem' }}
+            pr={{ base: 0, sm: 5, lg: '16.25rem' }}
             gap={{ base: 2, xs: 3, sm: 2.5, md: 3, lg: 4, '2xl': '1.375rem' }}
         >
             <Flex direction='row' justify='space-between' w='100%' align='center'>

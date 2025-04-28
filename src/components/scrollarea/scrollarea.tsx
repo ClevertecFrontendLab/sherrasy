@@ -24,10 +24,14 @@ const ScrollAreaStyles = {
 };
 
 function ScrollArea({ children, extraStylesType }: ScrollAreaProps) {
+    const maxHeightValue: { [key: string]: string } = {
+        multiselect: '320px',
+        'drawer-filters': 'calc( 100vh - 96px)',
+    };
     return (
         <Box
             sx={ScrollAreaStyles}
-            maxH={extraStylesType === 'multiselect' ? '320px' : undefined}
+            maxH={maxHeightValue[extraStylesType] ? maxHeightValue[extraStylesType] : undefined}
             pr={0}
             mt={extraStylesType === 'menu' ? { lg: 9, xl: 8, '2xl': 9 } : 0}
         >
