@@ -3,6 +3,7 @@ import { Box, Button, Flex, useMediaQuery } from '@chakra-ui/react';
 
 import Breadcrumbs from '../breadcrumbs/breadcrumbs';
 import MenuDishes from '../menu-dishes/menu-dishes';
+import ScrollArea from '../scrollarea/scrollarea';
 
 type BurgerMenuProps = {
     isMenuOpen: boolean;
@@ -45,10 +46,12 @@ function BurgerMenu({ isMenuOpen, handleMenuOpen }: BurgerMenuProps) {
                     borderBottomRadius={8}
                     data-test-id='nav'
                 >
-                    <Flex direction='column' pl={5} py={4} overflowY='auto'>
-                        <Breadcrumbs />
-                        <MenuDishes isBurgerMenu={true} />
-                    </Flex>
+                    <ScrollArea extraStylesType='burger-menu'>
+                        <Flex direction='column' pl={5} pt={4} pb={3} overflowY='auto'>
+                            <Breadcrumbs />
+                            <MenuDishes isBurgerMenu={true} />
+                        </Flex>
+                    </ScrollArea>
                 </Flex>
             )}
         </>

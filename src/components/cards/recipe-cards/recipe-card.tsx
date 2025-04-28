@@ -82,11 +82,14 @@ function VerticalRecipeCard({ recipe, onClick, testI }: CardProps) {
                         top={2}
                         left={2}
                         variant='vCard'
+                        maxW='140px'
+                        display='flex'
+                        flexDirection='row'
                     >
                         <Icon boxSize={4} mr={{ base: '1px', lg: 1.5 }}>
                             {iconsByTag[category[0]]}
                         </Icon>
-                        {TagToName[category[0]]}
+                        <Text isTruncated>{TagToName[category[0]]}</Text>
                     </Badge>
                     <ButtonGroup spacing='9px'>
                         {bookmarks > 0 && (
@@ -182,11 +185,12 @@ function HorizontalRecipeCard({ recipe, onClick, testI }: CardProps) {
                             top={2}
                             left={2}
                             variant='hCard'
+                            maxW='140px'
                         >
                             <Icon boxSize={4} mr={{ base: 0.5, lg: 1.5 }}>
                                 {iconsByTag[category[0]]}
                             </Icon>
-                            <Text>{TagToName[category[0]]}</Text>
+                            <Text isTruncated>{TagToName[category[0]]}</Text>
                         </Badge>
                         <ButtonGroup
                             spacing={4}

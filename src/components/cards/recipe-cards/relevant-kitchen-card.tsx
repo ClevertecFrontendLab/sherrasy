@@ -45,11 +45,11 @@ function RKMediumCard({ recipe }: RKCardProps) {
                 </Text>
             </CardBody>
             <CardFooter position='relative'>
-                <Badge py={{ base: 1, md: 0 }} px={2} variant='rkCard'>
+                <Badge py={{ base: 1, md: 0 }} px={2} variant='rkCard' maxW='140px'>
                     <Icon boxSize={4} mr={{ base: 2, lg: 1.5 }}>
                         {iconsByTag[category[0]]}
                     </Icon>
-                    <Text>{TagToName[category[0]]}</Text>
+                    <Text isTruncated>{TagToName[category[0]]}</Text>
                 </Badge>
                 <Spacer />
                 <ButtonGroup

@@ -16,11 +16,11 @@ function ContentHeader({ headline, description }: ContentHeaderProps) {
             align='center'
             textAlign='center'
             borderRadius={6}
-            minW={{ base: '22.5rem', sm: '30.625rem', lg: '36.125rem', xl: '56.125rem' }}
-            w='100%'
+            minW={{ xs: '320px', sm: '30.625rem', lg: '36.125rem', xl: '56.125rem' }}
+            w='98%'
             mt={{ base: 3, xs: '1rem', lg: 8 }}
-            mr={{ base: 2, xs: 0 }}
-            ml={{ base: 2, xs: '0.0625rem', lg: 2 }}
+            mr={{ base: 0, xs: 0 }}
+            ml={{ base: 0, xs: '0.0625rem', lg: 2 }}
             sx={{
                 '&:has(:focus, :active)': {
                     boxShadow:

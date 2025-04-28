@@ -70,7 +70,7 @@ function FilterDrawer({ isOpenDrawer, handleOpen, handleClose }: FilterDrawerPro
                     handleClose();
                 }}
             >
-                <DrawerOverlay />
+                <DrawerOverlay backdropFilter='blur(2px)' bgColor='blackAlpha.300' />
                 <DrawerContent minW={{ base: '320px', sm: '399px' }} data-test-id='filter-drawer'>
                     <DrawerHeader>
                         <Text size='2xl' lineHeight={8} fontWeight='bold'>

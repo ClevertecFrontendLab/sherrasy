@@ -38,26 +38,23 @@ function NewSection() {
     const currentRecipes = getSortedNewRecipes(recipes);
 
     return (
-        <Box
-            mt={{ base: 3.5, xs: 4, lg: '2.5rem' }}
-            pl={{ base: 4, sm: 5, lg: '17.75rem' }}
-            pr={{ base: 0, sm: 5, lg: '17.375rem' }}
-        >
+        <Box mt={{ base: 3.5, xs: 4, lg: '2.5rem' }} pl={{ base: 2.5, sm: 5, lg: '17.75rem' }}>
             <Heading
                 fontWeight='500'
                 fontSize={{ base: '2xl', lg: '4xl', xl: '5xl' }}
                 lineHeight={{ base: 8, lg: 10, '2xl': 'none' }}
                 mb={{ base: '0.625rem', xs: 3, lg: '1.25rem' }}
+                pr={{ base: 0, sm: 5, lg: '17.375rem' }}
             >
                 Новые рецепты
             </Heading>
             <Box
                 position='relative'
-                maxW={{ base: '342px', sm: '45.5rem', lg: '55rem', xl: '85rem' }}
+                maxW={{ base: '330px', sm: '45.5rem', lg: '55rem', xl: '85rem' }}
                 w='100%'
                 sx={{
                     '.swiper-slide': {
-                        width: 'auto !important',
+                        width: 'auto',
                     },
                 }}
             >
