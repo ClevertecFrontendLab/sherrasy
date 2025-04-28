@@ -1,12 +1,12 @@
 import { Avatar, Box, Flex, Text } from '@chakra-ui/react';
 
-function UserBlock() {
+export const UserBlock = () => {
     const name = 'Екатерина Константинопольская';
     return (
         <Flex gap={3} mr='4rem' align='center'>
             <Avatar name={name} src='/photo-dekstop.jpg' />
             <Box>
-                <Text fontSize='lg' fontFamily='Inter'>
+                <Text fontSize='lg' fontFamily='Inter' w='max-content'>
                     {name}
                 </Text>
                 <Text fontSize='sm' lineHeight={5} color='blackAlpha.700'>
@@ -15,5 +15,4 @@ function UserBlock() {
             </Box>
         </Flex>
     );
-}
-export default UserBlock;
+};

@@ -6,7 +6,7 @@ type CookCookBlogCardProps = {
     author: Author;
 };
 
-function CookBlogCard({ author }: CookCookBlogCardProps) {
+export const CookBlogCard = ({ author }: CookCookBlogCardProps) => {
     const { avatar, name, description, nick } = author;
     return (
         <Card
@@ -55,5 +55,4 @@ function CookBlogCard({ author }: CookCookBlogCardProps) {
             </CardBody>
         </Card>
     );
-}
-export default CookBlogCard;
+};

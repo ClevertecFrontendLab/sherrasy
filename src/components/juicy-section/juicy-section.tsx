@@ -2,23 +2,29 @@ import { Button, Flex, Heading, SimpleGrid, Text, useMediaQuery } from '@chakra-
 import { useNavigate } from 'react-router';
 
 import { ArrowRightIcon } from '~/assets/icons/icons';
-import { juicyListShort } from '~/components/cards/mock-cards.json';
-import { RecipeWithImage } from '~/types/recipe.interface';
+import { FullRecipe } from '~/types/recipe.interface';
+import { AppRoute } from '~/utils/constant';
+import { getSortedJuicyRecipes } from '~/utils/helpers';
 
-import RecipeCard from '../cards/recipe-card';
+import { RecipeCard } from '../cards/recipe-cards/recipe-card';
 
-function JuicySection() {
+type JuicySectionProps = {
+    recipes: FullRecipe[];
+};
+
+export const JuicySection = ({ recipes }: JuicySectionProps) => {
     const [isDesktop] = useMediaQuery('(min-width: 1440px)');
+    const currentRecipes = getSortedJuicyRecipes(recipes);
     const navigate = useNavigate();
     const handleAllClick = () => {
-        navigate(`/juiciest`);
+        navigate(AppRoute.Juiciest);
     };
     return (
         <Flex
             direction='column'
             mt={{ base: 8, sm: '1.875rem', md: 8, lg: '2.5rem' }}
-            pl={{ base: 4, sm: 5, lg: '17.75rem' }}
-            pr={{ base: 0, sm: 5, lg: '17.375rem' }}
+            pl={{ base: 4, lg: '17.75rem' }}
+            pr={{ base: 0, sm: 5, lg: '16.25rem' }}
             gap={{ base: 2, xs: 3, sm: 2.5, md: 3, lg: 4, '2xl': '1.375rem' }}
         >
             <Flex direction='row' justify='space-between' w='100%' align='center'>
@@ -57,8 +63,8 @@ function JuicySection() {
                     xl: 'repeat(2, minmax(41.75rem, 1fr))',
                 }}
             >
-                {juicyListShort.map((item: RecipeWithImage) => (
-                    <RecipeCard key={item.id} recipe={item} type='horizontal' />
+                {currentRecipes.map((item: FullRecipe, i) => (
+                    <RecipeCard key={item.id} recipe={item} type='horizontal' testI={`${i}`} />
                 ))}
             </SimpleGrid>
             <Button
@@ -80,5 +86,4 @@ function JuicySection() {
             </Button>
         </Flex>
     );
-}
-export default JuicySection;
+};

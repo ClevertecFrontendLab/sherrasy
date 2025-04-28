@@ -1,20 +1,21 @@
 export const AppRoute = {
     Main: '/',
-    Vegan: '/vegan',
-    Juiciest: '/juiciest',
+    Vegan: '/:categoryId/:subcategoryId',
+    Juiciest: '/the-juiciest',
+    Recipe: '/:categoryId/:subcategoryId/:recipeId',
 } as const;
 
 export const AppRouteToName: { [key: string]: string } = {
     '/': 'Главная',
     '/vegan': 'Веганская кухня',
-    '/juiciest': 'Самое сочное',
+    '/the-juiciest': 'Самое сочное',
 };
 
 export const TagToName: { [key: string]: string } = {
-    salad: 'Салаты',
-    aperitif: 'Закуски',
-    'first-course': 'Первые блюда',
-    'second-course': 'Вторые блюда',
+    salads: 'Салаты',
+    snacks: 'Закуски',
+    'first-dish': 'Первые блюда',
+    'second-dish': 'Вторые блюда',
     dessert: 'Десерты, выпечка',
     grilled: 'Блюда на гриле',
     vegan: 'Веганская кухня',
@@ -23,5 +24,12 @@ export const TagToName: { [key: string]: string } = {
     national: 'Национальные',
     sauce: 'Соусы',
     drinks: 'Напитки',
-    preparations: 'Заготовки',
+    preserves: 'Заготовки',
+};
+
+export const NutritionToName: { [key: string]: string } = {
+    calories: 'калорийность',
+    proteins: 'белки',
+    fats: 'жиры',
+    carbohydrates: 'углеводы',
 };

@@ -3,6 +3,7 @@ import React from 'react';
 
 interface ScrollAreaProps {
     children: React.ReactNode;
+    extraStylesType: string;
 }
 
 const ScrollAreaStyles = {
@@ -22,12 +23,19 @@ const ScrollAreaStyles = {
     },
 };
 
-function ScrollArea({ children }: ScrollAreaProps) {
+export const ScrollArea = ({ children, extraStylesType }: ScrollAreaProps) => {
+    const maxHeightValue: { [key: string]: string } = {
+        multiselect: '320px',
+        'drawer-filters': 'calc( 100vh - 96px)',
+    };
     return (
-        <Box sx={ScrollAreaStyles} pr={0} mt={{ lg: 9, xl: 8, '2xl': 9 }}>
+        <Box
+            sx={ScrollAreaStyles}
+            maxH={maxHeightValue[extraStylesType] ? maxHeightValue[extraStylesType] : undefined}
+            pr={0}
+            mt={extraStylesType === 'menu' ? { lg: 9, xl: 8, '2xl': 9 } : 0}
+        >
             {children}
         </Box>
     );
-}
-
-export default ScrollArea;
+};

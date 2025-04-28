@@ -1,44 +1,103 @@
 import { ChevronRightIcon } from '@chakra-ui/icons';
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, Text } from '@chakra-ui/react';
-import { Link, useLocation, useSearchParams } from 'react-router';
+import { Link, useLocation, useParams } from 'react-router';
 
-import { AppRouteToName } from '~/utils/constant';
+import { MenuSubcategory } from '~/types/menu-item.type';
+import { PathParams } from '~/types/params.type';
+import { AppRoute, TagToName } from '~/utils/constant';
+import data from '~/utils/data/mock-dishes.json';
+import { getTabNames } from '~/utils/helpers';
 
-function Breadcrumbs() {
-    const location = useLocation();
-    const [searchParams] = useSearchParams();
-    const subcategoryParam = searchParams.get('subcategory');
-    const pathnames = location.pathname.split('/').filter((x) => x);
-    let currentPath = '/';
-
-    const breadcrumbItems = pathnames.map((name, index) => {
-        currentPath += `${index === 0 ? '' : '/'}${name}`;
-        const isLast = index === pathnames.length - 1;
-
-        return (
-            <BreadcrumbItem key={name} isCurrentPage={isLast}>
-                <Text>{AppRouteToName[currentPath] || name}</Text>
-            </BreadcrumbItem>
-        );
-    });
-
-    if (subcategoryParam) {
-        breadcrumbItems.push(
-            <BreadcrumbItem key={subcategoryParam} isCurrentPage={true}>
-                <Text>{subcategoryParam}</Text>
-            </BreadcrumbItem>,
-        );
-    }
+const renderSubcategoryBreadcrumb = (
+    subcategoryId: string,
+    tabsNames: MenuSubcategory[],
+    categoryId: string,
+    isLast: boolean,
+) => {
+    const currentItem = tabsNames.find(({ id }) => id === subcategoryId);
+    const name = currentItem?.name || tabsNames[0]?.name || subcategoryId;
 
     return (
-        <Breadcrumb ml={32} spacing='2px' separator={<ChevronRightIcon color='gray.500' />}>
+        <BreadcrumbItem key={name} isCurrentPage={isLast}>
+            <BreadcrumbLink as={Link} to={`/${categoryId}/${subcategoryId}`}>
+                <Text w='max-content'>{name}</Text>
+            </BreadcrumbLink>
+        </BreadcrumbItem>
+    );
+};
+
+const renderRecipeBreadcrumb = (recipeName: string, recipeId: string, isLast: boolean) => (
+    <BreadcrumbItem key={recipeId} isCurrentPage={isLast}>
+        <BreadcrumbLink maxH={6}>
+            <Text
+                whiteSpace='nowrap'
+                overflow='hidden'
+                textOverflow='ellipsis'
+                display='inline-block'
+                maxW={{ base: '19rem', lg: '38rem', xl: '56.25rem' }}
+            >
+                {recipeName}
+            </Text>
+        </BreadcrumbLink>
+    </BreadcrumbItem>
+);
+
+const renderCategoryBreadcrumb = (
+    segment: string,
+    tabsNames: MenuSubcategory[],
+    isLast: boolean,
+) => (
+    <BreadcrumbItem key={segment} isCurrentPage={isLast}>
+        <BreadcrumbLink as={Link} to={`/${segment}/${tabsNames[0]?.id}`}>
+            <Text w='max-content'>{TagToName[segment]}</Text>
+        </BreadcrumbLink>
+    </BreadcrumbItem>
+);
+
+export const Breadcrumbs = () => {
+    const location = useLocation();
+    const { categoryId, subcategoryId, recipeId } = useParams<PathParams>();
+    const { recipeName } = location.state || {};
+    const pathnames = location.pathname.split('/').filter(Boolean);
+    const isJuiciestPath = pathnames.includes('the-juiciest');
+    const tabsNames = getTabNames(data, categoryId);
+
+    const breadcrumbItems = pathnames.map((segment, index) => {
+        const isLast = index === pathnames.length - 1;
+
+        if (segment === 'the-juiciest') return null;
+
+        if (subcategoryId && segment === subcategoryId) {
+            return renderSubcategoryBreadcrumb(subcategoryId, tabsNames, categoryId!, isLast);
+        }
+
+        if (recipeId && segment === recipeId) {
+            return renderRecipeBreadcrumb(recipeName, recipeId, isLast);
+        }
+
+        return renderCategoryBreadcrumb(segment, tabsNames, isLast);
+    });
+
+    return (
+        <Breadcrumb
+            ml={{ lg: 32 }}
+            spacing='2px'
+            data-test-id='breadcrumbs'
+            separator={<ChevronRightIcon />}
+        >
             <BreadcrumbItem>
-                <BreadcrumbLink as={Link} to='/'>
+                <BreadcrumbLink as={Link} to={AppRoute.Main}>
                     Главная
                 </BreadcrumbLink>
             </BreadcrumbItem>
+            {isJuiciestPath && (
+                <BreadcrumbItem>
+                    <BreadcrumbLink as={Link} to={AppRoute.Juiciest}>
+                        Самое сочное
+                    </BreadcrumbLink>
+                </BreadcrumbItem>
+            )}
             {breadcrumbItems}
         </Breadcrumb>
     );
-}
-export default Breadcrumbs;
+};

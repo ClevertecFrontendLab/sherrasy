@@ -4,17 +4,16 @@ import { HomeIcon, PenIcon, SearchIcon } from '~/assets/icons/icons';
 
 import styles from './footer.module.css';
 
-function Footer() {
+export const Footer = () => {
     const [isDesktop] = useMediaQuery('(min-width: 1440px)');
-    if (isDesktop) {
-        return <></>;
-    }
+
     return (
         <Box
             minW='100%'
             maxH='84px'
             data-test-id='footer'
             sx={{ position: 'fixed !important' }}
+            display={isDesktop ? 'none' : 'block'}
             bottom={0}
             left={0}
             right={0}
@@ -109,5 +108,4 @@ function Footer() {
             </Flex>
         </Box>
     );
-}
-export default Footer;
+};

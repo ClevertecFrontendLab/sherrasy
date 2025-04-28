@@ -1,14 +1,17 @@
 import { Button, Flex, SimpleGrid, Text } from '@chakra-ui/react';
 
-import { RecipeWithImage } from '~/types/recipe.interface';
+import { FullRecipe } from '~/types/recipe.interface';
 
-import RecipeCard from '../cards/recipe-card';
+import { RecipeCard } from '../cards/recipe-cards/recipe-card';
 
 type RecipesListProps = {
-    recipes: RecipeWithImage[];
+    recipes: FullRecipe[] | null;
 };
 
-function RecipesList({ recipes }: RecipesListProps) {
+export const RecipesList = ({ recipes }: RecipesListProps) => {
+    if (!recipes || recipes.length === 0) {
+        return <Text> Элементы с такими данными не найдены</Text>;
+    }
     return (
         <Flex direction='column' gap={{ base: 3, sm: 3.5 }} justify='center'>
             <SimpleGrid
@@ -20,16 +23,22 @@ function RecipesList({ recipes }: RecipesListProps) {
                     xl: 'repeat(2, minmax(41.75rem, 1fr))',
                 }}
             >
-                {recipes.map((item: RecipeWithImage) => (
-                    <RecipeCard key={item.id} recipe={item} type='horizontal' />
+                {recipes.map((item: FullRecipe, i: number) => (
+                    <RecipeCard
+                        recipe={item}
+                        type='horizontal'
+                        key={item.id}
+                        testI={`food-card-${i}`}
+                    />
                 ))}
             </SimpleGrid>
-            <Button bg='lime.400' mt={1} size='md' alignSelf='center'>
-                <Text fontWeight={600} fontSize='md' lineHeight={6}>
-                    Загрузить еще
-                </Text>
-            </Button>
+            {recipes.length >= 8 && (
+                <Button bg='lime.400' mt={1} size='md' alignSelf='center'>
+                    <Text fontWeight={600} fontSize='md' lineHeight={6}>
+                        Загрузить еще
+                    </Text>
+                </Button>
+            )}
         </Flex>
     );
-}
-export default RecipesList;
+};

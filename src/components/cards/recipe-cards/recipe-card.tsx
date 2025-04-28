@@ -8,6 +8,7 @@ import {
     CardBody,
     CardFooter,
     Flex,
+    Highlight,
     Icon,
     Image,
     Stack,
@@ -16,32 +17,29 @@ import {
 } from '@chakra-ui/react';
 
 import { BookmarkIcon, HeartEyesIcon } from '~/assets/icons/icons';
-import { RecipeWithImage } from '~/types/recipe.interface';
+import { withRecipeNavigation } from '~/hoc/withRecipeNavigation';
+import { useAppSelector } from '~/store/hooks';
+import { getRecipesSearchString } from '~/store/recipes/selectors';
+import { FullRecipe } from '~/types/recipe.interface';
 import { TagToName } from '~/utils/constant';
+import { cookBlog } from '~/utils/data/mock-cards.json';
 import { iconsByTag } from '~/utils/iconsByTag';
 
-import { cookBlog } from './mock-cards.json';
-
 type CardProps = {
-    recipe: RecipeWithImage;
+    recipe: FullRecipe;
+    onClick: () => void;
+    testI?: string;
 };
 type RecipeCardProps = CardProps & {
     type: 'horizontal' | 'vertical';
 };
 
-function VerticalRecipeCard({ recipe }: CardProps) {
-    const { name, image, description, tag, bookmarks, likes } = recipe;
+const VerticalRecipeCard = ({ recipe, onClick, testI }: CardProps) => {
+    const { title, image, description, category, bookmarks, likes } = recipe;
     const [isDesktop] = useMediaQuery('(min-width: 1440px)');
     return (
-        <Card
-            minW={['9.3125rem', '9.875rem', '9.75rem', '9.875rem', '17.4375rem', null, '20.125rem']}
-            maxW={['9.3125rem', '9.875rem', '9.75rem', '9.875rem', '17.4375rem', null, '20.125rem']}
-            minH={['13rem', '13.75rem', '13.5rem', '13.75rem', '25.125rem', null, '25.875rem']}
-            maxH={['13rem', '13.75rem', '13.5rem', '13.75rem', '25.125rem', null, '25.875rem']}
-            position='relative'
-            variant='outline'
-        >
-            <CardBody p={0}>
+        <Card position='relative' variant='vCard' onClick={onClick} data-test-id={testI}>
+            <CardBody>
                 <Image
                     objectFit='cover'
                     src={image}
@@ -63,10 +61,10 @@ function VerticalRecipeCard({ recipe }: CardProps) {
                         fontWeight={500}
                         fontSize={{ base: 'md', lg: 'lg', '2xl': 'xl' }}
                         lineHeight={{ base: 6, lg: 7 }}
-                        isTruncated={isDesktop}
                         noOfLines={{ base: 2, lg: 1 }}
+                        wordBreak={{ lg: 'break-all' }}
                     >
-                        {name}
+                        {title}
                     </Text>
                     {isDesktop && (
                         <Text fontSize={{ lg: 'sm' }} lineHeight={{ lg: 5 }} noOfLines={3}>
@@ -75,30 +73,23 @@ function VerticalRecipeCard({ recipe }: CardProps) {
                     )}
                 </Stack>
             </CardBody>
-            <CardFooter
-                px={{ base: 1.5, xs: 2, lg: 3, '2xl': '22px' }}
-                py={{ base: 0, lg: 1.5, '2xl': 3 }}
-            >
+            <CardFooter>
                 <Flex w='100%' justify='space-between' align={{ lg: 'center' }}>
                     <Badge
-                        h='1.5rem'
-                        borderRadius={2}
-                        bgColor='lime.150'
-                        alignItems='center'
                         py='0.0625rem'
                         px={{ base: '0.25rem', lg: 2 }}
                         position={{ base: 'absolute', lg: 'inherit' }}
                         top={2}
                         left={2}
-                        fontSize='sm'
-                        lineHeight={5}
-                        fontWeight={400}
-                        textTransform='none'
+                        variant='vCard'
+                        maxW='140px'
+                        display='flex'
+                        flexDirection='row'
                     >
                         <Icon boxSize={4} mr={{ base: '1px', lg: 1.5 }}>
-                            {iconsByTag[tag]}
+                            {iconsByTag[category[0]]}
                         </Icon>
-                        {TagToName[tag]}
+                        <Text isTruncated>{TagToName[category[0]]}</Text>
                     </Badge>
                     <ButtonGroup spacing='9px'>
                         {bookmarks > 0 && (
@@ -134,23 +125,17 @@ function VerticalRecipeCard({ recipe }: CardProps) {
             </CardFooter>
         </Card>
     );
-}
+};
 
-function HorizontalRecipeCard({ recipe }: CardProps) {
-    const { name, image, description, tag, bookmarks, likes, recommendedBy } = recipe;
+const HorizontalRecipeCard = ({ recipe, onClick, testI }: CardProps) => {
+    const { title, image, description, category, bookmarks, likes, recommendedBy } = recipe;
+    const searchString = useAppSelector(getRecipesSearchString);
     const author = recommendedBy
-        ? cookBlog.find((item) => item.id === recommendedBy) || null
+        ? cookBlog.find((item) => +item.id === recommendedBy) || null
         : null;
     const [isDesktop] = useMediaQuery('(min-width: 1440px)');
     return (
-        <Card
-            minH={{ base: '7.75rem', xs: '8rem', md: '8.0625rem', lg: '15.25rem' }}
-            maxH={{ base: '7.75rem', xs: '8rem', md: '8.0625rem', lg: '15.25rem' }}
-            minW={['19.375rem', '20.5rem', '21.75rem', '22.25rem', '55rem', null, '41.75rem']}
-            maxW={['19.375rem', '20.5rem', '21.75rem', '22.25rem', '55rem', null, '41.75rem']}
-            direction='row'
-            variant='outline'
-        >
+        <Card direction='row' variant='hCard' data-test-id={testI?.includes('food') ? testI : ''}>
             <Box position='relative' maxW='50%' maxH='100%'>
                 <Image
                     objectFit='cover'
@@ -164,18 +149,21 @@ function HorizontalRecipeCard({ recipe }: CardProps) {
                 />
                 {author && (
                     <Badge
-                        bgColor='lime.150'
-                        p={0}
+                        variant='author'
                         position='absolute'
                         bottom={{ base: '10px', lg: 5 }}
                         left={{ lg: 6 }}
                         display={{ base: 'none', lg: 'unset' }}
                     >
                         <Flex align='center' justify='space-evenly' px={1} py={0.5}>
-                            <Avatar size='xs' boxSize={4} name={name} src={author.avatar} mr={2} />
-                            <Text textTransform='none' fontSize='sm' lineHeight={5}>
-                                {author.name} рекомендует
-                            </Text>
+                            <Avatar
+                                size='xs'
+                                boxSize={4}
+                                name={author.name}
+                                src={author.avatar}
+                                mr={2}
+                            />
+                            <Text>{author.name} рекомендует</Text>
                         </Flex>
                     </Badge>
                 )}
@@ -188,28 +176,21 @@ function HorizontalRecipeCard({ recipe }: CardProps) {
                 w='100%'
                 maxW={{ lg: '33.375rem', '2xl': '20.125rem' }}
             >
-                <CardBody py={{ base: 2, lg: 1 }} px={0} minW='10.1875rem'>
+                <CardBody>
                     <Flex justify='space-between' align={{ lg: 'center' }}>
                         <Badge
-                            display='flex'
-                            bgColor='lime.50'
-                            h='1.5rem'
-                            borderRadius={2}
-                            alignItems='center'
                             py='1px'
                             px={{ base: '0.25rem', lg: 2 }}
                             position={{ base: 'absolute', lg: 'inherit' }}
                             top={2}
                             left={2}
-                            fontSize='sm'
-                            lineHeight={5}
-                            fontWeight={400}
-                            textTransform='none'
+                            variant='hCard'
+                            maxW='140px'
                         >
                             <Icon boxSize={4} mr={{ base: 0.5, lg: 1.5 }}>
-                                {iconsByTag[tag]}
+                                {iconsByTag[category[0]]}
                             </Icon>
-                            <Text>{TagToName[tag]}</Text>
+                            <Text isTruncated>{TagToName[category[0]]}</Text>
                         </Badge>
                         <ButtonGroup
                             spacing={4}
@@ -267,7 +248,9 @@ function HorizontalRecipeCard({ recipe }: CardProps) {
                             lineHeight={{ base: 6, lg: 7 }}
                             mb={{ lg: 2 }}
                         >
-                            {name}
+                            <Highlight query={[searchString]} styles={{ color: 'lime.600' }}>
+                                {title}
+                            </Highlight>
                         </Text>
                         {isDesktop && (
                             <Text
@@ -281,14 +264,7 @@ function HorizontalRecipeCard({ recipe }: CardProps) {
                         )}
                     </Box>
                 </CardBody>
-                <CardFooter
-                    justifyContent='flex-end'
-                    gap={{ base: 2, xs: 3, sm: 7, md: 3, lg: 2 }}
-                    py={0}
-                    px={{ base: 3, xs: '10px', sm: 2, lg: 3, '2xl': 0 }}
-                    pr={{ base: 4, xs: '10px' }}
-                    pb={{ lg: 1, '2xl': 0.5 }}
-                >
+                <CardFooter>
                     <Button
                         variant='outline'
                         colorScheme='black'
@@ -307,6 +283,8 @@ function HorizontalRecipeCard({ recipe }: CardProps) {
                         size={{ base: 'xs', lg: 'sm' }}
                         px={{ base: 2, lg: '12px' }}
                         py={{ base: 1, lg: '6px' }}
+                        data-test-id={testI?.includes('food') ? '' : `card-link-${testI}`}
+                        onClick={onClick}
                     >
                         Готовить
                     </Button>
@@ -314,14 +292,13 @@ function HorizontalRecipeCard({ recipe }: CardProps) {
             </Stack>
         </Card>
     );
-}
+};
 
-function RecipeCard({ recipe, type }: RecipeCardProps) {
-    return type === 'vertical' ? (
-        <VerticalRecipeCard recipe={recipe} />
+const RecipeCardComponent = ({ recipe, type, testI, onClick }: RecipeCardProps) =>
+    type === 'vertical' ? (
+        <VerticalRecipeCard recipe={recipe} onClick={onClick} testI={testI} />
     ) : (
-        <HorizontalRecipeCard recipe={recipe} />
+        <HorizontalRecipeCard recipe={recipe} onClick={onClick} testI={testI} />
     );
-}
 
-export default RecipeCard;
+export const RecipeCard = withRecipeNavigation(RecipeCardComponent);

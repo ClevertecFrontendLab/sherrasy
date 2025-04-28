@@ -17,10 +17,10 @@ import {
 } from '~/assets/icons/icons';
 
 export const iconsByTag: { [key: string]: ReactNode } = {
-    salad: <SaladsIcon />,
-    aperitif: <AperitifIcon />,
-    'first-course': <FirstCourseIcon />,
-    'second-course': <SecondCourseIcon />,
+    salads: <SaladsIcon />,
+    snacks: <AperitifIcon />,
+    'first-dish': <FirstCourseIcon />,
+    'second-dish': <SecondCourseIcon />,
     dessert: <DessertsIcon />,
     grilled: <GrilledIcon />,
     vegan: <VeganIcon />,
@@ -29,5 +29,5 @@ export const iconsByTag: { [key: string]: ReactNode } = {
     national: <NationalIcon />,
     sauce: <SauceIcon />,
     drinks: <DrinksIcon />,
-    preparations: <PreparationsIcon />,
+    preserves: <PreparationsIcon />,
 };

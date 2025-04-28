@@ -4,7 +4,7 @@ import { BookmarkIcon, HeartEyesIcon, PenIcon, PeopleIcon } from '~/assets/icons
 
 import styles from './sidebar.module.css';
 
-function Sidebar() {
+export const Sidebar = () => {
     const bookmarks = 185;
     const people = 589;
     const likes = 587;
@@ -20,7 +20,7 @@ function Sidebar() {
             right={{ base: '60px', xs: '64px', sm: '76px', lg: 0 }}
             zIndex='10'
         >
-            <Flex flexDirection={{ lg: 'column' }} gap={{ base: 0, sm: 6 }}>
+            <Flex flexDirection={{ lg: 'column' }} gap={{ base: 0, lg: 6 }}>
                 <Button
                     variant='ghost'
                     leftIcon={<BookmarkIcon color='black' />}
@@ -80,5 +80,4 @@ function Sidebar() {
             </Button>
         </Flex>
     );
-}
-export default Sidebar;
+};
