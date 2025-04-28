@@ -1,16 +1,16 @@
 import { CloseIcon, HamburgerIcon } from '@chakra-ui/icons';
 import { Box, Button, Flex, useMediaQuery } from '@chakra-ui/react';
 
-import Breadcrumbs from '../breadcrumbs/breadcrumbs';
-import MenuDishes from '../menu-dishes/menu-dishes';
-import ScrollArea from '../scrollarea/scrollarea';
+import { Breadcrumbs } from '../breadcrumbs/breadcrumbs';
+import { MenuDishes } from '../menu-dishes/menu-dishes';
+import { ScrollArea } from '../scrollarea/scrollarea';
 
 type BurgerMenuProps = {
     isMenuOpen: boolean;
     handleMenuOpen: () => void;
 };
 
-function BurgerMenu({ isMenuOpen, handleMenuOpen }: BurgerMenuProps) {
+export const BurgerMenu = ({ isMenuOpen, handleMenuOpen }: BurgerMenuProps) => {
     const [isDesktop] = useMediaQuery('(min-width: 1440px)');
 
     const toggleMenu = () => {
@@ -56,5 +56,4 @@ function BurgerMenu({ isMenuOpen, handleMenuOpen }: BurgerMenuProps) {
             )}
         </>
     );
-}
-export default BurgerMenu;
+};

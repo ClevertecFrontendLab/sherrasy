@@ -6,13 +6,13 @@ import { FullRecipe } from '~/types/recipe.interface';
 import { AppRoute } from '~/utils/constant';
 import { getSortedJuicyRecipes } from '~/utils/helpers';
 
-import RecipeCard from '../cards/recipe-cards/recipe-card';
+import { RecipeCard } from '../cards/recipe-cards/recipe-card';
 
 type JuicySectionProps = {
     recipes: FullRecipe[];
 };
 
-function JuicySection({ recipes }: JuicySectionProps) {
+export const JuicySection = ({ recipes }: JuicySectionProps) => {
     const [isDesktop] = useMediaQuery('(min-width: 1440px)');
     const currentRecipes = getSortedJuicyRecipes(recipes);
     const navigate = useNavigate();
@@ -86,5 +86,4 @@ function JuicySection({ recipes }: JuicySectionProps) {
             </Button>
         </Flex>
     );
-}
-export default JuicySection;
+};

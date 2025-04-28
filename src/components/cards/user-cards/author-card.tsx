@@ -7,7 +7,7 @@ type AuthorCardProps = {
     author: Author;
 };
 
-function AuthorCard({ author }: AuthorCardProps) {
+export const AuthorCard = ({ author }: AuthorCardProps) => {
     const { avatar, name, subscribers, nick } = author;
     return (
         <Card
@@ -94,6 +94,4 @@ function AuthorCard({ author }: AuthorCardProps) {
             </Flex>
         </Card>
     );
-}
-
-export default AuthorCard;
+};

@@ -3,13 +3,13 @@ import { Flex, Text } from '@chakra-ui/react';
 import { NutritionValue } from '~/types/recipe.interface';
 import { NutritionToName } from '~/utils/constant';
 
-import NutritionCard from '../cards/nutrition-card';
+import { NutritionCard } from '../cards/nutrition-card';
 
 type NutritionDetailsProps = {
     nutritionValue: NutritionValue;
 };
 
-function NutritionDetails({ nutritionValue }: NutritionDetailsProps) {
+export const NutritionDetails = ({ nutritionValue }: NutritionDetailsProps) => {
     const nutrition = Object.entries(nutritionValue).map(([key, val]) => ({
         key,
         val,
@@ -37,6 +37,4 @@ function NutritionDetails({ nutritionValue }: NutritionDetailsProps) {
             </Flex>
         </Flex>
     );
-}
-
-export default NutritionDetails;
+};

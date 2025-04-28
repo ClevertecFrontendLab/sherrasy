@@ -10,12 +10,13 @@ import { getRecipes } from '~/store/recipes/selectors';
 import { FullRecipe } from '~/types/recipe.interface';
 import { getSortedNewRecipes } from '~/utils/helpers';
 
-import RecipeCard from '../cards/recipe-cards/recipe-card';
+import { RecipeCard } from '../cards/recipe-cards/recipe-card';
+
 type NewSectionProps = {
     isRecipePage: boolean;
 };
 
-function NewSection({ isRecipePage }: NewSectionProps) {
+export const NewSection = ({ isRecipePage }: NewSectionProps) => {
     const swiperBreakponts = {
         0: {
             spaceBetween: 12,
@@ -120,5 +121,4 @@ function NewSection({ isRecipePage }: NewSectionProps) {
             </Box>
         </Box>
     );
-}
-export default NewSection;
+};

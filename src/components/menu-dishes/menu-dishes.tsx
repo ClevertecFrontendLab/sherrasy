@@ -22,13 +22,13 @@ import { PathParams } from '~/types/params.type';
 import data from '~/utils/data/mock-dishes.json';
 import { iconsByTag } from '~/utils/iconsByTag';
 
-import ScrollArea from '../scrollarea/scrollarea';
+import { ScrollArea } from '../scrollarea/scrollarea';
 
 type MenuDishesProps = {
     isBurgerMenu: boolean;
 };
 
-function MenuDishes({ isBurgerMenu }: MenuDishesProps) {
+export const MenuDishes = ({ isBurgerMenu }: MenuDishesProps) => {
     const navigate = useNavigate();
     const { pathname } = useLocation();
     const { categoryId, subcategoryId } = useParams<PathParams>();
@@ -149,5 +149,4 @@ function MenuDishes({ isBurgerMenu }: MenuDishesProps) {
             </Box>
         </Flex>
     );
-}
-export default MenuDishes;
+};

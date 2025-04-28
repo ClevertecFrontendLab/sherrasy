@@ -1,10 +1,10 @@
 import { Box, Heading } from '@chakra-ui/react';
 import { useParams } from 'react-router';
 
-import ContentHeader from '~/components/content-header/content-header';
-import Layout from '~/components/layout/layout';
-import RecipesTabs from '~/components/recipes-tabs/recipes-tabs';
-import RelevantKitchenSection from '~/components/relevant-kitchen-section/relevant-kitchen-section';
+import { ContentHeader } from '~/components/content-header/content-header';
+import { Layout } from '~/components/layout/layout';
+import { RecipesTabs } from '~/components/recipes-tabs/recipes-tabs';
+import { RelevantKitchenSection } from '~/components/relevant-kitchen-section/relevant-kitchen-section';
 import { useAppSelector } from '~/store/hooks';
 import { getRecipes } from '~/store/recipes/selectors';
 import { PathParams } from '~/types/params.type';

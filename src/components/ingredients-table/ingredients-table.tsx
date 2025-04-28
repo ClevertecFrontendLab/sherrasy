@@ -22,7 +22,7 @@ type IngredientsTableProps = {
     ingredients: Ingredient[];
 };
 
-function IngredientsTable({ portions, ingredients }: IngredientsTableProps) {
+export const IngredientsTable = ({ portions, ingredients }: IngredientsTableProps) => {
     const [scale, setScale] = useState<number>(1);
 
     const handlePortionsChange = (value: number) => {
@@ -78,6 +78,4 @@ function IngredientsTable({ portions, ingredients }: IngredientsTableProps) {
             </Table>
         </TableContainer>
     );
-}
-
-export default IngredientsTable;
+};

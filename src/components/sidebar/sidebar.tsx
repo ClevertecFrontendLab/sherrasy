@@ -4,7 +4,7 @@ import { BookmarkIcon, HeartEyesIcon, PenIcon, PeopleIcon } from '~/assets/icons
 
 import styles from './sidebar.module.css';
 
-function Sidebar() {
+export const Sidebar = () => {
     const bookmarks = 185;
     const people = 589;
     const likes = 587;
@@ -80,5 +80,4 @@ function Sidebar() {
             </Button>
         </Flex>
     );
-}
-export default Sidebar;
+};

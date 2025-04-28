@@ -5,13 +5,13 @@ import { useLocation } from 'react-router';
 import DesktopLogo from '/logo.svg';
 import MobileLogo from '/logo-mobile.svg';
 
-import Breadcrumbs from '../breadcrumbs/breadcrumbs';
-import BurgerMenu from '../burger-menu/burger-menu';
+import { Breadcrumbs } from '../breadcrumbs/breadcrumbs';
+import { BurgerMenu } from '../burger-menu/burger-menu';
 import { Overlay } from '../overlay/overlay';
-import Sidebar from '../sidebar/sidebar';
-import UserBlock from '../user-block/user-block';
+import { Sidebar } from '../sidebar/sidebar';
+import { UserBlock } from '../user-block/user-block';
 
-function Header() {
+export const Header = () => {
     const [isMobile] = useMediaQuery('(max-width: 767px)');
     const [isDesktop] = useMediaQuery('(min-width: 1440px)');
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -56,5 +56,4 @@ function Header() {
             </Flex>
         </Overlay>
     );
-}
-export default Header;
+};

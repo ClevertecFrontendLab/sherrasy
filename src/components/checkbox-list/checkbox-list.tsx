@@ -2,7 +2,7 @@ import { Checkbox, Flex, Text, VStack } from '@chakra-ui/react';
 
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import { updateFilter, updateIsFiltering } from '~/store/recipes/recipes-slice';
-import { getRecipesFilters } from '~/store/recipes/selectors';
+import { getPendingFilters } from '~/store/recipes/selectors';
 import { CheckboxListItem } from '~/types/filter-item.type';
 import { RecipeFilters } from '~/types/state.type';
 
@@ -11,10 +11,10 @@ type CheckboxListProps = {
     type: 'meat_type' | 'side_type';
 };
 
-const CheckboxList = ({ data, type }: CheckboxListProps) => {
+export const CheckboxList = ({ data, type }: CheckboxListProps) => {
     const { id: groupId, name: title, elements } = data;
     const key = type as keyof RecipeFilters;
-    const selectedItems = useAppSelector((state) => getRecipesFilters(state, 'pending'))[key] ?? [];
+    const selectedItems = useAppSelector(getPendingFilters)[key] ?? [];
     const dispatch = useAppDispatch();
 
     const handleCheckboxChange = (itemId: string, isChecked: boolean) => {
@@ -46,5 +46,3 @@ const CheckboxList = ({ data, type }: CheckboxListProps) => {
         </Flex>
     );
 };
-
-export default CheckboxList;

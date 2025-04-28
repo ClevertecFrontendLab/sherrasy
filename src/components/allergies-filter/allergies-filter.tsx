@@ -5,14 +5,14 @@ import { useAppDispatch } from '~/store/hooks';
 import { clearAllergens } from '~/store/recipes/recipes-slice';
 import filterData from '~/utils/data/filters-data.json';
 
-import MultiSelect from '../multiselect/multiselect';
+import { MultiSelect } from '../multiselect/multiselect';
 
 type AlergiesFilterProps = {
     type: 'drawer' | 'filter';
     isDrawerActive: boolean;
 };
 
-function AlergiesFilter({ type, isDrawerActive }: AlergiesFilterProps) {
+export const AlergiesFilter = ({ type, isDrawerActive }: AlergiesFilterProps) => {
     const [isAlergensActive, setIsAlergensActive] = useState<boolean>(false);
     const dispatch = useAppDispatch();
     const isDrawer = type === 'drawer';
@@ -60,5 +60,4 @@ function AlergiesFilter({ type, isDrawerActive }: AlergiesFilterProps) {
             </Flex>
         </>
     );
-}
-export default AlergiesFilter;
+};

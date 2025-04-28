@@ -8,17 +8,17 @@ import { getFilteredRecipes } from '~/store/recipes/selectors';
 import { MenuSubcategory } from '~/types/menu-item.type';
 import { PathParams } from '~/types/params.type';
 
-import RecipesList from '../recipes-list/recipes-list';
+import { RecipesList } from '../recipes-list/recipes-list';
 
 type RecipesTabsProps = {
     tabsNames: MenuSubcategory[];
 };
 
-function RecipesTabs({ tabsNames }: RecipesTabsProps) {
+export const RecipesTabs = ({ tabsNames }: RecipesTabsProps) => {
     const [isDesktop] = useMediaQuery('(min-width: 1440px)');
     const dispatch = useAppDispatch();
     const { categoryId, subcategoryId } = useParams<PathParams>();
-    const recipes = useAppSelector((state) => getFilteredRecipes(state, 'active'));
+    const recipes = useAppSelector(getFilteredRecipes);
     const navigate = useNavigate();
     const currentTab = subcategoryId ? tabsNames.findIndex((tab) => tab.id === subcategoryId) : -1;
     const [activeTabIndex, setActiveTabIndex] = useState(0);
@@ -78,5 +78,4 @@ function RecipesTabs({ tabsNames }: RecipesTabsProps) {
             </TabPanels>
         </Tabs>
     );
-}
-export default RecipesTabs;
+};

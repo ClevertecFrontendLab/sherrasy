@@ -1,12 +1,12 @@
 import { Box, Flex, Text } from '@chakra-ui/react';
 import { useParams } from 'react-router';
 
-import AuthorCard from '~/components/cards/user-cards/author-card';
-import Layout from '~/components/layout/layout';
-import NewSection from '~/components/new-section/new-section';
-import RecipeDetails from '~/components/recipe-details/recipe-details';
-import RecipeHeader from '~/components/recipe-header/recipe-header';
-import RecipeSteps from '~/components/recipe-steps/recipe-steps';
+import { AuthorCard } from '~/components/cards/user-cards/author-card';
+import { Layout } from '~/components/layout/layout';
+import { NewSection } from '~/components/new-section/new-section';
+import { RecipeDetails } from '~/components/recipe-details/recipe-details';
+import { RecipeHeader } from '~/components/recipe-header/recipe-header';
+import { RecipeSteps } from '~/components/recipe-steps/recipe-steps';
 import { useAppSelector } from '~/store/hooks';
 import { getRecipeById } from '~/store/recipes/selectors';
 

@@ -20,11 +20,11 @@ import { KeyboardEvent, useRef } from 'react';
 
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import { updateFilter, updateIsFiltering } from '~/store/recipes/recipes-slice';
-import { getRecipesFilters } from '~/store/recipes/selectors';
+import { getActiveFilters, getPendingFilters } from '~/store/recipes/selectors';
 import { MultiselectItem } from '~/types/filter-item.type';
 import { RecipeFilters } from '~/types/state.type';
 
-import ScrollArea from '../scrollarea/scrollarea';
+import { ScrollArea } from '../scrollarea/scrollarea';
 
 type MultiSelectProps = {
     data: MultiselectItem[];
@@ -56,7 +56,13 @@ const dataTestIdByType: Record<ComponentType, Record<TestIdKeys, string>> = {
         checkbox: `allergen`,
     },
 };
-const MultiSelect = ({ data, type, text, isActive = true, isDrawerActive }: MultiSelectProps) => {
+export const MultiSelect = ({
+    data,
+    type,
+    text,
+    isActive = true,
+    isDrawerActive,
+}: MultiSelectProps) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const dispatch = useAppDispatch();
     const inputRef = useRef<HTMLInputElement>(null);
@@ -64,7 +70,7 @@ const MultiSelect = ({ data, type, text, isActive = true, isDrawerActive }: Mult
     const key = (isAllergiesSelect ? 'allergens' : type) as keyof RecipeFilters;
     const filterStatus = isAllergiesSelect ? 'active' : 'pending';
     const selectedItems =
-        useAppSelector((state) => getRecipesFilters(state, filterStatus))[key] ?? [];
+        useAppSelector(filterStatus === 'active' ? getActiveFilters : getPendingFilters)[key] ?? [];
     const updateData = (values: string[]) => {
         dispatch(updateFilter({ key, value: values, type: filterStatus }));
         dispatch(updateIsFiltering());
@@ -129,6 +135,8 @@ const MultiSelect = ({ data, type, text, isActive = true, isDrawerActive }: Mult
                 rightIcon={
                     !isOpen ? <ChevronDownIcon boxSize={5} /> : <ChevronUpIcon boxSize={5} />
                 }
+                borderColor={selectedItems.length > 0 ? 'lime.150' : undefined}
+                py={1}
                 variant='outlineMenu'
                 color='blackAlpha.700'
                 width='100%'
@@ -244,5 +252,3 @@ const MultiSelect = ({ data, type, text, isActive = true, isDrawerActive }: Mult
         </Menu>
     );
 };
-
-export default MultiSelect;

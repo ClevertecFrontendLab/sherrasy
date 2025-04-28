@@ -23,7 +23,7 @@ const ScrollAreaStyles = {
     },
 };
 
-function ScrollArea({ children, extraStylesType }: ScrollAreaProps) {
+export const ScrollArea = ({ children, extraStylesType }: ScrollAreaProps) => {
     const maxHeightValue: { [key: string]: string } = {
         multiselect: '320px',
         'drawer-filters': 'calc( 100vh - 96px)',
@@ -38,6 +38,4 @@ function ScrollArea({ children, extraStylesType }: ScrollAreaProps) {
             {children}
         </Box>
     );
-}
-
-export default ScrollArea;
+};

@@ -7,7 +7,7 @@ type StepCardProps = {
     isLast: boolean;
 };
 
-function StepCard({ step, isLast }: StepCardProps) {
+export const StepCard = ({ step, isLast }: StepCardProps) => {
     const { image, stepNumber, description } = step;
     return (
         <Card direction='row' variant='recipeStep'>
@@ -37,6 +37,4 @@ function StepCard({ step, isLast }: StepCardProps) {
             </Stack>
         </Card>
     );
-}
-
-export default StepCard;
+};

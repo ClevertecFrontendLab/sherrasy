@@ -7,14 +7,14 @@ import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import { setSearchRecipeString, updateIsFiltering } from '~/store/recipes/recipes-slice';
 import { getFilteredRecipes, getRecipesSearchString } from '~/store/recipes/selectors';
 
-import AlergiesFilter from '../allergies-filter/allergies-filter';
-import FilterDrawer from '../filter-drawer/filter-drawer';
+import { AlergiesFilter } from '../allergies-filter/allergies-filter';
+import { FilterDrawer } from '../filter-drawer/filter-drawer';
 
-function ContentFilters() {
+export const ContentFilters = () => {
     const searchRef = useRef<HTMLInputElement>(null);
     const [inputValue, setInputValue] = useState('');
     const searchString = useAppSelector(getRecipesSearchString);
-    const filteredRecipies = useAppSelector((state) => getFilteredRecipes(state, 'active'));
+    const filteredRecipies = useAppSelector(getFilteredRecipes);
     const isEmpty = (!filteredRecipies || !filteredRecipies.length) && searchString;
     const isNotEmpty = filteredRecipies && filteredRecipies.length > 0 && searchString;
     const isSearchDisabled = inputValue.trim().length < 3;
@@ -111,5 +111,4 @@ function ContentFilters() {
             <AlergiesFilter type='filter' isDrawerActive={isOpenDrawer} />
         </Flex>
     );
-}
-export default ContentFilters;
+};

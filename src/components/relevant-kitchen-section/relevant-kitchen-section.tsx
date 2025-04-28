@@ -4,13 +4,13 @@ import { useLocation } from 'react-router';
 import { FullRecipe } from '~/types/recipe.interface';
 import { AppRoute } from '~/utils/constant';
 
-import RelevantKitchenCard from '../cards/recipe-cards/relevant-kitchen-card';
+import { RelevantKitchenCard } from '../cards/recipe-cards/relevant-kitchen-card';
 
 type RelevantKitchenSectionProps = {
     recipes: FullRecipe[];
 };
 
-function RelevantKitchenSection({ recipes }: RelevantKitchenSectionProps) {
+export const RelevantKitchenSection = ({ recipes }: RelevantKitchenSectionProps) => {
     const kitchenVariants = {
         vegan: {
             name: 'Веганская кухня',
@@ -78,5 +78,4 @@ function RelevantKitchenSection({ recipes }: RelevantKitchenSectionProps) {
             </SimpleGrid>
         </Box>
     );
-}
-export default RelevantKitchenSection;
+};

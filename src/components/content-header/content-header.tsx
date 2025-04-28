@@ -1,13 +1,13 @@
 import { Flex, Heading, Text } from '@chakra-ui/react';
 
-import ContentFilters from '../content-filters/content-filters';
+import { ContentFilters } from '../content-filters/content-filters';
 
 type ContentHeaderProps = {
     headline: string;
     description?: string;
 };
 
-function ContentHeader({ headline, description }: ContentHeaderProps) {
+export const ContentHeader = ({ headline, description }: ContentHeaderProps) => {
     const currentBottomMargin = description ? 3 : 8;
     return (
         <Flex
@@ -59,5 +59,4 @@ function ContentHeader({ headline, description }: ContentHeaderProps) {
             <ContentFilters />
         </Flex>
     );
-}
-export default ContentHeader;
+};

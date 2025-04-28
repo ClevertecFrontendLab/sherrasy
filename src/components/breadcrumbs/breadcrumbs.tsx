@@ -54,7 +54,7 @@ const renderCategoryBreadcrumb = (
     </BreadcrumbItem>
 );
 
-function Breadcrumbs() {
+export const Breadcrumbs = () => {
     const location = useLocation();
     const { categoryId, subcategoryId, recipeId } = useParams<PathParams>();
     const { recipeName } = location.state || {};
@@ -100,6 +100,4 @@ function Breadcrumbs() {
             {breadcrumbItems}
         </Breadcrumb>
     );
-}
-
-export default Breadcrumbs;
+};

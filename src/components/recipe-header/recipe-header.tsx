@@ -25,7 +25,7 @@ type RecipeHeaderProps = {
     recipe: FullRecipe;
 };
 
-function RecipeHeader({ recipe }: RecipeHeaderProps) {
+export const RecipeHeader = ({ recipe }: RecipeHeaderProps) => {
     const { id, title, time, description, category, bookmarks, likes, image } = recipe;
     return (
         <Card
@@ -179,5 +179,4 @@ function RecipeHeader({ recipe }: RecipeHeaderProps) {
             </Stack>
         </Card>
     );
-}
-export default RecipeHeader;
+};

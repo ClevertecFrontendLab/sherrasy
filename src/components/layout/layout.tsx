@@ -1,16 +1,16 @@
 import { Flex, useMediaQuery } from '@chakra-ui/react';
 import { ReactNode } from 'react';
 
-import Footer from '../footer/footer';
-import Header from '../header/header';
-import MenuDishes from '../menu-dishes/menu-dishes';
-import Sidebar from '../sidebar/sidebar';
+import { Footer } from '../footer/footer';
+import { Header } from '../header/header';
+import { MenuDishes } from '../menu-dishes/menu-dishes';
+import { Sidebar } from '../sidebar/sidebar';
 
 type LayoutProps = {
     children: ReactNode;
 };
 
-function Layout({ children }: LayoutProps) {
+export const Layout = ({ children }: LayoutProps) => {
     const [isDesktop] = useMediaQuery('(min-width: 1440px)');
 
     return (
@@ -35,5 +35,4 @@ function Layout({ children }: LayoutProps) {
             <Footer />
         </Flex>
     );
-}
-export default Layout;
+};

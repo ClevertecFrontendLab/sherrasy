@@ -2,13 +2,13 @@ import { Flex, Heading } from '@chakra-ui/react';
 
 import { RecipeStep } from '~/types/recipe.interface';
 
-import StepCard from '../cards/step-card';
+import { StepCard } from '../cards/step-card';
 
 type RecipeStepsProps = {
     steps: RecipeStep[];
 };
 
-function RecipeSteps({ steps }: RecipeStepsProps) {
+export const RecipeSteps = ({ steps }: RecipeStepsProps) => {
     const checkIsLast = (step: number) => step === steps[steps.length - 1].stepNumber;
     return (
         <Flex
@@ -37,6 +37,4 @@ function RecipeSteps({ steps }: RecipeStepsProps) {
             </Flex>
         </Flex>
     );
-}
-
-export default RecipeSteps;
+};

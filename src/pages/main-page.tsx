@@ -1,12 +1,12 @@
 import { Box, Heading } from '@chakra-ui/react';
 
-import ContentHeader from '~/components/content-header/content-header';
-import CookBlogSection from '~/components/cook-blog-section/cook-blog-section';
-import JuicySection from '~/components/juicy-section/juicy-section';
-import Layout from '~/components/layout/layout';
-import NewSection from '~/components/new-section/new-section';
-import RecipesList from '~/components/recipes-list/recipes-list';
-import RelevantKitchenSection from '~/components/relevant-kitchen-section/relevant-kitchen-section';
+import { ContentHeader } from '~/components/content-header/content-header';
+import { CookBlogSection } from '~/components/cook-blog-section/cook-blog-section';
+import { JuicySection } from '~/components/juicy-section/juicy-section';
+import { Layout } from '~/components/layout/layout';
+import { NewSection } from '~/components/new-section/new-section';
+import { RecipesList } from '~/components/recipes-list/recipes-list';
+import { RelevantKitchenSection } from '~/components/relevant-kitchen-section/relevant-kitchen-section';
 import { useAppSelector } from '~/store/hooks';
 import { getFilteredRecipes, getIsFilteringRecipes, getRecipes } from '~/store/recipes/selectors';
 

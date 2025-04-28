@@ -25,7 +25,7 @@ type RelevantKitchenCardProps = RKCardProps & {
     type: 'medium' | 'small';
 };
 
-function RKMediumCard({ recipe }: RKCardProps) {
+const RKMediumCard = ({ recipe }: RKCardProps) => {
     const { title, description, category, bookmarks, likes } = recipe;
     return (
         <Card variant='rkMedium'>
@@ -103,9 +103,9 @@ function RKMediumCard({ recipe }: RKCardProps) {
             </CardFooter>
         </Card>
     );
-}
+};
 
-function RKShortCard({ recipe }: RKCardProps) {
+const RKShortCard = ({ recipe }: RKCardProps) => {
     const { title, category } = recipe;
     return (
         <Card variant='rkShort'>
@@ -148,10 +148,7 @@ function RKShortCard({ recipe }: RKCardProps) {
             </CardBody>
         </Card>
     );
-}
+};
 
-function RelevantKitchenCard({ recipe, type }: RelevantKitchenCardProps) {
-    return type === 'medium' ? <RKMediumCard recipe={recipe} /> : <RKShortCard recipe={recipe} />;
-}
-
-export default RelevantKitchenCard;
+export const RelevantKitchenCard = ({ recipe, type }: RelevantKitchenCardProps) =>
+    type === 'medium' ? <RKMediumCard recipe={recipe} /> : <RKShortCard recipe={recipe} />;

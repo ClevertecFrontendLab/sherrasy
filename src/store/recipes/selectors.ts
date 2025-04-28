@@ -28,11 +28,11 @@ export const getTabInfo = createSelector(
 export const getRecipesSearchString = (state: Pick<State, 'RECIPE'>): string =>
     state['RECIPE'].searchString || '';
 
-export const getRecipesFilters = (
-    state: Pick<State, 'RECIPE'>,
-    type: 'active' | 'pending',
-): RecipeFilters =>
-    type === 'active' ? state['RECIPE'].currentFilters : state['RECIPE'].pendingFilters;
+export const getActiveFilters = (state: Pick<State, 'RECIPE'>): RecipeFilters =>
+    state.RECIPE.currentFilters;
+
+export const getPendingFilters = (state: Pick<State, 'RECIPE'>): RecipeFilters =>
+    state.RECIPE.pendingFilters;
 
 export const getRecipeById = createSelector(
     [getRecipes, getRecipeId],
@@ -63,7 +63,7 @@ export const getRecipesByTab = createSelector(
 );
 
 export const getFilteredRecipes = createSelector(
-    [getRecipesByTab, getRecipesSearchString, getRecipesFilters],
+    [getRecipesByTab, getRecipesSearchString, getActiveFilters],
     (
         recipes,
         searchString,

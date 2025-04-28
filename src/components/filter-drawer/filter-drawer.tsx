@@ -18,16 +18,16 @@ import {
     updateCurrentFilters,
     updateIsFiltering,
 } from '~/store/recipes/recipes-slice';
-import { getRecipesFilters } from '~/store/recipes/selectors';
+import { getPendingFilters } from '~/store/recipes/selectors';
 import filterData from '~/utils/data/filters-data.json';
 import { cookBlog } from '~/utils/data/mock-cards.json';
 import categoriesData from '~/utils/data/mock-dishes.json';
 import { getMultiselectCategories } from '~/utils/helpers';
 
-import AlergiesFilter from '../allergies-filter/allergies-filter';
-import CheckboxList from '../checkbox-list/checkbox-list';
-import MultiSelect from '../multiselect/multiselect';
-import ScrollArea from '../scrollarea/scrollarea';
+import { AlergiesFilter } from '../allergies-filter/allergies-filter';
+import { CheckboxList } from '../checkbox-list/checkbox-list';
+import { MultiSelect } from '../multiselect/multiselect';
+import { ScrollArea } from '../scrollarea/scrollarea';
 import { FilterTags } from './filter-tags';
 
 type FilterDrawerProps = {
@@ -36,8 +36,8 @@ type FilterDrawerProps = {
     handleClose: () => void;
 };
 
-function FilterDrawer({ isOpenDrawer, handleOpen, handleClose }: FilterDrawerProps) {
-    const filtersData = useAppSelector((state) => getRecipesFilters(state, 'pending'));
+export const FilterDrawer = ({ isOpenDrawer, handleOpen, handleClose }: FilterDrawerProps) => {
+    const filtersData = useAppSelector(getPendingFilters);
     const isFiltersFilled = Object.values(filtersData).some((filter) => filter?.length ?? 0 > 0);
     const dispatch = useAppDispatch();
     const handleFilterCards = () => {
@@ -131,5 +131,4 @@ function FilterDrawer({ isOpenDrawer, handleOpen, handleClose }: FilterDrawerPro
             </Drawer>
         </>
     );
-}
-export default FilterDrawer;
+};

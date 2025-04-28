@@ -2,13 +2,13 @@ import { Button, Flex, SimpleGrid, Text } from '@chakra-ui/react';
 
 import { FullRecipe } from '~/types/recipe.interface';
 
-import RecipeCard from '../cards/recipe-cards/recipe-card';
+import { RecipeCard } from '../cards/recipe-cards/recipe-card';
 
 type RecipesListProps = {
     recipes: FullRecipe[] | null;
 };
 
-function RecipesList({ recipes }: RecipesListProps) {
+export const RecipesList = ({ recipes }: RecipesListProps) => {
     if (!recipes || recipes.length === 0) {
         return <Text> Элементы с такими данными не найдены</Text>;
     }
@@ -41,5 +41,4 @@ function RecipesList({ recipes }: RecipesListProps) {
             )}
         </Flex>
     );
-}
-export default RecipesList;
+};

@@ -34,7 +34,7 @@ type RecipeCardProps = CardProps & {
     type: 'horizontal' | 'vertical';
 };
 
-function VerticalRecipeCard({ recipe, onClick, testI }: CardProps) {
+const VerticalRecipeCard = ({ recipe, onClick, testI }: CardProps) => {
     const { title, image, description, category, bookmarks, likes } = recipe;
     const [isDesktop] = useMediaQuery('(min-width: 1440px)');
     return (
@@ -125,9 +125,9 @@ function VerticalRecipeCard({ recipe, onClick, testI }: CardProps) {
             </CardFooter>
         </Card>
     );
-}
+};
 
-function HorizontalRecipeCard({ recipe, onClick, testI }: CardProps) {
+const HorizontalRecipeCard = ({ recipe, onClick, testI }: CardProps) => {
     const { title, image, description, category, bookmarks, likes, recommendedBy } = recipe;
     const searchString = useAppSelector(getRecipesSearchString);
     const author = recommendedBy
@@ -292,16 +292,13 @@ function HorizontalRecipeCard({ recipe, onClick, testI }: CardProps) {
             </Stack>
         </Card>
     );
-}
+};
 
-function RecipeCardComponent({ recipe, type, testI, onClick }: RecipeCardProps) {
-    return type === 'vertical' ? (
+const RecipeCardComponent = ({ recipe, type, testI, onClick }: RecipeCardProps) =>
+    type === 'vertical' ? (
         <VerticalRecipeCard recipe={recipe} onClick={onClick} testI={testI} />
     ) : (
         <HorizontalRecipeCard recipe={recipe} onClick={onClick} testI={testI} />
     );
-}
 
-const RecipeCard = withRecipeNavigation(RecipeCardComponent);
-
-export default RecipeCard;
+export const RecipeCard = withRecipeNavigation(RecipeCardComponent);
