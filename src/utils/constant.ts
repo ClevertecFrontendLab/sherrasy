@@ -3,6 +3,12 @@ export const AppRoute = {
     Vegan: '/:categoryId/:subcategoryId',
     Juiciest: '/the-juiciest',
     Recipe: '/:categoryId/:subcategoryId/:recipeId',
+    NotFound: '/not-found',
+} as const;
+
+export const ApiBase = {
+    Main: 'https://marathon-api.clevertec.ru',
+    Images: 'https://training-api.clevertec.ru',
 } as const;
 
 export const AppRouteToName: { [key: string]: string } = {

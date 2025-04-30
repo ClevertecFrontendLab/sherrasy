@@ -1,6 +1,7 @@
 import { Flex, useMediaQuery } from '@chakra-ui/react';
 import { ReactNode } from 'react';
 
+import { AlertError } from '../alert-error/alert-error';
 import { Footer } from '../footer/footer';
 import { Header } from '../header/header';
 import { MenuDishes } from '../menu-dishes/menu-dishes';
@@ -12,7 +13,7 @@ type LayoutProps = {
 
 export const Layout = ({ children }: LayoutProps) => {
     const [isDesktop] = useMediaQuery('(min-width: 1440px)');
-
+    const errorType = 'load';
     return (
         <Flex direction='column' minH='100vh' maxH='100vh'>
             <Header />
@@ -32,6 +33,7 @@ export const Layout = ({ children }: LayoutProps) => {
                 </Flex>
                 {isDesktop && <Sidebar />}
             </Flex>
+            <AlertError type={errorType} />
             <Footer />
         </Flex>
     );
