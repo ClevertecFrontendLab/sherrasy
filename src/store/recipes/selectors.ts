@@ -2,6 +2,7 @@ import { createSelector } from '@reduxjs/toolkit';
 
 import { FullRecipe } from '~/types/recipe.interface';
 import { RecipeFilters, State } from '~/types/state.type';
+import { ReducerName } from '~/utils/constant';
 import {
     getAllergensMatch,
     getCategoriesMatch,
@@ -9,29 +10,23 @@ import {
     getSearchMatch,
 } from '~/utils/helpers';
 
-export const getRecipes = (state: Pick<State, 'RECIPE'>): FullRecipe[] | null =>
-    state['RECIPE'].recipes;
+import { getTabInfo } from '../categories/selectors';
 
-export const getIsFilteringRecipes = (state: Pick<State, 'RECIPE'>): boolean =>
-    state['RECIPE'].isFiltering;
+export const getRecipes = (state: Pick<State, ReducerName.Recipe>): FullRecipe[] | null =>
+    state[ReducerName.Recipe].recipes;
 
-export const getRecipeId = (_state: Pick<State, 'RECIPE'>, id?: string) => id;
+export const getIsFilteringRecipes = (state: Pick<State, ReducerName.Recipe>): boolean =>
+    state[ReducerName.Recipe].isFiltering;
 
-export const getTabInfo = createSelector(
-    [
-        (state: Pick<State, 'RECIPE'>) => state['RECIPE'].category,
-        (state: Pick<State, 'RECIPE'>) => state['RECIPE'].subcategory,
-    ],
-    (category, subcategory) => ({ category, subcategory }),
-);
+export const getRecipeId = (_state: Pick<State, ReducerName.Recipe>, id?: string) => id;
 
-export const getRecipesSearchString = (state: Pick<State, 'RECIPE'>): string =>
-    state['RECIPE'].searchString || '';
+export const getRecipesSearchString = (state: Pick<State, ReducerName.Recipe>): string =>
+    state[ReducerName.Recipe].searchString || '';
 
-export const getActiveFilters = (state: Pick<State, 'RECIPE'>): RecipeFilters =>
+export const getActiveFilters = (state: Pick<State, ReducerName.Recipe>): RecipeFilters =>
     state.RECIPE.currentFilters;
 
-export const getPendingFilters = (state: Pick<State, 'RECIPE'>): RecipeFilters =>
+export const getPendingFilters = (state: Pick<State, ReducerName.Recipe>): RecipeFilters =>
     state.RECIPE.pendingFilters;
 
 export const getRecipeById = createSelector(

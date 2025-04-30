@@ -39,3 +39,8 @@ export const NutritionToName: { [key: string]: string } = {
     fats: 'жиры',
     carbohydrates: 'углеводы',
 };
+
+export enum ReducerName {
+    Recipe = 'RECIPE',
+    Category = 'CATEGORY',
+}

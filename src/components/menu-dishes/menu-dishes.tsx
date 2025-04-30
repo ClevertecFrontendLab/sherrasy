@@ -17,9 +17,9 @@ import { useEffect, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router';
 
 import { ExitIcon } from '~/assets/icons/icons';
+import { useGetCategoriesQuery } from '~/query/services/categories';
 import { PathParams } from '~/types/params.type';
 import { ApiBase } from '~/utils/constant';
-import data from '~/utils/data/mock-dishes.json';
 
 import { ScrollArea } from '../scrollarea/scrollarea';
 
@@ -33,22 +33,26 @@ export const MenuDishes = ({ isBurgerMenu }: MenuDishesProps) => {
     const { categoryId, subcategoryId } = useParams<PathParams>();
     const subcategoryParam = subcategoryId;
     const [activeIndex, setActiveIndex] = useState<number | number[]>(-1);
+    const { data } = useGetCategoriesQuery();
+
     const handleMenuClick = (category: string, subcategory: string) => {
         const link = `/${category}/${subcategory}`;
         navigate(link, { state: { keepMenuOpen: isBurgerMenu } });
     };
 
     useEffect(() => {
-        const currentIndex = data.findIndex(
-            (item) => categoryId === item.category && location.pathname !== '/',
-        );
+        if (data) {
+            const currentIndex = data.findIndex(
+                (item) => categoryId === item.category && location.pathname !== '/',
+            );
 
-        if (currentIndex !== -1) {
-            setActiveIndex(currentIndex);
-        } else {
-            setActiveIndex(-1);
+            if (currentIndex !== -1) {
+                setActiveIndex(currentIndex);
+            } else {
+                setActiveIndex(-1);
+            }
         }
-    }, [pathname, categoryId]);
+    }, [pathname, categoryId, data]);
 
     return (
         <Flex
@@ -72,62 +76,73 @@ export const MenuDishes = ({ isBurgerMenu }: MenuDishesProps) => {
                     index={activeIndex}
                     onChange={(index) => setActiveIndex(index)}
                 >
-                    {data.map(
-                        ({ title: groupName, category: tag, subCategories: elements, icon }) => (
-                            <AccordionItem border='none' key={groupName} minH='3rem'>
-                                <AccordionButton
-                                    data-test-id={tag === 'vegan' ? 'vegan-cuisine' : tag}
-                                    _expanded={{ bg: 'lime.100', fontWeight: '600' }}
-                                    _hover={{ bg: 'lime.50' }}
-                                    onClick={() => handleMenuClick(tag, elements[0].category)}
-                                    pt={{ base: 3, xl: 2 }}
-                                    pr={2}
-                                    pl={{ base: 0, lg: 4 }}
-                                >
-                                    <Flex flex='1' textAlign='left'>
-                                        <Image
-                                            mr={3}
-                                            boxSize={6}
-                                            src={`${ApiBase.Images}${icon}`}
+                    {data &&
+                        data.map(
+                            ({
+                                title: groupName,
+                                category: tag,
+                                subCategories: elements,
+                                icon,
+                            }) => (
+                                <AccordionItem border='none' key={groupName} minH='3rem'>
+                                    <AccordionButton
+                                        data-test-id={tag === 'vegan' ? 'vegan-cuisine' : tag}
+                                        _expanded={{ bg: 'lime.100', fontWeight: '600' }}
+                                        _hover={{ bg: 'lime.50' }}
+                                        onClick={() => handleMenuClick(tag, elements[0].category)}
+                                        pt={{ base: 3, xl: 2 }}
+                                        pr={2}
+                                        pl={{ base: 0, lg: 4 }}
+                                    >
+                                        <Flex flex='1' textAlign='left'>
+                                            <Image
+                                                mr={3}
+                                                boxSize={6}
+                                                src={`${ApiBase.Images}${icon}`}
+                                            />
+                                            <Text fontSize='md' lineHeight={6}>
+                                                {groupName}
+                                            </Text>
+                                        </Flex>
+                                        <AccordionIcon
+                                            boxSize={{ base: 6, xl: 7 }}
+                                            mr={{ xl: 2 }}
                                         />
-                                        <Text fontSize='md' lineHeight={6}>
-                                            {groupName}
-                                        </Text>
-                                    </Flex>
-                                    <AccordionIcon boxSize={{ base: 6, xl: 7 }} mr={{ xl: 2 }} />
-                                </AccordionButton>
-                                <AccordionPanel pb={2} pr={1}>
-                                    <List spacing={3}>
-                                        {elements.map(({ category: id, title: name }) => (
-                                            <ListItem
-                                                key={`${id}-${tag}`}
-                                                onClick={() => handleMenuClick(tag, id)}
-                                                pl={{
-                                                    base: subcategoryParam === id ? 3 : 5,
-                                                    lg: subcategoryParam === id ? 7 : 9,
-                                                }}
-                                                data-test-id={
-                                                    subcategoryParam === id && `${id}-active`
-                                                }
-                                            >
-                                                <Text
-                                                    fontWeight={subcategoryParam === id ? 600 : 400}
-                                                    borderLeftStyle='solid'
-                                                    borderLeftWidth={
-                                                        subcategoryParam === id ? '8px' : '1px'
+                                    </AccordionButton>
+                                    <AccordionPanel pb={2} pr={1}>
+                                        <List spacing={3}>
+                                            {elements?.map(({ category: id, title: name }) => (
+                                                <ListItem
+                                                    key={`${id}-${tag}`}
+                                                    onClick={() => handleMenuClick(tag, id)}
+                                                    pl={{
+                                                        base: subcategoryParam === id ? 3 : 5,
+                                                        lg: subcategoryParam === id ? 7 : 9,
+                                                    }}
+                                                    data-test-id={
+                                                        subcategoryParam === id && `${id}-active`
                                                     }
-                                                    borderColor='lime.300'
-                                                    pl={3}
                                                 >
-                                                    {name}
-                                                </Text>
-                                            </ListItem>
-                                        ))}
-                                    </List>
-                                </AccordionPanel>
-                            </AccordionItem>
-                        ),
-                    )}
+                                                    <Text
+                                                        fontWeight={
+                                                            subcategoryParam === id ? 600 : 400
+                                                        }
+                                                        borderLeftStyle='solid'
+                                                        borderLeftWidth={
+                                                            subcategoryParam === id ? '8px' : '1px'
+                                                        }
+                                                        borderColor='lime.300'
+                                                        pl={3}
+                                                    >
+                                                        {name}
+                                                    </Text>
+                                                </ListItem>
+                                            ))}
+                                        </List>
+                                    </AccordionPanel>
+                                </AccordionItem>
+                            ),
+                        )}
                 </Accordion>
             </ScrollArea>
             <Spacer />

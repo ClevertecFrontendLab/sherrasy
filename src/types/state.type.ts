@@ -1,5 +1,6 @@
 import { store } from '~/store/configure-store';
 
+import { Category } from './category.type';
 import { FullRecipe } from './recipe.interface';
 
 export type State = ReturnType<typeof store.getState>;
@@ -15,10 +16,16 @@ export type RecipeState = {
     recipes: FullRecipe[] | null;
     isLoading: boolean;
     isFiltering: boolean;
-    hasLoading: boolean;
+    hasLoadingError: boolean;
     currentFilters: RecipeFilters;
     pendingFilters: RecipeFilters;
     searchString: string | null;
-    category: string | null;
-    subcategory: string | null;
+};
+
+export type CategoryState = {
+    categories: Category[] | null;
+    isLoading: boolean;
+    hasLoadingError: boolean;
+    tabCategory: string | null;
+    tabSubcategory: string | null;
 };

@@ -1,14 +1,14 @@
-export type MenuSubcategory = {
+export type Subcategory = {
     rootCategoryId: string;
     category: string;
     title: string;
 };
 
-export type MenuItem = {
+export type Category = {
     _id: string;
     title: string;
     category: string;
     icon: string;
     description: string;
-    subCategories: MenuSubcategory[];
+    subCategories: Subcategory[];
 };

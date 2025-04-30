@@ -12,6 +12,7 @@ import {
 } from '@chakra-ui/react';
 
 import { FilterIcon } from '~/assets/icons/icons';
+import { useGetCategoriesQuery } from '~/query/services/categories';
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import {
     clearFilters,
@@ -21,7 +22,6 @@ import {
 import { getPendingFilters } from '~/store/recipes/selectors';
 import filterData from '~/utils/data/filters-data.json';
 import { cookBlog } from '~/utils/data/mock-cards.json';
-import categoriesData from '~/utils/data/mock-dishes.json';
 import { getMultiselectCategories } from '~/utils/helpers';
 
 import { AlergiesFilter } from '../allergies-filter/allergies-filter';
@@ -38,8 +38,13 @@ type FilterDrawerProps = {
 
 export const FilterDrawer = ({ isOpenDrawer, handleOpen, handleClose }: FilterDrawerProps) => {
     const filtersData = useAppSelector(getPendingFilters);
+
     const isFiltersFilled = Object.values(filtersData).some((filter) => filter?.length ?? 0 > 0);
     const dispatch = useAppDispatch();
+    const { data: categoriesData } = useGetCategoriesQuery();
+    if (!categoriesData) {
+        return <></>;
+    }
     const handleFilterCards = () => {
         dispatch(updateCurrentFilters());
         dispatch(updateIsFiltering());

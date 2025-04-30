@@ -2,15 +2,15 @@ import { ChevronRightIcon } from '@chakra-ui/icons';
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, Text } from '@chakra-ui/react';
 import { Link, useLocation, useParams } from 'react-router';
 
-import { MenuSubcategory } from '~/types/menu-item.type';
+import { useGetCategoriesQuery } from '~/query/services/categories';
+import { Subcategory } from '~/types/category.type';
 import { PathParams } from '~/types/params.type';
 import { AppRoute, TagToName } from '~/utils/constant';
-import data from '~/utils/data/mock-dishes.json';
 import { getTabNames } from '~/utils/helpers';
 
 const renderSubcategoryBreadcrumb = (
     subcategoryId: string,
-    tabsNames: MenuSubcategory[],
+    tabsNames: Subcategory[],
     categoryId: string,
     isLast: boolean,
 ) => {
@@ -42,11 +42,7 @@ const renderRecipeBreadcrumb = (recipeName: string, recipeId: string, isLast: bo
     </BreadcrumbItem>
 );
 
-const renderCategoryBreadcrumb = (
-    segment: string,
-    tabsNames: MenuSubcategory[],
-    isLast: boolean,
-) => (
+const renderCategoryBreadcrumb = (segment: string, tabsNames: Subcategory[], isLast: boolean) => (
     <BreadcrumbItem key={segment} isCurrentPage={isLast}>
         <BreadcrumbLink as={Link} to={`/${segment}/${tabsNames[0]?.category}`}>
             <Text w='max-content'>{TagToName[segment]}</Text>
@@ -60,6 +56,10 @@ export const Breadcrumbs = () => {
     const { recipeName } = location.state || {};
     const pathnames = location.pathname.split('/').filter(Boolean);
     const isJuiciestPath = pathnames.includes('the-juiciest');
+    const { data } = useGetCategoriesQuery();
+    if (!data) {
+        return <></>;
+    }
     const tabsNames = getTabNames(data, categoryId);
 
     const breadcrumbItems = pathnames.map((segment, index) => {

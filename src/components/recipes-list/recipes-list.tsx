@@ -33,7 +33,13 @@ export const RecipesList = ({ recipes }: RecipesListProps) => {
                 ))}
             </SimpleGrid>
             {recipes.length >= 8 && (
-                <Button bg='lime.400' mt={1} size='md' alignSelf='center'>
+                <Button
+                    bg='lime.400'
+                    mt={1}
+                    size='md'
+                    alignSelf='center'
+                    data-test-id='load-more-button'
+                >
                     <Text fontWeight={600} fontSize='md' lineHeight={6}>
                         Загрузить еще
                     </Text>

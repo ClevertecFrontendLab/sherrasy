@@ -11,6 +11,7 @@ export const Loader = () => (
         display='flex'
         alignItems='center'
         justifyContent='center'
+        data-test-id='app-loader'
     >
         <Spinner thickness='2px' speed='0.75s' color='black' size={{ base: 'lg', sm: 'xl' }} />
     </Circle>

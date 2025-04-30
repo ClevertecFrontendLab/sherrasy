@@ -1,5 +1,5 @@
+import { Category, Subcategory } from '~/types/category.type';
 import { MultiselectItem } from '~/types/filter-item.type';
-import { MenuItem, MenuSubcategory } from '~/types/menu-item.type';
 import { FullRecipe, Ingredient } from '~/types/recipe.interface';
 
 export const getSortedNewRecipes = (recipes: FullRecipe[]) =>
@@ -10,10 +10,10 @@ export const getSortedNewRecipes = (recipes: FullRecipe[]) =>
 export const getSortedJuicyRecipes = (recipes: FullRecipe[]) =>
     [...recipes].sort((a, b) => b.likes - a.likes).slice(0, 10);
 
-export const getTabNames = (data: MenuItem[], categoryId?: string): MenuSubcategory[] =>
+export const getTabNames = (data: Category[], categoryId?: string): Subcategory[] =>
     data.find(({ category }) => category === categoryId)?.subCategories || [];
 
-export const getMultiselectCategories = (data: MenuItem[]): MultiselectItem[] =>
+export const getMultiselectCategories = (data: Category[]): MultiselectItem[] =>
     data.map((item) => ({ name: item.title, id: item.category }));
 
 export const getIsIncluded = (a: string, b: string) => a.toLowerCase().includes(b.toLowerCase());

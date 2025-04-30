@@ -31,12 +31,14 @@ export const AlertError = ({ type }: AlertErrrorProps) => {
             left='37%'
             bottom={{ base: '100px', lg: '80px' }}
             display={isOpen ? 'block' : 'none'}
+            data-test-id='error-notification'
         >
             <AlertIcon boxSize={6} mr={3} />
             <VStack alignItems='start' w='max-content'>
                 <AlertTitle fontSize='lg'>Ошибка сервера</AlertTitle>
                 <AlertDescription maxWidth='sm'>{description[type]}</AlertDescription>
                 <CloseButton
+                    data-test-id='close-alert-button'
                     alignSelf='flex-start'
                     position='absolute'
                     right={0}

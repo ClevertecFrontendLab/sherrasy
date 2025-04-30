@@ -1,13 +1,14 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 
 import { apiSlice } from '~/query/create-api';
+import { ReducerName } from '~/utils/constant';
 
-import appReducer, { appSlice } from './app-slice';
-import recipeReducer, { recipeSlice } from './recipes/recipes-slice';
+import categoryReducer from './categories/categories-slice';
+import recipeReducer from './recipes/recipes-slice';
 const isProduction = false;
 const rootReducer = combineReducers({
-    [appSlice.name]: appReducer,
-    [recipeSlice.name]: recipeReducer,
+    [ReducerName.Recipe]: recipeReducer,
+    [ReducerName.Category]: categoryReducer,
     [apiSlice.reducerPath]: apiSlice.reducer,
 });
 

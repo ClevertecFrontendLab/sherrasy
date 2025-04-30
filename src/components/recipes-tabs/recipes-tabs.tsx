@@ -2,16 +2,16 @@ import { Tab, TabList, TabPanel, TabPanels, Tabs, useMediaQuery } from '@chakra-
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
 
+import { setCurrentParams } from '~/store/categories/categories-slice';
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
-import { setCurrentParams } from '~/store/recipes/recipes-slice';
 import { getFilteredRecipes } from '~/store/recipes/selectors';
-import { MenuSubcategory } from '~/types/menu-item.type';
+import { Subcategory } from '~/types/category.type';
 import { PathParams } from '~/types/params.type';
 
 import { RecipesList } from '../recipes-list/recipes-list';
 
 type RecipesTabsProps = {
-    tabsNames: MenuSubcategory[];
+    tabsNames: Subcategory[];
 };
 
 export const RecipesTabs = ({ tabsNames }: RecipesTabsProps) => {

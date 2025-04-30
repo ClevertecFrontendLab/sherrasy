@@ -5,16 +5,20 @@ import { ContentHeader } from '~/components/content-header/content-header';
 import { Layout } from '~/components/layout/layout';
 import { RecipesTabs } from '~/components/recipes-tabs/recipes-tabs';
 import { RelevantKitchenSection } from '~/components/relevant-kitchen-section/relevant-kitchen-section';
+import { useGetCategoriesQuery } from '~/query/services/categories';
 import { useAppSelector } from '~/store/hooks';
 import { getRecipes } from '~/store/recipes/selectors';
 import { PathParams } from '~/types/params.type';
-import data from '~/utils/data/mock-dishes.json';
 import { getTabNames } from '~/utils/helpers';
 
 function VeganPage() {
     const { categoryId } = useParams<PathParams>();
-    const tabsNames = getTabNames(data, categoryId);
+    const { data } = useGetCategoriesQuery();
     const rkRecipes = useAppSelector(getRecipes);
+    if (!data) {
+        return <></>;
+    }
+    const tabsNames = getTabNames(data, categoryId);
     if (!rkRecipes) {
         return <Heading>An error occured</Heading>;
     }

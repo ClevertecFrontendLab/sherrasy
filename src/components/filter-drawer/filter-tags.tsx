@@ -1,11 +1,11 @@
 import { Flex, Tag, TagCloseButton, TagLabel } from '@chakra-ui/react';
 
+import { useGetCategoriesQuery } from '~/query/services/categories';
 import { useAppDispatch } from '~/store/hooks';
 import { updateFilter, updateIsFiltering } from '~/store/recipes/recipes-slice';
 import { RecipeFilters } from '~/types/state.type';
 import filterData from '~/utils/data/filters-data.json';
 import { cookBlog } from '~/utils/data/mock-cards.json';
-import categoriesData from '~/utils/data/mock-dishes.json';
 import { getMultiselectCategories } from '~/utils/helpers';
 
 type FilterTagProps = {
@@ -15,6 +15,10 @@ type FilterTagProps = {
 };
 
 const FilterTag = ({ filterType, value, onRemove }: FilterTagProps) => {
+    const { data: categoriesData } = useGetCategoriesQuery();
+    if (!categoriesData) {
+        return <></>;
+    }
     const categories = getMultiselectCategories(categoriesData);
 
     const getDisplayName = (id: string, type: keyof RecipeFilters): string => {
