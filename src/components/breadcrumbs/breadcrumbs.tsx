@@ -14,8 +14,8 @@ const renderSubcategoryBreadcrumb = (
     categoryId: string,
     isLast: boolean,
 ) => {
-    const currentItem = tabsNames.find(({ id }) => id === subcategoryId);
-    const name = currentItem?.name || tabsNames[0]?.name || subcategoryId;
+    const currentItem = tabsNames.find(({ category: id }) => id === subcategoryId);
+    const name = currentItem?.title || tabsNames[0]?.title || subcategoryId;
 
     return (
         <BreadcrumbItem key={name} isCurrentPage={isLast}>
@@ -48,7 +48,7 @@ const renderCategoryBreadcrumb = (
     isLast: boolean,
 ) => (
     <BreadcrumbItem key={segment} isCurrentPage={isLast}>
-        <BreadcrumbLink as={Link} to={`/${segment}/${tabsNames[0]?.id}`}>
+        <BreadcrumbLink as={Link} to={`/${segment}/${tabsNames[0]?.category}`}>
             <Text w='max-content'>{TagToName[segment]}</Text>
         </BreadcrumbLink>
     </BreadcrumbItem>

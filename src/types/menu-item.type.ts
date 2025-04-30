@@ -1,10 +1,14 @@
 export type MenuSubcategory = {
-    id: string;
-    name: string;
+    rootCategoryId: string;
+    category: string;
+    title: string;
 };
 
 export type MenuItem = {
-    groupName: string;
-    tag: string;
-    elements: MenuSubcategory[];
+    _id: string;
+    title: string;
+    category: string;
+    icon: string;
+    description: string;
+    subCategories: MenuSubcategory[];
 };

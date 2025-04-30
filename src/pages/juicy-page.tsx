@@ -9,7 +9,7 @@ import { getFilteredRecipes, getRecipes } from '~/store/recipes/selectors';
 import { getSortedJuicyRecipes } from '~/utils/helpers';
 
 function JuicyPage() {
-    const recipes = useAppSelector((state) => getFilteredRecipes(state, 'active'));
+    const recipes = useAppSelector(getFilteredRecipes);
     const rkRecipes = useAppSelector(getRecipes) ?? [];
     if (!recipes) {
         return <Heading>An error occured</Heading>;

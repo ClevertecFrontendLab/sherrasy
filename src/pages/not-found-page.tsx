@@ -13,7 +13,6 @@ function NotFoundPage() {
                     justifyContent='center'
                     gap='2rem'
                     p='2rem'
-                    bg='black'
                 >
                     <Image
                         minH={{ base: '108px', lg: '206px' }}

@@ -20,7 +20,9 @@ export const RecipesTabs = ({ tabsNames }: RecipesTabsProps) => {
     const { categoryId, subcategoryId } = useParams<PathParams>();
     const recipes = useAppSelector(getFilteredRecipes);
     const navigate = useNavigate();
-    const currentTab = subcategoryId ? tabsNames.findIndex((tab) => tab.id === subcategoryId) : -1;
+    const currentTab = subcategoryId
+        ? tabsNames.findIndex((tab) => tab.category === subcategoryId)
+        : -1;
     const [activeTabIndex, setActiveTabIndex] = useState(0);
     const handleSubcategoryClick = (name: string) => {
         navigate(`/${categoryId}/${name}`);
@@ -53,7 +55,7 @@ export const RecipesTabs = ({ tabsNames }: RecipesTabsProps) => {
                     },
                 }}
             >
-                {tabsNames.map(({ name, id }, i) => (
+                {tabsNames.map(({ title: name, category: id }, i) => (
                     <Tab
                         key={name}
                         _selected={{ color: 'lime.600', borderColor: 'lime.600' }}

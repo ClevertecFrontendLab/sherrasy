@@ -12,7 +12,7 @@ import { getFilteredRecipes, getIsFilteringRecipes, getRecipes } from '~/store/r
 
 function MainPage() {
     const isFiltering = useAppSelector(getIsFilteringRecipes);
-    const recipes = useAppSelector((state) => getFilteredRecipes(state, 'active'));
+    const recipes = useAppSelector(getFilteredRecipes);
     const rkRecipes = useAppSelector(getRecipes) ?? [];
     if (!recipes) {
         return <Heading>An error occured</Heading>;

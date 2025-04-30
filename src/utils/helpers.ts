@@ -11,10 +11,10 @@ export const getSortedJuicyRecipes = (recipes: FullRecipe[]) =>
     [...recipes].sort((a, b) => b.likes - a.likes).slice(0, 10);
 
 export const getTabNames = (data: MenuItem[], categoryId?: string): MenuSubcategory[] =>
-    data.find(({ tag }) => tag === categoryId)?.elements || [];
+    data.find(({ category }) => category === categoryId)?.subCategories || [];
 
 export const getMultiselectCategories = (data: MenuItem[]): MultiselectItem[] =>
-    data.map((item) => ({ name: item.groupName, id: item.tag }));
+    data.map((item) => ({ name: item.title, id: item.category }));
 
 export const getIsIncluded = (a: string, b: string) => a.toLowerCase().includes(b.toLowerCase());
 
