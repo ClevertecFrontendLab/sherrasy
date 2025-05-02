@@ -2,7 +2,8 @@ import { ChevronRightIcon } from '@chakra-ui/icons';
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, Text } from '@chakra-ui/react';
 import { Link, useLocation, useParams } from 'react-router';
 
-import { useGetCategoriesQuery } from '~/query/services/categories';
+import { getCategories } from '~/store/categories/selectors';
+import { useAppSelector } from '~/store/hooks';
 import { Subcategory } from '~/types/category.type';
 import { PathParams } from '~/types/params.type';
 import { AppRoute, TagToName } from '~/utils/constant';
@@ -56,7 +57,7 @@ export const Breadcrumbs = () => {
     const { recipeName } = location.state || {};
     const pathnames = location.pathname.split('/').filter(Boolean);
     const isJuiciestPath = pathnames.includes('the-juiciest');
-    const { data } = useGetCategoriesQuery();
+    const data = useAppSelector(getCategories);
     if (!data) {
         return <></>;
     }

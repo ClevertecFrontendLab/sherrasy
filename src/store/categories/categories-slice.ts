@@ -1,10 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
+import { Category } from '~/types/category.type';
 import { CategoryState } from '~/types/state.type';
 import { ReducerName } from '~/utils/constant';
 
 const initialState: CategoryState = {
-    categories: null,
+    categories: [],
     isLoading: false,
     hasLoadingError: false,
     tabCategory: null,
@@ -22,10 +23,13 @@ export const categorySlice = createSlice({
             state.tabCategory = payload.category || null;
             state.tabSubcategory = payload.subcategory || null;
         },
+        setBackupCategories: (state, { payload }: PayloadAction<Category[]>) => {
+            state.categories = payload;
+        },
     },
     extraReducers() {},
 });
 
-export const { setCurrentParams } = categorySlice.actions;
+export const { setCurrentParams, setBackupCategories } = categorySlice.actions;
 
 export default categorySlice.reducer;

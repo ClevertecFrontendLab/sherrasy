@@ -23,7 +23,6 @@ import { getRecipesSearchString } from '~/store/recipes/selectors';
 import { FullRecipe } from '~/types/recipe.interface';
 import { TagToName } from '~/utils/constant';
 import { cookBlog } from '~/utils/data/mock-cards.json';
-import { iconsByTag } from '~/utils/iconsByTag';
 
 type CardProps = {
     recipe: FullRecipe;
@@ -35,7 +34,7 @@ type RecipeCardProps = CardProps & {
 };
 
 const VerticalRecipeCard = ({ recipe, onClick, testI }: CardProps) => {
-    const { title, image, description, category, bookmarks, likes } = recipe;
+    const { title, image, description, categoriesIds, bookmarks, likes } = recipe;
     const [isDesktop] = useMediaQuery('(min-width: 1440px)');
     return (
         <Card position='relative' variant='vCard' onClick={onClick} data-test-id={testI}>
@@ -43,7 +42,7 @@ const VerticalRecipeCard = ({ recipe, onClick, testI }: CardProps) => {
                 <Image
                     objectFit='cover'
                     src={image}
-                    alt='recipe-photo'
+                    alt={title}
                     width='100%'
                     h={['7.5rem', '8rem', '7.75rem', '8rem', '14.375rem']}
                     borderTopLeftRadius={{ base: 'md', md: 'lg' }}
@@ -87,9 +86,9 @@ const VerticalRecipeCard = ({ recipe, onClick, testI }: CardProps) => {
                         flexDirection='row'
                     >
                         <Icon boxSize={4} mr={{ base: '1px', lg: 1.5 }}>
-                            {iconsByTag[category[0]]}
+                            {[categoriesIds[0]]}
                         </Icon>
-                        <Text isTruncated>{TagToName[category[0]]}</Text>
+                        <Text isTruncated>{TagToName[categoriesIds[0]]}</Text>
                     </Badge>
                     <ButtonGroup spacing='9px'>
                         {bookmarks > 0 && (
@@ -128,7 +127,7 @@ const VerticalRecipeCard = ({ recipe, onClick, testI }: CardProps) => {
 };
 
 const HorizontalRecipeCard = ({ recipe, onClick, testI }: CardProps) => {
-    const { title, image, description, category, bookmarks, likes, recommendedBy } = recipe;
+    const { title, image, description, categoriesIds, bookmarks, likes, recommendedBy } = recipe;
     const searchString = useAppSelector(getRecipesSearchString);
     const author = recommendedBy
         ? cookBlog.find((item) => +item.id === recommendedBy) || null
@@ -188,9 +187,9 @@ const HorizontalRecipeCard = ({ recipe, onClick, testI }: CardProps) => {
                             maxW='140px'
                         >
                             <Icon boxSize={4} mr={{ base: 0.5, lg: 1.5 }}>
-                                {iconsByTag[category[0]]}
+                                {[categoriesIds[0]]}
                             </Icon>
-                            <Text isTruncated>{TagToName[category[0]]}</Text>
+                            <Text isTruncated>{TagToName[categoriesIds[0]]}</Text>
                         </Badge>
                         <ButtonGroup
                             spacing={4}

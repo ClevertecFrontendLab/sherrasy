@@ -1,4 +1,5 @@
 export type Subcategory = {
+    _id: string;
     rootCategoryId: string;
     category: string;
     title: string;

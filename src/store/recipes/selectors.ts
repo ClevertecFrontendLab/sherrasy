@@ -32,7 +32,7 @@ export const getPendingFilters = (state: Pick<State, ReducerName.Recipe>): Recip
 export const getRecipeById = createSelector(
     [getRecipes, getRecipeId],
     (recipes, id): FullRecipe | undefined =>
-        id && recipes ? recipes.find((recipe) => recipe.id === id) : undefined,
+        id && recipes ? recipes.find((recipe) => recipe._id === id) : undefined,
 );
 
 export const getRecipesByTab = createSelector(
@@ -44,16 +44,17 @@ export const getRecipesByTab = createSelector(
         if (!tabCategory && !tabSubcategory) {
             return recipes;
         }
-        return recipes.filter(({ category, subcategory }) => {
-            if (tabCategory !== undefined && tabSubcategory !== undefined) {
-                const matchingIndex = subcategory.findIndex((sub, index) => {
-                    const catIndex = index > category?.length - 1 ? 0 : index;
-                    return sub === tabSubcategory && category[catIndex] === tabCategory;
-                });
-                return matchingIndex !== -1;
-            }
-            return true;
-        });
+        return recipes.filter(
+            () =>
+                // if (tabCategory !== undefined && tabSubcategory !== undefined) {
+                //     const matchingIndex = subcategory.findIndex((sub, index) => {
+                //         const catIndex = index > categoriesIds?.length - 1 ? 0 : index;
+                //         return sub === tabSubcategory && categoriesIds[catIndex] === tabCategory;
+                //     });
+                //     return matchingIndex !== -1;
+                // }
+                true,
+        );
     },
 );
 
@@ -66,12 +67,12 @@ export const getFilteredRecipes = createSelector(
     ): FullRecipe[] | null => {
         if (!recipes) return null;
         return recipes.filter(
-            ({ title, category, ingredients, meat, side }) =>
+            ({ title, categoriesIds, ingredients, meat, garnish }) =>
                 getSearchMatch(title, searchString) &&
                 !getAllergensMatch(ingredients, allergens) &&
-                getCategoriesMatch(category, categories) &&
+                getCategoriesMatch(categoriesIds, categories) &&
                 getMeatSideMatch(meat, meat_type) &&
-                getMeatSideMatch(side, side_type),
+                getMeatSideMatch(garnish, side_type),
         );
     },
 );

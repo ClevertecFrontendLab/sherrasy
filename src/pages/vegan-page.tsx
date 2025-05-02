@@ -5,7 +5,7 @@ import { ContentHeader } from '~/components/content-header/content-header';
 import { Layout } from '~/components/layout/layout';
 import { RecipesTabs } from '~/components/recipes-tabs/recipes-tabs';
 import { RelevantKitchenSection } from '~/components/relevant-kitchen-section/relevant-kitchen-section';
-import { useGetCategoriesQuery } from '~/query/services/categories';
+import { getCategories } from '~/store/categories/selectors';
 import { useAppSelector } from '~/store/hooks';
 import { getRecipes } from '~/store/recipes/selectors';
 import { PathParams } from '~/types/params.type';
@@ -13,7 +13,7 @@ import { getTabNames } from '~/utils/helpers';
 
 function VeganPage() {
     const { categoryId } = useParams<PathParams>();
-    const { data } = useGetCategoriesQuery();
+    const data = useAppSelector(getCategories);
     const rkRecipes = useAppSelector(getRecipes);
     if (!data) {
         return <></>;

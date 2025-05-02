@@ -23,7 +23,7 @@ export type RecipeState = {
 };
 
 export type CategoryState = {
-    categories: Category[] | null;
+    categories: Category[];
     isLoading: boolean;
     hasLoadingError: boolean;
     tabCategory: string | null;

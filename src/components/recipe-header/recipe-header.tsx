@@ -19,14 +19,22 @@ import {
 import { BookmarkIcon, HeartEyesIcon, TimeIcon } from '~/assets/icons/icons';
 import { FullRecipe } from '~/types/recipe.interface';
 import { TagToName } from '~/utils/constant';
-import { iconsByTag } from '~/utils/iconsByTag';
 
 type RecipeHeaderProps = {
     recipe: FullRecipe;
 };
 
 export const RecipeHeader = ({ recipe }: RecipeHeaderProps) => {
-    const { id, title, time, description, category, bookmarks, likes, image } = recipe;
+    const {
+        _id: id,
+        title,
+        time,
+        description,
+        categoriesIds: category,
+        bookmarks,
+        likes,
+        image,
+    } = recipe;
     return (
         <Card
             direction={{ base: 'column', sm: 'row' }}
@@ -64,7 +72,7 @@ export const RecipeHeader = ({ recipe }: RecipeHeaderProps) => {
                                     maxW='min-content'
                                 >
                                     <Icon boxSize={4} mr={{ base: 0.5, lg: 1.5 }}>
-                                        {iconsByTag[item]}
+                                        {[item]}
                                     </Icon>
                                     <Text>{TagToName[item]}</Text>
                                 </Badge>
@@ -155,7 +163,7 @@ export const RecipeHeader = ({ recipe }: RecipeHeaderProps) => {
                         <Icon boxSize={4} mr={{ base: 2 }}>
                             <TimeIcon />
                         </Icon>
-                        <Text>{time}</Text>
+                        <Text>{time} минут</Text>
                     </Badge>
                     <ButtonGroup gap={0.5}>
                         <Button

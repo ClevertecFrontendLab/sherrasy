@@ -3,7 +3,9 @@ import { ApiGroupNames } from '~/query/constants/api-group-names.ts';
 import { EndpointNames } from '~/query/constants/endpoint-names.ts';
 import { Tags } from '~/query/constants/tags.ts';
 import { apiSlice } from '~/query/create-api.ts';
+import { setBackupCategories } from '~/store/categories/categories-slice';
 import { Category } from '~/types/category.type';
+import { updateImagePath } from '~/utils/helpers';
 
 export const categoryApiSlice = apiSlice
     .enhanceEndpoints({
@@ -20,7 +22,17 @@ export const categoryApiSlice = apiSlice
                 }),
                 providesTags: [Tags.CATEGORIES],
                 transformResponse: (data: Category[]) =>
-                    data.filter((item: Category) => item.subCategories),
+                    data
+                        .filter((item: Category) => item.subCategories)
+                        .map((item) => ({ ...item, icon: updateImagePath(item.icon) })),
+                async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
+                    try {
+                        const { data } = await queryFulfilled;
+                        dispatch(setBackupCategories(data));
+                    } catch (error) {
+                        console.error('Failed to fetch categories:', error);
+                    }
+                },
             }),
             getCategoryById: builder.query<Category[], string>({
                 query: (id) => ({

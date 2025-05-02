@@ -17,9 +17,9 @@ import { useEffect, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router';
 
 import { ExitIcon } from '~/assets/icons/icons';
-import { useGetCategoriesQuery } from '~/query/services/categories';
+import { getCategories } from '~/store/categories/selectors';
+import { useAppSelector } from '~/store/hooks';
 import { PathParams } from '~/types/params.type';
-import { ApiBase } from '~/utils/constant';
 
 import { ScrollArea } from '../scrollarea/scrollarea';
 
@@ -33,7 +33,7 @@ export const MenuDishes = ({ isBurgerMenu }: MenuDishesProps) => {
     const { categoryId, subcategoryId } = useParams<PathParams>();
     const subcategoryParam = subcategoryId;
     const [activeIndex, setActiveIndex] = useState<number | number[]>(-1);
-    const { data } = useGetCategoriesQuery();
+    const data = useAppSelector(getCategories);
 
     const handleMenuClick = (category: string, subcategory: string) => {
         const link = `/${category}/${subcategory}`;
@@ -95,11 +95,7 @@ export const MenuDishes = ({ isBurgerMenu }: MenuDishesProps) => {
                                         pl={{ base: 0, lg: 4 }}
                                     >
                                         <Flex flex='1' textAlign='left'>
-                                            <Image
-                                                mr={3}
-                                                boxSize={6}
-                                                src={`${ApiBase.Images}${icon}`}
-                                            />
+                                            <Image mr={3} boxSize={6} src={icon} />
                                             <Text fontSize='md' lineHeight={6}>
                                                 {groupName}
                                             </Text>

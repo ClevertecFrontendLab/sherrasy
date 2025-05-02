@@ -30,6 +30,7 @@ export const IngredientsTable = ({ portions, ingredients }: IngredientsTableProp
         setScale(scaleFactor);
     };
 
+    const formatCount = (num: number) => (Number.isInteger(num) ? num.toString() : num.toFixed(2));
     return (
         <TableContainer mt={{ base: '1.375rem', sm: 5, lg: 9 }}>
             <Table
@@ -70,7 +71,7 @@ export const IngredientsTable = ({ portions, ingredients }: IngredientsTableProp
                         <Tr key={title}>
                             <Td>{title}</Td>
                             <Td data-test-id={`ingredient-quantity-${i}`}>
-                                {+count > 0 && +count * scale} {measureUnit}
+                                {+count > 0 && formatCount(+count * scale)} {measureUnit}
                             </Td>
                         </Tr>
                     ))}

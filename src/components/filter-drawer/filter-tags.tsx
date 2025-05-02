@@ -1,7 +1,7 @@
 import { Flex, Tag, TagCloseButton, TagLabel } from '@chakra-ui/react';
 
-import { useGetCategoriesQuery } from '~/query/services/categories';
-import { useAppDispatch } from '~/store/hooks';
+import { getCategories } from '~/store/categories/selectors';
+import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import { updateFilter, updateIsFiltering } from '~/store/recipes/recipes-slice';
 import { RecipeFilters } from '~/types/state.type';
 import filterData from '~/utils/data/filters-data.json';
@@ -15,11 +15,11 @@ type FilterTagProps = {
 };
 
 const FilterTag = ({ filterType, value, onRemove }: FilterTagProps) => {
-    const { data: categoriesData } = useGetCategoriesQuery();
-    if (!categoriesData) {
+    const data = useAppSelector(getCategories);
+    if (!data) {
         return <></>;
     }
-    const categories = getMultiselectCategories(categoriesData);
+    const categories = getMultiselectCategories(data);
 
     const getDisplayName = (id: string, type: keyof RecipeFilters): string => {
         switch (type) {

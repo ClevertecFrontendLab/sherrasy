@@ -12,7 +12,7 @@ import {
 } from '@chakra-ui/react';
 
 import { FilterIcon } from '~/assets/icons/icons';
-import { useGetCategoriesQuery } from '~/query/services/categories';
+import { getCategories } from '~/store/categories/selectors';
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import {
     clearFilters,
@@ -41,8 +41,8 @@ export const FilterDrawer = ({ isOpenDrawer, handleOpen, handleClose }: FilterDr
 
     const isFiltersFilled = Object.values(filtersData).some((filter) => filter?.length ?? 0 > 0);
     const dispatch = useAppDispatch();
-    const { data: categoriesData } = useGetCategoriesQuery();
-    if (!categoriesData) {
+    const data = useAppSelector(getCategories);
+    if (!data) {
         return <></>;
     }
     const handleFilterCards = () => {
@@ -94,7 +94,7 @@ export const FilterDrawer = ({ isOpenDrawer, handleOpen, handleClose }: FilterDr
                         <DrawerBody>
                             <VStack align='start' gap={4} mb={4}>
                                 <MultiSelect
-                                    data={getMultiselectCategories(categoriesData)}
+                                    data={getMultiselectCategories(data)}
                                     type='categories'
                                     text='Категория'
                                 />

@@ -2,9 +2,11 @@ import { Category, Subcategory } from '~/types/category.type';
 import { MultiselectItem } from '~/types/filter-item.type';
 import { FullRecipe, Ingredient } from '~/types/recipe.interface';
 
+import { ApiBase } from './constant';
+
 export const getSortedNewRecipes = (recipes: FullRecipe[]) =>
     [...recipes]
-        .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+        .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
         .slice(0, 10);
 
 export const getSortedJuicyRecipes = (recipes: FullRecipe[]) =>
@@ -17,6 +19,23 @@ export const getMultiselectCategories = (data: Category[]): MultiselectItem[] =>
     data.map((item) => ({ name: item.title, id: item.category }));
 
 export const getIsIncluded = (a: string, b: string) => a.toLowerCase().includes(b.toLowerCase());
+
+export const updateImagePath = (imageSrc: string) =>
+    imageSrc ? `${ApiBase.Images}${imageSrc}` : imageSrc;
+
+export const getRandomElement = <T extends Record<string, unknown>>(
+    arr: T[],
+    excludeId?: string,
+): T | undefined => {
+    if (!arr.length) return undefined;
+
+    const filteredArr = excludeId ? arr.filter((item) => item['_id'] !== excludeId) : arr;
+
+    if (!filteredArr.length) return undefined;
+
+    const randomIndex = Math.floor(Math.random() * filteredArr.length);
+    return filteredArr[randomIndex];
+};
 
 // Filters helpers
 

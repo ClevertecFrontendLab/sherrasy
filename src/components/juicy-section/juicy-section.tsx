@@ -64,7 +64,7 @@ export const JuicySection = ({ recipes }: JuicySectionProps) => {
                 }}
             >
                 {currentRecipes.map((item: FullRecipe, i) => (
-                    <RecipeCard key={item.id} recipe={item} type='horizontal' testI={`${i}`} />
+                    <RecipeCard key={item._id} recipe={item} type='horizontal' testI={`${i}`} />
                 ))}
             </SimpleGrid>
             <Button

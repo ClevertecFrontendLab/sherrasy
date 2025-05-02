@@ -16,17 +16,17 @@ import {
 import { BookmarkIcon, HeartEyesIcon } from '~/assets/icons/icons';
 import { FullRecipe } from '~/types/recipe.interface';
 import { TagToName } from '~/utils/constant';
-import { iconsByTag } from '~/utils/iconsByTag';
 
 type RKCardProps = {
     recipe: FullRecipe;
 };
+
 type RelevantKitchenCardProps = RKCardProps & {
     type: 'medium' | 'small';
 };
 
 const RKMediumCard = ({ recipe }: RKCardProps) => {
-    const { title, description, category, bookmarks, likes } = recipe;
+    const { title, description, categoriesIds, bookmarks, likes } = recipe;
     return (
         <Card variant='rkMedium'>
             <CardHeader>
@@ -47,9 +47,9 @@ const RKMediumCard = ({ recipe }: RKCardProps) => {
             <CardFooter position='relative'>
                 <Badge py={{ base: 1, md: 0 }} px={2} variant='rkCard' maxW='140px'>
                     <Icon boxSize={4} mr={{ base: 2, lg: 1.5 }}>
-                        {iconsByTag[category[0]]}
+                        {[categoriesIds[0]]}
                     </Icon>
-                    <Text isTruncated>{TagToName[category[0]]}</Text>
+                    <Text isTruncated>{TagToName[categoriesIds[0]]}</Text>
                 </Badge>
                 <Spacer />
                 <ButtonGroup
@@ -106,7 +106,7 @@ const RKMediumCard = ({ recipe }: RKCardProps) => {
 };
 
 const RKShortCard = ({ recipe }: RKCardProps) => {
-    const { title, category } = recipe;
+    const { title, categoriesIds } = recipe;
     return (
         <Card variant='rkShort'>
             <CardBody position='relative'>
@@ -119,7 +119,7 @@ const RKShortCard = ({ recipe }: RKCardProps) => {
                         '2xl': 'calc(100% - 150px)',
                     }}
                 >
-                    {iconsByTag[category[0]]}
+                    {[categoriesIds[0]]}
                     <Heading
                         size={{ base: 'sm', '2xl': 'md' }}
                         ml={{ lg: 0.5, '2xl': 1 }}

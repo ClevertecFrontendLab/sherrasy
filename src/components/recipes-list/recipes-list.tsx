@@ -27,7 +27,7 @@ export const RecipesList = ({ recipes }: RecipesListProps) => {
                     <RecipeCard
                         recipe={item}
                         type='horizontal'
-                        key={item.id}
+                        key={`${item._id}-${i}`}
                         testI={`food-card-${i}`}
                     />
                 ))}
