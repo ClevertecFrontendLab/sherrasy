@@ -1,4 +1,5 @@
 import { Box, Flex, Text } from '@chakra-ui/react';
+import { skipToken } from '@reduxjs/toolkit/query';
 import { useParams } from 'react-router';
 
 import { AuthorCard } from '~/components/cards/user-cards/author-card';
@@ -7,8 +8,7 @@ import { NewSection } from '~/components/new-section/new-section';
 import { RecipeDetails } from '~/components/recipe-details/recipe-details';
 import { RecipeHeader } from '~/components/recipe-header/recipe-header';
 import { RecipeSteps } from '~/components/recipe-steps/recipe-steps';
-import { useAppSelector } from '~/store/hooks';
-import { getRecipeById } from '~/store/recipes/selectors';
+import { useGetRecipeByIdQuery } from '~/query/services/recipes';
 
 const MockAuthor = {
     id: '16',
@@ -21,7 +21,7 @@ const MockAuthor = {
 
 function RecipePage() {
     const { recipeId } = useParams();
-    const recipe = useAppSelector((state) => getRecipeById(state, recipeId));
+    const { data: recipe } = useGetRecipeByIdQuery(recipeId ?? skipToken);
     if (!recipe) {
         return <Text>No data found</Text>;
     }

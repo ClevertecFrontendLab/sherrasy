@@ -16,7 +16,7 @@ const vCard = definePartsStyle({
         minW: ['9.3125rem', '9.875rem', '9.75rem', '9.875rem', '17.4375rem', null, '20.125rem'],
         maxW: ['9.3125rem', '9.875rem', '9.75rem', '9.875rem', '17.4375rem', null, '20.125rem'],
         minH: ['13rem', '13.5rem', '13.75rem', '13.75rem', '25.125rem', null, '25.875rem'],
-        maxH: ['13rem', '13.75rem', '13.5rem', '13.75rem', '25.125rem', null, '25.875rem'],
+        // maxH: ['13rem', '13.75rem', '13.5rem', '13.75rem', '25.125rem', null, '25.875rem'],
     },
     body: {
         p: 0,
@@ -31,7 +31,7 @@ const hCard = definePartsStyle({
     container: {
         ...outlineStyles,
         minH: ['7.75rem', '8rem', null, '8.0625rem', '15.25rem'],
-        maxH: ['7.75rem', '8rem', null, '8.0625rem', '15.25rem'],
+        // maxH: ['7.75rem', '8rem', null, '8.0625rem', '15.25rem'],
         minW: ['19.375rem', '20.5rem', '21.75rem', '22.25rem', '55rem', null, '41.75rem'],
         maxW: ['19.375rem', '20.5rem', '21.75rem', '22.25rem', '55rem', null, '41.75rem'],
     },

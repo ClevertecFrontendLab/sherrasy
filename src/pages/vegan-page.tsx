@@ -1,24 +1,33 @@
 import { Box, Heading } from '@chakra-ui/react';
+import { useMemo } from 'react';
 import { useParams } from 'react-router';
 
 import { ContentHeader } from '~/components/content-header/content-header';
 import { Layout } from '~/components/layout/layout';
 import { RecipesTabs } from '~/components/recipes-tabs/recipes-tabs';
 import { RelevantKitchenSection } from '~/components/relevant-kitchen-section/relevant-kitchen-section';
+import { useGetCategoriesQuery } from '~/query/services/categories';
 import { getCategories } from '~/store/categories/selectors';
 import { useAppSelector } from '~/store/hooks';
 import { getRecipes } from '~/store/recipes/selectors';
+import { Category } from '~/types/category.type';
 import { PathParams } from '~/types/params.type';
-import { getTabNames } from '~/utils/helpers';
+import { getRandomElement, getTabNames } from '~/utils/helpers';
 
 function VeganPage() {
     const { categoryId } = useParams<PathParams>();
-    const data = useAppSelector(getCategories);
+    const { data: dataCategories = [], isError } = useGetCategoriesQuery();
+    const backupCategories = useAppSelector(getCategories);
+    const categories = isError ? backupCategories : dataCategories;
+    const currentCategory = useMemo(
+        () => getRandomElement<Category>(categories, categoryId),
+        [categories, categoryId],
+    );
     const rkRecipes = useAppSelector(getRecipes);
-    if (!data) {
+    if (!categories) {
         return <></>;
     }
-    const tabsNames = getTabNames(data, categoryId);
+    const tabsNames = getTabNames(categories, categoryId);
     if (!rkRecipes) {
         return <Heading>An error occured</Heading>;
     }
@@ -42,7 +51,7 @@ function VeganPage() {
                 >
                     <RecipesTabs tabsNames={tabsNames} />
                 </Box>
-                <RelevantKitchenSection recipes={rkRecipes} />
+                <RelevantKitchenSection categoryInfo={currentCategory} />
             </Layout>
         </>
     );

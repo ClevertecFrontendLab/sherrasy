@@ -37,6 +37,16 @@ const rkCard = defineStyle({
     justifyContent: 'space-between',
 });
 
+const rkCardShort = defineStyle({
+    ...defaultBadgeStyle,
+    minW: '36px',
+    minH: '36px',
+    bgColor: 'transparent',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+});
+
 const author = defineStyle({
     ...defaultBadgeStyle,
     fontWeight: 600,
@@ -45,5 +55,5 @@ const author = defineStyle({
 });
 
 export const badgeTheme = defineStyleConfig({
-    variants: { vCard, hCard, author, rkCard, time },
+    variants: { vCard, hCard, author, rkCard, time, rkCardShort },
 });

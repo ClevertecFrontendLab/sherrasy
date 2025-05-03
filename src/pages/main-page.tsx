@@ -7,13 +7,20 @@ import { Layout } from '~/components/layout/layout';
 import { NewSection } from '~/components/new-section/new-section';
 import { RecipesList } from '~/components/recipes-list/recipes-list';
 import { RelevantKitchenSection } from '~/components/relevant-kitchen-section/relevant-kitchen-section';
+import { useGetCategoriesQuery } from '~/query/services/categories';
+import { getCategories } from '~/store/categories/selectors';
 import { useAppSelector } from '~/store/hooks';
-import { getFilteredRecipes, getIsFilteringRecipes, getRecipes } from '~/store/recipes/selectors';
+import { getFilteredRecipes, getIsFilteringRecipes } from '~/store/recipes/selectors';
+import { Category } from '~/types/category.type';
+import { getRandomElement } from '~/utils/helpers';
 
 function MainPage() {
     const isFiltering = useAppSelector(getIsFilteringRecipes);
     const recipes = useAppSelector(getFilteredRecipes);
-    const rkRecipes = useAppSelector(getRecipes) ?? [];
+    const { data: dataCategories = [], isError } = useGetCategoriesQuery();
+    const backupCategories = useAppSelector(getCategories);
+    const categories = isError ? backupCategories : dataCategories;
+    const currentCategory = getRandomElement<Category>(categories);
     if (!recipes) {
         return <Heading>An error occured</Heading>;
     }
@@ -37,7 +44,7 @@ function MainPage() {
                         <CookBlogSection />
                     </Box>
                 )}{' '}
-                <RelevantKitchenSection recipes={rkRecipes} />
+                <RelevantKitchenSection categoryInfo={currentCategory} />
             </Layout>
         </>
     );

@@ -9,19 +9,20 @@ import {
     CardFooter,
     Flex,
     Highlight,
-    Icon,
+    HStack,
     Image,
+    SimpleGrid,
     Stack,
     Text,
     useMediaQuery,
 } from '@chakra-ui/react';
 
 import { BookmarkIcon, HeartEyesIcon } from '~/assets/icons/icons';
+import { BadgesList } from '~/components/badges-list/badges-list';
 import { withRecipeNavigation } from '~/hoc/withRecipeNavigation';
 import { useAppSelector } from '~/store/hooks';
 import { getRecipesSearchString } from '~/store/recipes/selectors';
 import { FullRecipe } from '~/types/recipe.interface';
-import { TagToName } from '~/utils/constant';
 import { cookBlog } from '~/utils/data/mock-cards.json';
 
 type CardProps = {
@@ -55,6 +56,7 @@ const VerticalRecipeCard = ({ recipe, onClick, testI }: CardProps) => {
                     py={{ base: 1, lg: 2.5, '2xl': 3 }}
                     pb={{ base: 0.5, xs: 1 }}
                     maxW={{ md: '90%', lg: '100%' }}
+                    minH='3.5rem'
                 >
                     <Text
                         fontWeight={500}
@@ -73,54 +75,40 @@ const VerticalRecipeCard = ({ recipe, onClick, testI }: CardProps) => {
                 </Stack>
             </CardBody>
             <CardFooter>
-                <Flex w='100%' justify='space-between' align={{ lg: 'center' }}>
-                    <Badge
-                        py='0.0625rem'
-                        px={{ base: '0.25rem', lg: 2 }}
-                        position={{ base: 'absolute', lg: 'inherit' }}
-                        top={2}
-                        left={2}
-                        variant='vCard'
-                        maxW='140px'
-                        display='flex'
-                        flexDirection='row'
+                <HStack w='100%' justify='space-between' align='start'>
+                    <SimpleGrid
+                        gap={2}
+                        templateColumns={{ base: 'repeat(1, 60px)', lg: 'repeat(1, 140px)' }}
                     >
-                        <Icon boxSize={4} mr={{ base: '1px', lg: 1.5 }}>
-                            {[categoriesIds[0]]}
-                        </Icon>
-                        <Text isTruncated>{TagToName[categoriesIds[0]]}</Text>
-                    </Badge>
-                    <ButtonGroup spacing='9px'>
-                        {bookmarks > 0 && (
-                            <Button
-                                leftIcon={<BookmarkIcon color='black' boxSize={{ base: 3 }} />}
-                                color='lime.600'
-                                bg='transparent'
-                                p={0}
-                                size='sm'
-                                fontSize='xs'
-                                lineHeight={4}
-                                iconSpacing='6px'
-                            >
-                                {bookmarks}
-                            </Button>
-                        )}
-                        {likes > 0 && (
-                            <Button
-                                leftIcon={<HeartEyesIcon color='black' boxSize={{ base: 3 }} />}
-                                color='lime.600'
-                                bg='transparent'
-                                p={0}
-                                size='sm'
-                                fontSize='xs'
-                                lineHeight={4}
-                                iconSpacing='6px'
-                            >
-                                {likes}
-                            </Button>
-                        )}
+                        <BadgesList categoriesIds={categoriesIds} type='vCard' />
+                    </SimpleGrid>
+                    <ButtonGroup spacing='9px' alignSelf='end'>
+                        <Button
+                            leftIcon={<BookmarkIcon color='black' boxSize={{ base: 3 }} />}
+                            color='lime.600'
+                            bg='transparent'
+                            p={0}
+                            size='sm'
+                            fontSize='xs'
+                            lineHeight={4}
+                            iconSpacing='6px'
+                        >
+                            {bookmarks}
+                        </Button>
+                        <Button
+                            leftIcon={<HeartEyesIcon color='black' boxSize={{ base: 3 }} />}
+                            color='lime.600'
+                            bg='transparent'
+                            p={0}
+                            size='sm'
+                            fontSize='xs'
+                            lineHeight={4}
+                            iconSpacing='6px'
+                        >
+                            {likes}
+                        </Button>
                     </ButtonGroup>
-                </Flex>
+                </HStack>
             </CardFooter>
         </Card>
     );
@@ -133,6 +121,7 @@ const HorizontalRecipeCard = ({ recipe, onClick, testI }: CardProps) => {
         ? cookBlog.find((item) => +item.id === recommendedBy) || null
         : null;
     const [isDesktop] = useMediaQuery('(min-width: 1440px)');
+
     return (
         <Card direction='row' variant='hCard' data-test-id={testI?.includes('food') ? testI : ''}>
             <Box position='relative' maxW='50%' maxH='100%'>
@@ -176,57 +165,49 @@ const HorizontalRecipeCard = ({ recipe, onClick, testI }: CardProps) => {
                 maxW={{ lg: '33.375rem', '2xl': '20.125rem' }}
             >
                 <CardBody>
-                    <Flex justify='space-between' align={{ lg: 'center' }}>
-                        <Badge
-                            py='1px'
-                            px={{ base: '0.25rem', lg: 2 }}
-                            position={{ base: 'absolute', lg: 'inherit' }}
-                            top={2}
-                            left={2}
-                            variant='hCard'
-                            maxW='140px'
+                    <Flex justify={{ lg: 'space-between' }}>
+                        <SimpleGrid
+                            gap={2}
+                            templateColumns={{
+                                base: 'repeat(1, 60px)',
+                                lg: 'repeat(2, 140px)',
+                                xl: 'repeat(1, 140px)',
+                            }}
                         >
-                            <Icon boxSize={4} mr={{ base: 0.5, lg: 1.5 }}>
-                                {[categoriesIds[0]]}
-                            </Icon>
-                            <Text isTruncated>{TagToName[categoriesIds[0]]}</Text>
-                        </Badge>
+                            <BadgesList categoriesIds={categoriesIds} type='hCard' />
+                        </SimpleGrid>
                         <ButtonGroup
                             spacing={4}
                             ml={{ base: 1, lg: 0 }}
                             mr={{ lg: 4, '2xl': 1.5 }}
                             maxH='1.5rem'
                         >
-                            {bookmarks > 0 && (
-                                <Button
-                                    leftIcon={<BookmarkIcon color='black' boxSize={{ base: 3 }} />}
-                                    color='lime.600'
-                                    bg='transparent'
-                                    p={0}
-                                    size='sm'
-                                    fontSize='xs'
-                                    lineHeight={4}
-                                    iconSpacing='0.375rem'
-                                    h='100%'
-                                >
-                                    {bookmarks}
-                                </Button>
-                            )}
-                            {likes > 0 && (
-                                <Button
-                                    leftIcon={<HeartEyesIcon color='black' boxSize={{ base: 3 }} />}
-                                    color='lime.600'
-                                    bg='transparent'
-                                    p={0}
-                                    size='sm'
-                                    fontSize='xs'
-                                    lineHeight={4}
-                                    iconSpacing='0.375rem'
-                                    h='100%'
-                                >
-                                    {likes}
-                                </Button>
-                            )}
+                            <Button
+                                leftIcon={<BookmarkIcon color='black' boxSize={{ base: 3 }} />}
+                                color='lime.600'
+                                bg='transparent'
+                                p={0}
+                                size='sm'
+                                fontSize='xs'
+                                lineHeight={4}
+                                iconSpacing='0.375rem'
+                                h='100%'
+                            >
+                                {bookmarks}
+                            </Button>
+                            <Button
+                                leftIcon={<HeartEyesIcon color='black' boxSize={{ base: 3 }} />}
+                                color='lime.600'
+                                bg='transparent'
+                                p={0}
+                                size='sm'
+                                fontSize='xs'
+                                lineHeight={4}
+                                iconSpacing='0.375rem'
+                                h='100%'
+                            >
+                                {likes}
+                            </Button>
                         </ButtonGroup>
                     </Flex>
                     <Box

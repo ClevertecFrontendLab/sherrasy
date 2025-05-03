@@ -37,6 +37,16 @@ export const getRandomElement = <T extends Record<string, unknown>>(
     return filteredArr[randomIndex];
 };
 
+export const getCatSubPairs = (
+    categories: Category[],
+    subcategoryIds: string[],
+): { category: Category; subcategory: Subcategory }[] =>
+    categories.flatMap((category) =>
+        category.subCategories
+            .filter((subcategory) => subcategoryIds.includes(subcategory._id))
+            .map((subcategory) => ({ category, subcategory })),
+    ) ?? [];
+
 // Filters helpers
 
 export const getCategoriesMatch = (category: string[], categories: string[] | null): boolean => {

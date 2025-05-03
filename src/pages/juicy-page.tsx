@@ -4,13 +4,19 @@ import { ContentHeader } from '~/components/content-header/content-header';
 import { Layout } from '~/components/layout/layout';
 import { RecipesList } from '~/components/recipes-list/recipes-list';
 import { RelevantKitchenSection } from '~/components/relevant-kitchen-section/relevant-kitchen-section';
+import { useGetCategoriesQuery } from '~/query/services/categories';
+import { getCategories } from '~/store/categories/selectors';
 import { useAppSelector } from '~/store/hooks';
-import { getFilteredRecipes, getRecipes } from '~/store/recipes/selectors';
-import { getSortedJuicyRecipes } from '~/utils/helpers';
+import { getFilteredRecipes } from '~/store/recipes/selectors';
+import { Category } from '~/types/category.type';
+import { getRandomElement, getSortedJuicyRecipes } from '~/utils/helpers';
 
 function JuicyPage() {
     const recipes = useAppSelector(getFilteredRecipes);
-    const rkRecipes = useAppSelector(getRecipes) ?? [];
+    const { data: dataCategories = [], isError } = useGetCategoriesQuery();
+    const backupCategories = useAppSelector(getCategories);
+    const categories = isError ? backupCategories : dataCategories;
+    const currentCategory = getRandomElement<Category>(categories);
     if (!recipes) {
         return <Heading>An error occured</Heading>;
     }
@@ -29,7 +35,7 @@ function JuicyPage() {
                 >
                     <RecipesList recipes={currentRecipes} />
                 </Box>
-                <RelevantKitchenSection recipes={rkRecipes} />
+                <RelevantKitchenSection categoryInfo={currentCategory} />
             </Layout>
         </>
     );

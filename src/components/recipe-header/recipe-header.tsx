@@ -18,23 +18,15 @@ import {
 
 import { BookmarkIcon, HeartEyesIcon, TimeIcon } from '~/assets/icons/icons';
 import { FullRecipe } from '~/types/recipe.interface';
-import { TagToName } from '~/utils/constant';
+
+import { BadgesList } from '../badges-list/badges-list';
 
 type RecipeHeaderProps = {
     recipe: FullRecipe;
 };
 
 export const RecipeHeader = ({ recipe }: RecipeHeaderProps) => {
-    const {
-        _id: id,
-        title,
-        time,
-        description,
-        categoriesIds: category,
-        bookmarks,
-        likes,
-        image,
-    } = recipe;
+    const { title, time, description, categoriesIds, bookmarks, likes, image } = recipe;
     return (
         <Card
             direction={{ base: 'column', sm: 'row' }}
@@ -63,20 +55,7 @@ export const RecipeHeader = ({ recipe }: RecipeHeaderProps) => {
                             gap={2}
                             templateColumns={{ sm: 'repeat(2, 1fr)', xl: 'repeat(3,1fr)' }}
                         >
-                            {category.map((item) => (
-                                <Badge
-                                    key={`${item}-${id}`}
-                                    py='1px'
-                                    px={{ base: '0.25rem', lg: 2 }}
-                                    variant='hCard'
-                                    maxW='min-content'
-                                >
-                                    <Icon boxSize={4} mr={{ base: 0.5, lg: 1.5 }}>
-                                        {[item]}
-                                    </Icon>
-                                    <Text>{TagToName[item]}</Text>
-                                </Badge>
-                            ))}
+                            <BadgesList categoriesIds={categoriesIds} type='hCard' />
                         </SimpleGrid>
                         <ButtonGroup
                             spacing={{ base: 7, lg: 4, xl: 10 }}
