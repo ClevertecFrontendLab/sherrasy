@@ -2,23 +2,22 @@ import { Button, Flex, Heading, SimpleGrid, Text, useMediaQuery } from '@chakra-
 import { useNavigate } from 'react-router';
 
 import { ArrowRightIcon } from '~/assets/icons/icons';
+import { useGetJuiciestRecipesQuery } from '~/query/services/recipes';
 import { FullRecipe } from '~/types/recipe.interface';
 import { AppRoute } from '~/utils/constant';
-import { getSortedJuicyRecipes } from '~/utils/helpers';
 
 import { RecipeCard } from '../cards/recipe-cards/recipe-card';
 
-type JuicySectionProps = {
-    recipes: FullRecipe[];
-};
-
-export const JuicySection = ({ recipes }: JuicySectionProps) => {
-    const [isDesktop] = useMediaQuery('(min-width: 1440px)');
-    const currentRecipes = getSortedJuicyRecipes(recipes);
+export const JuicySection = () => {
+    const [isTablet] = useMediaQuery('(min-width:767px)');
+    const [isDesktop] = useMediaQuery('(min-width:1440px)');
+    const { data: JuiciestData } = useGetJuiciestRecipesQuery({ limit: 4 });
+    const currentRecipes = JuiciestData?.data ?? [];
     const navigate = useNavigate();
-    const handleAllClick = () => {
+    const handleAllClick = async () => {
         navigate(AppRoute.Juiciest);
     };
+
     return (
         <Flex
             direction='column'
@@ -62,8 +61,9 @@ export const JuicySection = ({ recipes }: JuicySectionProps) => {
                     lg: 'repeat(1, minmax(41.75rem, 1fr))',
                     xl: 'repeat(2, minmax(41.75rem, 1fr))',
                 }}
+                gridAutoRows='1fr'
             >
-                {currentRecipes.map((item: FullRecipe, i) => (
+                {currentRecipes.slice(0, 4).map((item: FullRecipe, i) => (
                     <RecipeCard key={item._id} recipe={item} type='horizontal' testI={`${i}`} />
                 ))}
             </SimpleGrid>
@@ -73,7 +73,7 @@ export const JuicySection = ({ recipes }: JuicySectionProps) => {
                 alignSelf='center'
                 rightIcon={<ArrowRightIcon />}
                 onClick={handleAllClick}
-                data-test-id='juiciest-link-mobile'
+                data-test-id={isTablet ? 'juiciest-link' : 'juiciest-link-mobile'}
                 display={isDesktop ? 'none' : 'flex'}
             >
                 <Text

@@ -14,11 +14,14 @@ export const BadgesList = ({ categoriesIds, type }: BadgesListProps) => {
     const backupCategories = useAppSelector(getCategories);
     const categories = hasCatError ? backupCategories : dataCategories;
     const pairs = getCatSubPairs(categories, categoriesIds);
+    const uniqueBadges = Array.from(new Set(pairs.map((pair) => pair.category._id))).map(
+        (id) => pairs.find((pair) => pair.category._id === id)!.category,
+    );
     return (
         <>
-            {pairs.map(({ category, subcategory }) => (
+            {uniqueBadges.map(({ _id, icon, title }) => (
                 <Badge
-                    key={`${category._id}-${subcategory._id}`}
+                    key={`${_id}-${title}`}
                     py='1px'
                     px={{ base: '0.25rem', lg: 2 }}
                     variant={type}
@@ -29,10 +32,10 @@ export const BadgesList = ({ categoriesIds, type }: BadgesListProps) => {
                     <Image
                         boxSize={type === 'rkCardShort' ? 6 : 4}
                         mr={{ base: 0.5, lg: 1.5 }}
-                        src={category.icon}
+                        src={icon}
                         alt=''
                     />
-                    {type !== 'rkCardShort' && <Text isTruncated>{category.title}</Text>}
+                    {type !== 'rkCardShort' && <Text isTruncated>{title}</Text>}
                 </Badge>
             ))}
         </>

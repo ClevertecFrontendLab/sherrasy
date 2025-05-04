@@ -128,7 +128,7 @@ const HorizontalRecipeCard = ({ recipe, onClick, testI }: CardProps) => {
                 <Image
                     objectFit='cover'
                     src={image}
-                    alt='recipe-photo'
+                    alt={title}
                     minW={['9.25rem', '9.875rem', '9.625rem', '9.875rem', '21.625rem']}
                     maxW={['9.25rem', '9.875rem', '9.625rem', '9.875rem', '21.625rem']}
                     h='100%'

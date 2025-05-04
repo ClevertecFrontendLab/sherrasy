@@ -9,14 +9,16 @@ import NotFoundPage from '~/pages/not-found-page';
 import RecipePage from '~/pages/recipe-page';
 import VeganPage from '~/pages/vegan-page';
 import { useGetCategoriesQuery } from '~/query/services/categories';
+import { useGetNewRecipesQuery } from '~/query/services/recipes';
 import { AppRoute } from '~/utils/constant';
 
 function App() {
     const { isLoading: isCategoriesLoading } = useGetCategoriesQuery();
+    const { isLoading: isNewRecipesLoading } = useGetNewRecipesQuery();
 
     return (
         <>
-            <OverlayWithLoader isOpen={isCategoriesLoading} />
+            <OverlayWithLoader isOpen={isCategoriesLoading || isNewRecipesLoading} />
             <Routes>
                 <Route path={AppRoute.Main} element={<MainPage />} />
                 <Route path={AppRoute.Vegan} element={<VeganPage />} />

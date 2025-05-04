@@ -2,7 +2,7 @@ import { Box, Divider, Flex, Heading, SimpleGrid, Text } from '@chakra-ui/react'
 import { skipToken } from '@reduxjs/toolkit/query';
 import { useMemo } from 'react';
 
-import { useGetRecipesByCategoryQuery } from '~/query/services/recipes';
+import { useGetRelevantRecipesQuery } from '~/query/services/recipes';
 import { Category, Subcategory } from '~/types/category.type';
 import { getRandomElement } from '~/utils/helpers';
 
@@ -18,7 +18,7 @@ export const RelevantKitchenSection = ({ categoryInfo }: RelevantKitchenSectionP
         () => getRandomElement<Subcategory>(subcategories)?._id ?? skipToken,
         [subcategories, categoryInfo],
     );
-    const { data: recipes } = useGetRecipesByCategoryQuery(currentSubcategory);
+    const { data: recipes } = useGetRelevantRecipesQuery(currentSubcategory);
     if (!recipes) {
         return <></>;
     }

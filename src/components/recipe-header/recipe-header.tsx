@@ -41,7 +41,7 @@ export const RecipeHeader = ({ recipe }: RecipeHeaderProps) => {
                 <Image
                     objectFit='cover'
                     src={image}
-                    alt='recipe-photo'
+                    alt={title}
                     minW={{ sm: '14.5rem', lg: '22.0625rem', xl: '34.5625rem' }}
                     w='100%'
                     h={{ base: '14rem', lg: '25.625rem' }}

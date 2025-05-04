@@ -1,26 +1,54 @@
-import { Box, Heading } from '@chakra-ui/react';
+import { Box } from '@chakra-ui/react';
+import { useEffect, useMemo, useState } from 'react';
 
 import { ContentHeader } from '~/components/content-header/content-header';
 import { Layout } from '~/components/layout/layout';
 import { RecipesList } from '~/components/recipes-list/recipes-list';
 import { RelevantKitchenSection } from '~/components/relevant-kitchen-section/relevant-kitchen-section';
+import { Tags } from '~/query/constants/tags';
 import { useGetCategoriesQuery } from '~/query/services/categories';
+import { recipesApiSlice, useGetJuiciestRecipesQuery } from '~/query/services/recipes';
 import { getCategories } from '~/store/categories/selectors';
-import { useAppSelector } from '~/store/hooks';
-import { getFilteredRecipes } from '~/store/recipes/selectors';
+import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import { Category } from '~/types/category.type';
-import { getRandomElement, getSortedJuicyRecipes } from '~/utils/helpers';
+import { getRandomElement } from '~/utils/helpers';
 
 function JuicyPage() {
-    const recipes = useAppSelector(getFilteredRecipes);
-    const { data: dataCategories = [], isError } = useGetCategoriesQuery();
+    const { data: dataCategories = [], isError: isCatError } = useGetCategoriesQuery();
     const backupCategories = useAppSelector(getCategories);
-    const categories = isError ? backupCategories : dataCategories;
-    const currentCategory = getRandomElement<Category>(categories);
-    if (!recipes) {
-        return <Heading>An error occured</Heading>;
-    }
-    const currentRecipes = getSortedJuicyRecipes(recipes);
+    const categories = isCatError ? backupCategories : dataCategories;
+    const currentCategory = useMemo(() => getRandomElement<Category>(categories), [categories]);
+    const dispatch = useAppDispatch();
+
+    const [page, setPage] = useState(1);
+    const limit = 8;
+
+    const queryArgs = useMemo(() => ({ limit, page }), [limit, page]);
+    const {
+        data: recipesData,
+        isFetching,
+        isLoading,
+    } = useGetJuiciestRecipesQuery(queryArgs, {
+        refetchOnMountOrArgChange: true,
+    });
+
+    const isLastPage = Boolean(
+        recipesData?.meta && recipesData.meta.page >= recipesData.meta.totalPages,
+    );
+
+    const loadRecipes = async () => {
+        if (!isFetching && !isLoading && !isLastPage) {
+            setPage((prev) => prev + 1);
+        }
+    };
+
+    useEffect(
+        () => () => {
+            setPage(1);
+            dispatch(recipesApiSlice.util.invalidateTags([Tags.JUICY_RECIPES]));
+        },
+        [dispatch],
+    );
 
     return (
         <>
@@ -33,7 +61,11 @@ function JuicyPage() {
                     alignSelf='start'
                     width='100%'
                 >
-                    <RecipesList recipes={currentRecipes} />
+                    <RecipesList
+                        recipes={recipesData?.data ?? []}
+                        isLastPage={isLastPage}
+                        handleLoadMore={loadRecipes}
+                    />
                 </Box>
                 <RelevantKitchenSection categoryInfo={currentCategory} />
             </Layout>

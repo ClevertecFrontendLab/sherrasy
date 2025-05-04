@@ -6,7 +6,7 @@ import { getCategories } from '~/store/categories/selectors';
 import { useAppSelector } from '~/store/hooks';
 import { Subcategory } from '~/types/category.type';
 import { PathParams } from '~/types/params.type';
-import { AppRoute, TagToName } from '~/utils/constant';
+import { AppRoute } from '~/utils/constant';
 import { getTabNames } from '~/utils/helpers';
 
 const renderSubcategoryBreadcrumb = (
@@ -43,10 +43,15 @@ const renderRecipeBreadcrumb = (recipeName: string, recipeId: string, isLast: bo
     </BreadcrumbItem>
 );
 
-const renderCategoryBreadcrumb = (segment: string, tabsNames: Subcategory[], isLast: boolean) => (
+const renderCategoryBreadcrumb = (
+    segment: string,
+    categoryName: string,
+    tabsNames: Subcategory[],
+    isLast: boolean,
+) => (
     <BreadcrumbItem key={segment} isCurrentPage={isLast}>
         <BreadcrumbLink as={Link} to={`/${segment}/${tabsNames[0]?.category}`}>
-            <Text w='max-content'>{TagToName[segment]}</Text>
+            <Text w='max-content'>{categoryName}</Text>
         </BreadcrumbLink>
     </BreadcrumbItem>
 );
@@ -62,6 +67,7 @@ export const Breadcrumbs = () => {
         return <></>;
     }
     const tabsNames = getTabNames(data, categoryId);
+    const categoryName = data.find(({ category }) => category === categoryId)?.title || '';
 
     const breadcrumbItems = pathnames.map((segment, index) => {
         const isLast = index === pathnames.length - 1;
@@ -76,7 +82,7 @@ export const Breadcrumbs = () => {
             return renderRecipeBreadcrumb(recipeName, recipeId, isLast);
         }
 
-        return renderCategoryBreadcrumb(segment, tabsNames, isLast);
+        return renderCategoryBreadcrumb(segment, categoryName, tabsNames, isLast);
     });
 
     return (

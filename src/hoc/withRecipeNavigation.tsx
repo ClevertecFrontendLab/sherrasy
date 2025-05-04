@@ -2,7 +2,7 @@ import { ReactElement } from 'react';
 import { useLocation, useNavigate } from 'react-router';
 
 import { useGetCategoriesQuery } from '~/query/services/categories';
-import { useGetRecipeByIdQuery } from '~/query/services/recipes';
+import { useLazyGetRecipeByIdQuery } from '~/query/services/recipes';
 import { getCategories } from '~/store/categories/selectors';
 import { useAppSelector } from '~/store/hooks';
 import { FullRecipe } from '~/types/recipe.interface';
@@ -25,10 +25,11 @@ export const withRecipeNavigation =
         const { data: dataCategories = [], isError: hasCatError } = useGetCategoriesQuery();
         const backupCategories = useAppSelector(getCategories);
         const categories = hasCatError ? backupCategories : dataCategories;
-        const { isError, isLoading } = useGetRecipeByIdQuery(_id);
+        const [triggerRecipe, { isError, isLoading }] = useLazyGetRecipeByIdQuery();
         const pathSegments = getCatSubPairs(categories, categoriesIds)[0];
-        const handleClick = () => {
+        const handleClick = async () => {
             const basePath = pathname.includes(AppRoute.Juiciest) ? `${AppRoute.Juiciest}` : '';
+            await triggerRecipe(_id);
             if (!isLoading && !isError) {
                 navigate(
                     `${basePath}/${pathSegments.category.category}/${pathSegments.subcategory.category}/${_id}`,

@@ -35,12 +35,12 @@ function MainPage() {
                         w={{ base: '100%', lg: 'auto' }}
                         alignSelf='center'
                     >
-                        <RecipesList recipes={recipes} />
+                        <RecipesList recipes={recipes} isLastPage={true} />
                     </Box>
                 ) : (
                     <Box alignSelf='start'>
                         <NewSection isRecipePage={false} />
-                        <JuicySection recipes={recipes} />
+                        <JuicySection />
                         <CookBlogSection />
                     </Box>
                 )}{' '}

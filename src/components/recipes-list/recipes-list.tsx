@@ -6,9 +6,11 @@ import { RecipeCard } from '../cards/recipe-cards/recipe-card';
 
 type RecipesListProps = {
     recipes: FullRecipe[] | null;
+    handleLoadMore?: () => void;
+    isLastPage: boolean;
 };
 
-export const RecipesList = ({ recipes }: RecipesListProps) => {
+export const RecipesList = ({ recipes, handleLoadMore, isLastPage }: RecipesListProps) => {
     if (!recipes || recipes.length === 0) {
         return <Text> Элементы с такими данными не найдены</Text>;
     }
@@ -32,13 +34,14 @@ export const RecipesList = ({ recipes }: RecipesListProps) => {
                     />
                 ))}
             </SimpleGrid>
-            {recipes.length >= 8 && (
+            {!isLastPage && (
                 <Button
                     bg='lime.400'
                     mt={1}
                     size='md'
                     alignSelf='center'
                     data-test-id='load-more-button'
+                    onClick={handleLoadMore}
                 >
                     <Text fontWeight={600} fontSize='md' lineHeight={6}>
                         Загрузить еще
