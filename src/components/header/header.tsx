@@ -11,7 +11,11 @@ import { Overlay } from '../overlay/overlay';
 import { Sidebar } from '../sidebar/sidebar';
 import { UserBlock } from '../user-block/user-block';
 
-export const Header = () => {
+type HeaderProps = {
+    isAuthorized: boolean;
+};
+
+export const Header = ({ isAuthorized }: HeaderProps) => {
     const [isMobile] = useMediaQuery('(max-width: 767px)');
     const [isDesktop] = useMediaQuery('(min-width: 1440px)');
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -48,11 +52,15 @@ export const Header = () => {
                 ) : (
                     <Image src={DesktopLogo} alt='yee-daa logo'></Image>
                 )}
-                {isDesktop && <Breadcrumbs />}
-                {!isDesktop && !isMenuOpen && <Sidebar />}
-                <Spacer minW={isDesktop ? '200px' : 0} />
-                {isDesktop && <UserBlock />}
-                <BurgerMenu isMenuOpen={isMenuOpen} handleMenuOpen={handleMenuOpen} />
+                {isAuthorized && (
+                    <>
+                        {isDesktop && <Breadcrumbs />}
+                        {!isDesktop && !isMenuOpen && <Sidebar />}
+                        <Spacer minW={isDesktop ? '200px' : 0} />
+                        {isDesktop && <UserBlock />}
+                        <BurgerMenu isMenuOpen={isMenuOpen} handleMenuOpen={handleMenuOpen} />
+                    </>
+                )}
             </Flex>
         </Overlay>
     );

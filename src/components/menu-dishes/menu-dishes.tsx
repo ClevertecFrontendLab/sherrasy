@@ -118,6 +118,7 @@ export const MenuDishes = ({ isBurgerMenu }: MenuDishesProps) => {
                                                     data-test-id={
                                                         subcategoryParam === id && `${id}-active`
                                                     }
+                                                    _hover={{ cursor: 'pointer' }}
                                                 >
                                                     <Text
                                                         fontWeight={

@@ -1,6 +1,8 @@
+import { useToast } from '@chakra-ui/react';
 import { ReactElement } from 'react';
 import { useLocation, useNavigate } from 'react-router';
 
+import { showAlertToast } from '~/components/alert-error/show-alert';
 import { useGetCategoriesQuery } from '~/query/services/categories';
 import { useLazyGetRecipeByIdQuery } from '~/query/services/recipes';
 import { getCategories } from '~/store/categories/selectors';
@@ -27,9 +29,14 @@ export const withRecipeNavigation =
         const categories = hasCatError ? backupCategories : dataCategories;
         const [triggerRecipe, { isError, isLoading }] = useLazyGetRecipeByIdQuery();
         const pathSegments = getCatSubPairs(categories, categoriesIds)[0];
+        const toast = useToast();
+
         const handleClick = async () => {
             const basePath = pathname.includes(AppRoute.Juiciest) ? `${AppRoute.Juiciest}` : '';
             await triggerRecipe(_id);
+            if (isError) {
+                showAlertToast('load', toast);
+            }
             if (!isLoading && !isError) {
                 navigate(
                     `${basePath}/${pathSegments.category.category}/${pathSegments.subcategory.category}/${_id}`,

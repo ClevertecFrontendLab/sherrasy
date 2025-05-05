@@ -1,7 +1,9 @@
 import { Flex, useMediaQuery } from '@chakra-ui/react';
 import { ReactNode } from 'react';
+import { useLocation } from 'react-router';
 
-import { AlertError } from '../alert-error/alert-error';
+import { AppRoute } from '~/utils/constant';
+
 import { Footer } from '../footer/footer';
 import { Header } from '../header/header';
 import { MenuDishes } from '../menu-dishes/menu-dishes';
@@ -13,12 +15,13 @@ type LayoutProps = {
 
 export const Layout = ({ children }: LayoutProps) => {
     const [isDesktop] = useMediaQuery('(min-width: 1440px)');
-    const errorType = 'load';
+    const { pathname } = useLocation();
+    const isAuthorized = pathname !== AppRoute.NotFound;
     return (
         <Flex direction='column' minH='100vh' maxH='100vh'>
-            <Header />
+            <Header isAuthorized={isAuthorized} />
             <Flex flex={1} pt={{ base: '4rem', lg: '5rem' }} pb={{ base: '5.25rem', lg: '2rem' }}>
-                {isDesktop && <MenuDishes isBurgerMenu={false} />}
+                {isDesktop && isAuthorized && <MenuDishes isBurgerMenu={false} />}
                 <Flex
                     flex='1'
                     direction='column'
@@ -31,9 +34,8 @@ export const Layout = ({ children }: LayoutProps) => {
                 >
                     {children}
                 </Flex>
-                {isDesktop && <Sidebar />}
+                {isDesktop && isAuthorized && <Sidebar />}
             </Flex>
-            <AlertError type={errorType} />
             <Footer />
         </Flex>
     );

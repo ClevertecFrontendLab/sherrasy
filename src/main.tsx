@@ -8,7 +8,6 @@ import App from '~/app/App.tsx';
 import { store } from '~/store/configure-store.ts';
 
 import { theme } from './chakra-ui.theme';
-import { fetchRecipes } from './store/recipes/recipes-slice';
 
 createRoot(document.getElementById('root')!).render(
     <StrictMode>
@@ -21,5 +20,3 @@ createRoot(document.getElementById('root')!).render(
         </Provider>
     </StrictMode>,
 );
-
-store.dispatch(fetchRecipes());

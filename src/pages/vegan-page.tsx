@@ -6,6 +6,7 @@ import { ContentHeader } from '~/components/content-header/content-header';
 import { Layout } from '~/components/layout/layout';
 import { RecipesTabs } from '~/components/recipes-tabs/recipes-tabs';
 import { RelevantKitchenSection } from '~/components/relevant-kitchen-section/relevant-kitchen-section';
+import { withCatSubValidation } from '~/hoc/withCatSubValidation';
 import { useGetCategoriesQuery } from '~/query/services/categories';
 import { getCategories } from '~/store/categories/selectors';
 import { useAppSelector } from '~/store/hooks';
@@ -14,7 +15,7 @@ import { Category } from '~/types/category.type';
 import { PathParams } from '~/types/params.type';
 import { getRandomElement, getTabNames } from '~/utils/helpers';
 
-function VeganPage() {
+const VeganPageComponent = () => {
     const { categoryId } = useParams<PathParams>();
     const { data: dataCategories = [], isError } = useGetCategoriesQuery();
     const backupCategories = useAppSelector(getCategories);
@@ -55,5 +56,5 @@ function VeganPage() {
             </Layout>
         </>
     );
-}
-export default VeganPage;
+};
+export const VeganPage = withCatSubValidation(VeganPageComponent);

@@ -19,7 +19,7 @@ const MockAuthor = {
     subscribers: 125,
 };
 
-function RecipePage() {
+export const RecipePage = () => {
     const { recipeId } = useParams();
     const { data: recipe } = useGetRecipeByIdQuery(recipeId ?? skipToken);
     if (!recipe) {
@@ -50,5 +50,4 @@ function RecipePage() {
             </Layout>
         </>
     );
-}
-export default RecipePage;
+};

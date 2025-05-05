@@ -63,7 +63,7 @@ export const Breadcrumbs = () => {
     const pathnames = location.pathname.split('/').filter(Boolean);
     const isJuiciestPath = pathnames.includes('the-juiciest');
     const data = useAppSelector(getCategories);
-    if (!data) {
+    if (!data || location.pathname === AppRoute.NotFound) {
         return <></>;
     }
     const tabsNames = getTabNames(data, categoryId);

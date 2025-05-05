@@ -4,20 +4,19 @@ import {
     AlertIcon,
     AlertTitle,
     CloseButton,
-    useDisclosure,
     VStack,
 } from '@chakra-ui/react';
 
 type AlertErrrorProps = {
     type: 'search' | 'load';
+    onClose: () => void;
 };
 
-export const AlertError = ({ type }: AlertErrrorProps) => {
+export const AlertError = ({ type, onClose }: AlertErrrorProps) => {
     const description = {
         search: 'Попробуйте поискать снова позже',
         load: 'Попробуйте немного позже',
     };
-    const { isOpen, onClose } = useDisclosure();
     return (
         <Alert
             status='error'
@@ -30,22 +29,21 @@ export const AlertError = ({ type }: AlertErrrorProps) => {
             position='fixed'
             left='37%'
             bottom={{ base: '100px', lg: '80px' }}
-            display={isOpen ? 'block' : 'none'}
             data-test-id='error-notification'
         >
             <AlertIcon boxSize={6} mr={3} />
             <VStack alignItems='start' w='max-content'>
                 <AlertTitle fontSize='lg'>Ошибка сервера</AlertTitle>
                 <AlertDescription maxWidth='sm'>{description[type]}</AlertDescription>
-                <CloseButton
-                    data-test-id='close-alert-button'
-                    alignSelf='flex-start'
-                    position='absolute'
-                    right={0}
-                    top={0}
-                    onClick={onClose}
-                />
             </VStack>
+            <CloseButton
+                data-test-id='close-alert-button'
+                alignSelf='flex-start'
+                position='absolute'
+                right={0}
+                top={0}
+                onClick={onClose}
+            />
         </Alert>
     );
 };

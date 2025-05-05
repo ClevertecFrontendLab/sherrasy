@@ -2,7 +2,6 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { RecipeFilters, RecipeState } from '~/types/state.type';
 import { ReducerName } from '~/utils/constant';
-import { newMockData } from '~/utils/data/mock-cards.json';
 
 const initialState: RecipeState = {
     recipes: null,
@@ -64,16 +63,12 @@ export const recipeSlice = createSlice({
             state.currentFilters = initialState.currentFilters;
             state.pendingFilters = initialState.currentFilters;
         },
-        fetchRecipes: (state) => {
-            state.recipes = newMockData;
-        },
     },
     extraReducers() {},
 });
 
 export const {
     setSearchRecipeString,
-    fetchRecipes,
     updateIsFiltering,
     updateFilter,
     updateCurrentFilters,

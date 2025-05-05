@@ -14,7 +14,7 @@ import { getFilteredRecipes, getIsFilteringRecipes } from '~/store/recipes/selec
 import { Category } from '~/types/category.type';
 import { getRandomElement } from '~/utils/helpers';
 
-function MainPage() {
+export const MainPage = () => {
     const isFiltering = useAppSelector(getIsFilteringRecipes);
     const recipes = useAppSelector(getFilteredRecipes);
     const { data: dataCategories = [], isError } = useGetCategoriesQuery();
@@ -48,5 +48,4 @@ function MainPage() {
             </Layout>
         </>
     );
-}
-export default MainPage;
+};

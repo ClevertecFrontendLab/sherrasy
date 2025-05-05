@@ -13,7 +13,7 @@ import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import { Category } from '~/types/category.type';
 import { getRandomElement } from '~/utils/helpers';
 
-function JuicyPage() {
+export const JuicyPage = () => {
     const { data: dataCategories = [], isError: isCatError } = useGetCategoriesQuery();
     const backupCategories = useAppSelector(getCategories);
     const categories = isCatError ? backupCategories : dataCategories;
@@ -33,7 +33,7 @@ function JuicyPage() {
     });
 
     const isLastPage = Boolean(
-        recipesData?.meta && recipesData.meta.page >= recipesData.meta.totalPages,
+        recipesData?.meta && recipesData.meta.page === recipesData.meta.totalPages,
     );
 
     const loadRecipes = async () => {
@@ -71,5 +71,4 @@ function JuicyPage() {
             </Layout>
         </>
     );
-}
-export default JuicyPage;
+};
