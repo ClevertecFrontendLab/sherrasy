@@ -3,7 +3,6 @@ import { ApiGroupNames } from '~/query/constants/api-group-names.ts';
 import { EndpointNames } from '~/query/constants/endpoint-names.ts';
 import { Tags } from '~/query/constants/tags.ts';
 import { apiSlice } from '~/query/create-api.ts';
-import { RecipeQueryParam } from '~/types/query-param.type';
 import { FullRecipe, RecipeMeta } from '~/types/recipe.interface';
 import { updateImagePath } from '~/utils/helpers';
 
@@ -18,6 +17,25 @@ export const recipesApiSlice = apiSlice
     })
     .injectEndpoints({
         endpoints: (builder) => ({
+            getRecipes: builder.query<FullRecipe[], string>({
+                query: (query) => ({
+                    url: `${ApiEndpoints.RECIPE}${query}`,
+                    method: 'GET',
+                    apiGroupName: ApiGroupNames.RECIPES,
+                    name: EndpointNames.GET_RECIPES,
+                }),
+                transformResponse: ({ data }: RecipeResponse) =>
+                    data.map((recipe) => ({
+                        ...recipe,
+                        image: updateImagePath(recipe.image),
+                        steps:
+                            recipe.steps.map((step) => ({
+                                ...step,
+                                image: updateImagePath(step.image),
+                            })) || [],
+                    })),
+                providesTags: [Tags.RECIPES],
+            }),
             getNewRecipes: builder.query<FullRecipe[], void>({
                 query: () => ({
                     url: `${ApiEndpoints.RECIPE}?sortOrder=desc&sortBy=createdAt&limit=10`,
@@ -72,9 +90,9 @@ export const recipesApiSlice = apiSlice
                     })),
                 providesTags: [Tags.RECIPES],
             }),
-            getJuiciestRecipes: builder.query<RecipeResponse, RecipeQueryParam>({
-                query: ({ limit, page = 1 }) => ({
-                    url: `${ApiEndpoints.RECIPE}?sortOrder=desc&sortBy=likes&limit=${limit}&page=${page}`,
+            getJuiciestRecipes: builder.query<RecipeResponse, string>({
+                query: (query) => ({
+                    url: `${ApiEndpoints.RECIPE}${query}`,
                     method: 'GET',
                     apiGroupName: ApiGroupNames.RECIPES,
                     name: EndpointNames.GET_JUICIEST_RECIPIES,
@@ -129,6 +147,7 @@ export const recipesApiSlice = apiSlice
     });
 
 export const {
+    useLazyGetRecipesQuery,
     useGetNewRecipesQuery,
     useGetRelevantRecipesQuery,
     useGetRecipesByCategoryQuery,

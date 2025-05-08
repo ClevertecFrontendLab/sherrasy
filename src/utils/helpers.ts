@@ -1,5 +1,6 @@
 import { Category, Subcategory } from '~/types/category.type';
 import { MultiselectItem } from '~/types/filter-item.type';
+import { RecipeQueryParam } from '~/types/query-param.type';
 import { FullRecipe, Ingredient } from '~/types/recipe.interface';
 
 import { ApiBase } from './constant';
@@ -12,11 +13,32 @@ export const getSortedNewRecipes = (recipes: FullRecipe[]) =>
 export const getSortedJuicyRecipes = (recipes: FullRecipe[]) =>
     [...recipes].sort((a, b) => b.likes - a.likes).slice(0, 10);
 
+export const getRecipeQueryString = (query: RecipeQueryParam) => {
+    const subcatIds = query.subcategoriesIds ? query.subcategoriesIds : query.categories?.join(',');
+    const limit = query.limit ? `limit=${query.limit}` : `limit=8`;
+    const page = query.page ? `&page=${query.page}` : `&page=1`;
+    const allergens =
+        query.allergens && query.allergens.length ? `&allergens=${query.allergens.join(',')}` : '';
+    const searchString = query.searchString ? `&searchString=${query.searchString}` : ``;
+    const meat =
+        query.meat_type && query.meat_type.length ? `&meat=${query.meat_type.join(',')}` : '';
+    const garnish =
+        query.side_type && query.side_type.length ? `&garnish=${query.side_type.join(',')}` : '';
+    const subcategories = subcatIds ? `&subcategoriesIds=${subcatIds}` : '';
+    const sortBy = query.sortBy ? `&sortBy=${query.sortBy}` : ``;
+    const sortOrder = query.sortOrder ? `&sortOrder=${query.sortOrder}` : ``;
+    return `?${limit}${page}${allergens}${searchString}${meat}${garnish}${subcategories}${sortBy}${sortOrder}`;
+};
+
 export const getTabNames = (data: Category[], categoryId?: string): Subcategory[] =>
     data.find(({ category }) => category === categoryId)?.subCategories || [];
 
 export const getMultiselectCategories = (data: Category[]): MultiselectItem[] =>
-    data.map((item) => ({ name: item.title, id: item.category }));
+    data.map(({ title, category, subCategories }) => ({
+        name: title,
+        id: category,
+        elements: subCategories.map((item) => item._id).join(','),
+    }));
 
 export const getIsIncluded = (a: string, b: string) => a.toLowerCase().includes(b.toLowerCase());
 

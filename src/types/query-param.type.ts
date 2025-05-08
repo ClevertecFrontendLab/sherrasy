@@ -1,10 +1,13 @@
 export type RecipeQueryParam = {
     page?: number;
     limit?: number;
-    allergens?: string;
+    meat_type?: string[] | null;
+    side_type?: string[] | null;
+    allergens?: string[] | null;
     searchString?: string;
-    meat?: string;
-    garnish?: string;
+    meat?: string[];
+    garnish?: string[];
+    categories?: string[];
     subcategoriesIds?: string;
     sortBy?: string;
     sortOrder?: 'asc' | 'desc';

@@ -93,7 +93,7 @@ const VerticalRecipeCard = ({ recipe, onClick, testI }: CardProps) => {
                             lineHeight={4}
                             iconSpacing='6px'
                         >
-                            {bookmarks}
+                            {bookmarks ?? 0}
                         </Button>
                         <Button
                             leftIcon={<HeartEyesIcon color='black' boxSize={{ base: 3 }} />}
@@ -105,7 +105,7 @@ const VerticalRecipeCard = ({ recipe, onClick, testI }: CardProps) => {
                             lineHeight={4}
                             iconSpacing='6px'
                         >
-                            {likes}
+                            {likes ?? 0}
                         </Button>
                     </ButtonGroup>
                 </HStack>
@@ -124,9 +124,10 @@ const HorizontalRecipeCard = ({ recipe, onClick, testI }: CardProps) => {
 
     return (
         <Card direction='row' variant='hCard' data-test-id={testI?.includes('food') ? testI : ''}>
-            <Box position='relative' maxW='50%' maxH='100%'>
+            <Box position='relative' maxW='50%' maxH='min-content'>
                 <Image
                     objectFit='cover'
+                    aspectRatio={16 / 9}
                     src={image}
                     alt={title}
                     minW={['9.25rem', '9.875rem', '9.625rem', '9.875rem', '21.625rem']}

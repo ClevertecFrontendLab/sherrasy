@@ -1,6 +1,6 @@
 export enum EndpointNames {
     GET_POSTS = 'getPosts',
-    GET_RECIPIES = 'getRecipes',
+    GET_RECIPES = 'getRecipes',
     GET_NEW_RECIPIES = 'getNewRecipes',
     GET_JUICIEST_RECIPIES = 'getJuiciestRecipes',
     GET_RELEVANT_RECIPIES = 'getRelevantRecipes',

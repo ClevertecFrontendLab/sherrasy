@@ -1,6 +1,7 @@
-import { Box, Flex, Text } from '@chakra-ui/react';
+import { Box, Flex } from '@chakra-ui/react';
 import { skipToken } from '@reduxjs/toolkit/query';
-import { useParams } from 'react-router';
+import { useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router';
 
 import { AuthorCard } from '~/components/cards/user-cards/author-card';
 import { Layout } from '~/components/layout/layout';
@@ -21,9 +22,19 @@ const MockAuthor = {
 
 export const RecipePage = () => {
     const { recipeId } = useParams();
-    const { data: recipe } = useGetRecipeByIdQuery(recipeId ?? skipToken);
-    if (!recipe) {
-        return <Text>No data found</Text>;
+    const navigate = useNavigate();
+    const { data: recipe, isFetching, error } = useGetRecipeByIdQuery(recipeId ?? skipToken);
+
+    useEffect(() => {
+        if (!isFetching) {
+            if (error || !recipe) {
+                navigate(-1);
+            }
+        }
+    }, [recipe, isFetching, error, navigate]);
+
+    if (!recipe || error) {
+        return null;
     }
     const { portions, nutritionValue, ingredients, steps } = recipe;
     return (

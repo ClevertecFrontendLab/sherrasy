@@ -7,6 +7,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { ArrowLeftIcon, ArrowRightIcon } from '~/assets/icons/icons';
 import { useGetNewRecipesQuery } from '~/query/services/recipes';
 import { FullRecipe } from '~/types/recipe.interface';
+import { getSortedNewRecipes } from '~/utils/helpers';
 
 import { RecipeCard } from '../cards/recipe-cards/recipe-card';
 
@@ -39,11 +40,10 @@ export const NewSection = ({ isRecipePage }: NewSectionProps) => {
             <Box
                 mt={{ base: 3.5, xs: 4, lg: '2.5rem' }}
                 pl={isRecipePage ? 0 : { base: 2.5, sm: 5, lg: '17.75rem' }}
-            >
-                <Heading>An error occured</Heading>
-            </Box>
+            ></Box>
         );
     }
+    const sortedRecipes = getSortedNewRecipes(recipes);
     return (
         <Box
             mt={{ base: 3.5, xs: 4, lg: '2.5rem' }}
@@ -79,7 +79,7 @@ export const NewSection = ({ isRecipePage }: NewSectionProps) => {
                     loop={true}
                     breakpoints={swiperBreakponts}
                 >
-                    {recipes.map((item: FullRecipe, i: number) => (
+                    {sortedRecipes.map((item: FullRecipe, i: number) => (
                         <SwiperSlide key={item._id} style={{ width: 'auto' }}>
                             <RecipeCard
                                 recipe={item}

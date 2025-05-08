@@ -17,7 +17,7 @@ import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import {
     clearFilters,
     updateCurrentFilters,
-    updateIsFiltering,
+    updateIsLoadingList,
 } from '~/store/recipes/recipes-slice';
 import { getPendingFilters } from '~/store/recipes/selectors';
 import filterData from '~/utils/data/filters-data.json';
@@ -34,11 +34,16 @@ type FilterDrawerProps = {
     isOpenDrawer: boolean;
     handleOpen: () => void;
     handleClose: () => void;
+    handleFilterRecipes: () => void;
 };
 
-export const FilterDrawer = ({ isOpenDrawer, handleOpen, handleClose }: FilterDrawerProps) => {
+export const FilterDrawer = ({
+    isOpenDrawer,
+    handleOpen,
+    handleClose,
+    handleFilterRecipes,
+}: FilterDrawerProps) => {
     const filtersData = useAppSelector(getPendingFilters);
-
     const isFiltersFilled = Object.values(filtersData).some((filter) => filter?.length ?? 0 > 0);
     const dispatch = useAppDispatch();
     const data = useAppSelector(getCategories);
@@ -47,12 +52,12 @@ export const FilterDrawer = ({ isOpenDrawer, handleOpen, handleClose }: FilterDr
     }
     const handleFilterCards = () => {
         dispatch(updateCurrentFilters());
-        dispatch(updateIsFiltering());
+        dispatch(updateIsLoadingList(true));
+        handleFilterRecipes();
         handleClose();
     };
     const handleClearFilters = () => {
         dispatch(clearFilters());
-        dispatch(updateIsFiltering());
     };
 
     return (

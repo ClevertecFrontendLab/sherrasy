@@ -1,5 +1,7 @@
-import { Box, Heading } from '@chakra-ui/react';
+import { Box, useToast } from '@chakra-ui/react';
+import { useEffect, useMemo } from 'react';
 
+import { showAlertToast } from '~/components/alert-error/show-alert';
 import { ContentHeader } from '~/components/content-header/content-header';
 import { CookBlogSection } from '~/components/cook-blog-section/cook-blog-section';
 import { JuicySection } from '~/components/juicy-section/juicy-section';
@@ -8,26 +10,64 @@ import { NewSection } from '~/components/new-section/new-section';
 import { RecipesList } from '~/components/recipes-list/recipes-list';
 import { RelevantKitchenSection } from '~/components/relevant-kitchen-section/relevant-kitchen-section';
 import { useGetCategoriesQuery } from '~/query/services/categories';
+import { useLazyGetRecipesQuery } from '~/query/services/recipes';
 import { getCategories } from '~/store/categories/selectors';
-import { useAppSelector } from '~/store/hooks';
-import { getFilteredRecipes, getIsFilteringRecipes } from '~/store/recipes/selectors';
+import { useAppDispatch, useAppSelector } from '~/store/hooks';
+import {
+    clearFilteringParams,
+    updateHasRecipes,
+    updateIsFiltering,
+    updateIsLoadingList,
+    updateIsLoadingRecipe,
+} from '~/store/recipes/recipes-slice';
+import { getIsFilteringRecipes, getRecipeQuery } from '~/store/recipes/selectors';
 import { Category } from '~/types/category.type';
-import { getRandomElement } from '~/utils/helpers';
+import { getRandomElement, getRecipeQueryString } from '~/utils/helpers';
 
 export const MainPage = () => {
     const isFiltering = useAppSelector(getIsFilteringRecipes);
-    const recipes = useAppSelector(getFilteredRecipes);
+    const [triggerRecipes, { data: recipes = [] }] = useLazyGetRecipesQuery();
+    const toast = useToast();
+    const dispatch = useAppDispatch();
+    const query = useAppSelector(getRecipeQuery);
     const { data: dataCategories = [], isError } = useGetCategoriesQuery();
     const backupCategories = useAppSelector(getCategories);
     const categories = isError ? backupCategories : dataCategories;
-    const currentCategory = getRandomElement<Category>(categories);
-    if (!recipes) {
-        return <Heading>An error occured</Heading>;
-    }
+    const currentCategory = useMemo(() => getRandomElement<Category>(categories), [categories]);
+
+    const handleFilterRecipes = async () => {
+        const queryString = getRecipeQueryString(query);
+        const result = await triggerRecipes(queryString);
+
+        if (result.error) {
+            showAlertToast('search', toast);
+            dispatch(updateIsLoadingRecipe(false));
+            dispatch(updateIsLoadingList(false));
+            return;
+        }
+
+        if (result.data) {
+            dispatch(updateIsFiltering());
+            dispatch(updateHasRecipes((result.data.length > 0).toString()));
+            dispatch(updateIsLoadingRecipe(false));
+            dispatch(updateIsLoadingList(false));
+        }
+    };
+
+    useEffect(
+        () => () => {
+            dispatch(clearFilteringParams());
+        },
+        [dispatch],
+    );
+
     return (
         <>
             <Layout>
-                <ContentHeader headline='Приятного аппетита!' />
+                <ContentHeader
+                    headline='Приятного аппетита!'
+                    handleFilterRecipes={handleFilterRecipes}
+                />
                 {isFiltering ? (
                     <Box
                         mt={{ base: 8, sm: 4, lg: 3 }}

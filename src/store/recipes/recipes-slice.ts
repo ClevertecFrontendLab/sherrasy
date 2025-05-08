@@ -4,9 +4,9 @@ import { RecipeFilters, RecipeState } from '~/types/state.type';
 import { ReducerName } from '~/utils/constant';
 
 const initialState: RecipeState = {
-    recipes: null,
     isLoading: false,
-    hasLoadingError: false,
+    isLoadingList: false,
+    hasRecipes: 'undefined',
     isFiltering: false,
     currentFilters: {
         categories: null,
@@ -33,6 +33,16 @@ export const recipeSlice = createSlice({
             state.isFiltering =
                 !!state.searchString?.trim() ||
                 Object.values(state.currentFilters).some((filter) => filter?.length ?? 0 > 0);
+        },
+        updateIsLoadingRecipe: (state, { payload }: PayloadAction<boolean>) => {
+            state.isLoading = payload;
+        },
+        updateIsLoadingList: (state, { payload }: PayloadAction<boolean>) => {
+            state.isLoadingList = payload;
+        },
+        updateHasRecipes: (state, { payload }: PayloadAction<string>) => {
+            state.hasRecipes = payload;
+            payload !== 'true' ? (state.isFiltering = initialState.isFiltering) : '';
         },
         setSearchRecipeString: (state, { payload }: PayloadAction<string | null>) => {
             state.searchString = payload;
@@ -63,6 +73,11 @@ export const recipeSlice = createSlice({
             state.currentFilters = initialState.currentFilters;
             state.pendingFilters = initialState.currentFilters;
         },
+        clearFilteringParams: (state) => {
+            state.hasRecipes = initialState.hasRecipes;
+            state.isFiltering = initialState.isFiltering;
+            state.searchString = initialState.searchString;
+        },
     },
     extraReducers() {},
 });
@@ -70,10 +85,14 @@ export const recipeSlice = createSlice({
 export const {
     setSearchRecipeString,
     updateIsFiltering,
+    clearFilteringParams,
     updateFilter,
     updateCurrentFilters,
     clearAllergens,
     clearFilters,
+    updateIsLoadingRecipe,
+    updateIsLoadingList,
+    updateHasRecipes,
 } = recipeSlice.actions;
 
 export default recipeSlice.reducer;

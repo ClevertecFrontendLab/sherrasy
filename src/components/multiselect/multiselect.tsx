@@ -19,7 +19,7 @@ import {
 import { KeyboardEvent, useRef } from 'react';
 
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
-import { updateFilter, updateIsFiltering } from '~/store/recipes/recipes-slice';
+import { updateFilter } from '~/store/recipes/recipes-slice';
 import { getActiveFilters, getPendingFilters } from '~/store/recipes/selectors';
 import { MultiselectItem } from '~/types/filter-item.type';
 import { RecipeFilters } from '~/types/state.type';
@@ -73,7 +73,6 @@ export const MultiSelect = ({
         useAppSelector(filterStatus === 'active' ? getActiveFilters : getPendingFilters)[key] ?? [];
     const updateData = (values: string[]) => {
         dispatch(updateFilter({ key, value: values, type: filterStatus }));
-        dispatch(updateIsFiltering());
     };
     const isIdShowing =
         (type === 'allergies-drawer' && isDrawerActive) ||
@@ -104,6 +103,9 @@ export const MultiSelect = ({
     };
 
     const getNameById = (id: string) => data.find((item) => item.id === id)?.name || id;
+
+    const getNameByCategories = (id: string) =>
+        data.find((item) => item.elements === id)?.name || id;
 
     const handleAddCustomItem = () => {
         const value = inputRef.current?.value.trim();
@@ -162,7 +164,11 @@ export const MultiSelect = ({
                                         : ''
                                 }
                             >
-                                <TagLabel display='inline-block'>{getNameById(item)}</TagLabel>
+                                <TagLabel display='inline-block'>
+                                    {type === 'categories'
+                                        ? getNameByCategories(item)
+                                        : getNameById(item)}
+                                </TagLabel>
                                 {!isDrawerActive && type === 'allergies-filter' && (
                                     <TagCloseButton
                                         as={Icon}
@@ -194,10 +200,10 @@ export const MultiSelect = ({
                         value={selectedItems}
                         onChange={handleSelect}
                     >
-                        {data.map(({ id, name }, i) => (
+                        {data.map(({ id, elements, name }, i) => (
                             <MenuItemOption
                                 key={id}
-                                value={id}
+                                value={type === 'categories' ? elements : id}
                                 data-test-id={
                                     isAllergiesSelect
                                         ? `${isIdShowing ? `${dataTestIdByType[type].checkbox}-${i}` : ''}`

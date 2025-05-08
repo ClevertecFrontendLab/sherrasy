@@ -2,7 +2,7 @@ import { Flex, Tag, TagCloseButton, TagLabel } from '@chakra-ui/react';
 
 import { getCategories } from '~/store/categories/selectors';
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
-import { updateFilter, updateIsFiltering } from '~/store/recipes/recipes-slice';
+import { updateFilter } from '~/store/recipes/recipes-slice';
 import { RecipeFilters } from '~/types/state.type';
 import filterData from '~/utils/data/filters-data.json';
 import { cookBlog } from '~/utils/data/mock-cards.json';
@@ -24,7 +24,7 @@ const FilterTag = ({ filterType, value, onRemove }: FilterTagProps) => {
     const getDisplayName = (id: string, type: keyof RecipeFilters): string => {
         switch (type) {
             case 'categories':
-                return categories.find((c) => c.id === id)?.name || id;
+                return categories.find((c) => c.elements === id)?.name || id;
             case 'author':
                 return cookBlog.find((a) => a.id === id)?.name || id;
             case 'meat_type':
@@ -62,7 +62,6 @@ export const FilterTags = ({ filters }: FilterTagsProps) => {
     const updateData = (key: keyof RecipeFilters, value: string) => {
         const selectedValues = filters[key]?.filter((id) => id !== value) ?? [];
         dispatch(updateFilter({ key, value: selectedValues, type: 'pending' }));
-        dispatch(updateIsFiltering());
     };
     return (
         <Flex wrap='wrap' gap={2}>

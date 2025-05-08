@@ -27,17 +27,20 @@ export const withRecipeNavigation =
         const { data: dataCategories = [], isError: hasCatError } = useGetCategoriesQuery();
         const backupCategories = useAppSelector(getCategories);
         const categories = hasCatError ? backupCategories : dataCategories;
-        const [triggerRecipe, { isError, isLoading }] = useLazyGetRecipeByIdQuery();
+        const [triggerRecipe] = useLazyGetRecipeByIdQuery();
         const pathSegments = getCatSubPairs(categories, categoriesIds)[0];
         const toast = useToast();
 
         const handleClick = async () => {
             const basePath = pathname.includes(AppRoute.Juiciest) ? `${AppRoute.Juiciest}` : '';
-            await triggerRecipe(_id);
-            if (isError) {
+            const result = await triggerRecipe(_id);
+
+            if (result.error) {
                 showAlertToast('load', toast);
+                return;
             }
-            if (!isLoading && !isError) {
+
+            if (result.data) {
                 navigate(
                     `${basePath}/${pathSegments.category.category}/${pathSegments.subcategory.category}/${_id}`,
                     {
@@ -48,6 +51,5 @@ export const withRecipeNavigation =
                 );
             }
         };
-
         return <WrappedComponent {...(props as P)} onClick={handleClick} />;
     };

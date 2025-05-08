@@ -5,13 +5,15 @@ import { ArrowRightIcon } from '~/assets/icons/icons';
 import { useGetJuiciestRecipesQuery } from '~/query/services/recipes';
 import { FullRecipe } from '~/types/recipe.interface';
 import { AppRoute } from '~/utils/constant';
+import { getRecipeQueryString } from '~/utils/helpers';
 
 import { RecipeCard } from '../cards/recipe-cards/recipe-card';
 
 export const JuicySection = () => {
     const [isTablet] = useMediaQuery('(min-width:767px)');
     const [isDesktop] = useMediaQuery('(min-width:1440px)');
-    const { data: JuiciestData } = useGetJuiciestRecipesQuery({ limit: 4 });
+    const query = getRecipeQueryString({ limit: 4, page: 1, sortBy: 'likes', sortOrder: 'desc' });
+    const { data: JuiciestData } = useGetJuiciestRecipesQuery(query);
     const currentRecipes = JuiciestData?.data ?? [];
     const navigate = useNavigate();
     const handleAllClick = async () => {

@@ -25,7 +25,7 @@ export const BadgesList = ({ categoriesIds, type }: BadgesListProps) => {
                     py='1px'
                     px={{ base: '0.25rem', lg: 2 }}
                     variant={type}
-                    maxW='min-content'
+                    minW='min-content'
                     display='flex'
                     flexDirection='row'
                 >

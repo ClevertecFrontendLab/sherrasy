@@ -19,7 +19,11 @@ export const NotFoundPage = () => (
                     </Heading>
                     <Text fontSize='md' lineHeight={6} noOfLines={2}>
                         Можете поискать другой рецепт{' '}
-                        <Link href={AppRoute.Main} textDecoration='underline'>
+                        <Link
+                            href={AppRoute.Main}
+                            textDecoration='underline'
+                            data-test-id='error-page-go-home'
+                        >
                             здесь.
                         </Link>
                     </Text>

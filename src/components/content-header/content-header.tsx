@@ -1,14 +1,26 @@
-import { Flex, Heading, Text } from '@chakra-ui/react';
+import { Box, Flex, Heading, Text } from '@chakra-ui/react';
+
+import { useAppSelector } from '~/store/hooks';
+import { getHasRecipes, getIsLoadingRecipes } from '~/store/recipes/selectors';
 
 import { ContentFilters } from '../content-filters/content-filters';
+import { Loader } from '../loader/loader';
 
 type ContentHeaderProps = {
     headline: string;
     description?: string;
+    handleFilterRecipes: () => void;
 };
 
-export const ContentHeader = ({ headline, description }: ContentHeaderProps) => {
+export const ContentHeader = ({
+    headline,
+    description,
+    handleFilterRecipes,
+}: ContentHeaderProps) => {
     const currentBottomMargin = description ? 3 : 8;
+    const isLoading = useAppSelector(getIsLoadingRecipes);
+    const hasRecipes = useAppSelector(getHasRecipes);
+    const hasNoResult = hasRecipes === 'false';
     return (
         <Flex
             direction='column'
@@ -29,34 +41,52 @@ export const ContentHeader = ({ headline, description }: ContentHeaderProps) => 
                 },
             }}
         >
-            <Heading
-                mb={{
-                    base: '13px',
-                    xs: '1rem',
-                    sm: '0.75rem',
-                    md: '1rem',
-                    lg: currentBottomMargin,
-                    xl: currentBottomMargin - 1,
-                    '2xl': currentBottomMargin,
-                }}
-                fontSize={{ base: '2xl', lg: '5xl' }}
-                lineHeight={{ base: 8, lg: 'none' }}
-            >
-                {headline}
-            </Heading>
-            {description && (
-                <Text
-                    color='blackAlpha.600'
-                    mb={{ base: '13px', xs: '1rem', lg: 8 }}
-                    w={{ base: '90%', sm: '96%', lg: '90%' }}
+            {hasNoResult ? (
+                <Box
                     fontSize={{ base: 'sm', lg: 'md' }}
+                    fontWeight={600}
                     lineHeight={{ base: 5, lg: 6 }}
-                    noOfLines={4}
+                    mb={{ base: '13px', xs: '1rem', lg: 8 }}
                 >
-                    {description}
-                </Text>
+                    <Text>По вашему запросу ничего не найдено.</Text>
+                    <Text>Попробуйте другой запрос</Text>
+                </Box>
+            ) : (
+                <>
+                    <Heading
+                        mb={{
+                            base: '13px',
+                            xs: '1rem',
+                            sm: '0.75rem',
+                            md: '1rem',
+                            lg: currentBottomMargin,
+                            xl: currentBottomMargin - 1,
+                            '2xl': currentBottomMargin,
+                        }}
+                        fontSize={{ base: '2xl', lg: '5xl' }}
+                        lineHeight={{ base: 8, lg: 'none' }}
+                    >
+                        {headline}
+                    </Heading>
+                    {description && (
+                        <Text
+                            color='blackAlpha.600'
+                            mb={{ base: '13px', xs: '1rem', lg: 8 }}
+                            w={{ base: '90%', sm: '96%', lg: '90%' }}
+                            fontSize={{ base: 'sm', lg: 'md' }}
+                            lineHeight={{ base: 5, lg: 6 }}
+                            noOfLines={4}
+                        >
+                            {description}
+                        </Text>
+                    )}
+                </>
             )}
-            <ContentFilters />
+            {isLoading ? (
+                <Loader type='search' />
+            ) : (
+                <ContentFilters handleFilterRecipes={handleFilterRecipes} />
+            )}
         </Flex>
     );
 };

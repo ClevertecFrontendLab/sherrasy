@@ -1,7 +1,6 @@
 import { store } from '~/store/configure-store';
 
 import { Category } from './category.type';
-import { FullRecipe } from './recipe.interface';
 
 export type State = ReturnType<typeof store.getState>;
 
@@ -13,10 +12,10 @@ export type RecipeFilters = {
     allergens: string[] | null;
 };
 export type RecipeState = {
-    recipes: FullRecipe[] | null;
     isLoading: boolean;
+    isLoadingList: boolean;
     isFiltering: boolean;
-    hasLoadingError: boolean;
+    hasRecipes: string;
     currentFilters: RecipeFilters;
     pendingFilters: RecipeFilters;
     searchString: string | null;

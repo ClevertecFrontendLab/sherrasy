@@ -48,7 +48,7 @@ export const OverlayWithLoader = ({ isOpen }: { isOpen: boolean }) => {
             alignItems='center'
             justifyContent='center'
         >
-            <Loader />
+            <Loader type='app' />
         </Box>
     );
 };
