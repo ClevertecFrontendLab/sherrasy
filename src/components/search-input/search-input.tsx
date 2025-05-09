@@ -9,7 +9,12 @@ import {
     updateHasRecipes,
     updateIsFiltering,
 } from '~/store/recipes/recipes-slice';
-import { getActiveFilters, getHasRecipes, getRecipesSearchString } from '~/store/recipes/selectors';
+import {
+    getActiveFilters,
+    getHasRecipes,
+    getIsFilteringRecipes,
+    getRecipesSearchString,
+} from '~/store/recipes/selectors';
 import { TestIdName } from '~/utils/constant';
 
 type SearchInputProps = {
@@ -21,7 +26,9 @@ export const SearchInput = ({ handleFilterRecipes }: SearchInputProps) => {
     const dispatch = useAppDispatch();
 
     const searchString = useAppSelector(getRecipesSearchString);
+    const isFiltering = useAppSelector(getIsFilteringRecipes);
     const hasRecipes = useAppSelector(getHasRecipes);
+    const hasNoResult = isFiltering && !hasRecipes;
     const filters = useAppSelector(getActiveFilters);
 
     const isSearchDisabled = useMemo(
@@ -29,15 +36,9 @@ export const SearchInput = ({ handleFilterRecipes }: SearchInputProps) => {
         [searchString, filters.allergens],
     );
 
-    const isEmpty = useMemo(
-        () => hasRecipes === 'false' && searchString,
-        [hasRecipes, searchString],
-    );
+    const isEmpty = useMemo(() => hasNoResult && searchString, [hasNoResult, searchString]);
 
-    const isNotEmpty = useMemo(
-        () => hasRecipes === 'true' && searchString,
-        [hasRecipes, searchString],
-    );
+    const isNotEmpty = useMemo(() => !hasNoResult && searchString, [hasNoResult, searchString]);
 
     const handleSearchInput = useCallback(() => {
         handleFilterRecipes();
@@ -45,7 +46,7 @@ export const SearchInput = ({ handleFilterRecipes }: SearchInputProps) => {
 
     const handleClearSearchInput = useCallback(() => {
         dispatch(setSearchRecipeString(''));
-        dispatch(updateHasRecipes('undefined'));
+        dispatch(updateHasRecipes(false));
         dispatch(updateIsFiltering(false));
     }, [dispatch]);
 

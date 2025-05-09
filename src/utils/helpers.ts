@@ -1,9 +1,9 @@
-import { Category, Subcategory } from '~/types/category.type';
+import { Category, CatSubPair, Subcategory } from '~/types/category.type';
 import { MultiselectItem } from '~/types/filter-item.type';
 import { RecipeQueryParam } from '~/types/query-param.type';
 import { FullRecipe } from '~/types/recipe.interface';
 
-import { ApiBase } from './constant';
+import { ApiBase, CardsLimit } from './constant';
 
 export const getSortedNewRecipes = (recipes: FullRecipe[]) =>
     [...recipes]
@@ -15,7 +15,7 @@ export const getSortedJuicyRecipes = (recipes: FullRecipe[]) =>
 
 export const getRecipeQueryString = (query: RecipeQueryParam) => {
     const subcatIds = query.subcategoriesIds ? query.subcategoriesIds : query.categories?.join(',');
-    const limit = query.limit ? `limit=${query.limit}` : `limit=8`;
+    const limit = query.limit ? `limit=${query.limit}` : `limit=${CardsLimit.Default}`;
     const page = query.page ? `&page=${query.page}` : `&page=1`;
     const allergens =
         query.allergens && query.allergens.length ? `&allergens=${query.allergens.join(',')}` : '';
@@ -68,10 +68,7 @@ export const getRandomElement = <T extends Record<string, unknown>>(
     return filteredArr[randomIndex];
 };
 
-export const getCatSubPairs = (
-    categories: Category[],
-    subcategoryIds: string[],
-): { category: Category; subcategory: Subcategory }[] =>
+export const getCatSubPairs = (categories: Category[], subcategoryIds: string[]): CatSubPair[] =>
     categories.flatMap((category) =>
         category.subCategories
             .filter((subcategory) => subcategoryIds?.includes(subcategory._id))

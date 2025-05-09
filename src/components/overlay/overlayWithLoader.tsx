@@ -1,5 +1,4 @@
-import { Box } from '@chakra-ui/react';
-import { useEffect, useRef } from 'react';
+import { Modal, ModalBody, ModalContent, ModalOverlay } from '@chakra-ui/react';
 import { useLocation } from 'react-router';
 
 import { AppRoute } from '~/utils/constant';
@@ -8,52 +7,25 @@ import { Loader } from '../loader/loader';
 
 export const OverlayWithLoader = ({ isOpen }: { isOpen: boolean }) => {
     const { pathname } = useLocation();
+
     const isErrorPage = pathname === AppRoute.NotFound;
-    const scrollPosition = useRef(0);
-
-    useEffect(() => {
-        if (isOpen) {
-            scrollPosition.current = window.scrollY;
-
-            document.body.style.overflow = 'hidden';
-            document.body.style.position = 'fixed';
-            document.body.style.top = `-${scrollPosition.current}px`;
-            document.body.style.width = '100%';
-        } else {
-            document.body.style.overflow = '';
-            document.body.style.position = '';
-            document.body.style.top = '';
-            document.body.style.width = '';
-
-            window.scrollTo(0, scrollPosition.current);
-        }
-
-        return () => {
-            document.body.style.overflow = '';
-            document.body.style.position = '';
-            document.body.style.top = '';
-            document.body.style.width = '';
-            window.scrollTo(0, scrollPosition.current);
-        };
-    }, [isOpen]);
 
     if (!isOpen || isErrorPage) return null;
 
     return (
-        <Box
-            position='fixed'
-            top={0}
-            left={0}
-            right={0}
-            bottom={0}
-            zIndex='overlay'
-            backdropFilter='blur(2px)'
-            bgColor='blackAlpha.300'
-            display='flex'
-            alignItems='center'
-            justifyContent='center'
+        <Modal
+            variant='transparent'
+            isOpen={isOpen}
+            blockScrollOnMount
+            isCentered
+            onClose={() => {}}
         >
-            <Loader type='app' />
-        </Box>
+            <ModalOverlay />
+            <ModalContent>
+                <ModalBody display='flex' alignItems='center' justifyContent='center'>
+                    <Loader type='app' />
+                </ModalBody>
+            </ModalContent>
+        </Modal>
     );
 };

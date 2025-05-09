@@ -15,10 +15,12 @@ import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import { clearFilteringParams } from '~/store/recipes/recipes-slice';
 import { getIsFilteringRecipes, getRecipeQuery } from '~/store/recipes/selectors';
 import { RecipeQueryParam } from '~/types/query-param.type';
+import { DEFAULT_PAGE } from '~/utils/constant';
 import { getRecipeQueryString } from '~/utils/helpers';
 
 const DefaultParams: RecipeQueryParam = {
     limit: 8,
+    page: 1,
     sortBy: 'likes',
     sortOrder: 'desc',
 };
@@ -27,7 +29,7 @@ export const JuicyPage = () => {
     const dispatch = useAppDispatch();
     const isFiltering = useAppSelector(getIsFilteringRecipes);
     const [triggerRecipes, { data: recipes = [] }] = useLazyGetRecipesQuery();
-    const [page, setPage] = useState(1);
+    const [page, setPage] = useState(DEFAULT_PAGE);
     const queryFilters = useAppSelector((state) =>
         getRecipeQuery(state, {
             ...DefaultParams,
@@ -56,7 +58,7 @@ export const JuicyPage = () => {
 
     useEffect(
         () => () => {
-            setPage(1);
+            setPage(DEFAULT_PAGE);
             dispatch(recipesApiSlice.util.invalidateTags([Tags.JUICY_RECIPES]));
             dispatch(clearFilteringParams());
         },

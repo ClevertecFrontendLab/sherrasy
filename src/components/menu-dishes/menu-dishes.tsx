@@ -42,16 +42,15 @@ export const MenuDishes = ({ isBurgerMenu }: MenuDishesProps) => {
     };
 
     useEffect(() => {
-        if (data) {
-            const currentIndex = data.findIndex(
-                (item) => categoryId === item.category && location.pathname !== '/',
-            );
+        if (!data) return;
+        const currentIndex = data.findIndex(
+            (item) => categoryId === item.category && location.pathname !== '/',
+        );
 
-            if (currentIndex !== -1) {
-                setActiveIndex(currentIndex);
-            } else {
-                setActiveIndex(-1);
-            }
+        if (currentIndex !== -1) {
+            setActiveIndex(currentIndex);
+        } else {
+            setActiveIndex(-1);
         }
     }, [pathname, categoryId, data]);
 

@@ -1,7 +1,11 @@
 import { Box, Flex, Heading, Text } from '@chakra-ui/react';
 
 import { useAppSelector } from '~/store/hooks';
-import { getHasRecipes, getIsLoadingFiltered } from '~/store/recipes/selectors';
+import {
+    getHasRecipes,
+    getIsFilteringRecipes,
+    getIsLoadingFiltered,
+} from '~/store/recipes/selectors';
 
 import { ContentFilters } from '../content-filters/content-filters';
 import { Loader } from '../loader/loader';
@@ -19,8 +23,9 @@ export const ContentHeader = ({
 }: ContentHeaderProps) => {
     const currentBottomMargin = description ? 3 : 8;
     const isLoading = useAppSelector(getIsLoadingFiltered);
+    const isFiltering = useAppSelector(getIsFilteringRecipes);
     const hasRecipes = useAppSelector(getHasRecipes);
-    const hasNoResult = hasRecipes === 'false';
+    const hasNoResult = isFiltering && !hasRecipes;
     return (
         <Flex
             direction='column'

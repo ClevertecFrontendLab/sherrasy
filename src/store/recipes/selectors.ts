@@ -35,5 +35,5 @@ export const getRecipeQuery = createSelector(
 export const getIsLoadingFiltered = (state: Pick<State, ReducerName.Recipe>): boolean =>
     state.RECIPE.isLoading;
 
-export const getHasRecipes = (state: Pick<State, ReducerName.Recipe>): string =>
+export const getHasRecipes = (state: Pick<State, ReducerName.Recipe>): boolean =>
     state.RECIPE.hasRecipes;

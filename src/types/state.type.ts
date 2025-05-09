@@ -14,7 +14,7 @@ export type RecipeFilters = {
 export type RecipeState = {
     isLoading: boolean;
     isFiltering: boolean;
-    hasRecipes: string;
+    hasRecipes: boolean;
     currentFilters: RecipeFilters;
     pendingFilters: RecipeFilters;
     searchString: string | null;

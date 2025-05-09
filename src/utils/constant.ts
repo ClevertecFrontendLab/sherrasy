@@ -1,3 +1,4 @@
+export const DEFAULT_PAGE = 1;
 export const AppRoute = {
     Main: '/',
     Vegan: '/:categoryId/:subcategoryId',
@@ -10,6 +11,23 @@ export const ApiBase = {
     Main: 'https://marathon-api.clevertec.ru',
     Images: 'https://training-api.clevertec.ru',
 } as const;
+
+export const CardsLimit = {
+    Default: 8,
+    RelativeKitchen: 5,
+    New: 10,
+    JuicyPreview: 4,
+};
+
+export const SortingBy = {
+    Date: 'createdAt',
+    Likes: 'likes',
+};
+
+export enum SortingDirection {
+    Ascending = 'asc',
+    Descending = 'desc',
+}
 
 export const AppRouteToName: { [key: string]: string } = {
     '/': 'Главная',

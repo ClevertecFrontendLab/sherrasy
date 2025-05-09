@@ -64,7 +64,7 @@ export const Breadcrumbs = () => {
     const isJuiciestPath = pathnames.includes('the-juiciest');
     const data = useAppSelector(getCategories);
     if (!data || location.pathname === AppRoute.NotFound) {
-        return <></>;
+        return null;
     }
     const tabsNames = getTabNames(data, categoryId);
     const categoryName = data.find(({ category }) => category === categoryId)?.title || '';

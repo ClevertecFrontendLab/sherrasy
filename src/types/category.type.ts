@@ -13,3 +13,5 @@ export type Category = {
     description: string;
     subCategories: Subcategory[];
 };
+
+export type CatSubPair = { category: Category; subcategory: Subcategory };

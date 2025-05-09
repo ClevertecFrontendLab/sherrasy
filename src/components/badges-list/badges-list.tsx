@@ -1,22 +1,16 @@
 import { Badge, Image, Text } from '@chakra-ui/react';
 
-import { useGetCategoriesQuery } from '~/query/services/categories';
+import { useUniqueBadges } from '~/hooks/useUniqueBadges';
 import { getCategories } from '~/store/categories/selectors';
 import { useAppSelector } from '~/store/hooks';
-import { getCatSubPairs } from '~/utils/helpers';
 
 type BadgesListProps = {
     categoriesIds: string[];
     type: string;
 };
 export const BadgesList = ({ categoriesIds, type }: BadgesListProps) => {
-    const { data: dataCategories = [], isError: hasCatError } = useGetCategoriesQuery();
-    const backupCategories = useAppSelector(getCategories);
-    const categories = hasCatError ? backupCategories : dataCategories;
-    const pairs = getCatSubPairs(categories, categoriesIds);
-    const uniqueBadges = Array.from(new Set(pairs.map((pair) => pair.category._id))).map(
-        (id) => pairs.find((pair) => pair.category._id === id)!.category,
-    );
+    const categories = useAppSelector(getCategories);
+    const uniqueBadges = useUniqueBadges(categories, categoriesIds);
     return (
         <>
             {uniqueBadges.map(({ _id, icon, title }) => (

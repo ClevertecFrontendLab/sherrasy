@@ -45,7 +45,7 @@ export const FilterDrawer = ({
     const dispatch = useAppDispatch();
     const data = useAppSelector(getCategories);
     if (!data) {
-        return <></>;
+        return null;
     }
     const handleFilterCards = () => {
         dispatch(updateCurrentFilters());

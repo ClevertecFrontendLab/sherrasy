@@ -1,38 +1,27 @@
 import { Box, Divider, Flex, Heading, SimpleGrid, Text } from '@chakra-ui/react';
 import { skipToken } from '@reduxjs/toolkit/query';
-import { useMemo } from 'react';
 import { useParams } from 'react-router';
 
+import { useRandomCategory } from '~/hooks/useRandomCategory';
 import { useGetRelevantRecipesQuery } from '~/query/services/recipes';
-import { getCategories } from '~/store/categories/selectors';
-import { useAppSelector } from '~/store/hooks';
-import { Category, Subcategory } from '~/types/category.type';
 import { PathParams } from '~/types/params.type';
-import { getRandomElement } from '~/utils/helpers';
 
 import { RelevantKitchenCard } from '../cards/recipe-cards/relevant-kitchen-card';
 
 export const RelevantKitchenSection = () => {
     const { categoryId } = useParams<PathParams>();
-    const categories = useAppSelector(getCategories);
-    const { currentCategory, currentSubcategory } = useMemo(() => {
-        const category = getRandomElement<Category>(categories, categoryId);
-        const subcategories = category?.subCategories ?? [];
-        const subcategory = getRandomElement<Subcategory>(subcategories)?._id;
-
-        return { currentCategory: category, currentSubcategory: subcategory };
-    }, [categories, categoryId]);
+    const { currentCategory, currentSubcategory } = useRandomCategory(categoryId);
 
     const { data: recipes, isFetching } = useGetRelevantRecipesQuery(
         currentSubcategory ?? skipToken,
     );
 
     if (isFetching) {
-        return <></>;
+        return null;
     }
 
     if (!isFetching && !recipes) {
-        return <></>;
+        return null;
     }
     return (
         <Box

@@ -23,6 +23,7 @@ export const AlertError = ({ onClose }: AlertErrrorProps) => (
         maxW={{ base: '328px', lg: '400px' }}
         w='100%'
         position='fixed'
+        zIndex='overlay'
         bottom={{ base: '100px', lg: '80px' }}
         data-test-id={TestIdName.ErrorNotif}
     >

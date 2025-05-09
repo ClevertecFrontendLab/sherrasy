@@ -5,7 +5,7 @@ import { ReducerName } from '~/utils/constant';
 
 const initialState: RecipeState = {
     isLoading: false,
-    hasRecipes: 'undefined',
+    hasRecipes: false,
     isFiltering: false,
     currentFilters: {
         categories: null,
@@ -34,9 +34,8 @@ export const recipeSlice = createSlice({
         setIsLoadingFiltered: (state, { payload }: PayloadAction<boolean>) => {
             state.isLoading = payload;
         },
-        updateHasRecipes: (state, { payload }: PayloadAction<string>) => {
+        updateHasRecipes: (state, { payload }: PayloadAction<boolean>) => {
             state.hasRecipes = payload;
-            payload !== 'true' ? (state.isFiltering = initialState.isFiltering) : '';
         },
         setSearchRecipeString: (state, { payload }: PayloadAction<string | null>) => {
             state.searchString = payload;

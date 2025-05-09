@@ -18,7 +18,7 @@ type FilterTagProps = {
 const FilterTag = ({ filterType, value, onRemove }: FilterTagProps) => {
     const data = useAppSelector(getCategories);
     if (!data) {
-        return <></>;
+        return null;
     }
     const categories = getMultiselectCategories(data);
 

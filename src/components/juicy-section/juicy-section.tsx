@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router';
 import { ArrowRightIcon } from '~/assets/icons/icons';
 import { useGetJuiciestRecipesQuery } from '~/query/services/recipes';
 import { FullRecipe } from '~/types/recipe.interface';
-import { AppRoute, TestIdName } from '~/utils/constant';
+import { AppRoute, CardsLimit, SortingBy, SortingDirection, TestIdName } from '~/utils/constant';
 import { getRecipeQueryString } from '~/utils/helpers';
 
 import { RecipeCard } from '../cards/recipe-cards/recipe-card';
@@ -12,7 +12,12 @@ import { RecipeCard } from '../cards/recipe-cards/recipe-card';
 export const JuicySection = () => {
     const [isTablet] = useMediaQuery('(min-width: 767px )');
     const [isDesktop] = useMediaQuery('(min-width: 1440px)');
-    const query = getRecipeQueryString({ limit: 4, page: 1, sortBy: 'likes', sortOrder: 'desc' });
+    const query = getRecipeQueryString({
+        limit: CardsLimit.JuicyPreview,
+        page: 1,
+        sortBy: SortingBy.Likes,
+        sortOrder: SortingDirection.Descending,
+    });
     const { data: JuiciestData } = useGetJuiciestRecipesQuery(query);
     const currentRecipes = JuiciestData?.data ?? [];
     const navigate = useNavigate();

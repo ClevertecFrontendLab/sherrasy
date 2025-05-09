@@ -6,6 +6,7 @@ import { apiSlice } from '~/query/create-api.ts';
 import { updateHasRecipes, updateIsFiltering } from '~/store/recipes/recipes-slice';
 import { RecipeQueryParam } from '~/types/query-param.type';
 import { FullRecipe, RecipeMeta } from '~/types/recipe.interface';
+import { CardsLimit, SortingBy, SortingDirection } from '~/utils/constant';
 import { formatRecipeWithImages, getRecipeQueryString } from '~/utils/helpers';
 
 type RecipeResponse = {
@@ -35,17 +36,17 @@ export const recipesApiSlice = apiSlice
                     try {
                         const { data } = await queryFulfilled;
                         const hasData = data && data.length > 0;
-                        dispatch(updateIsFiltering(hasData));
-                        dispatch(updateHasRecipes(hasData.toString()));
+                        dispatch(updateIsFiltering(true));
+                        dispatch(updateHasRecipes(hasData));
                     } catch (error) {
-                        console.error('Failed to fetch categories:', error);
+                        console.error('Failed to fetch recipes:', error);
                     }
                 },
                 providesTags: [Tags.RECIPES],
             }),
             getNewRecipes: builder.query<FullRecipe[], void>({
                 query: () => ({
-                    url: `${ApiEndpoints.RECIPE}?sortOrder=desc&sortBy=createdAt&limit=10`,
+                    url: `${ApiEndpoints.RECIPE}?sortOrder=${SortingDirection.Descending}&sortBy=${SortingBy.Date}&limit=${CardsLimit.New}`,
                     method: 'GET',
                     apiGroupName: ApiGroupNames.RECIPES,
                     name: EndpointNames.GET_NEW_RECIPIES,
@@ -56,7 +57,7 @@ export const recipesApiSlice = apiSlice
             }),
             getRelevantRecipes: builder.query<FullRecipe[], string>({
                 query: (id: string) => ({
-                    url: `${ApiEndpoints.RECIPIES_BY_CATEGORY}/${id}?limit=5`,
+                    url: `${ApiEndpoints.RECIPIES_BY_CATEGORY}/${id}?limit=${CardsLimit.RelativeKitchen}`,
                     method: 'GET',
                     apiGroupName: ApiGroupNames.RECIPES,
                     name: EndpointNames.GET_RELEVANT_RECIPIES,
@@ -67,7 +68,7 @@ export const recipesApiSlice = apiSlice
             }),
             getRecipesByCategory: builder.query<FullRecipe[], string>({
                 query: (id: string) => ({
-                    url: `${ApiEndpoints.RECIPIES_BY_CATEGORY}/${id}?limit=8`,
+                    url: `${ApiEndpoints.RECIPIES_BY_CATEGORY}/${id}?limit=${CardsLimit.Default}`,
                     method: 'GET',
                     apiGroupName: ApiGroupNames.RECIPES,
                     name: EndpointNames.GET_RECIPIES_BY_CATEGORY,
