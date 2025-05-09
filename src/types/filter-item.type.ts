@@ -1,6 +1,7 @@
 export type MultiselectItem = {
     id: string;
     name: string;
+    elements?: string;
 };
 
 export type CheckboxListItem = {

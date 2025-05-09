@@ -27,441 +27,277 @@
     ],
     "newMockData": [
         {
-            "id": "0",
+            "_id": "67d2a46ac3df99732a05d2d9",
+            "createdAt": "2025-03-13T09:24:58.638Z",
             "title": "Картошка, тушенная с болгарским перцем и фасолью в томатном соусе",
             "description": "Картошка, тушенная с болгарским перцем, фасолью, морковью и луком, - вариант сытного блюда на каждый день. Фасоль в данном случае заменяет мясо, делая рагу сытным и питательным. Чтобы сократить время приготовления, возьмём консервированную фасоль. Блюдо хоть и простое, но в полной мере наполнено ароматами и имеет выразительный вкус за счёт добавления томатной пасты.",
-            "category": ["vegan", "second-dish"],
-            "subcategory": ["snacks", "vegetables"],
-            "image": "/img/juicy-food-5.jpg",
-            "bookmarks": 85,
+            "time": 35,
+            "image": "/media/images/a754ecaf-9e9a-45d2-8df4-56ea97f43b13.jpg",
             "likes": 152,
-            "date": "2025-02-28T00:00:00Z",
-            "time": "40 минут",
+            "bookmarks": 25,
+            "views": 180,
+            "garnish": "Картошка",
             "portions": 2,
-            "nutritionValue": { "calories": 250, "proteins": 5, "fats": 8, "carbohydrates": 40 },
-            "ingredients": [
-                { "title": "картошка", "count": "4", "measureUnit": "шт." },
-                { "title": "болгарский перец", "count": "2", "measureUnit": "шт." },
-                { "title": "фасоль", "count": "200", "measureUnit": "г" },
-                { "title": "томатный соус", "count": "200", "measureUnit": "мл" },
-                { "title": "лук", "count": "1", "measureUnit": "шт." },
-                { "title": "специи", "count": "0", "measureUnit": "по вкусу" }
-            ],
+            "authorId": "67e41d2a0f68c23754bc1e07",
+            "categoriesIds": ["67c48e627b493acd8a41030c", "67c47222f51967aa8390befb"],
             "steps": [
                 {
                     "stepNumber": 1,
-                    "description": "Нарезать картошку и перец.",
-                    "image": "/img/juicy-food-5.jpg"
+                    "description": "Подготовьте необходимые ингредиенты. Из ёмкости с консервированной фасолью слейте маринад. Вскипятите любым способом 60 мл воды.",
+                    "image": "/media/images/f6873dcc-2755-4acc-ba56-6f9b39720813.jpg"
                 },
                 {
                     "stepNumber": 2,
-                    "description": "Обжарить лук до золотистого цвета.",
-                    "image": "/img/juicy-food-5.jpg"
+                    "description": "Болгарский перец промойте и удалите внутренние перегородки с семенами. Очищенные лук, морковь и болгарский перец нарежьте небольшими кубиками.",
+                    "image": "/media/images/40e9c2fe-9bf2-4dba-85ea-8d4ddd056281.jpg"
                 },
                 {
                     "stepNumber": 3,
-                    "description": "Добавить картошку, перец и фасоль, залить соусом.",
-                    "image": "/img/juicy-food-5.jpg"
+                    "description": "В сковороде разогрейте подсолнечное масло и обжарьте лук, морковь и перец на сильном огне 3-4 минуты, часто перемешивая.",
+                    "image": "/media/images/65d67b2c-0617-492d-bcb7-1f0c9ee743e6.jpg"
                 },
                 {
                     "stepNumber": 4,
-                    "description": "Тушить на медленном огне 30 минут.",
-                    "image": "/img/juicy-food-5.jpg"
+                    "description": "За это время очищенный картофель нарежьте кубиками среднего размера.",
+                    "image": "/media/images/74452f6a-56a2-494b-844b-3deff1e134a0.jpg"
+                },
+                {
+                    "stepNumber": 5,
+                    "description": "Переложите картофель в сковороду к обжаренным овощам. В 60 мл кипятка разведите томатную пасту. Получившуюся смесь вылейте в сковороду. Туда же всыпьте соль.",
+                    "image": "/media/images/18bf3337-fe60-4653-8608-b5255b607021.jpg"
+                },
+                {
+                    "stepNumber": 6,
+                    "description": "Перемешайте. Накройте сковороду крышкой и тушите на небольшом огне до мягкости картофеля, 15-20 минут. Благодаря кислинке томатной пасты картошка не будет слишком развариваться.",
+                    "image": "/media/images/0aa5f6e2-936c-4319-ade3-8bfd590bb913.jpg"
+                },
+                {
+                    "stepNumber": 7,
+                    "description": "Затем консервированную фасоль переложите в сковороду к остальным ингредиентам.",
+                    "image": "/media/images/f6ecafbf-36a0-4497-9994-88f69ebaf7b1.jpg"
+                },
+                {
+                    "stepNumber": 8,
+                    "description": "Перемешайте. Накройте сковороду крышкой и готовьте овощное рагу с фасолью на небольшом огне 2-3 минуты.",
+                    "image": "/media/images/60688d63-928e-4709-9a1e-279d09b51fda.jpg"
+                },
+                {
+                    "stepNumber": 9,
+                    "description": "Чеснок пропустите через пресс и добавьте к рагу. Всыпьте чёрный молотый перец и при необходимости досолите.",
+                    "image": "/media/images/0e3b2089-06a5-4af5-bf9e-48fb0eaea474.jpg"
+                },
+                {
+                    "stepNumber": 10,
+                    "description": "Ещё раз перемешайте рагу и снимите сковороду с плиты. По желанию посыпьте измельчённой зеленью.",
+                    "image": "/media/images/4e58336c-ad93-4a8b-9bd7-86c9da960a39.jpg"
+                },
+                {
+                    "stepNumber": 11,
+                    "description": "Подавайте картошку, тушенную с болгарским перцем и фасолью в томатном соусе, к столу в горячем виде в качестве самостоятельного блюда для постного и вегетарианского меню или как гарнир к мясу.",
+                    "image": "/media/images/ac8f5389-b4e4-4202-9f41-2109bbb7a1ce.jpg"
+                },
+                {
+                    "stepNumber": 12,
+                    "description": "Приятного аппетита!",
+                    "image": "/media/images/cd696a32-05a0-4a95-b2f9-372bbc68b0f7.jpg"
                 }
             ],
-            "meat": "",
-            "side": "potatoes"
+            "nutritionValue": {
+                "calories": 250,
+                "fats": 8,
+                "carbohydrates": 40,
+                "protein": 5
+            },
+            "ingredients": [
+                {
+                    "title": "Картошка",
+                    "count": "350",
+                    "measureUnit": "г"
+                },
+                {
+                    "title": "Болгарский перец",
+                    "count": "80",
+                    "measureUnit": "г"
+                },
+                {
+                    "title": "Фасоль консервированная красная",
+                    "count": "150",
+                    "measureUnit": "г"
+                },
+                {
+                    "title": "Лук репчатый",
+                    "count": "1",
+                    "measureUnit": "шт."
+                },
+                {
+                    "title": "Морковь",
+                    "count": "1",
+                    "measureUnit": "шт."
+                },
+                {
+                    "title": "Чеснок",
+                    "count": "1",
+                    "measureUnit": "зуб."
+                },
+                {
+                    "title": "Томатная паста",
+                    "count": "20",
+                    "measureUnit": "г"
+                },
+                {
+                    "title": "Масло подсолнечное",
+                    "count": "3",
+                    "measureUnit": "ст.л."
+                },
+                {
+                    "title": "Соль",
+                    "count": "0.3",
+                    "measureUnit": "ч.л."
+                },
+                {
+                    "title": "Перец чёрный молотый",
+                    "count": "1",
+                    "measureUnit": "щеп."
+                }
+            ]
         },
         {
-            "id": "1",
+            "_id": "67d310fbc3df99732a05d2e8",
+            "createdAt": "2025-03-13T17:08:11.096Z",
             "title": "Картофельные рулетики с грибами",
             "description": "Рекомендую всем приготовить постное блюдо из картофеля и грибов. Готовится это блюдо без яиц, без мяса и без сыра, из самых простых ингредиентов, а получается очень вкусно и сытно. Постный рецепт картофельных рулетиков с грибами, в томатном соусе, - на обед, ужин и даже на праздничный стол!",
-            "category": ["vegan", "snacks"],
-            "subcategory": ["snacks", "warm-snacks"],
-            "image": "/img/juicy-food-6.jpg",
-            "bookmarks": 85,
-            "likes": 1152,
-            "date": "2024-02-20T00:00:00Z",
-            "time": "30 минут",
-            "portions": 2,
-            "nutritionValue": { "calories": 180, "proteins": 4, "fats": 6, "carbohydrates": 28 },
-            "ingredients": [
-                { "title": "картошка", "count": "3", "measureUnit": "шт." },
-                { "title": "грибы", "count": "200", "measureUnit": "г" },
-                { "title": "мука", "count": "100", "measureUnit": "г" },
-                { "title": "специи", "count": "0", "measureUnit": "по вкусу" }
-            ],
-            "steps": [
-                {
-                    "stepNumber": 1,
-                    "description": "Отварить картошку и сделать пюре.",
-                    "image": "/img/juicy-food-6.jpg"
-                },
-                {
-                    "stepNumber": 2,
-                    "description": "Обжарить грибы до готовности.",
-                    "image": "/img/juicy-food-6.jpg"
-                },
-                {
-                    "stepNumber": 3,
-                    "description": "Сформировать рулетики и обжарить.",
-                    "image": "/img/juicy-food-6.jpg"
-                }
-            ],
-            "side": "potatoes"
-        },
-        {
-            "id": "2",
-            "title": "Овощная лазанья из лаваша",
-            "description": "Большое, сытное блюдо для ценителей блюд без мяса! Такая лазанья готовится с овощным соусом и соусом бешамель, а вместо листов для лазаньи используется тонкий лаваш.",
-            "category": ["vegan", "second-dish", "national"],
-            "subcategory": ["second-dish", "vegetables", "italian", "snacks"],
-            "image": "/img/juicy-food-7.jpg",
-            "bookmarks": 85,
-            "likes": 152,
-            "date": "2023-01-25T00:00:00Z",
-            "time": "1 час",
-            "portions": 1,
-            "nutritionValue": { "calories": 300, "proteins": 12, "fats": 8, "carbohydrates": 45 },
-            "ingredients": [
-                { "title": "лаваш", "count": "3", "measureUnit": "листов" },
-                { "title": "овощной соус", "count": "300", "measureUnit": "мл" },
-                { "title": "соус бешамель", "count": "200", "measureUnit": "мл" },
-                { "title": "сыр", "count": "100", "measureUnit": "г" }
-            ],
-            "steps": [
-                {
-                    "stepNumber": 1,
-                    "description": "Приготовить соусы.",
-                    "image": "/img/juicy-food-7.jpg"
-                },
-                {
-                    "stepNumber": 2,
-                    "description": "Сложить слои лазаньи.",
-                    "image": "/img/juicy-food-7.jpg"
-                },
-                {
-                    "stepNumber": 3,
-                    "description": "Запекать 30 минут.",
-                    "image": "/img/juicy-food-7.jpg"
-                }
-            ],
-            "side": "other_vegetables"
-        },
-        {
-            "id": "3",
-            "title": "Тефтели из булгура и чечевицы, запечённые в томатном соусе",
-            "description": "Тефтели из булгура и чечевицы – яркие и питательные, отлично подходят для постного и вегетарианского меню. Тефтели получаются нежными, а также сочными и ароматными благодаря использованию томатного соуса и душистых пряностей.",
-            "category": ["vegan", "second-dish"],
-            "subcategory": ["second-dish", "poultry-dish"],
-            "image": "/img/juicy-food-8.jpg",
-            "bookmarks": 85,
-            "likes": 152,
-            "date": "2023-02-15T00:00:00Z",
-            "time": "50 минут",
-            "portions": 4,
-            "nutritionValue": { "calories": 200, "proteins": 10, "fats": 5, "carbohydrates": 30 },
-            "ingredients": [
-                { "title": "булгур", "count": "150", "measureUnit": "г" },
-                { "title": "чечевица", "count": "100", "measureUnit": "г" },
-                { "title": "томатный соус", "count": "200", "measureUnit": "мл" },
-                { "title": "лук", "count": "1", "measureUnit": "шт." }
-            ],
-            "steps": [
-                {
-                    "stepNumber": 1,
-                    "description": "Смешать булгур и чечевицу.",
-                    "image": "/img/juicy-food-8.jpg"
-                },
-                {
-                    "stepNumber": 2,
-                    "description": "Сформировать тефтели и запечь.",
-                    "image": "/img/juicy-food-8.jpg"
-                },
-                {
-                    "stepNumber": 3,
-                    "description": "Подавать с соусом.",
-                    "image": "/img/juicy-food-8.jpg"
-                }
-            ],
-            "side": "beans"
-        },
-        {
-            "id": "4",
-            "title": "Чесночная картошка",
-            "description": "Такая картошечка украсит любой семейный обед! Все будут в полном восторге, очень вкусно! Аромат чеснока, хрустящая корочка на картошечке - просто объедение! Отличная идея для обеда или ужина, готовится просто!",
-            "category": ["vegan", "second-dish"],
-            "subcategory": ["side-dishes", "second-dish", "vegetables"],
-            "image": "/img/juicy-food-9.jpg",
-            "bookmarks": 124,
-            "likes": 342,
-            "date": "2024-03-01T00:00:00Z",
-            "time": "30 минут",
-            "portions": 2,
-            "nutritionValue": { "calories": 220, "proteins": 4, "fats": 7, "carbohydrates": 35 },
-            "ingredients": [
-                { "title": "картошка", "count": "6", "measureUnit": "шт." },
-                { "title": "чеснок", "count": "5", "measureUnit": "зубчиков" },
-                { "title": "масло", "count": "50", "measureUnit": "мл" },
-                { "title": "специи", "count": "0", "measureUnit": "по вкусу" }
-            ],
-            "steps": [
-                {
-                    "stepNumber": 1,
-                    "description": "Очистить и нарезать картошку.",
-                    "image": "/img/juicy-food-9.jpg"
-                },
-                {
-                    "stepNumber": 2,
-                    "description": "Обжарить с чесноком.",
-                    "image": "/img/juicy-food-9.jpg"
-                },
-                {
-                    "stepNumber": 3,
-                    "description": "Подавать горячей.",
-                    "image": "/img/juicy-food-9.jpg"
-                }
-            ],
-            "side": "potatoes"
-        },
-        {
-            "id": "5",
-            "title": "Капустные котлеты",
-            "description": "Капустные котлеты по этому рецепту получаются необычайно пышными и невероятно вкусными. Мягкий вкус и лёгкая пряная нотка наверняка помогут сделать эти чудесные котлеты из капусты одним из ваших любимых овощных блюд.",
-            "category": ["vegan"],
-            "subcategory": ["second-dish", "snacks"],
-            "image": "/img/new-food-2.jpg",
-            "bookmarks": 2,
-            "likes": 1,
-            "date": "2024-02-05T00:00:00Z",
-            "time": "35 минут",
-            "portions": 4,
-            "nutritionValue": { "calories": 150, "proteins": 5, "fats": 4, "carbohydrates": 20 },
-            "ingredients": [
-                { "title": "капуста", "count": "300", "measureUnit": "г" },
-                { "title": "мука", "count": "50", "measureUnit": "г" },
-                { "title": "специи", "count": "0", "measureUnit": "по вкусу" }
-            ],
-            "steps": [
-                {
-                    "stepNumber": 1,
-                    "description": "Нарезать капусту и отварить.",
-                    "image": "/img/new-food-2.jpg"
-                },
-                {
-                    "stepNumber": 2,
-                    "description": "Смешать с мукой и сформировать котлеты.",
-                    "image": "/img/new-food-2.jpg"
-                },
-                {
-                    "stepNumber": 3,
-                    "description": "Обжарить до золотистой корочки.",
-                    "image": "/img/new-food-2.jpg"
-                }
-            ],
-            "side": "other_vegetables"
-        },
-        {
-            "id": "6",
-            "title": "Овощное рагу",
-            "description": "Сытное рагу из сезонных овощей, приправленное травами.",
-            "category": ["vegan", "second-dish"],
-            "subcategory": ["side-dishes", "vegetables", "snacks"],
-            "image": "/img/new-food-1.jpg",
-            "bookmarks": 8,
-            "likes": 60,
-            "date": "2023-03-12T00:00:00Z",
-            "time": "1 час",
-            "portions": 2,
-            "nutritionValue": { "calories": 200, "proteins": 5, "fats": 8, "carbohydrates": 30 },
-            "ingredients": [
-                { "title": "цуккини", "count": "1", "measureUnit": "шт." },
-                { "title": "болгарский перец", "count": "1", "measureUnit": "шт." },
-                { "title": "морковь", "count": "1", "measureUnit": "шт." },
-                { "title": "картошка", "count": "2", "measureUnit": "шт." },
-                { "title": "специи", "count": "0", "measureUnit": "по вкусу" }
-            ],
-            "steps": [
-                {
-                    "stepNumber": 1,
-                    "description": "Нарезать все овощи.",
-                    "image": "/img/new-food-1.jpg"
-                },
-                {
-                    "stepNumber": 2,
-                    "description": "Обжарить на сковороде.",
-                    "image": "/img/new-food-1.jpg"
-                },
-                {
-                    "stepNumber": 3,
-                    "description": "Добавить специи и тушить до готовности.",
-                    "image": "/img/new-food-1.jpg"
-                }
-            ]
-        },
-        {
-            "id": "7",
-            "title": "Лапша с курицей и шафраном",
-            "description": "Ароматная лапша с курицей и шафраном, идеальное сочетание для сытного обеда.",
-            "category": ["second-dish"],
-            "subcategory": ["poultry-dish"],
-            "image": "/img/juicy-food-2.jpg",
-            "bookmarks": 258,
-            "likes": 1342,
-            "date": "2024-03-08T00:00:00Z",
-            "time": "40 минут",
-            "portions": 4,
-            "nutritionValue": { "calories": 400, "proteins": 30, "fats": 15, "carbohydrates": 50 },
-            "ingredients": [
-                { "title": "лапша", "count": "200", "measureUnit": "г" },
-                { "title": "курица", "count": "300", "measureUnit": "г" },
-                { "title": "шафран", "count": "1", "measureUnit": "ч. л." },
-                { "title": "лук", "count": "1", "measureUnit": "шт." }
-            ],
-            "steps": [
-                {
-                    "stepNumber": 1,
-                    "description": "Отварить лапшу.",
-                    "image": "/img/juicy-food-2.jpg"
-                },
-                {
-                    "stepNumber": 2,
-                    "description": "Обжарить курицу с луком и шафраном.",
-                    "image": "/img/juicy-food-2.jpg"
-                },
-                {
-                    "stepNumber": 3,
-                    "description": "Смешать лапшу с курицей и подавать.",
-                    "image": "/img/juicy-food-2.jpg"
-                }
-            ]
-        },
-        {
-            "id": "8",
-            "title": "Гриль-салат с овощами",
-            "description": "Салат с обжаренными на гриле овощами и легкой заправкой.",
-            "category": ["salads"],
-            "subcategory": ["warm-salads"],
-            "image": "/img/new-food-4.jpg",
+            "time": 60,
+            "image": "/media/images/00b0f891-a720-4742-84fa-a004ffdf15f2.jpg",
+            "likes": 120,
             "bookmarks": 10,
-            "likes": 80,
-            "date": "2023-03-20T00:00:00Z",
-            "time": "25 минут",
+            "views": 193,
+            "garnish": "Картошка",
             "portions": 4,
-            "nutritionValue": { "calories": 150, "proteins": 4, "fats": 6, "carbohydrates": 20 },
-            "ingredients": [
-                { "title": "цуккини", "count": "1", "measureUnit": "шт." },
-                { "title": "болгарский перец", "count": "1", "measureUnit": "шт." },
-                { "title": "баклажан", "count": "1", "measureUnit": "шт." },
-                { "title": "оливковое масло", "count": "0", "measureUnit": "по вкусу" }
-            ],
+            "authorId": "67e422130f68c23754bc1e08",
+            "categoriesIds": ["67c48e627b493acd8a41030c", "67c46ee5f51967aa8390beef"],
             "steps": [
                 {
                     "stepNumber": 1,
-                    "description": "Обжарить овощи на гриле.",
-                    "image": "/img/new-food-4.jpg"
+                    "description": "Подготавливаем необходимые ингредиенты.",
+                    "image": "/media/images/bdb03412-2851-4dd9-96ac-8d0f425532f9.jpg"
                 },
                 {
                     "stepNumber": 2,
-                    "description": "Смешать с заправкой и подавать.",
-                    "image": "/img/new-food-4.jpg"
+                    "description": "Картофель нарезаем кусочками и отправляем его вариться.",
+                    "image": "/media/images/24992e5a-46e3-49ab-ab9c-e300d5b97746.jpg"
+                },
+                {
+                    "stepNumber": 3,
+                    "description": "Лук мелко нарезаем.",
+                    "image": "/media/images/4839f466-9604-4db7-8c83-0d3f7c99592a.jpg"
+                },
+                {
+                    "stepNumber": 4,
+                    "description": "Нарезаем грибы.",
+                    "image": "/media/images/1aeb1db3-50e6-44c9-b062-65f44164b7c6.jpg"
+                },
+                {
+                    "stepNumber": 5,
+                    "description": "Картофель варим до мягкости (20-25 минут после закипания) и разминаем до однородности, предварительно слив всю воду. Оставляем картофельное пюре остывать до теплого состояния.",
+                    "image": "/media/images/08dffced-e0c5-4a09-9d6e-f7747eea1af1.jpg"
+                },
+                {
+                    "stepNumber": 6,
+                    "description": "Обжариваем грибы и лук на растительном масле до готовности (до прозрачности лука и пока не выпарится влага из грибов), солим по вкусу.",
+                    "image": "/media/images/828d315f-b2de-4d00-a39b-5b41e4fda442.jpg"
+                },
+                {
+                    "stepNumber": 7,
+                    "description": "Пока грибы с луком и картофель остывают, готовим заливку: в отдельной ёмкости смешиваем томатную пасту, соль и сахар (количество соли и сахара можно регулировать на свой вкус), прованские травы; заливаем кипячёной водой.",
+                    "image": "/media/images/3b042933-d8a9-4212-89b2-227ae0594f0a.jpg"
+                },
+                {
+                    "stepNumber": 8,
+                    "description": "Замешиваем картофельное тесто: в тёплый картофель добавляем растительное масло и муку. Муку добавляем не всю сразу, её может понадобиться меньше, в зависимости от сорта картофеля. Хорошо вымешиваем. Картофельное тесто не должно рассыпаться.",
+                    "image": "/media/images/2e3702ce-14a7-4e33-b4ed-10671a39e2a1.jpg"
+                },
+                {
+                    "stepNumber": 9,
+                    "description": "Стол выстилаем пищевой пленкой, немного смазанной маслом, и выкладываем картофельное тесто в виде прямоугольника. На пласт картофельного теста выкладываем слой грибов.",
+                    "image": "/media/images/07dc00a0-fc60-4714-ab3b-1abbee059164.jpg"
+                },
+                {
+                    "stepNumber": 10,
+                    "description": "С помощью пищевой плёнки заворачиваем рулет.",
+                    "image": "/media/images/7b5069c7-6d7d-4f10-81aa-8eb33421309d.jpg"
+                },
+                {
+                    "stepNumber": 11,
+                    "description": "Картофельный рулет с грибами нарезаем кусочками и размещаем их вертикально в форме, смазанной маслом. Заливаем картофельные рулетики приготовленной томатной заливкой. Отправляем в духовку, разогретую до 180 градусов, на 25 минут.",
+                    "image": "/media/images/cee20a6a-9c38-4bc0-87f1-cfea428743c5.jpg"
+                },
+                {
+                    "stepNumber": 12,
+                    "description": "Картофельные рулетики с грибами готовы. Блюдо посыпаем свежим укропом и подаём к столу. Приятного аппетита!",
+                    "image": "/media/images/77ab8750-d37a-4a59-9ea4-8fb1f93b61ea.jpg"
                 }
             ],
-            "meat": "chicken"
-        },
-        {
-            "id": "9",
-            "title": "Оладьи на кефире \"Пышные\"",
-            "description": "Очень вкусные и нежные оладьи на кефире. Настоятельно рекомендую пышные кефирные оладьи на завтрак.",
-            "category": ["dessert"],
-            "subcategory": ["pancakes"],
-            "image": "/img/new-food-3.jpg",
-            "bookmarks": 0,
-            "likes": 1,
-            "date": "2023-03-22T00:00:00Z",
-            "time": "20 минут",
-            "portions": 3,
-            "nutritionValue": { "calories": 10, "proteins": 4, "fats": 6, "carbohydrates": 20 },
+            "nutritionValue": {
+                "calories": 180,
+                "fats": 6,
+                "carbohydrates": 28,
+                "protein": 4
+            },
             "ingredients": [
-                { "title": "мука", "count": "150", "measureUnit": "г" },
-                { "title": "кефир", "count": "75", "measureUnit": "мл." },
-                { "title": "яйца", "count": "1", "measureUnit": "шт." },
-                { "title": "сахар", "count": "0", "measureUnit": "по вкусу" }
-            ],
-            "steps": [
                 {
-                    "stepNumber": 1,
-                    "description": "Замешать тесто.",
-                    "image": "/img/new-food-3.jpg"
+                    "title": "Картошка",
+                    "count": "400",
+                    "measureUnit": "г"
                 },
                 {
-                    "stepNumber": 2,
-                    "description": "Пожарить и подавать.",
-                    "image": "/img/new-food-3.jpg"
-                }
-            ]
-        },
-        {
-            "id": "10",
-            "title": "Салат \"Здоровье\"",
-            "description": "Сельдерей очень полезен для здоровья, пора набираться витаминов. Не  салат, а сплошное удовольствие:) Вкусный, необычный, а главное быстрый.",
-            "image": "/img/new-food-4.jpg",
-            "category": ["salads"],
-            "subcategory": ["cold-salads"],
-            "bookmarks": 0,
-            "likes": 0,
-            "date": "2022-07-26T00:00:00Z",
-            "time": "10 минут",
-            "portions": 4,
-            "nutritionValue": { "calories": 10, "proteins": 4, "fats": 6, "carbohydrates": 26 },
-            "ingredients": [
-                { "title": "сельдерей", "count": "1", "measureUnit": "шт." },
-                { "title": "капуста", "count": "1", "measureUnit": "шт." },
-                { "title": "клюква", "count": "0", "measureUnit": "по вкусу" }
-            ],
-            "steps": [
-                {
-                    "stepNumber": 1,
-                    "description": "Нарезать овощи.",
-                    "image": "/img/new-food-4.jpg"
+                    "title": "Грибы шампиньоны",
+                    "count": "300",
+                    "measureUnit": "г"
                 },
                 {
-                    "stepNumber": 2,
-                    "description": "Смешать с заправкой и подавать.",
-                    "image": "/img/new-food-4.jpg"
-                }
-            ],
-            "side": "other_vegetables"
-        },
-        {
-            "id": "11",
-            "title": "Оладьи на кефире \"Пышные\"",
-            "description": "Очень вкусные и нежные оладьи на кефире. Настоятельно рекомендую пышные кефирные оладьи на завтрак.",
-            "category": ["dessert"],
-            "subcategory": ["pancakes"],
-            "image": "/img/new-food-3.jpg",
-            "bookmarks": 0,
-            "likes": 1,
-            "date": "2023-03-22T00:00:00Z",
-            "time": "20 минут",
-            "portions": 3,
-            "nutritionValue": { "calories": 10, "proteins": 4, "fats": 6, "carbohydrates": 20 },
-            "ingredients": [
-                { "title": "мука", "count": "150", "measureUnit": "г" },
-                { "title": "кефир", "count": "75", "measureUnit": "мл." },
-                { "title": "яйца", "count": "1", "measureUnit": "шт." },
-                { "title": "сахар", "count": "0", "measureUnit": "по вкусу" }
-            ],
-            "steps": [
-                {
-                    "stepNumber": 1,
-                    "description": "Замешать тесто.",
-                    "image": "/img/new-food-3.jpg"
+                    "title": "Лук репчатый",
+                    "count": "1",
+                    "measureUnit": "шт."
                 },
                 {
-                    "stepNumber": 2,
-                    "description": "Пожарить и подавать.",
-                    "image": "/img/new-food-3.jpg"
+                    "title": "Мука",
+                    "count": "300",
+                    "measureUnit": "г"
+                },
+                {
+                    "title": "Масло подсолнечное",
+                    "count": "3",
+                    "measureUnit": "ст.л."
+                },
+                {
+                    "title": "Томатная паста",
+                    "count": "2",
+                    "measureUnit": "ст.л."
+                },
+                {
+                    "title": "Соль",
+                    "count": "1",
+                    "measureUnit": "ч.л."
+                },
+                {
+                    "title": "Сахар",
+                    "count": "1",
+                    "measureUnit": "ч.л."
+                },
+                {
+                    "title": "Прованские травы сухие",
+                    "count": "1",
+                    "measureUnit": "ч.л."
+                },
+                {
+                    "title": "Укроп свежий",
+                    "count": "1",
+                    "measureUnit": "пуч."
+                },
+                {
+                    "title": "Вода кипяченая ",
+                    "count": "200",
+                    "measureUnit": "мл"
                 }
             ]
         }

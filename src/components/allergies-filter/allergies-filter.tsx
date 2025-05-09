@@ -1,8 +1,10 @@
-import { Flex, Switch, Text } from '@chakra-ui/react';
-import { useState } from 'react';
+import { Flex, Switch, Text, useMediaQuery } from '@chakra-ui/react';
+import { useEffect, useState } from 'react';
 
-import { useAppDispatch } from '~/store/hooks';
+import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import { clearAllergens } from '~/store/recipes/recipes-slice';
+import { getActiveFilters } from '~/store/recipes/selectors';
+import { TestIdName } from '~/utils/constant';
 import filterData from '~/utils/data/filters-data.json';
 
 import { MultiSelect } from '../multiselect/multiselect';
@@ -13,15 +15,29 @@ type AlergiesFilterProps = {
 };
 
 export const AlergiesFilter = ({ type, isDrawerActive }: AlergiesFilterProps) => {
-    const [isAlergensActive, setIsAlergensActive] = useState<boolean>(false);
+    const { allergens } = useAppSelector(getActiveFilters);
+    const isSwitchActive = Boolean(allergens && allergens?.length > 0);
+    const [isDesktop] = useMediaQuery('(min-width: 1440px)');
     const dispatch = useAppDispatch();
     const isDrawer = type === 'drawer';
+    const [isAlergensActive, setIsAlergensActive] = useState(isSwitchActive);
+
+    useEffect(() => {
+        setIsAlergensActive(isSwitchActive);
+    }, [isSwitchActive]);
+
     const handleAlergensActive = () => {
-        setIsAlergensActive((prev) => !prev);
-        if (isAlergensActive) {
+        const newValue = !isAlergensActive;
+        setIsAlergensActive(newValue);
+
+        if (!newValue) {
             dispatch(clearAllergens());
         }
     };
+
+    if (!isDesktop && !isDrawer) {
+        return null;
+    }
     return (
         <>
             <Flex
@@ -44,9 +60,12 @@ export const AlergiesFilter = ({ type, isDrawerActive }: AlergiesFilterProps) =>
                         size='md'
                         maxH='20px'
                         colorScheme='lime'
+                        isChecked={isAlergensActive}
                         onChange={handleAlergensActive}
                         data-test-id={
-                            !isDrawer ? 'allergens-switcher' : 'allergens-switcher-filter'
+                            !isDrawer
+                                ? TestIdName.AllergensSwitcher
+                                : TestIdName.AllergensSwitcherFilter
                         }
                     />
                 </Flex>

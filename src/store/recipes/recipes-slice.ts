@@ -1,12 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { RecipeFilters, RecipeState } from '~/types/state.type';
-import { newMockData } from '~/utils/data/mock-cards.json';
+import { ReducerName } from '~/utils/constant';
 
 const initialState: RecipeState = {
-    recipes: null,
     isLoading: false,
-    hasLoading: false,
+    hasRecipes: false,
     isFiltering: false,
     currentFilters: {
         categories: null,
@@ -23,25 +22,20 @@ const initialState: RecipeState = {
         allergens: null,
     },
     searchString: null,
-    category: null,
-    subcategory: null,
 };
 
 export const recipeSlice = createSlice({
-    name: 'RECIPE',
+    name: ReducerName.Recipe,
     initialState,
     reducers: {
-        setCurrentParams: (
-            state,
-            { payload }: PayloadAction<{ category?: string; subcategory?: string }>,
-        ) => {
-            state.category = payload.category || null;
-            state.subcategory = payload.subcategory || null;
+        updateIsFiltering: (state, { payload }: PayloadAction<boolean>) => {
+            state.isFiltering = payload;
         },
-        updateIsFiltering: (state) => {
-            state.isFiltering =
-                !!state.searchString?.trim() ||
-                Object.values(state.currentFilters).some((filter) => filter?.length ?? 0 > 0);
+        setIsLoadingFiltered: (state, { payload }: PayloadAction<boolean>) => {
+            state.isLoading = payload;
+        },
+        updateHasRecipes: (state, { payload }: PayloadAction<boolean>) => {
+            state.hasRecipes = payload;
         },
         setSearchRecipeString: (state, { payload }: PayloadAction<string | null>) => {
             state.searchString = payload;
@@ -72,8 +66,10 @@ export const recipeSlice = createSlice({
             state.currentFilters = initialState.currentFilters;
             state.pendingFilters = initialState.currentFilters;
         },
-        fetchRecipes: (state) => {
-            state.recipes = newMockData;
+        clearFilteringParams: (state) => {
+            state.hasRecipes = initialState.hasRecipes;
+            state.isFiltering = initialState.isFiltering;
+            state.searchString = initialState.searchString;
         },
     },
     extraReducers() {},
@@ -81,13 +77,14 @@ export const recipeSlice = createSlice({
 
 export const {
     setSearchRecipeString,
-    fetchRecipes,
     updateIsFiltering,
-    setCurrentParams,
+    clearFilteringParams,
     updateFilter,
     updateCurrentFilters,
     clearAllergens,
     clearFilters,
+    setIsLoadingFiltered,
+    updateHasRecipes,
 } = recipeSlice.actions;
 
 export default recipeSlice.reducer;

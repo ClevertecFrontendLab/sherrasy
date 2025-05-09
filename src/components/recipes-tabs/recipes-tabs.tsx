@@ -1,26 +1,31 @@
 import { Tab, TabList, TabPanel, TabPanels, Tabs, useMediaQuery } from '@chakra-ui/react';
+import { skipToken } from '@reduxjs/toolkit/query';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
 
-import { useAppDispatch, useAppSelector } from '~/store/hooks';
-import { setCurrentParams } from '~/store/recipes/recipes-slice';
-import { getFilteredRecipes } from '~/store/recipes/selectors';
-import { MenuSubcategory } from '~/types/menu-item.type';
+import { useGetRecipesByCategoryQuery } from '~/query/services/recipes';
+import { setCurrentParams } from '~/store/categories/categories-slice';
+import { useAppDispatch } from '~/store/hooks';
+import { Subcategory } from '~/types/category.type';
 import { PathParams } from '~/types/params.type';
+import { TestIdName } from '~/utils/constant';
 
 import { RecipesList } from '../recipes-list/recipes-list';
 
 type RecipesTabsProps = {
-    tabsNames: MenuSubcategory[];
+    tabsNames: Subcategory[];
 };
 
 export const RecipesTabs = ({ tabsNames }: RecipesTabsProps) => {
     const [isDesktop] = useMediaQuery('(min-width: 1440px)');
     const dispatch = useAppDispatch();
     const { categoryId, subcategoryId } = useParams<PathParams>();
-    const recipes = useAppSelector(getFilteredRecipes);
     const navigate = useNavigate();
-    const currentTab = subcategoryId ? tabsNames.findIndex((tab) => tab.id === subcategoryId) : -1;
+    const currentTab = subcategoryId
+        ? tabsNames.findIndex((tab) => tab.category === subcategoryId)
+        : -1;
+    const currentId = tabsNames.find((tab) => tab.category === subcategoryId)?._id ?? skipToken;
+    const { data: recipes = [], isFetching } = useGetRecipesByCategoryQuery(currentId);
     const [activeTabIndex, setActiveTabIndex] = useState(0);
     const handleSubcategoryClick = (name: string) => {
         navigate(`/${categoryId}/${name}`);
@@ -53,14 +58,14 @@ export const RecipesTabs = ({ tabsNames }: RecipesTabsProps) => {
                     },
                 }}
             >
-                {tabsNames.map(({ name, id }, i) => (
+                {tabsNames.map(({ title: name, category: id }, i) => (
                     <Tab
                         key={name}
                         _selected={{ color: 'lime.600', borderColor: 'lime.600' }}
                         minW='max-content'
                         onClick={() => handleSubcategoryClick(id)}
                         borderBottomColor='transparent'
-                        data-test-id={`tab-${id}-${i}`}
+                        data-test-id={`${TestIdName.Tab}-${id}-${i}`}
                         flexShrink={0}
                         mb={0}
                         mr={isDesktop ? 4 : 0}
@@ -72,7 +77,9 @@ export const RecipesTabs = ({ tabsNames }: RecipesTabsProps) => {
             <TabPanels p={0}>
                 {tabsNames.map((name) => (
                     <TabPanel p={0} pt={{ base: 5, xs: 6, md: '22px' }} key={`${name}-panel`}>
-                        <RecipesList recipes={recipes} />
+                        {!isFetching && (
+                            <RecipesList recipes={recipes} isLastPage={true} isFetching={false} />
+                        )}
                     </TabPanel>
                 ))}
             </TabPanels>

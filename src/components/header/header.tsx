@@ -2,8 +2,7 @@ import { Flex, Image, Spacer, useMediaQuery } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router';
 
-import DesktopLogo from '/logo.svg';
-import MobileLogo from '/logo-mobile.svg';
+import { TestIdName } from '~/utils/constant';
 
 import { Breadcrumbs } from '../breadcrumbs/breadcrumbs';
 import { BurgerMenu } from '../burger-menu/burger-menu';
@@ -34,7 +33,7 @@ export const Header = () => {
                 py={{ base: 3.5, xs: 4 }}
                 bg={isMenuOpen ? 'white' : 'lime.50'}
                 align='center'
-                data-test-id='header'
+                data-test-id={TestIdName.Header}
                 width='100%'
                 sx={{ position: 'fixed !important' }}
                 top={0}
@@ -44,9 +43,9 @@ export const Header = () => {
                 maxH={{ base: '4rem', lg: '5rem' }}
             >
                 {isMobile ? (
-                    <Image src={MobileLogo} alt='yee-daa logo'></Image>
+                    <Image src='/logo-mobile.svg' alt='yee-daa logo'></Image>
                 ) : (
-                    <Image src={DesktopLogo} alt='yee-daa logo'></Image>
+                    <Image src='/logo.svg' alt='yee-daa logo'></Image>
                 )}
                 {isDesktop && <Breadcrumbs />}
                 {!isDesktop && !isMenuOpen && <Sidebar />}

@@ -1,5 +1,4 @@
 import {
-    Badge,
     Button,
     ButtonGroup,
     Card,
@@ -8,25 +7,24 @@ import {
     CardHeader,
     Heading,
     HStack,
-    Icon,
     Spacer,
     Text,
 } from '@chakra-ui/react';
 
 import { BookmarkIcon, HeartEyesIcon } from '~/assets/icons/icons';
+import { BadgesList } from '~/components/badges-list/badges-list';
 import { FullRecipe } from '~/types/recipe.interface';
-import { TagToName } from '~/utils/constant';
-import { iconsByTag } from '~/utils/iconsByTag';
 
 type RKCardProps = {
     recipe: FullRecipe;
 };
+
 type RelevantKitchenCardProps = RKCardProps & {
     type: 'medium' | 'small';
 };
 
 const RKMediumCard = ({ recipe }: RKCardProps) => {
-    const { title, description, category, bookmarks, likes } = recipe;
+    const { title, description, categoriesIds = [], bookmarks, likes } = recipe;
     return (
         <Card variant='rkMedium'>
             <CardHeader>
@@ -45,12 +43,7 @@ const RKMediumCard = ({ recipe }: RKCardProps) => {
                 </Text>
             </CardBody>
             <CardFooter position='relative'>
-                <Badge py={{ base: 1, md: 0 }} px={2} variant='rkCard' maxW='140px'>
-                    <Icon boxSize={4} mr={{ base: 2, lg: 1.5 }}>
-                        {iconsByTag[category[0]]}
-                    </Icon>
-                    <Text isTruncated>{TagToName[category[0]]}</Text>
-                </Badge>
+                <BadgesList categoriesIds={[categoriesIds[0]]} type='rkCard' />
                 <Spacer />
                 <ButtonGroup
                     spacing={{ base: 2, sm: 0, lg: 2 }}
@@ -61,44 +54,40 @@ const RKMediumCard = ({ recipe }: RKCardProps) => {
                     bottom='3px'
                     right='-12px'
                 >
-                    {bookmarks > 0 && (
-                        <Button
-                            color='lime.600'
-                            bg='transparent'
-                            p={0}
-                            size='sm'
-                            fontSize='xs'
-                            lineHeight={4}
-                            iconSpacing='0.375rem'
-                            h='100%'
-                        >
-                            <BookmarkIcon
-                                mr={{ base: 1, sm: 0.5, lg: 1 }}
-                                color='black'
-                                boxSize={{ base: 3 }}
-                            />
-                            {bookmarks}
-                        </Button>
-                    )}
-                    {likes > 0 && (
-                        <Button
-                            color='lime.600'
-                            bg='transparent'
-                            p={0}
-                            size='sm'
-                            fontSize='xs'
-                            lineHeight={4}
-                            iconSpacing='0.375rem'
-                            h='100%'
-                        >
-                            <HeartEyesIcon
-                                mr={{ base: 1, sm: 0.5, lg: 1 }}
-                                color='black'
-                                boxSize={{ base: 3 }}
-                            />
-                            {likes}
-                        </Button>
-                    )}
+                    <Button
+                        color='lime.600'
+                        bg='transparent'
+                        p={0}
+                        size='sm'
+                        fontSize='xs'
+                        lineHeight={4}
+                        iconSpacing='0.375rem'
+                        h='100%'
+                    >
+                        <BookmarkIcon
+                            mr={{ base: 1, sm: 0.5, lg: 1 }}
+                            color='black'
+                            boxSize={{ base: 3 }}
+                        />
+                        {bookmarks}
+                    </Button>
+                    <Button
+                        color='lime.600'
+                        bg='transparent'
+                        p={0}
+                        size='sm'
+                        fontSize='xs'
+                        lineHeight={4}
+                        iconSpacing='0.375rem'
+                        h='100%'
+                    >
+                        <HeartEyesIcon
+                            mr={{ base: 1, sm: 0.5, lg: 1 }}
+                            color='black'
+                            boxSize={{ base: 3 }}
+                        />
+                        {likes}
+                    </Button>
                 </ButtonGroup>
             </CardFooter>
         </Card>
@@ -106,7 +95,7 @@ const RKMediumCard = ({ recipe }: RKCardProps) => {
 };
 
 const RKShortCard = ({ recipe }: RKCardProps) => {
-    const { title, category } = recipe;
+    const { title, categoriesIds = [] } = recipe;
     return (
         <Card variant='rkShort'>
             <CardBody position='relative'>
@@ -119,7 +108,7 @@ const RKShortCard = ({ recipe }: RKCardProps) => {
                         '2xl': 'calc(100% - 150px)',
                     }}
                 >
-                    {iconsByTag[category[0]]}
+                    <BadgesList categoriesIds={[categoriesIds[0]]} type='rkCardShort' />
                     <Heading
                         size={{ base: 'sm', '2xl': 'md' }}
                         ml={{ lg: 0.5, '2xl': 1 }}

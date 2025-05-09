@@ -16,6 +16,7 @@ import {
 import { useState } from 'react';
 
 import { Ingredient } from '~/types/recipe.interface';
+import { TestIdName } from '~/utils/constant';
 
 type IngredientsTableProps = {
     portions: number;
@@ -30,6 +31,7 @@ export const IngredientsTable = ({ portions, ingredients }: IngredientsTableProp
         setScale(scaleFactor);
     };
 
+    const formatCount = (num: number) => (Number.isInteger(num) ? num.toString() : num.toFixed(2));
     return (
         <TableContainer mt={{ base: '1.375rem', sm: 5, lg: 9 }}>
             <Table
@@ -58,8 +60,12 @@ export const IngredientsTable = ({ portions, ingredients }: IngredientsTableProp
                             >
                                 <NumberInputField />
                                 <NumberInputStepper>
-                                    <NumberIncrementStepper data-test-id='increment-stepper' />
-                                    <NumberDecrementStepper data-test-id='decrement-stepper' />
+                                    <NumberIncrementStepper
+                                        data-test-id={TestIdName.StepperIncrement}
+                                    />
+                                    <NumberDecrementStepper
+                                        data-test-id={TestIdName.StepperDecrement}
+                                    />
                                 </NumberInputStepper>
                             </NumberInput>
                         </Th>
@@ -69,8 +75,8 @@ export const IngredientsTable = ({ portions, ingredients }: IngredientsTableProp
                     {ingredients.map(({ title, count, measureUnit }, i) => (
                         <Tr key={title}>
                             <Td>{title}</Td>
-                            <Td data-test-id={`ingredient-quantity-${i}`}>
-                                {+count > 0 && +count * scale} {measureUnit}
+                            <Td data-test-id={`${TestIdName.IngredientQuantity}-${i}`}>
+                                {+count > 0 && formatCount(+count * scale)} {measureUnit}
                             </Td>
                         </Tr>
                     ))}

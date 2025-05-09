@@ -1,6 +1,7 @@
 export interface NutritionValue {
     calories: number;
-    proteins: number;
+    proteins?: number;
+    protein?: number;
     fats: number;
     carbohydrates: number;
 }
@@ -12,25 +13,33 @@ export interface Ingredient {
 export interface RecipeStep {
     stepNumber: number;
     description: string;
-    image?: string;
+    image: string;
 }
 
+export interface RecipeMeta {
+    limit: number;
+    page: number;
+    total: number;
+    totalPages: number;
+}
 export interface FullRecipe {
-    id: string;
+    _id: string;
     title: string;
     description: string;
-    category: string[];
+    categoriesIds: string[];
     subcategory: string[];
     image: string;
     bookmarks: number;
     likes: number;
-    date: string;
+    views: number;
+    createdAt: string;
     time: string;
     portions: number;
     nutritionValue: NutritionValue;
     ingredients: Ingredient[];
     steps: RecipeStep[];
     meat?: string;
-    side?: string;
+    garnish: string;
+    authorId: string;
     recommendedBy?: number | null; //temp
 }

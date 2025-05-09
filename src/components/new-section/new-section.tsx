@@ -5,9 +5,9 @@ import { Navigation } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import { ArrowLeftIcon, ArrowRightIcon } from '~/assets/icons/icons';
-import { useAppSelector } from '~/store/hooks';
-import { getRecipes } from '~/store/recipes/selectors';
+import { useGetNewRecipesQuery } from '~/query/services/recipes';
 import { FullRecipe } from '~/types/recipe.interface';
+import { TestIdName } from '~/utils/constant';
 import { getSortedNewRecipes } from '~/utils/helpers';
 
 import { RecipeCard } from '../cards/recipe-cards/recipe-card';
@@ -35,12 +35,16 @@ export const NewSection = ({ isRecipePage }: NewSectionProps) => {
         },
     };
     const swiperRef = useRef<SwiperType>(null);
-    const recipes = useAppSelector(getRecipes);
-    if (!recipes) {
-        return <Heading>An error occured</Heading>;
+    const { data: recipes, isError } = useGetNewRecipesQuery();
+    if (!recipes || isError) {
+        return (
+            <Box
+                mt={{ base: 3.5, xs: 4, lg: '2.5rem' }}
+                pl={isRecipePage ? 0 : { base: 2.5, sm: 5, lg: '17.75rem' }}
+            ></Box>
+        );
     }
-    const currentRecipes = getSortedNewRecipes(recipes);
-
+    const sortedRecipes = getSortedNewRecipes(recipes);
     return (
         <Box
             mt={{ base: 3.5, xs: 4, lg: '2.5rem' }}
@@ -66,7 +70,7 @@ export const NewSection = ({ isRecipePage }: NewSectionProps) => {
                 }}
             >
                 <Swiper
-                    data-test-id='carousel'
+                    data-test-id={TestIdName.Carousel}
                     modules={[Navigation]}
                     onBeforeInit={(swiper) => {
                         swiperRef.current = swiper;
@@ -76,8 +80,8 @@ export const NewSection = ({ isRecipePage }: NewSectionProps) => {
                     loop={true}
                     breakpoints={swiperBreakponts}
                 >
-                    {currentRecipes.map((item: FullRecipe, i: number) => (
-                        <SwiperSlide key={item.id} style={{ width: 'auto' }}>
+                    {sortedRecipes.map((item: FullRecipe, i: number) => (
+                        <SwiperSlide key={item._id} style={{ width: 'auto' }}>
                             <RecipeCard
                                 recipe={item}
                                 type='vertical'
@@ -96,7 +100,7 @@ export const NewSection = ({ isRecipePage }: NewSectionProps) => {
                     position='absolute'
                     top={{ lg: '37.5%', '2xl': '36%' }}
                     left='-2'
-                    data-test-id='carousel-back'
+                    data-test-id={TestIdName.CarouselBack}
                     onClick={() => swiperRef.current?.slidePrev()}
                     zIndex={7}
                 >
@@ -112,7 +116,7 @@ export const NewSection = ({ isRecipePage }: NewSectionProps) => {
                     position='absolute'
                     top={{ lg: '37.5%', '2xl': '36%' }}
                     right='-2'
-                    data-test-id='carousel-forward'
+                    data-test-id={TestIdName.CarouselForward}
                     onClick={() => swiperRef.current?.slideNext()}
                     zIndex={7}
                 >

@@ -1,4 +1,5 @@
-import { Box, Heading } from '@chakra-ui/react';
+import { Box } from '@chakra-ui/react';
+import { useEffect } from 'react';
 
 import { ContentHeader } from '~/components/content-header/content-header';
 import { CookBlogSection } from '~/components/cook-blog-section/cook-blog-section';
@@ -7,20 +8,33 @@ import { Layout } from '~/components/layout/layout';
 import { NewSection } from '~/components/new-section/new-section';
 import { RecipesList } from '~/components/recipes-list/recipes-list';
 import { RelevantKitchenSection } from '~/components/relevant-kitchen-section/relevant-kitchen-section';
-import { useAppSelector } from '~/store/hooks';
-import { getFilteredRecipes, getIsFilteringRecipes, getRecipes } from '~/store/recipes/selectors';
+import { useLazyGetRecipesQuery } from '~/query/services/recipes';
+import { useAppDispatch, useAppSelector } from '~/store/hooks';
+import { clearFilteringParams } from '~/store/recipes/recipes-slice';
+import { getIsFilteringRecipes, getRecipeQuery } from '~/store/recipes/selectors';
 
-function MainPage() {
+export const MainPage = () => {
     const isFiltering = useAppSelector(getIsFilteringRecipes);
-    const recipes = useAppSelector((state) => getFilteredRecipes(state, 'active'));
-    const rkRecipes = useAppSelector(getRecipes) ?? [];
-    if (!recipes) {
-        return <Heading>An error occured</Heading>;
-    }
+    const [triggerRecipes, { data: recipes = [] }] = useLazyGetRecipesQuery();
+    const dispatch = useAppDispatch();
+    const query = useAppSelector(getRecipeQuery);
+
+    const handleFilterRecipes = async () => await triggerRecipes(query);
+
+    useEffect(
+        () => () => {
+            dispatch(clearFilteringParams());
+        },
+        [dispatch],
+    );
+
     return (
         <>
             <Layout>
-                <ContentHeader headline='Приятного аппетита!' />
+                <ContentHeader
+                    headline='Приятного аппетита!'
+                    handleFilterRecipes={handleFilterRecipes}
+                />
                 {isFiltering ? (
                     <Box
                         mt={{ base: 8, sm: 4, lg: 3 }}
@@ -28,18 +42,17 @@ function MainPage() {
                         w={{ base: '100%', lg: 'auto' }}
                         alignSelf='center'
                     >
-                        <RecipesList recipes={recipes} />
+                        <RecipesList recipes={recipes} isLastPage={true} />
                     </Box>
                 ) : (
                     <Box alignSelf='start'>
                         <NewSection isRecipePage={false} />
-                        <JuicySection recipes={recipes} />
+                        <JuicySection />
                         <CookBlogSection />
                     </Box>
                 )}{' '}
-                <RelevantKitchenSection recipes={rkRecipes} />
+                <RelevantKitchenSection />
             </Layout>
         </>
     );
-}
-export default MainPage;
+};

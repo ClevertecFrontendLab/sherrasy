@@ -1,5 +1,7 @@
-import { Box, Flex, Text } from '@chakra-ui/react';
-import { useParams } from 'react-router';
+import { Box, Flex } from '@chakra-ui/react';
+import { skipToken } from '@reduxjs/toolkit/query';
+import { useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router';
 
 import { AuthorCard } from '~/components/cards/user-cards/author-card';
 import { Layout } from '~/components/layout/layout';
@@ -7,8 +9,7 @@ import { NewSection } from '~/components/new-section/new-section';
 import { RecipeDetails } from '~/components/recipe-details/recipe-details';
 import { RecipeHeader } from '~/components/recipe-header/recipe-header';
 import { RecipeSteps } from '~/components/recipe-steps/recipe-steps';
-import { useAppSelector } from '~/store/hooks';
-import { getRecipeById } from '~/store/recipes/selectors';
+import { useGetRecipeByIdQuery } from '~/query/services/recipes';
 
 const MockAuthor = {
     id: '16',
@@ -19,11 +20,21 @@ const MockAuthor = {
     subscribers: 125,
 };
 
-function RecipePage() {
+export const RecipePage = () => {
     const { recipeId } = useParams();
-    const recipe = useAppSelector((state) => getRecipeById(state, recipeId));
-    if (!recipe) {
-        return <Text>No data found</Text>;
+    const navigate = useNavigate();
+    const { data: recipe, isFetching, error } = useGetRecipeByIdQuery(recipeId ?? skipToken);
+
+    useEffect(() => {
+        if (!isFetching) {
+            if (error || !recipe) {
+                navigate(-1);
+            }
+        }
+    }, [recipe, isFetching, error, navigate]);
+
+    if (!recipe || error) {
+        return null;
     }
     const { portions, nutritionValue, ingredients, steps } = recipe;
     return (
@@ -50,5 +61,4 @@ function RecipePage() {
             </Layout>
         </>
     );
-}
-export default RecipePage;
+};

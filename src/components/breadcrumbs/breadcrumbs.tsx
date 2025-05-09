@@ -2,20 +2,21 @@ import { ChevronRightIcon } from '@chakra-ui/icons';
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, Text } from '@chakra-ui/react';
 import { Link, useLocation, useParams } from 'react-router';
 
-import { MenuSubcategory } from '~/types/menu-item.type';
+import { getCategories } from '~/store/categories/selectors';
+import { useAppSelector } from '~/store/hooks';
+import { Subcategory } from '~/types/category.type';
 import { PathParams } from '~/types/params.type';
-import { AppRoute, TagToName } from '~/utils/constant';
-import data from '~/utils/data/mock-dishes.json';
+import { AppRoute, TestIdName } from '~/utils/constant';
 import { getTabNames } from '~/utils/helpers';
 
 const renderSubcategoryBreadcrumb = (
     subcategoryId: string,
-    tabsNames: MenuSubcategory[],
+    tabsNames: Subcategory[],
     categoryId: string,
     isLast: boolean,
 ) => {
-    const currentItem = tabsNames.find(({ id }) => id === subcategoryId);
-    const name = currentItem?.name || tabsNames[0]?.name || subcategoryId;
+    const currentItem = tabsNames.find(({ category: id }) => id === subcategoryId);
+    const name = currentItem?.title || tabsNames[0]?.title || subcategoryId;
 
     return (
         <BreadcrumbItem key={name} isCurrentPage={isLast}>
@@ -44,12 +45,13 @@ const renderRecipeBreadcrumb = (recipeName: string, recipeId: string, isLast: bo
 
 const renderCategoryBreadcrumb = (
     segment: string,
-    tabsNames: MenuSubcategory[],
+    categoryName: string,
+    tabsNames: Subcategory[],
     isLast: boolean,
 ) => (
     <BreadcrumbItem key={segment} isCurrentPage={isLast}>
-        <BreadcrumbLink as={Link} to={`/${segment}/${tabsNames[0]?.id}`}>
-            <Text w='max-content'>{TagToName[segment]}</Text>
+        <BreadcrumbLink as={Link} to={`/${segment}/${tabsNames[0]?.category}`}>
+            <Text w='max-content'>{categoryName}</Text>
         </BreadcrumbLink>
     </BreadcrumbItem>
 );
@@ -60,7 +62,12 @@ export const Breadcrumbs = () => {
     const { recipeName } = location.state || {};
     const pathnames = location.pathname.split('/').filter(Boolean);
     const isJuiciestPath = pathnames.includes('the-juiciest');
+    const data = useAppSelector(getCategories);
+    if (!data || location.pathname === AppRoute.NotFound) {
+        return null;
+    }
     const tabsNames = getTabNames(data, categoryId);
+    const categoryName = data.find(({ category }) => category === categoryId)?.title || '';
 
     const breadcrumbItems = pathnames.map((segment, index) => {
         const isLast = index === pathnames.length - 1;
@@ -75,14 +82,14 @@ export const Breadcrumbs = () => {
             return renderRecipeBreadcrumb(recipeName, recipeId, isLast);
         }
 
-        return renderCategoryBreadcrumb(segment, tabsNames, isLast);
+        return renderCategoryBreadcrumb(segment, categoryName, tabsNames, isLast);
     });
 
     return (
         <Breadcrumb
             ml={{ lg: 32 }}
             spacing='2px'
-            data-test-id='breadcrumbs'
+            data-test-id={TestIdName.Breadcrumbs}
             separator={<ChevronRightIcon />}
         >
             <BreadcrumbItem>
