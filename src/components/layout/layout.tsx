@@ -2,6 +2,8 @@ import { Flex, useMediaQuery } from '@chakra-ui/react';
 import { ReactNode } from 'react';
 
 import { useGetCategoriesQuery } from '~/query/services/categories';
+import { getAppLoading } from '~/store/app-status/selectors';
+import { useAppSelector } from '~/store/hooks';
 
 import { AlertToastContainer } from '../alert-error/alert-toast-container';
 import { Footer } from '../footer/footer';
@@ -16,10 +18,11 @@ type LayoutProps = {
 
 export const Layout = ({ children }: LayoutProps) => {
     const [isDesktop] = useMediaQuery('(min-width: 1440px)');
-    useGetCategoriesQuery();
+    const { isFetching: isCatLoading } = useGetCategoriesQuery();
+    const isLoading = useAppSelector(getAppLoading);
     return (
         <>
-            <OverlayWithLoader />
+            <OverlayWithLoader isOpen={isCatLoading || isLoading} />
             <Flex direction='column' minH='100vh' maxH='100vh'>
                 <Header />
                 <Flex

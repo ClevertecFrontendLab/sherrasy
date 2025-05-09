@@ -1,34 +1,32 @@
-import { Modal, ModalBody, ModalContent, ModalOverlay } from '@chakra-ui/react';
+import { Center } from '@chakra-ui/react';
 import { useLocation } from 'react-router';
 
-import { getAppLoading } from '~/store/app-status/selectors';
-import { useAppSelector } from '~/store/hooks';
 import { AppRoute } from '~/utils/constant';
 
 import { Loader } from '../loader/loader';
 
-export const OverlayWithLoader = () => {
+export const OverlayWithLoader = ({ isOpen }: { isOpen: boolean }) => {
     const { pathname } = useLocation();
-    const isLoading = useAppSelector(getAppLoading);
 
     const isErrorPage = pathname === AppRoute.NotFound;
 
-    if (!isLoading || isErrorPage) return null;
+    if (!isOpen || isErrorPage) return null;
 
     return (
-        <Modal
-            variant='transparent'
-            isOpen={isLoading}
-            blockScrollOnMount
-            isCentered
-            onClose={() => {}}
+        <Center
+            position='fixed'
+            top={0}
+            left={0}
+            right={0}
+            bottom={0}
+            zIndex='overlay'
+            backdropFilter='blur(2px)'
+            bgColor='blackAlpha.300'
+            display='flex'
+            alignItems='center'
+            justifyContent='center'
         >
-            <ModalOverlay />
-            <ModalContent>
-                <ModalBody display='flex' alignItems='center' justifyContent='center'>
-                    <Loader type='app' />
-                </ModalBody>
-            </ModalContent>
-        </Modal>
+            <Loader type='app' />
+        </Center>
     );
 };
