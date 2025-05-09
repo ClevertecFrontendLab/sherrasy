@@ -4,10 +4,10 @@ import { AlertError } from './alert-error';
 
 let activeToastId: number | string | undefined;
 
-export const showAlertToast = (type: 'search' | 'load', toast: CreateToastFnReturn) => {
+export const showAlertToast = (toast: CreateToastFnReturn) => {
     if (activeToastId && toast.isActive(activeToastId)) {
         toast.update(activeToastId, {
-            render: ({ onClose }) => <AlertError type={type} onClose={onClose} />,
+            render: ({ onClose }) => <AlertError onClose={onClose} />,
         });
         return;
     }
@@ -15,6 +15,6 @@ export const showAlertToast = (type: 'search' | 'load', toast: CreateToastFnRetu
     activeToastId = toast({
         position: 'bottom',
         duration: null,
-        render: ({ onClose }) => <AlertError type={type} onClose={onClose} />,
+        render: ({ onClose }) => <AlertError onClose={onClose} />,
     });
 };

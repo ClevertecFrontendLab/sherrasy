@@ -24,7 +24,7 @@ type RelevantKitchenCardProps = RKCardProps & {
 };
 
 const RKMediumCard = ({ recipe }: RKCardProps) => {
-    const { title, description, categoriesIds, bookmarks, likes } = recipe;
+    const { title, description, categoriesIds = [], bookmarks, likes } = recipe;
     return (
         <Card variant='rkMedium'>
             <CardHeader>
@@ -95,7 +95,7 @@ const RKMediumCard = ({ recipe }: RKCardProps) => {
 };
 
 const RKShortCard = ({ recipe }: RKCardProps) => {
-    const { title, categoriesIds } = recipe;
+    const { title, categoriesIds = [] } = recipe;
     return (
         <Card variant='rkShort'>
             <CardBody position='relative'>

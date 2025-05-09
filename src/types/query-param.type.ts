@@ -7,7 +7,7 @@ export type RecipeQueryParam = {
     searchString?: string;
     meat?: string[];
     garnish?: string[];
-    categories?: string[];
+    categories?: string[] | null;
     subcategoriesIds?: string;
     sortBy?: string;
     sortOrder?: 'asc' | 'desc';

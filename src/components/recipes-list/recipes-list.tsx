@@ -1,16 +1,20 @@
 import { Button, Flex, SimpleGrid, Text } from '@chakra-ui/react';
 
+import { getAppLoading } from '~/store/app-status/selectors';
+import { useAppSelector } from '~/store/hooks';
 import { FullRecipe } from '~/types/recipe.interface';
+import { TestIdName } from '~/utils/constant';
 
 import { RecipeCard } from '../cards/recipe-cards/recipe-card';
 
 type RecipesListProps = {
     recipes: FullRecipe[] | null;
-    handleLoadMore?: () => void;
     isLastPage: boolean;
+    handleLoadMore?: () => void;
 };
 
-export const RecipesList = ({ recipes, handleLoadMore, isLastPage }: RecipesListProps) => {
+export const RecipesList = ({ recipes, isLastPage, handleLoadMore }: RecipesListProps) => {
+    const isLoading = useAppSelector(getAppLoading);
     if (!recipes || recipes.length === 0) {
         return <Text> Элементы с такими данными не найдены</Text>;
     }
@@ -40,11 +44,11 @@ export const RecipesList = ({ recipes, handleLoadMore, isLastPage }: RecipesList
                     mt={1}
                     size='md'
                     alignSelf='center'
-                    data-test-id='load-more-button'
+                    data-test-id={TestIdName.LoadMoreBtn}
                     onClick={handleLoadMore}
                 >
                     <Text fontWeight={600} fontSize='md' lineHeight={6}>
-                        Загрузить еще
+                        {isLoading ? 'Загрузка' : 'Загрузить еще'}
                     </Text>
                 </Button>
             )}

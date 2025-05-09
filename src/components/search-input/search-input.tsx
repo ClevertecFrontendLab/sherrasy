@@ -8,9 +8,9 @@ import {
     setSearchRecipeString,
     updateHasRecipes,
     updateIsFiltering,
-    updateIsLoadingRecipe,
 } from '~/store/recipes/recipes-slice';
 import { getActiveFilters, getHasRecipes, getRecipesSearchString } from '~/store/recipes/selectors';
+import { TestIdName } from '~/utils/constant';
 
 type SearchInputProps = {
     handleFilterRecipes: () => void;
@@ -25,7 +25,7 @@ export const SearchInput = ({ handleFilterRecipes }: SearchInputProps) => {
     const filters = useAppSelector(getActiveFilters);
 
     const isSearchDisabled = useMemo(
-        () => (searchString?.trim().length || 0) < 2 && !filters.allergens,
+        () => (searchString?.trim().length || 0) < 3 && !filters.allergens,
         [searchString, filters.allergens],
     );
 
@@ -41,14 +41,12 @@ export const SearchInput = ({ handleFilterRecipes }: SearchInputProps) => {
 
     const handleSearchInput = useCallback(() => {
         handleFilterRecipes();
-        dispatch(updateIsFiltering());
-        dispatch(updateIsLoadingRecipe(true));
     }, [dispatch, handleFilterRecipes]);
 
     const handleClearSearchInput = useCallback(() => {
         dispatch(setSearchRecipeString(''));
         dispatch(updateHasRecipes('undefined'));
-        dispatch(updateIsFiltering());
+        dispatch(updateIsFiltering(false));
     }, [dispatch]);
 
     const handleKeyDown = useCallback(
@@ -81,7 +79,7 @@ export const SearchInput = ({ handleFilterRecipes }: SearchInputProps) => {
             border: isEmpty || isNotEmpty ? '2px' : '1px',
             borderColor: isEmpty ? 'red.500' : isNotEmpty ? 'lime.600' : 'blackAlpha.600',
             borderRadius: '0.25rem',
-            'data-test-id': 'search-input',
+            'data-test-id': TestIdName.SearchInput,
             onKeyDown: handleKeyDown,
             ref: searchRef,
             onChange: handleChange,
@@ -103,7 +101,7 @@ export const SearchInput = ({ handleFilterRecipes }: SearchInputProps) => {
                 </InputRightElement>
             )}
             <InputRightElement
-                data-test-id='search-button'
+                data-test-id={TestIdName.SearchBtn}
                 onClick={!isSearchDisabled ? handleSearchInput : undefined}
                 _hover={{ cursor: isSearchDisabled ? 'default' : 'pointer' }}
                 opacity={isSearchDisabled ? 0.5 : 1}

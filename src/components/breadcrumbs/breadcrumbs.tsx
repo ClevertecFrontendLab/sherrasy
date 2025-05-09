@@ -6,7 +6,7 @@ import { getCategories } from '~/store/categories/selectors';
 import { useAppSelector } from '~/store/hooks';
 import { Subcategory } from '~/types/category.type';
 import { PathParams } from '~/types/params.type';
-import { AppRoute } from '~/utils/constant';
+import { AppRoute, TestIdName } from '~/utils/constant';
 import { getTabNames } from '~/utils/helpers';
 
 const renderSubcategoryBreadcrumb = (
@@ -89,7 +89,7 @@ export const Breadcrumbs = () => {
         <Breadcrumb
             ml={{ lg: 32 }}
             spacing='2px'
-            data-test-id='breadcrumbs'
+            data-test-id={TestIdName.Breadcrumbs}
             separator={<ChevronRightIcon />}
         >
             <BreadcrumbItem>

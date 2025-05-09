@@ -3,8 +3,10 @@ import { ApiGroupNames } from '~/query/constants/api-group-names.ts';
 import { EndpointNames } from '~/query/constants/endpoint-names.ts';
 import { Tags } from '~/query/constants/tags.ts';
 import { apiSlice } from '~/query/create-api.ts';
+import { updateHasRecipes, updateIsFiltering } from '~/store/recipes/recipes-slice';
+import { RecipeQueryParam } from '~/types/query-param.type';
 import { FullRecipe, RecipeMeta } from '~/types/recipe.interface';
-import { updateImagePath } from '~/utils/helpers';
+import { formatRecipeWithImages, getRecipeQueryString } from '~/utils/helpers';
 
 type RecipeResponse = {
     data: FullRecipe[];
@@ -17,23 +19,28 @@ export const recipesApiSlice = apiSlice
     })
     .injectEndpoints({
         endpoints: (builder) => ({
-            getRecipes: builder.query<FullRecipe[], string>({
-                query: (query) => ({
-                    url: `${ApiEndpoints.RECIPE}${query}`,
-                    method: 'GET',
-                    apiGroupName: ApiGroupNames.RECIPES,
-                    name: EndpointNames.GET_RECIPES,
-                }),
+            getRecipes: builder.query<FullRecipe[], RecipeQueryParam>({
+                query: (queryParams) => {
+                    const queryString = getRecipeQueryString(queryParams);
+                    return {
+                        url: `${ApiEndpoints.RECIPE}${queryString}`,
+                        method: 'GET',
+                        apiGroupName: ApiGroupNames.RECIPES,
+                        name: EndpointNames.GET_RECIPES,
+                    };
+                },
                 transformResponse: ({ data }: RecipeResponse) =>
-                    data.map((recipe) => ({
-                        ...recipe,
-                        image: updateImagePath(recipe.image),
-                        steps:
-                            recipe.steps.map((step) => ({
-                                ...step,
-                                image: updateImagePath(step.image),
-                            })) || [],
-                    })),
+                    data.map((recipe) => formatRecipeWithImages(recipe)),
+                async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
+                    try {
+                        const { data } = await queryFulfilled;
+                        const hasData = data && data.length > 0;
+                        dispatch(updateIsFiltering(hasData));
+                        dispatch(updateHasRecipes(hasData.toString()));
+                    } catch (error) {
+                        console.error('Failed to fetch categories:', error);
+                    }
+                },
                 providesTags: [Tags.RECIPES],
             }),
             getNewRecipes: builder.query<FullRecipe[], void>({
@@ -44,14 +51,7 @@ export const recipesApiSlice = apiSlice
                     name: EndpointNames.GET_NEW_RECIPIES,
                 }),
                 transformResponse: ({ data }: RecipeResponse) =>
-                    data.map((recipe) => ({
-                        ...recipe,
-                        image: updateImagePath(recipe.image),
-                        steps: recipe.steps.map((step) => ({
-                            ...step,
-                            image: updateImagePath(step.image),
-                        })),
-                    })),
+                    data.map((recipe) => formatRecipeWithImages(recipe)),
                 providesTags: [Tags.RECIPES],
             }),
             getRelevantRecipes: builder.query<FullRecipe[], string>({
@@ -62,14 +62,7 @@ export const recipesApiSlice = apiSlice
                     name: EndpointNames.GET_RELEVANT_RECIPIES,
                 }),
                 transformResponse: ({ data }: RecipeResponse) =>
-                    data.map((recipe) => ({
-                        ...recipe,
-                        image: updateImagePath(recipe.image),
-                        steps: recipe.steps.map((step) => ({
-                            ...step,
-                            image: updateImagePath(step.image),
-                        })),
-                    })),
+                    data.map((recipe) => formatRecipeWithImages(recipe)),
                 providesTags: [Tags.RECIPES],
             }),
             getRecipesByCategory: builder.query<FullRecipe[], string>({
@@ -80,14 +73,7 @@ export const recipesApiSlice = apiSlice
                     name: EndpointNames.GET_RECIPIES_BY_CATEGORY,
                 }),
                 transformResponse: ({ data }: RecipeResponse) =>
-                    data.map((recipe) => ({
-                        ...recipe,
-                        image: updateImagePath(recipe.image),
-                        steps: recipe.steps.map((step) => ({
-                            ...step,
-                            image: updateImagePath(step.image),
-                        })),
-                    })),
+                    data.map((recipe) => formatRecipeWithImages(recipe)),
                 providesTags: [Tags.RECIPES],
             }),
             getJuiciestRecipes: builder.query<RecipeResponse, string>({
@@ -101,24 +87,18 @@ export const recipesApiSlice = apiSlice
                 serializeQueryArgs: ({ endpointName }) => endpointName,
 
                 merge: (currentCache, newData) => {
+                    const samePage = currentCache.meta.page === newData.meta.page;
                     const newRecipeIds = new Set(newData.data.map((r) => r._id));
-                    const filteredPrev = currentCache.data.filter(
-                        (recipe) => !newRecipeIds.has(recipe._id),
-                    );
+                    const filteredPrev = !samePage
+                        ? currentCache.data
+                        : currentCache.data.filter((recipe) => !newRecipeIds.has(recipe._id));
                     return {
                         data: [...filteredPrev, ...newData.data],
                         meta: newData.meta,
                     };
                 },
                 transformResponse: ({ data, meta }: RecipeResponse) => ({
-                    data: data.map((recipe) => ({
-                        ...recipe,
-                        image: updateImagePath(recipe.image),
-                        steps: recipe.steps.map((step) => ({
-                            ...step,
-                            image: updateImagePath(step.image),
-                        })),
-                    })),
+                    data: data.map((recipe) => formatRecipeWithImages(recipe)),
                     meta,
                 }),
                 onCacheEntryAdded: async (_arg, { cacheEntryRemoved }) => {
@@ -133,14 +113,7 @@ export const recipesApiSlice = apiSlice
                     apiGroupName: ApiGroupNames.RECIPES,
                     name: EndpointNames.GET_RECIPE_BY_ID,
                 }),
-                transformResponse: (recipe: FullRecipe) => ({
-                    ...recipe,
-                    image: updateImagePath(recipe.image),
-                    steps: recipe.steps.map((step) => ({
-                        ...step,
-                        image: updateImagePath(step.image),
-                    })),
-                }),
+                transformResponse: (recipe: FullRecipe) => formatRecipeWithImages(recipe),
                 providesTags: [Tags.RECIPES],
             }),
         }),

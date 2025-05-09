@@ -23,6 +23,7 @@ import { withRecipeNavigation } from '~/hoc/withRecipeNavigation';
 import { useAppSelector } from '~/store/hooks';
 import { getRecipesSearchString } from '~/store/recipes/selectors';
 import { FullRecipe } from '~/types/recipe.interface';
+import { TestIdName } from '~/utils/constant';
 import { cookBlog } from '~/utils/data/mock-cards.json';
 
 type CardProps = {
@@ -115,13 +116,21 @@ const VerticalRecipeCard = ({ recipe, onClick, testI }: CardProps) => {
 };
 
 const HorizontalRecipeCard = ({ recipe, onClick, testI }: CardProps) => {
-    const { title, image, description, categoriesIds, bookmarks, likes, recommendedBy } = recipe;
+    const {
+        title = '',
+        image,
+        description,
+        categoriesIds,
+        bookmarks,
+        likes,
+        recommendedBy,
+    } = recipe;
     const searchString = useAppSelector(getRecipesSearchString);
     const author = recommendedBy
         ? cookBlog.find((item) => +item.id === recommendedBy) || null
         : null;
     const [isDesktop] = useMediaQuery('(min-width: 1440px)');
-
+    const hilghlightStr = searchString ? searchString : '';
     return (
         <Card direction='row' variant='hCard' data-test-id={testI?.includes('food') ? testI : ''}>
             <Box position='relative' maxW='50%' maxH='min-content'>
@@ -166,7 +175,7 @@ const HorizontalRecipeCard = ({ recipe, onClick, testI }: CardProps) => {
                 maxW={{ lg: '33.375rem', '2xl': '20.125rem' }}
             >
                 <CardBody>
-                    <Flex justify={{ lg: 'space-between' }}>
+                    <Flex justify={{ lg: 'flex-end' }}>
                         <SimpleGrid
                             gap={2}
                             templateColumns={{
@@ -174,6 +183,9 @@ const HorizontalRecipeCard = ({ recipe, onClick, testI }: CardProps) => {
                                 lg: 'repeat(2, 140px)',
                                 xl: 'repeat(1, 140px)',
                             }}
+                            position='absolute'
+                            top={2}
+                            left={2}
                         >
                             <BadgesList categoriesIds={categoriesIds} type='hCard' />
                         </SimpleGrid>
@@ -229,7 +241,7 @@ const HorizontalRecipeCard = ({ recipe, onClick, testI }: CardProps) => {
                             lineHeight={{ base: 6, lg: 7 }}
                             mb={{ lg: 2 }}
                         >
-                            <Highlight query={[searchString]} styles={{ color: 'lime.600' }}>
+                            <Highlight query={hilghlightStr} styles={{ color: 'lime.600' }}>
                                 {title}
                             </Highlight>
                         </Text>
@@ -264,7 +276,9 @@ const HorizontalRecipeCard = ({ recipe, onClick, testI }: CardProps) => {
                         size={{ base: 'xs', lg: 'sm' }}
                         px={{ base: 2, lg: '12px' }}
                         py={{ base: 1, lg: '6px' }}
-                        data-test-id={testI?.includes('food') ? '' : `card-link-${testI}`}
+                        data-test-id={
+                            testI?.includes('food') ? '' : `${TestIdName.CardLink}-${testI}`
+                        }
                         onClick={onClick}
                     >
                         Готовить

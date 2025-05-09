@@ -23,6 +23,7 @@ import { updateFilter } from '~/store/recipes/recipes-slice';
 import { getActiveFilters, getPendingFilters } from '~/store/recipes/selectors';
 import { MultiselectItem } from '~/types/filter-item.type';
 import { RecipeFilters } from '~/types/state.type';
+import { TestIdName } from '~/utils/constant';
 
 import { ScrollArea } from '../scrollarea/scrollarea';
 
@@ -41,19 +42,19 @@ export type TestIdKeys = 'menu' | 'checkbox' | 'list';
 const dataTestIdByType: Record<ComponentType, Record<TestIdKeys, string>> = {
     author: { menu: '', checkbox: 'checkbox', list: '' },
     categories: {
-        menu: 'filter-menu-button-категория',
-        checkbox: 'checkbox',
+        menu: TestIdName.FilterCategory,
+        checkbox: TestIdName.Checkbox,
         list: '',
     },
     'allergies-drawer': {
-        menu: 'allergens-menu-button-filter',
+        menu: TestIdName.AllergensMenuBtnFilter,
         list: '',
-        checkbox: `allergen`,
+        checkbox: TestIdName.AllergensCheckbox,
     },
     'allergies-filter': {
-        menu: 'allergens-menu-button',
-        list: 'allergens-menu',
-        checkbox: `allergen`,
+        menu: TestIdName.AllergensMenuBtn,
+        list: TestIdName.AllergensMenu,
+        checkbox: TestIdName.AllergensCheckbox,
     },
 };
 export const MultiSelect = ({
@@ -77,8 +78,8 @@ export const MultiSelect = ({
     const isIdShowing =
         (type === 'allergies-drawer' && isDrawerActive) ||
         (type === 'allergies-filter' && !isDrawerActive);
-    const inputTestId = isIdShowing ? 'add-other-allergen' : '';
-    const buttonTestId = isIdShowing ? 'add-allergen-button' : '';
+    const inputTestId = isIdShowing ? TestIdName.AllergensAddInput : '';
+    const buttonTestId = isIdShowing ? TestIdName.AllergensAddBtn : '';
 
     const returnFocusToInput = () => {
         setTimeout(() => {

@@ -1,6 +1,8 @@
 import { CloseIcon, HamburgerIcon } from '@chakra-ui/icons';
 import { Box, Button, Flex, useMediaQuery } from '@chakra-ui/react';
 
+import { TestIdName } from '~/utils/constant';
+
 import { Breadcrumbs } from '../breadcrumbs/breadcrumbs';
 import { MenuDishes } from '../menu-dishes/menu-dishes';
 import { ScrollArea } from '../scrollarea/scrollarea';
@@ -27,12 +29,12 @@ export const BurgerMenu = ({ isMenuOpen, handleMenuOpen }: BurgerMenuProps) => {
                 display={{ lg: 'none' }}
             >
                 {isMenuOpen ? (
-                    <CloseIcon boxSize={3} data-test-id='close-icon' />
+                    <CloseIcon boxSize={3} data-test-id={TestIdName.BurgerCloseIcon} />
                 ) : (
-                    <HamburgerIcon boxSize={5} data-test-id='hamburger-icon' />
+                    <HamburgerIcon boxSize={5} data-test-id={TestIdName.BurgerOpenIcon} />
                 )}
             </Button>
-            {isDesktop && <Box display={{ lg: 'none' }} data-test-id='nav' />}
+            {isDesktop && <Box display={{ lg: 'none' }} data-test-id={TestIdName.BurgerNav} />}
             {isMenuOpen && (
                 <Flex
                     bg='white'
@@ -44,7 +46,7 @@ export const BurgerMenu = ({ isMenuOpen, handleMenuOpen }: BurgerMenuProps) => {
                     top={16}
                     borderTopRadius={0}
                     borderBottomRadius={8}
-                    data-test-id='nav'
+                    data-test-id={TestIdName.BurgerNav}
                 >
                     <ScrollArea extraStylesType='burger-menu'>
                         <Flex direction='column' pl={5} pt={4} pb={3} overflowY='auto'>

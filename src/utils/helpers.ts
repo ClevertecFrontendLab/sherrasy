@@ -1,7 +1,7 @@
 import { Category, Subcategory } from '~/types/category.type';
 import { MultiselectItem } from '~/types/filter-item.type';
 import { RecipeQueryParam } from '~/types/query-param.type';
-import { FullRecipe, Ingredient } from '~/types/recipe.interface';
+import { FullRecipe } from '~/types/recipe.interface';
 
 import { ApiBase } from './constant';
 
@@ -45,6 +45,15 @@ export const getIsIncluded = (a: string, b: string) => a.toLowerCase().includes(
 export const updateImagePath = (imageSrc: string) =>
     imageSrc ? `${ApiBase.Images}${imageSrc}` : imageSrc;
 
+export const formatRecipeWithImages = (recipe: FullRecipe) => ({
+    ...recipe,
+    image: updateImagePath(recipe.image),
+    steps: recipe.steps?.map((step) => ({
+        ...step,
+        image: updateImagePath(step.image),
+    })),
+});
+
 export const getRandomElement = <T extends Record<string, unknown>>(
     arr: T[],
     excludeId?: string,
@@ -65,45 +74,16 @@ export const getCatSubPairs = (
 ): { category: Category; subcategory: Subcategory }[] =>
     categories.flatMap((category) =>
         category.subCategories
-            .filter((subcategory) => subcategoryIds.includes(subcategory._id))
+            .filter((subcategory) => subcategoryIds?.includes(subcategory._id))
             .map((subcategory) => ({ category, subcategory })),
     ) ?? [];
 
-// Filters helpers
-
-export const getCategoriesMatch = (category: string[], categories: string[] | null): boolean => {
-    if (!categories?.length) return true;
-    return categories.some((item) => category.includes(item));
+export const setDataToLocalStorage = (key: string, data: unknown) => {
+    const preparedData = JSON.stringify(data);
+    localStorage.setItem(key, preparedData);
 };
 
-export const getMeatSideMatch = (
-    recipeValue: string | undefined,
-    options: string[] | null,
-): boolean => {
-    if (!options?.length) return true;
-    if (!recipeValue) return false;
-    return options.includes(recipeValue);
-};
-
-export const getAllergensMatch = (
-    ingredients: Ingredient[],
-    allergens: string[] | null,
-): boolean => {
-    if (!allergens?.length) return false;
-    const normalizedAllergens = allergens
-        .map((allergen) =>
-            allergen
-                .split(/\(|\)/)
-                .map((part) => part.trim())
-                .filter((part) => part.length > 0),
-        )
-        .flat();
-    return ingredients.some(({ title }) =>
-        normalizedAllergens.some((allergen) => getIsIncluded(title, allergen)),
-    );
-};
-
-export const getSearchMatch = (title: string, searchString: string | null): boolean => {
-    if (!searchString) return true;
-    return getIsIncluded(title, searchString);
+export const getDataFromLocalStorage = (key: string) => {
+    const item = localStorage.getItem(key);
+    return item ? JSON.parse(item) : null;
 };

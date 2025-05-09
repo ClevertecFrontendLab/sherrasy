@@ -2,10 +2,13 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { Category } from '~/types/category.type';
 import { CategoryState } from '~/types/state.type';
-import { ReducerName } from '~/utils/constant';
+import { LocalStorageKey, ReducerName } from '~/utils/constant';
+import { getDataFromLocalStorage } from '~/utils/helpers';
+
+const fallback: Category[] = getDataFromLocalStorage(LocalStorageKey.Categories);
 
 const initialState: CategoryState = {
-    categories: [],
+    categories: Array.isArray(fallback) && fallback.length > 0 ? fallback : [],
     isLoading: false,
     hasLoadingError: false,
     tabCategory: null,

@@ -1,26 +1,29 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { ApplicationState } from './configure-store';
-export type AppState = typeof initialState;
+import { AppState } from '~/types/state.type';
+import { ReducerName } from '~/utils/constant';
 
-const initialState = {
+const initialState: AppState = {
     isLoading: false,
-    error: '' as string | null,
+    hasError: false,
+    error: '' as 'load' | 'search' | null,
 };
+
 export const appSlice = createSlice({
-    name: 'app',
+    name: ReducerName.App,
     initialState,
     reducers: {
-        setAppError(state, { payload: error }: PayloadAction<string | null>) {
+        setAppError(state, { payload: error }: PayloadAction<'load' | 'search' | null>) {
             state.error = error;
+            state.hasError = error ? true : false;
         },
         setAppLoader(state, { payload: isLoading }: PayloadAction<boolean>) {
             state.isLoading = isLoading;
+            state.hasError = false;
         },
     },
 });
-export const userLoadingSelector = (state: ApplicationState) => state.app.isLoading;
-export const userErrorSelector = (state: ApplicationState) => state.app.error;
 
 export const { setAppError, setAppLoader } = appSlice.actions;
+
 export default appSlice.reducer;

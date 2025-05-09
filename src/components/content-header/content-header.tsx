@@ -1,7 +1,7 @@
 import { Box, Flex, Heading, Text } from '@chakra-ui/react';
 
 import { useAppSelector } from '~/store/hooks';
-import { getHasRecipes, getIsLoadingRecipes } from '~/store/recipes/selectors';
+import { getHasRecipes, getIsLoadingFiltered } from '~/store/recipes/selectors';
 
 import { ContentFilters } from '../content-filters/content-filters';
 import { Loader } from '../loader/loader';
@@ -18,7 +18,7 @@ export const ContentHeader = ({
     handleFilterRecipes,
 }: ContentHeaderProps) => {
     const currentBottomMargin = description ? 3 : 8;
-    const isLoading = useAppSelector(getIsLoadingRecipes);
+    const isLoading = useAppSelector(getIsLoadingFiltered);
     const hasRecipes = useAppSelector(getHasRecipes);
     const hasNoResult = hasRecipes === 'false';
     return (

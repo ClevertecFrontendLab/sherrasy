@@ -4,6 +4,7 @@ import { getCategories } from '~/store/categories/selectors';
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import { updateFilter } from '~/store/recipes/recipes-slice';
 import { RecipeFilters } from '~/types/state.type';
+import { TestIdName } from '~/utils/constant';
 import filterData from '~/utils/data/filters-data.json';
 import { cookBlog } from '~/utils/data/mock-cards.json';
 import { getMultiselectCategories } from '~/utils/helpers';
@@ -41,7 +42,7 @@ const FilterTag = ({ filterType, value, onRemove }: FilterTagProps) => {
             key={`${filterType}-${value}`}
             size='md'
             colorScheme='lime'
-            data-test-id='filter-tag'
+            data-test-id={TestIdName.FilterTag}
             variant='drawerStyle'
         >
             <TagLabel display='inline-block'>{getDisplayName(value, filterType)}</TagLabel>

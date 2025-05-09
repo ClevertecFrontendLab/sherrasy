@@ -5,6 +5,7 @@ import { updateFilter } from '~/store/recipes/recipes-slice';
 import { getPendingFilters } from '~/store/recipes/selectors';
 import { CheckboxListItem } from '~/types/filter-item.type';
 import { RecipeFilters } from '~/types/state.type';
+import { TestIdName } from '~/utils/constant';
 
 type CheckboxListProps = {
     data: CheckboxListItem;
@@ -36,7 +37,7 @@ export const CheckboxList = ({ data, type }: CheckboxListProps) => {
                         value={id}
                         isChecked={selectedItems.includes(id)}
                         onChange={(e) => handleCheckboxChange(id, e.target.checked)}
-                        data-test-id={`checkbox-${name.toLocaleLowerCase()}`}
+                        data-test-id={`${TestIdName.Checkbox}-${name.toLocaleLowerCase()}`}
                     >
                         {name}
                     </Checkbox>

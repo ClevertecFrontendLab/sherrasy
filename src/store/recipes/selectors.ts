@@ -32,9 +32,8 @@ export const getRecipeQuery = createSelector(
     }),
 );
 
-export const getIsLoadingRecipes = (state: Pick<State, ReducerName.Recipe>): boolean =>
+export const getIsLoadingFiltered = (state: Pick<State, ReducerName.Recipe>): boolean =>
     state.RECIPE.isLoading;
-export const getIsLoadingList = (state: Pick<State, ReducerName.Recipe>): boolean =>
-    state.RECIPE.isLoadingList;
+
 export const getHasRecipes = (state: Pick<State, ReducerName.Recipe>): string =>
     state.RECIPE.hasRecipes;

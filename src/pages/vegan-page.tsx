@@ -1,47 +1,31 @@
-import { Box, useToast } from '@chakra-ui/react';
-import { useEffect, useMemo } from 'react';
+import { Box } from '@chakra-ui/react';
+import { useEffect } from 'react';
 import { useParams } from 'react-router';
 
-import { showAlertToast } from '~/components/alert-error/show-alert';
 import { ContentHeader } from '~/components/content-header/content-header';
 import { Layout } from '~/components/layout/layout';
 import { RecipesList } from '~/components/recipes-list/recipes-list';
 import { RecipesTabs } from '~/components/recipes-tabs/recipes-tabs';
 import { RelevantKitchenSection } from '~/components/relevant-kitchen-section/relevant-kitchen-section';
 import { withCatSubValidation } from '~/hoc/withCatSubValidation';
-import { useGetCategoriesQuery } from '~/query/services/categories';
 import { useLazyGetRecipesQuery } from '~/query/services/recipes';
 import { getCategories } from '~/store/categories/selectors';
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
-import {
-    clearFilteringParams,
-    updateHasRecipes,
-    updateIsFiltering,
-    updateIsLoadingList,
-    updateIsLoadingRecipe,
-} from '~/store/recipes/recipes-slice';
+import { clearFilteringParams } from '~/store/recipes/recipes-slice';
 import { getIsFilteringRecipes, getRecipeQuery } from '~/store/recipes/selectors';
-import { Category } from '~/types/category.type';
 import { PathParams } from '~/types/params.type';
-import { getRandomElement, getRecipeQueryString, getTabNames } from '~/utils/helpers';
+import { getTabNames } from '~/utils/helpers';
 
 const VeganPageComponent = () => {
     const { categoryId } = useParams<PathParams>();
-    const { data: dataCategories = [], isError } = useGetCategoriesQuery();
-    const backupCategories = useAppSelector(getCategories);
-    const categories = isError ? backupCategories : dataCategories;
+    const categories = useAppSelector(getCategories);
     const categoryInfo = categories.find((cat) => cat.category === categoryId);
     const isFiltering = useAppSelector(getIsFilteringRecipes);
     const [triggerRecipes, { data: recipes = [] }] = useLazyGetRecipesQuery();
-    const toast = useToast();
     const dispatch = useAppDispatch();
     const tabsNames = getTabNames(categories, categoryId);
     const subcategoriesIds = tabsNames.map((item) => item._id).join(',');
     const query = useAppSelector(getRecipeQuery);
-    const currentCategory = useMemo(
-        () => getRandomElement<Category>(categories, categoryId),
-        [categories, categoryId],
-    );
 
     useEffect(
         () => () => {
@@ -50,24 +34,7 @@ const VeganPageComponent = () => {
         [dispatch],
     );
 
-    const handleFilterRecipes = async () => {
-        const queryString = getRecipeQueryString({ ...query, subcategoriesIds });
-        const result = await triggerRecipes(queryString);
-
-        if (result.error) {
-            showAlertToast('search', toast);
-            dispatch(updateIsLoadingRecipe(false));
-            dispatch(updateIsLoadingList(false));
-            return;
-        }
-
-        if (result.data) {
-            dispatch(updateIsFiltering());
-            dispatch(updateIsLoadingRecipe(false));
-            dispatch(updateIsLoadingList(false));
-            dispatch(updateHasRecipes((result.data.length > 0).toString()));
-        }
-    };
+    const handleFilterRecipes = async () => await triggerRecipes({ ...query, subcategoriesIds });
 
     const contentData = {
         headline: categoryInfo?.title ?? '',
@@ -100,7 +67,7 @@ const VeganPageComponent = () => {
                         <RecipesTabs tabsNames={tabsNames} />
                     </Box>
                 )}
-                <RelevantKitchenSection categoryInfo={currentCategory} />
+                <RelevantKitchenSection />
             </Layout>
         </>
     );

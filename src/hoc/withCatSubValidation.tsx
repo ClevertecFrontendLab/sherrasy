@@ -1,6 +1,5 @@
 import { Navigate, useParams } from 'react-router';
 
-import { OverlayWithLoader } from '~/components/overlay/overlayWithLoader';
 import { useGetCategoriesQuery } from '~/query/services/categories';
 import { getCategories } from '~/store/categories/selectors';
 import { useAppSelector } from '~/store/hooks';
@@ -9,17 +8,8 @@ import { getTabNames } from '~/utils/helpers';
 
 export const withCatSubValidation = (WrappedComponent: React.ComponentType) => () => {
     const { categoryId, subcategoryId } = useParams();
-    const { data: dataCategories = [], isFetching, isError } = useGetCategoriesQuery();
+    const { data: dataCategories = [], isError } = useGetCategoriesQuery();
     const backupCategories = useAppSelector(getCategories);
-
-    if (isFetching) {
-        return (
-            <>
-                <OverlayWithLoader isOpen={isFetching} />
-                <WrappedComponent />
-            </>
-        );
-    }
 
     const categories = isError ? backupCategories : dataCategories;
 

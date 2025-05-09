@@ -1,6 +1,7 @@
 import { Avatar, Box, Button, Circle, Flex, Text, useMediaQuery } from '@chakra-ui/react';
 
 import { HomeIcon, PenIcon, SearchIcon } from '~/assets/icons/icons';
+import { TestIdName } from '~/utils/constant';
 
 import styles from './footer.module.css';
 
@@ -11,7 +12,7 @@ export const Footer = () => {
         <Box
             minW='100%'
             maxH='84px'
-            data-test-id='footer'
+            data-test-id={TestIdName.Footer}
             sx={{ position: 'fixed !important' }}
             display={isDesktop ? 'none' : 'block'}
             bottom={0}

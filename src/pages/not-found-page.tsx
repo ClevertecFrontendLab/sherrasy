@@ -1,7 +1,7 @@
 import { Heading, Image, Link, Text, VStack } from '@chakra-ui/react';
 
 import { Layout } from '~/components/layout/layout';
-import { AppRoute } from '~/utils/constant';
+import { AppRoute, TestIdName } from '~/utils/constant';
 
 export const NotFoundPage = () => (
     <>
@@ -14,7 +14,7 @@ export const NotFoundPage = () => (
                     alt='error-img'
                 />
                 <VStack maxW={{ base: '252px', lg: '332px' }} textAlign='center'>
-                    <Heading fontSize='2xl' lineHeight={8} noOfLines={2}>
+                    <Heading as='h1' fontSize='2xl' lineHeight={8} noOfLines={2}>
                         Упс! Такой страницы нет
                     </Heading>
                     <Text fontSize='md' lineHeight={6} noOfLines={2}>
@@ -22,7 +22,7 @@ export const NotFoundPage = () => (
                         <Link
                             href={AppRoute.Main}
                             textDecoration='underline'
-                            data-test-id='error-page-go-home'
+                            data-test-id={TestIdName.ErrorPageHome}
                         >
                             здесь.
                         </Link>

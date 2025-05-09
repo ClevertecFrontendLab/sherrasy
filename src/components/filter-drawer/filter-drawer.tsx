@@ -14,12 +14,9 @@ import {
 import { FilterIcon } from '~/assets/icons/icons';
 import { getCategories } from '~/store/categories/selectors';
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
-import {
-    clearFilters,
-    updateCurrentFilters,
-    updateIsLoadingList,
-} from '~/store/recipes/recipes-slice';
+import { clearFilters, updateCurrentFilters } from '~/store/recipes/recipes-slice';
 import { getPendingFilters } from '~/store/recipes/selectors';
+import { TestIdName } from '~/utils/constant';
 import filterData from '~/utils/data/filters-data.json';
 import { cookBlog } from '~/utils/data/mock-cards.json';
 import { getMultiselectCategories } from '~/utils/helpers';
@@ -52,7 +49,6 @@ export const FilterDrawer = ({
     }
     const handleFilterCards = () => {
         dispatch(updateCurrentFilters());
-        dispatch(updateIsLoadingList(true));
         handleFilterRecipes();
         handleClose();
     };
@@ -69,7 +65,7 @@ export const FilterDrawer = ({
                 variant='outline'
                 borderColor='blackAlpha.600'
                 onClick={handleOpen}
-                data-test-id='filter-button'
+                data-test-id={TestIdName.FilterOpenBtn}
             >
                 <FilterIcon boxSize={{ base: 4, lg: 6 }} />
             </Button>
@@ -82,7 +78,10 @@ export const FilterDrawer = ({
                 }}
             >
                 <DrawerOverlay backdropFilter='blur(2px)' bgColor='blackAlpha.300' />
-                <DrawerContent minW={{ base: '320px', sm: '399px' }} data-test-id='filter-drawer'>
+                <DrawerContent
+                    minW={{ base: '320px', sm: '399px' }}
+                    data-test-id={TestIdName.FilterDrawer}
+                >
                     <DrawerHeader>
                         <Text size='2xl' lineHeight={8} fontWeight='bold'>
                             Фильтр
@@ -92,7 +91,7 @@ export const FilterDrawer = ({
                             bgColor='black'
                             borderRadius='100%'
                             top={3.5}
-                            data-test-id='close-filter-drawer'
+                            data-test-id={TestIdName.FilterCloseBtn}
                         />
                     </DrawerHeader>
                     <ScrollArea extraStylesType='drawer-filters'>
@@ -117,7 +116,7 @@ export const FilterDrawer = ({
                             variant='outline'
                             colorScheme='black'
                             size={{ base: 'xs', lg: 'sm' }}
-                            data-test-id='clear-filter-button'
+                            data-test-id={TestIdName.FilterClearBtn}
                             onClick={handleClearFilters}
                         >
                             Очистить фильтр
@@ -129,7 +128,7 @@ export const FilterDrawer = ({
                             size={{ base: 'xs', lg: 'sm' }}
                             px={{ base: 2, lg: '12px' }}
                             py={{ base: 1, lg: '6px' }}
-                            data-test-id='find-recipe-button'
+                            data-test-id={TestIdName.FilterFindBtn}
                             onClick={handleFilterCards}
                             isDisabled={!isFiltersFilled}
                             pointerEvents={!isFiltersFilled ? 'none' : 'auto'}

@@ -20,6 +20,7 @@ import { ExitIcon } from '~/assets/icons/icons';
 import { getCategories } from '~/store/categories/selectors';
 import { useAppSelector } from '~/store/hooks';
 import { PathParams } from '~/types/params.type';
+import { TestIdName } from '~/utils/constant';
 
 import { ScrollArea } from '../scrollarea/scrollarea';
 
@@ -116,7 +117,8 @@ export const MenuDishes = ({ isBurgerMenu }: MenuDishesProps) => {
                                                         lg: subcategoryParam === id ? 7 : 9,
                                                     }}
                                                     data-test-id={
-                                                        subcategoryParam === id && `${id}-active`
+                                                        subcategoryParam === id &&
+                                                        `${id}-${TestIdName.MenuActive}`
                                                     }
                                                     _hover={{ cursor: 'pointer' }}
                                                 >

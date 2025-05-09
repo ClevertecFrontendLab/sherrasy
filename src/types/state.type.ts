@@ -13,7 +13,6 @@ export type RecipeFilters = {
 };
 export type RecipeState = {
     isLoading: boolean;
-    isLoadingList: boolean;
     isFiltering: boolean;
     hasRecipes: string;
     currentFilters: RecipeFilters;
@@ -27,4 +26,10 @@ export type CategoryState = {
     hasLoadingError: boolean;
     tabCategory: string | null;
     tabSubcategory: string | null;
+};
+
+export type AppState = {
+    isLoading: boolean;
+    hasError: boolean;
+    error: string | null;
 };

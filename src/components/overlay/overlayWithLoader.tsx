@@ -1,9 +1,14 @@
 import { Box } from '@chakra-ui/react';
 import { useEffect, useRef } from 'react';
+import { useLocation } from 'react-router';
+
+import { AppRoute } from '~/utils/constant';
 
 import { Loader } from '../loader/loader';
 
 export const OverlayWithLoader = ({ isOpen }: { isOpen: boolean }) => {
+    const { pathname } = useLocation();
+    const isErrorPage = pathname === AppRoute.NotFound;
     const scrollPosition = useRef(0);
 
     useEffect(() => {
@@ -32,7 +37,7 @@ export const OverlayWithLoader = ({ isOpen }: { isOpen: boolean }) => {
         };
     }, [isOpen]);
 
-    if (!isOpen) return null;
+    if (!isOpen || isErrorPage) return null;
 
     return (
         <Box

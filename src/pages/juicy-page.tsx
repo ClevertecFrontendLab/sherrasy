@@ -1,31 +1,21 @@
-import { Box, useToast } from '@chakra-ui/react';
-import { useEffect, useMemo, useState } from 'react';
+import { Box } from '@chakra-ui/react';
+import { useEffect, useState } from 'react';
 
-import { showAlertToast } from '~/components/alert-error/show-alert';
 import { ContentHeader } from '~/components/content-header/content-header';
 import { Layout } from '~/components/layout/layout';
 import { RecipesList } from '~/components/recipes-list/recipes-list';
 import { RelevantKitchenSection } from '~/components/relevant-kitchen-section/relevant-kitchen-section';
 import { Tags } from '~/query/constants/tags';
-import { useGetCategoriesQuery } from '~/query/services/categories';
 import {
     recipesApiSlice,
     useGetJuiciestRecipesQuery,
     useLazyGetRecipesQuery,
 } from '~/query/services/recipes';
-import { getCategories } from '~/store/categories/selectors';
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
-import {
-    clearFilteringParams,
-    updateHasRecipes,
-    updateIsFiltering,
-    updateIsLoadingList,
-    updateIsLoadingRecipe,
-} from '~/store/recipes/recipes-slice';
+import { clearFilteringParams } from '~/store/recipes/recipes-slice';
 import { getIsFilteringRecipes, getRecipeQuery } from '~/store/recipes/selectors';
-import { Category } from '~/types/category.type';
 import { RecipeQueryParam } from '~/types/query-param.type';
-import { getRandomElement, getRecipeQueryString } from '~/utils/helpers';
+import { getRecipeQueryString } from '~/utils/helpers';
 
 const DefaultParams: RecipeQueryParam = {
     limit: 8,
@@ -34,15 +24,10 @@ const DefaultParams: RecipeQueryParam = {
 };
 
 export const JuicyPage = () => {
-    const toast = useToast();
     const dispatch = useAppDispatch();
-    const { data: dataCategories = [], isError: isCatError } = useGetCategoriesQuery();
-    const backupCategories = useAppSelector(getCategories);
     const isFiltering = useAppSelector(getIsFilteringRecipes);
     const [triggerRecipes, { data: recipes = [] }] = useLazyGetRecipesQuery();
-    const categories = isCatError ? backupCategories : dataCategories;
     const [page, setPage] = useState(1);
-    const currentCategory = useMemo(() => getRandomElement<Category>(categories), [categories]);
     const queryFilters = useAppSelector((state) =>
         getRecipeQuery(state, {
             ...DefaultParams,
@@ -53,11 +38,7 @@ export const JuicyPage = () => {
         ...DefaultParams,
         page,
     });
-    const {
-        data: recipesData,
-        isFetching,
-        isLoading,
-    } = useGetJuiciestRecipesQuery(query, {
+    const { data: recipesData, isFetching } = useGetJuiciestRecipesQuery(query, {
         refetchOnMountOrArgChange: true,
     });
     const recipesCurrent = isFiltering ? recipes : recipesData?.data;
@@ -66,29 +47,12 @@ export const JuicyPage = () => {
         : Boolean(recipesData?.meta && recipesData.meta.page === recipesData.meta.totalPages);
 
     const loadRecipes = async () => {
-        if (!isFetching && !isLoading && !isLastPage) {
+        if (!isFetching && !isLastPage) {
             setPage((prev) => prev + 1);
         }
     };
 
-    const handleFilterRecipes = async () => {
-        const queryString = getRecipeQueryString(queryFilters);
-        const result = await triggerRecipes(queryString);
-
-        if (result.error) {
-            showAlertToast('search', toast);
-            dispatch(updateIsLoadingRecipe(false));
-            dispatch(updateIsLoadingList(false));
-            return;
-        }
-
-        if (result.data) {
-            dispatch(updateIsFiltering());
-            dispatch(updateIsLoadingRecipe(false));
-            dispatch(updateIsLoadingList(false));
-            dispatch(updateHasRecipes((result.data.length > 0).toString()));
-        }
-    };
+    const handleFilterRecipes = async () => await triggerRecipes(queryFilters);
 
     useEffect(
         () => () => {
@@ -116,7 +80,7 @@ export const JuicyPage = () => {
                         handleLoadMore={loadRecipes}
                     />
                 </Box>
-                <RelevantKitchenSection categoryInfo={currentCategory} />
+                <RelevantKitchenSection />
             </Layout>
         </>
     );

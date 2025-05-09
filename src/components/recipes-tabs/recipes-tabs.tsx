@@ -8,6 +8,7 @@ import { setCurrentParams } from '~/store/categories/categories-slice';
 import { useAppDispatch } from '~/store/hooks';
 import { Subcategory } from '~/types/category.type';
 import { PathParams } from '~/types/params.type';
+import { TestIdName } from '~/utils/constant';
 
 import { RecipesList } from '../recipes-list/recipes-list';
 
@@ -24,7 +25,7 @@ export const RecipesTabs = ({ tabsNames }: RecipesTabsProps) => {
         ? tabsNames.findIndex((tab) => tab.category === subcategoryId)
         : -1;
     const currentId = tabsNames.find((tab) => tab.category === subcategoryId)?._id ?? skipToken;
-    const { data: recipes = [] } = useGetRecipesByCategoryQuery(currentId);
+    const { data: recipes = [], isFetching } = useGetRecipesByCategoryQuery(currentId);
     const [activeTabIndex, setActiveTabIndex] = useState(0);
     const handleSubcategoryClick = (name: string) => {
         navigate(`/${categoryId}/${name}`);
@@ -64,7 +65,7 @@ export const RecipesTabs = ({ tabsNames }: RecipesTabsProps) => {
                         minW='max-content'
                         onClick={() => handleSubcategoryClick(id)}
                         borderBottomColor='transparent'
-                        data-test-id={`tab-${id}-${i}`}
+                        data-test-id={`${TestIdName.Tab}-${id}-${i}`}
                         flexShrink={0}
                         mb={0}
                         mr={isDesktop ? 4 : 0}
@@ -76,7 +77,9 @@ export const RecipesTabs = ({ tabsNames }: RecipesTabsProps) => {
             <TabPanels p={0}>
                 {tabsNames.map((name) => (
                     <TabPanel p={0} pt={{ base: 5, xs: 6, md: '22px' }} key={`${name}-panel`}>
-                        <RecipesList recipes={recipes} isLastPage={true} />
+                        {!isFetching && (
+                            <RecipesList recipes={recipes} isLastPage={true} isFetching={false} />
+                        )}
                     </TabPanel>
                 ))}
             </TabPanels>

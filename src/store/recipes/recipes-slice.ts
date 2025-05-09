@@ -5,7 +5,6 @@ import { ReducerName } from '~/utils/constant';
 
 const initialState: RecipeState = {
     isLoading: false,
-    isLoadingList: false,
     hasRecipes: 'undefined',
     isFiltering: false,
     currentFilters: {
@@ -29,16 +28,11 @@ export const recipeSlice = createSlice({
     name: ReducerName.Recipe,
     initialState,
     reducers: {
-        updateIsFiltering: (state) => {
-            state.isFiltering =
-                !!state.searchString?.trim() ||
-                Object.values(state.currentFilters).some((filter) => filter?.length ?? 0 > 0);
+        updateIsFiltering: (state, { payload }: PayloadAction<boolean>) => {
+            state.isFiltering = payload;
         },
-        updateIsLoadingRecipe: (state, { payload }: PayloadAction<boolean>) => {
+        setIsLoadingFiltered: (state, { payload }: PayloadAction<boolean>) => {
             state.isLoading = payload;
-        },
-        updateIsLoadingList: (state, { payload }: PayloadAction<boolean>) => {
-            state.isLoadingList = payload;
         },
         updateHasRecipes: (state, { payload }: PayloadAction<string>) => {
             state.hasRecipes = payload;
@@ -90,8 +84,7 @@ export const {
     updateCurrentFilters,
     clearAllergens,
     clearFilters,
-    updateIsLoadingRecipe,
-    updateIsLoadingList,
+    setIsLoadingFiltered,
     updateHasRecipes,
 } = recipeSlice.actions;
 
