@@ -5,6 +5,8 @@ export const AppRoute = {
     Juiciest: '/the-juiciest',
     Recipe: '/:categoryId/:subcategoryId/:recipeId',
     NotFound: '/not-found',
+    SignIn: '/sign-in',
+    SignUp: '/sign-up',
 } as const;
 
 export const ApiBase = {
@@ -29,29 +31,13 @@ export enum SortingDirection {
     Descending = 'desc',
 }
 
-export const AppRouteToName: { [key: string]: string } = {
+export const AppRouteToName: Record<string, string> = {
     '/': 'Главная',
     '/vegan': 'Веганская кухня',
     '/the-juiciest': 'Самое сочное',
 };
 
-export const TagToName: { [key: string]: string } = {
-    salads: 'Салаты',
-    snacks: 'Закуски',
-    'first-dish': 'Первые блюда',
-    'second-dish': 'Вторые блюда',
-    dessert: 'Десерты, выпечка',
-    grilled: 'Блюда на гриле',
-    vegan: 'Веганская кухня',
-    kids: 'Детские блюда',
-    healthy: 'Лечебное питание',
-    national: 'Национальные',
-    sauce: 'Соусы',
-    drinks: 'Напитки',
-    preserves: 'Заготовки',
-};
-
-export const NutritionToName: { [key: string]: string } = {
+export const NutritionToName: Record<string, string> = {
     calories: 'калорийность',
     proteins: 'белки',
     fats: 'жиры',
@@ -77,18 +63,23 @@ export enum TestIdName {
     AllergensMenuBtnFilter = 'allergens-menu-button-filter',
     AllergensSwitcher = 'allergens-switcher',
     AllergensSwitcherFilter = 'allergens-switcher-filter',
+
     Breadcrumbs = 'breadcrumbs',
     BurgerCloseIcon = 'close-icon',
     BurgerNav = 'nav',
     BurgerOpenIcon = 'hamburger-icon',
     CardLink = 'card-link',
+
     Carousel = 'carousel',
     CarouselBack = 'carousel-back',
     CarouselForward = 'carousel-forward',
+
     Checkbox = 'checkbox',
+
     ErrorNotif = 'error-notification',
     ErrorNotifClose = 'close-alert-button',
     ErrorPageHome = 'error-page-go-home',
+
     FilterCategory = 'filter-menu-button-категория',
     FilterClearBtn = 'clear-filter-button',
     FilterCloseBtn = 'close-filter-drawer',
@@ -96,6 +87,7 @@ export enum TestIdName {
     FilterFindBtn = 'find-recipe-button',
     FilterOpenBtn = 'filter-button',
     FilterTag = 'filter-tag',
+
     Footer = 'footer',
     Header = 'header',
     IngredientQuantity = 'ingredient-quantity',
@@ -110,4 +102,26 @@ export enum TestIdName {
     StepperDecrement = 'decrement-stepper',
     StepperIncrement = 'increment-stepper',
     Tab = 'tab',
+    //new
+    SignInForm = 'sign-in-form',
+    InputLogin = 'login-input',
+    InputPassword = 'password-input',
+    PasswordBtn = 'password-visibility-button',
+    SubmitBtn = 'submit-button',
+    ForgotPassword = 'forgot-password',
+    ModalSignIn = 'sign-in-error-modal',
+    ModalClose = 'close-button',
+    RepeatBtn = 'repeat-button',
+    SignUpProgress = 'sign-up-progress',
+    SignUpForm = 'sign-up-form',
+    InputFirstName = 'first-name-input',
+    InputLastName = 'last-name-input',
+    InputEmail = 'email-input',
+    InputPasswordConfirm = 'confirm-password-input',
+    InputVerificationCode = 'verification-code-input',
+    ModalSignUpSuccess = 'sign-up-success-modal',
+    ModalEmailVerificationFailed = 'email-verification-failed-modal',
+    ModalSendEmail = 'send-email-modal',
+    ModalVerificationCode = 'verification-code-modal',
+    ModalResetCredentials = 'reset-credentials-modal',
 }

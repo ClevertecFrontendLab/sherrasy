@@ -24,7 +24,7 @@ const ScrollAreaStyles = {
 };
 
 export const ScrollArea = ({ children, extraStylesType }: ScrollAreaProps) => {
-    const maxHeightValue: { [key: string]: string } = {
+    const maxHeightValue: Record<string, string> = {
         multiselect: '320px',
         'drawer-filters': 'calc( 100vh - 96px)',
     };
