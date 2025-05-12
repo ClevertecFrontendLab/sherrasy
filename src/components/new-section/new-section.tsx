@@ -94,7 +94,6 @@ export const NewSection = ({ isRecipePage }: NewSectionProps) => {
                     paddingInline={0}
                     minW={{ lg: '2.5rem', '2xl': '3rem' }}
                     minH={{ lg: '2.5rem', '2xl': '3rem' }}
-                    bg='black'
                     colorScheme='black'
                     display={{ base: 'none', lg: 'initial' }}
                     position='absolute'
@@ -109,7 +108,6 @@ export const NewSection = ({ isRecipePage }: NewSectionProps) => {
                 <Button
                     minW={{ lg: '2.5rem', '2xl': '3rem' }}
                     minH={{ lg: '2.5rem', '2xl': '3rem' }}
-                    bg='black'
                     colorScheme='black'
                     paddingInline={0}
                     display={{ base: 'none', lg: 'initial' }}

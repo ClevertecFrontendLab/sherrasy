@@ -1,8 +1,8 @@
 import { useState } from 'react';
 
-import { ModalConfig } from '~/types/modal.type';
+import { ModalConfig, ModalType } from '~/types/modal.type';
 
-const MODAL_CONFIGS: Record<string, ModalConfig> = {
+const MODAL_CONFIGS: Record<ModalType, ModalConfig> = {
     login: {
         bodyText: ['Что-то пошло не так.', 'Попробуйте еще раз'],
         btnText: 'Повторить',
@@ -53,7 +53,7 @@ export const useUniversalModal = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [modalType, setModalType] = useState<keyof typeof MODAL_CONFIGS | null>(null);
 
-    const openModal = (type: keyof typeof MODAL_CONFIGS) => {
+    const openModal = (type: ModalType) => {
         setModalType(type);
         setIsOpen(true);
     };

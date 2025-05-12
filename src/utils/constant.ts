@@ -26,11 +26,6 @@ export const SortingBy = {
     Likes: 'likes',
 };
 
-export enum SortingDirection {
-    Ascending = 'asc',
-    Descending = 'desc',
-}
-
 export const AppRouteToName: Record<string, string> = {
     '/': 'Главная',
     '/vegan': 'Веганская кухня',
@@ -43,6 +38,20 @@ export const NutritionToName: Record<string, string> = {
     fats: 'жиры',
     carbohydrates: 'углеводы',
 };
+
+export const InputNameToPlaceholder: Record<string, string> = {
+    firstName: 'Имя',
+    lastName: 'Фамилия',
+    email: 'e-mail',
+    username: 'Введите логин',
+    password: 'Пароль для сайта',
+    confirmPassword: 'Повторите пароль',
+};
+
+export enum SortingDirection {
+    Ascending = 'asc',
+    Descending = 'desc',
+}
 
 export enum ReducerName {
     App = 'APP',

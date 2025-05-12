@@ -5,13 +5,18 @@ import { breadCrumbTheme } from './ui-theme/breadcrumb.theme';
 import { buttonTheme } from './ui-theme/button.theme';
 import { cardTheme } from './ui-theme/card.theme';
 import { checkboxTheme } from './ui-theme/checkbox.theme';
+import { inputTheme } from './ui-theme/input.theme';
 import { menuTheme } from './ui-theme/menu.theme';
 import { modalTheme } from './ui-theme/modal.theme';
+import { progressTheme } from './ui-theme/progress.theme';
 import { tableTheme } from './ui-theme/table.theme';
 import { tagTheme } from './ui-theme/tag.theme';
 
 export const theme = extendTheme({
     colors: {
+        black: {
+            500: '#000000',
+        },
         lime: {
             50: '#ffffd3',
             100: '#eaffc7',
@@ -38,6 +43,8 @@ export const theme = extendTheme({
         Tag: tagTheme,
         Checkbox: checkboxTheme,
         Modal: modalTheme,
+        Progress: progressTheme,
+        Input: inputTheme,
     },
     breakpoints: {
         base: '0em', //0px

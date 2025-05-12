@@ -31,10 +31,10 @@ export const UniversalModal = ({
     const hasSupportLink = config.type.includes('verification');
     const email = 'email';
     return (
-        <Modal isOpen={isOpen} onClose={onClose}>
+        <Modal isOpen={isOpen} onClose={onClose} isCentered>
             <ModalOverlay />
-            <ModalContent p={6} alignItems='center' w={{ base: '316px', lg: '396px' }}>
-                <ModalHeader pt={0} display='flex' flexDir='column' alignItems='center'>
+            <ModalContent>
+                <ModalHeader>
                     {config.icon && (
                         <Image
                             src={config.icon}
@@ -43,16 +43,9 @@ export const UniversalModal = ({
                             h={{ base: '108px', lg: '206px' }}
                         />
                     )}
-                    <ModalCloseButton
-                        width='24px'
-                        height='24px'
-                        border='1px solid black'
-                        borderRadius='50%'
-                        top={6}
-                        right={6}
-                    ></ModalCloseButton>
+                    <ModalCloseButton />
                 </ModalHeader>
-                <ModalBody px={0} display='flex' flexDir='column' alignItems='center'>
+                <ModalBody>
                     {config.header && (
                         <Heading as='h1' fontSize='2xl' lineHeight={8} textAlign='center' mb={4}>
                             {config.header}
@@ -91,9 +84,9 @@ export const UniversalModal = ({
                     )}
                     {children}
                 </ModalBody>
-                <ModalFooter w='100%' mt={4}>
+                <ModalFooter>
                     {config.btnText && (
-                        <Button colorScheme='black' bgColor='black' w='100%'>
+                        <Button colorScheme='black' w='100%'>
                             {config.btnText}
                         </Button>
                     )}
