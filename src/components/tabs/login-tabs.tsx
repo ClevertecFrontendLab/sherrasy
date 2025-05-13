@@ -1,5 +1,4 @@
 import { Tab, TabList, TabPanel, TabPanels, Tabs, useMediaQuery } from '@chakra-ui/react';
-import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router';
 
 import { AppRoute } from '~/utils/constant';
@@ -15,14 +14,11 @@ export const LoginTabs = () => {
     const [isDesktop] = useMediaQuery('(min-width: 1440px)');
     const { pathname } = useLocation();
     const navigate = useNavigate();
-    const currentTab = pathname ? DEFAULT_TABS.findIndex((tab) => tab.path === pathname) : -1;
-    const [activeTabIndex, setActiveTabIndex] = useState(0);
+    const activeTabIndex = pathname === AppRoute.SignIn ? 0 : 1;
     const handleClick = (path: string) => {
         navigate(path);
     };
-    useEffect(() => {
-        setActiveTabIndex(currentTab !== -1 ? currentTab : 0);
-    }, [currentTab]);
+
     return (
         <Tabs
             index={activeTabIndex}

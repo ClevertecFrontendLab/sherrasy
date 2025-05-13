@@ -1,5 +1,4 @@
 import {
-    Button,
     Heading,
     Image,
     Link,
@@ -14,6 +13,8 @@ import {
 } from '@chakra-ui/react';
 import { ReactNode } from 'react';
 
+import { useAppSelector } from '~/store/hooks';
+import { getUserEmail } from '~/store/user/selectors';
 import { ModalConfig } from '~/types/modal.type';
 
 export const UniversalModal = ({
@@ -27,9 +28,10 @@ export const UniversalModal = ({
     children?: ReactNode;
     config: ModalConfig | null;
 }) => {
+    const email = useAppSelector(getUserEmail);
     if (!config) return null;
     const hasSupportLink = config.type.includes('verification');
-    const email = 'email';
+    const showEmail = config.type === 'verification' || config.type === 'recoveryPin';
     return (
         <Modal isOpen={isOpen} onClose={onClose} isCentered>
             <ModalOverlay />
@@ -61,7 +63,7 @@ export const UniversalModal = ({
                             >
                                 {config.bodyText[0]}
                             </Text>
-                            {email && (
+                            {showEmail && (
                                 <Text
                                     color='blackAlpha.900'
                                     textAlign='center'
@@ -84,13 +86,8 @@ export const UniversalModal = ({
                     )}
                     {children}
                 </ModalBody>
-                <ModalFooter>
-                    {config.btnText && (
-                        <Button colorScheme='black' w='100%'>
-                            {config.btnText}
-                        </Button>
-                    )}
-                    {config.footerText && (
+                {config.footerText && (
+                    <ModalFooter>
                         <Text
                             color='blackAlpha.600'
                             textAlign='center'
@@ -101,8 +98,8 @@ export const UniversalModal = ({
                             {config.footerText}{' '}
                             {hasSupportLink && <Link textDecor='underline'>с поддержкой</Link>}
                         </Text>
-                    )}
-                </ModalFooter>
+                    </ModalFooter>
+                )}
             </ModalContent>
         </Modal>
     );

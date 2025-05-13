@@ -6,11 +6,13 @@ import { ReducerName } from '~/utils/constant';
 import appReducer from './app-status/app-slice';
 import categoryReducer from './categories/categories-slice';
 import recipeReducer from './recipes/recipes-slice';
+import userReducer from './user/user-slice';
 const isProduction = false;
 const rootReducer = combineReducers({
     [ReducerName.Recipe]: recipeReducer,
     [ReducerName.Category]: categoryReducer,
     [ReducerName.App]: appReducer,
+    [ReducerName.User]: userReducer,
     [apiSlice.reducerPath]: apiSlice.reducer,
 });
 

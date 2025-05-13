@@ -2,14 +2,14 @@ import {
     Button,
     FormControl,
     FormErrorMessage,
+    FormHelperText,
     FormLabel,
-    HStack,
     Input,
     VStack,
 } from '@chakra-ui/react';
 import { useFormContext } from 'react-hook-form';
 
-import { PasswordInput } from '~/components/password-input/password-input';
+import { PasswordInput } from '~/components/inputs/password-input/password-input';
 import { InputNameToPlaceholder } from '~/utils/constant';
 
 import { SignUpFormData } from '../validation-scheme/sign-up.scheme';
@@ -32,19 +32,23 @@ export const SignUpStepTwo = () => {
                     {...register('username')}
                     maxLength={50}
                 />
+                <FormHelperText>Логин не менее 5 символов, только латиница</FormHelperText>
                 <FormErrorMessage>{errors.username?.message}</FormErrorMessage>
             </FormControl>
-            <PasswordInput<SignUpFormData> type='password' register={register} errors={errors} />
+            <PasswordInput<SignUpFormData>
+                type='password'
+                register={register}
+                errors={errors}
+                showHelper={true}
+            />
             <PasswordInput<SignUpFormData>
                 type='confirmPassword'
                 register={register}
                 errors={errors}
             />
-            <HStack mt={4}>
-                <Button flex={1} colorScheme='black' type='submit' isDisabled={!isValid}>
-                    Зарегистрироваться
-                </Button>
-            </HStack>
+            <Button mt={4} colorScheme='black' type='submit' w='100%' isDisabled={!isValid}>
+                Зарегистрироваться
+            </Button>
         </VStack>
     );
 };

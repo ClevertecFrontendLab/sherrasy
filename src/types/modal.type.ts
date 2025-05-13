@@ -2,7 +2,6 @@ export type ModalConfig = {
     header: string;
     type: ModalType;
     bodyText?: string[];
-    btnText?: string;
     footerText?: string;
     icon?: string;
 };

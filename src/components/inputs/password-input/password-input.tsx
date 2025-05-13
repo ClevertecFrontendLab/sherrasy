@@ -1,6 +1,7 @@
 import {
     FormControl,
     FormErrorMessage,
+    FormHelperText,
     FormLabel,
     IconButton,
     Input,
@@ -34,15 +35,19 @@ const DEFAULT_PARAMS: Record<PasswordFieldType, PasswordFieldConfig> = {
     },
 };
 
+type PasswordInputProps<T extends FieldValues> = {
+    type: PasswordFieldType;
+    register: UseFormRegister<T>;
+    errors: FieldErrors<T>;
+    showHelper?: boolean;
+};
+
 export const PasswordInput = <T extends FieldValues>({
     type,
     register,
     errors,
-}: {
-    type: PasswordFieldType;
-    register: UseFormRegister<T>;
-    errors: FieldErrors<T>;
-}) => {
+    showHelper,
+}: PasswordInputProps<T>) => {
     const { name, placeholder, label } = DEFAULT_PARAMS[type];
     const { showPassword, handlers } = usePasswordToggle();
     return (
@@ -68,6 +73,11 @@ export const PasswordInput = <T extends FieldValues>({
                     />
                 </InputRightElement>
             </InputGroup>
+            {showHelper && (
+                <FormHelperText>
+                    Пароль не менее 8 символов, с заглавной буквой и цифрой
+                </FormHelperText>
+            )}
             <FormErrorMessage>{errors[name as Path<T>]?.message as string}</FormErrorMessage>
         </FormControl>
     );

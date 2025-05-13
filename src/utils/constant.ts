@@ -7,11 +7,19 @@ export const AppRoute = {
     NotFound: '/not-found',
     SignIn: '/sign-in',
     SignUp: '/sign-up',
+    Verification: '/verification',
 } as const;
 
 export const ApiBase = {
     Main: 'https://marathon-api.clevertec.ru',
     Images: 'https://training-api.clevertec.ru',
+} as const;
+
+export const FieldRegex = {
+    Firstletter: /^[А-ЯЁ]/,
+    Name: /^[А-ЯЁа-яё-]+$/,
+    Password: /^[A-Za-z!@#$&_+.-]+$/,
+    Email: /^[\w-.]+@([\w-]+\.)+[\w-]{2,5}$/,
 } as const;
 
 export const CardsLimit = {
@@ -57,6 +65,13 @@ export enum ReducerName {
     App = 'APP',
     Category = 'CATEGORY',
     Recipe = 'RECIPE',
+    User = 'USER',
+}
+
+export enum AuthStatus {
+    Auth = 'AUTH',
+    NoAuth = 'NO_AUTH',
+    Unknown = 'UNKNOWN',
 }
 
 export enum LocalStorageKey {

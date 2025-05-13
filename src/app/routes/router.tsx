@@ -40,6 +40,10 @@ const router = createBrowserRouter([
         path: AppRoute.SignUp,
         element: publicRoute(<SignUpPage />),
     },
+    {
+        path: AppRoute.Verification,
+        element: publicRoute(<SignUpPage />),
+    },
 
     {
         path: '*',

@@ -1,4 +1,5 @@
 import { store } from '~/store/configure-store';
+import { AuthStatus } from '~/utils/constant';
 
 import { Category } from './category.type';
 
@@ -32,4 +33,9 @@ export type AppState = {
     isLoading: boolean;
     hasError: boolean;
     error: string | null;
+};
+
+export type UserState = {
+    email: string | null;
+    authStatus: AuthStatus;
 };

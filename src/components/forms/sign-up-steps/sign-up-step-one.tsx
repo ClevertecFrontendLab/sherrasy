@@ -13,7 +13,7 @@ export const SignUpStepOne = ({ onNext }: { onNext: () => void }) => {
 
     return (
         <VStack spacing={6} w='100%'>
-            <FormControl isInvalid={!errors.firstName}>
+            <FormControl isInvalid={!!errors.firstName}>
                 <FormLabel htmlFor='firstName'>Ваше имя</FormLabel>
                 <Input
                     variant='baseFormInput'
