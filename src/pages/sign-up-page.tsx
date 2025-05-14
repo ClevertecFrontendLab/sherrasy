@@ -12,7 +12,7 @@ export const SignUpPage = () => {
     const { isOpen, openModal, closeModal, config } = useUniversalModal();
     useEffect(() => {
         if (!emailVerified) openModal('verificationError');
-    }, [emailVerified]);
+    }, [emailVerified, openModal]);
 
     return (
         <LoginLayout>

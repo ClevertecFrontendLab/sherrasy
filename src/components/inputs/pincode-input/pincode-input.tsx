@@ -1,7 +1,7 @@
 import { HStack, PinInput, PinInputField } from '@chakra-ui/react';
 import { useEffect, useRef, useState } from 'react';
 
-export const PinCodeInput = ({ closeCurrentModal }: { closeCurrentModal: () => void }) => {
+export const PinCodeInput = ({ onSuccess }: { onSuccess: () => void }) => {
     const [pin, setPin] = useState('');
     const pinInputRef = useRef<HTMLInputElement>(null);
     const isInvalid = false;
@@ -9,9 +9,9 @@ export const PinCodeInput = ({ closeCurrentModal }: { closeCurrentModal: () => v
     useEffect(() => {
         if (pin.length === length) {
             console.log(pin);
-            closeCurrentModal();
+            onSuccess();
         }
-    }, [pin, length]);
+    }, [pin, length, onSuccess]);
 
     useEffect(() => {
         pinInputRef.current?.focus();

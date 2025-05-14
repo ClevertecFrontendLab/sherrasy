@@ -18,7 +18,8 @@ export const ApiBase = {
 export const FieldRegex = {
     Firstletter: /^[А-ЯЁ]/,
     Name: /^[А-ЯЁа-яё-]+$/,
-    Password: /^[A-Za-z!@#$&_+.-]+$/,
+    Username: /^[A-Za-z]{5,}$/,
+    Password: /^(?=.*[A-Z])(?=.*\d).{8,}$/,
     Email: /^[\w-.]+@([\w-]+\.)+[\w-]{2,5}$/,
 } as const;
 
@@ -76,6 +77,7 @@ export enum AuthStatus {
 
 export enum LocalStorageKey {
     Categories = 'yee-daa_categories',
+    AToken = 'yee-daa_accessToken',
 }
 
 export enum TestIdName {

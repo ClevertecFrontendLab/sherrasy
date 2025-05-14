@@ -16,7 +16,7 @@ import { InputNameToPlaceholder } from '~/utils/constant';
 
 import { EmailFormData, emailSchema } from './validation-scheme/email.sheme';
 
-export const RecoveryEmailForm = ({ closeCurrentModal }: { closeCurrentModal: () => void }) => {
+export const RecoveryEmailForm = ({ onSuccess }: { onSuccess: () => void }) => {
     const {
         register,
         handleSubmit,
@@ -30,7 +30,7 @@ export const RecoveryEmailForm = ({ closeCurrentModal }: { closeCurrentModal: ()
     const onSubmit = (data: EmailFormData) => {
         console.log(data);
         dispatch(setCurrentEmail(data.email));
-        closeCurrentModal();
+        onSuccess();
     };
     return (
         <Box as='form' onSubmit={handleSubmit(onSubmit)} w='100%' mt={4}>
@@ -44,7 +44,6 @@ export const RecoveryEmailForm = ({ closeCurrentModal }: { closeCurrentModal: ()
                         type='email'
                         placeholder={InputNameToPlaceholder['email']}
                         {...register('email')}
-                        maxLength={50}
                     />
                     <FormErrorMessage>{errors.email?.message}</FormErrorMessage>
                 </FormControl>

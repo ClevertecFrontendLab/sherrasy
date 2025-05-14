@@ -12,7 +12,7 @@ import { FieldErrors, FieldValues, Path, UseFormRegister } from 'react-hook-form
 
 import { EyeClosedIcon, EyeIcon } from '~/assets/icons/icons';
 import { usePasswordToggle } from '~/hooks/usePasswordToggle';
-import { InputNameToPlaceholder } from '~/utils/constant';
+import { InputNameToPlaceholder, TestIdName } from '~/utils/constant';
 
 type PasswordFieldType = 'password' | 'confirmPassword';
 
@@ -61,7 +61,11 @@ export const PasswordInput = <T extends FieldValues>({
                     type={showPassword ? 'text' : 'password'}
                     placeholder={placeholder}
                     {...register(name as Path<T>)}
-                    maxLength={50}
+                    data-test-id={
+                        type === 'password'
+                            ? TestIdName.InputPassword
+                            : TestIdName.InputPasswordConfirm
+                    }
                 />
                 <InputRightElement top={1}>
                     <IconButton
@@ -70,6 +74,7 @@ export const PasswordInput = <T extends FieldValues>({
                         variant='chost'
                         size='lg'
                         {...handlers}
+                        data-test-id={TestIdName.PasswordBtn}
                     />
                 </InputRightElement>
             </InputGroup>

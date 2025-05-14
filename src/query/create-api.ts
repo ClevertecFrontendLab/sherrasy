@@ -6,48 +6,56 @@ import {
     FetchBaseQueryError,
 } from '@reduxjs/toolkit/query/react';
 
-import { setAppError, setAppLoader } from '~/store/app-status/app-slice';
-import { setIsLoadingFiltered } from '~/store/recipes/recipes-slice';
-import { ApiBase } from '~/utils/constant';
+import { setAppError } from '~/store/app-status/app-slice';
+import { ApiBase, LocalStorageKey } from '~/utils/constant';
 
+import { handleError, handleTokenRefresh, setLoadingState } from './api-helpers';
 import { EndpointNames } from './constants/endpoint-names';
 
-const baseQuery = fetchBaseQuery({ baseUrl: ApiBase.Main });
+export const baseQuery = fetchBaseQuery({
+    baseUrl: ApiBase.Main,
+    credentials: 'include',
+    prepareHeaders: (headers) => {
+        const token = localStorage.getItem(LocalStorageKey.AToken);
+        if (token) {
+            headers.set('Authorization', `Bearer ${token}`);
+        }
+        return headers;
+    },
+});
 
 export const updatedBaseQuery: BaseQueryFn<
     string | FetchArgs,
     unknown,
     FetchBaseQueryError
 > = async (args, api, extraOptions) => {
-    const endpointName = api.endpoint;
-    const isFiltering = endpointName === EndpointNames.GET_RECIPES;
+    const { endpoint } = api;
+    const isFiltering = endpoint === EndpointNames.GET_RECIPES;
     const errorText = isFiltering ? 'search' : 'load';
-    if (isFiltering) {
-        api.dispatch(setIsLoadingFiltered(true));
-    } else {
-        api.dispatch(setAppLoader(true));
-    }
+
     try {
-        const result = await baseQuery(args, api, extraOptions);
+        setLoadingState(api, isFiltering, true);
+        let result = await baseQuery(args, api, extraOptions);
+
+        if (result?.error?.status === 401) {
+            const tokenRefreshed = await handleTokenRefresh(baseQuery, api, extraOptions);
+            if (tokenRefreshed) {
+                result = await baseQuery(args, api, extraOptions);
+            }
+        }
 
         if (result.error) {
-            api.dispatch(setAppLoader(false));
-            api.dispatch(setAppError(errorText));
+            handleError(api, errorText);
         } else {
             api.dispatch(setAppError(null));
         }
 
         return result;
-    } catch (e) {
-        api.dispatch(setAppLoader(false));
-        api.dispatch(setAppError(errorText));
-        throw e;
+    } catch (error) {
+        handleError(api, errorText);
+        throw error;
     } finally {
-        if (isFiltering) {
-            api.dispatch(setIsLoadingFiltered(false));
-        } else {
-            api.dispatch(setAppLoader(false));
-        }
+        setLoadingState(api, isFiltering, false);
     }
 };
 

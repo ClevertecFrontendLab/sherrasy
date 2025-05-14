@@ -22,12 +22,12 @@ const stepOneSchema = yup.object({
         .max(50, 'Максимальная длина 50 символов'),
 });
 
-const stepTwoSchema = yup.object({
+export const stepTwoSchema = yup.object({
     username: yup
         .string()
         .required('Введите логин')
         .min(5, 'Не соответствует формату')
-        .matches(FieldRegex.Password, 'Не соответствует формату')
+        .matches(FieldRegex.Username, 'Не соответствует формату')
         .max(50, 'Максимальная длина 50 символов'),
     password: yup
         .string()
@@ -44,3 +44,4 @@ const stepTwoSchema = yup.object({
 export const signUpSchema = stepOneSchema.concat(stepTwoSchema);
 
 export type SignUpFormData = yup.InferType<typeof signUpSchema>;
+export type RecoveryFormData = yup.InferType<typeof stepTwoSchema>;

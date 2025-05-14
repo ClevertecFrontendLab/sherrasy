@@ -11,3 +11,8 @@ export const emailSchema = yup.object({
 });
 
 export type EmailFormData = yup.InferType<typeof emailSchema>;
+
+export type EmailOTPData = {
+    email: string;
+    otpToken: string;
+};

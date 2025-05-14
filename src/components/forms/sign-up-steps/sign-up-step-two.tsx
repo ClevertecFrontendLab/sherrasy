@@ -30,7 +30,6 @@ export const SignUpStepTwo = () => {
                     id='username'
                     placeholder={InputNameToPlaceholder['username']}
                     {...register('username')}
-                    maxLength={50}
                 />
                 <FormHelperText>Логин не менее 5 символов, только латиница</FormHelperText>
                 <FormErrorMessage>{errors.username?.message}</FormErrorMessage>

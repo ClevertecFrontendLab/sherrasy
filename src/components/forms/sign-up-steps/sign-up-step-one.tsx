@@ -21,7 +21,6 @@ export const SignUpStepOne = ({ onNext }: { onNext: () => void }) => {
                     id='firstName'
                     placeholder={InputNameToPlaceholder['firstName']}
                     {...register('firstName')}
-                    maxLength={50}
                 />
                 <FormErrorMessage>{errors.firstName?.message}</FormErrorMessage>
             </FormControl>
@@ -34,7 +33,6 @@ export const SignUpStepOne = ({ onNext }: { onNext: () => void }) => {
                     id='lastName'
                     placeholder={InputNameToPlaceholder['lastName']}
                     {...register('lastName')}
-                    maxLength={50}
                 />
                 <FormErrorMessage>{errors.lastName?.message}</FormErrorMessage>
             </FormControl>
@@ -48,7 +46,6 @@ export const SignUpStepOne = ({ onNext }: { onNext: () => void }) => {
                     type='email'
                     placeholder={InputNameToPlaceholder['email']}
                     {...register('email')}
-                    maxLength={50}
                 />
                 <FormErrorMessage>{errors.email?.message}</FormErrorMessage>
             </FormControl>
