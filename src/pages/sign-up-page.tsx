@@ -6,13 +6,17 @@ import { UniversalModal } from '~/components/modal/universal-modal';
 import { LoginTabs } from '~/components/tabs/login-tabs';
 import { useUniversalModal } from '~/hooks/useUniversalModal';
 import { useVerificationResult } from '~/hooks/useVerificationResult';
+import { TestIdName } from '~/utils/constant';
 
 export const SignUpPage = () => {
-    const { emailVerified } = useVerificationResult();
+    const { isVerificationFailed } = useVerificationResult();
     const { isOpen, openModal, closeModal, config } = useUniversalModal();
+
     useEffect(() => {
-        if (!emailVerified) openModal('verificationError');
-    }, [emailVerified, openModal]);
+        if (isVerificationFailed && !isOpen) {
+            openModal('verificationError');
+        }
+    }, [openModal, isOpen, isVerificationFailed]);
 
     return (
         <LoginLayout>
@@ -22,7 +26,12 @@ export const SignUpPage = () => {
                 w={{ base: '90%', sm: '60%' }}
             >
                 <LoginTabs />
-                <UniversalModal isOpen={isOpen} onClose={closeModal} config={config} />
+                <UniversalModal
+                    isOpen={isOpen}
+                    onClose={closeModal}
+                    config={config}
+                    testId={TestIdName.ModalEmailVerificationFailed}
+                />
             </Flex>
         </LoginLayout>
     );

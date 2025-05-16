@@ -45,3 +45,4 @@ export const signUpSchema = stepOneSchema.concat(stepTwoSchema);
 
 export type SignUpFormData = yup.InferType<typeof signUpSchema>;
 export type RecoveryFormData = yup.InferType<typeof stepTwoSchema>;
+export type ExtendedRecoveryFormData = RecoveryFormData & { email: string };

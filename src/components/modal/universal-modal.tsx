@@ -84,7 +84,7 @@ export const UniversalModal = ({
                             lineHeight={4}
                             whiteSpace='pre-wrap'
                         >
-                            {config.footerText}
+                            {config.footerText}{' '}
                             {hasSupportLink && <Link textDecor='underline'>с поддержкой</Link>}
                         </Text>
                     </ModalFooter>

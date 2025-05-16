@@ -1,20 +1,26 @@
 import { Button, Flex } from '@chakra-ui/react';
+import { useEffect } from 'react';
 
-import { RecoveryEmailForm } from '~/components/forms/recovery-email';
-import { RecoveryForm } from '~/components/forms/recovery-form';
-import { PinCodeInput } from '~/components/inputs/pincode-input/pincode-input';
 import { LoginLayout } from '~/components/layout/login-layout';
 import { UniversalModal } from '~/components/modal/universal-modal';
 import { LoginTabs } from '~/components/tabs/login-tabs';
-import { useUniversalModal } from '~/hooks/useUniversalModal';
-import { useAppSelector } from '~/store/hooks';
+import { renderModalFlow, useUniversalModal } from '~/hooks/useUniversalModal';
+import { setAppMessage } from '~/store/app-status/app-slice';
+import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import { getUserEmail } from '~/store/user/selectors';
-import { TestIdName } from '~/utils/constant';
+import {
+    DEFAULT_VERIFIED,
+    DEFAULT_VERIFIED_MESSAGE,
+    LocalStorageKey,
+    TestIdName,
+} from '~/utils/constant';
+import { getDataFromLocalStorage, getFlowTestId, setDataToLocalStorage } from '~/utils/helpers';
 
 export const SignInPage = () => {
     const { isOpen, openModal, closeModal, config } = useUniversalModal();
+    const dispatch = useAppDispatch();
     const email = useAppSelector(getUserEmail);
-
+    const emailVerified = getDataFromLocalStorage(LocalStorageKey.VerifiedEmail);
     const handleRecoverySuccess = () => {
         closeModal();
         openModal('recoveryPin', { email });
@@ -24,6 +30,14 @@ export const SignInPage = () => {
         closeModal();
         openModal('recoveryForm');
     };
+
+    const testId = getFlowTestId(config?.type) ?? '';
+    useEffect(() => {
+        if (emailVerified == true) {
+            dispatch(setAppMessage(DEFAULT_VERIFIED_MESSAGE));
+            setDataToLocalStorage(LocalStorageKey.VerifiedEmail, DEFAULT_VERIFIED);
+        }
+    }, [emailVerified, dispatch]);
 
     return (
         <LoginLayout>
@@ -42,21 +56,20 @@ export const SignInPage = () => {
                     Забыли логин или пароль?
                 </Button>
 
-                <UniversalModal isOpen={isOpen} onClose={closeModal} config={config} email={email}>
-                    {config?.type === 'recoveryEmail' && (
-                        <RecoveryEmailForm onSuccess={handleRecoverySuccess} />
-                    )}
-                    {config?.type === 'recoveryPin' && (
-                        <PinCodeInput onSuccess={handlePinSuccess} />
-                    )}
-                    {config?.type === 'recoveryForm' && (
-                        <RecoveryForm
-                            onSuccess={() => {
-                                closeModal();
-                            }}
-                        />
-                    )}
-                </UniversalModal>
+                {config?.type && (
+                    <UniversalModal
+                        isOpen={isOpen}
+                        onClose={closeModal}
+                        config={config}
+                        email={email}
+                        testId={testId}
+                    >
+                        {renderModalFlow(config?.type, {
+                            handleRecoverySuccess,
+                            handlePinSuccess,
+                        })}
+                    </UniversalModal>
+                )}
             </Flex>
         </LoginLayout>
     );

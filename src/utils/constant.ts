@@ -1,4 +1,19 @@
+import { AlertMessage } from '~/types/api-message.type';
+
 export const DEFAULT_PAGE = 1;
+export const DEFAULT_VERIFIED = 'unknown';
+
+export const DEFAULT_ERROR_MESSAGE: AlertMessage = {
+    title: 'Ошибка сервера',
+    description: 'Попробуйте поискать снова попозже',
+    type: 'error',
+};
+export const DEFAULT_VERIFIED_MESSAGE: AlertMessage = {
+    title: 'Верификация прошла успешно',
+    description: '',
+    type: 'success',
+};
+
 export const AppRoute = {
     Main: '/',
     Vegan: '/:categoryId/:subcategoryId',
@@ -78,6 +93,7 @@ export enum AuthStatus {
 export enum LocalStorageKey {
     Categories = 'yee-daa_categories',
     AToken = 'yee-daa_accessToken',
+    VerifiedEmail = 'yee-daa_verified-email',
 }
 
 export enum TestIdName {
@@ -128,7 +144,6 @@ export enum TestIdName {
     StepperDecrement = 'decrement-stepper',
     StepperIncrement = 'increment-stepper',
     Tab = 'tab',
-    //new
     SignInForm = 'sign-in-form',
     InputLogin = 'login-input',
     InputPassword = 'password-input',

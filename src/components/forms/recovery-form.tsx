@@ -11,7 +11,7 @@ import {
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 
-import { InputNameToPlaceholder } from '~/utils/constant';
+import { InputNameToPlaceholder, TestIdName } from '~/utils/constant';
 
 import { PasswordInput } from '../inputs/password-input/password-input';
 import { RecoveryFormData, stepTwoSchema } from './validation-scheme/sign-up.scheme';
@@ -41,6 +41,7 @@ export const RecoveryForm = ({ onSuccess }: { onSuccess: () => void }) => {
                         id='username'
                         placeholder={InputNameToPlaceholder['username']}
                         {...register('username')}
+                        data-test-id={TestIdName.InputLogin}
                     />
                     <FormHelperText>Логин не менее 5 символов, только латиница</FormHelperText>
                     <FormErrorMessage>{errors.username?.message}</FormErrorMessage>
@@ -56,7 +57,14 @@ export const RecoveryForm = ({ onSuccess }: { onSuccess: () => void }) => {
                     register={register}
                     errors={errors}
                 />
-                <Button mt={4} colorScheme='black' type='submit' w='100%' isDisabled={!isValid}>
+                <Button
+                    mt={4}
+                    colorScheme='black'
+                    type='submit'
+                    w='100%'
+                    isDisabled={!isValid}
+                    data-test-id={TestIdName.SubmitBtn}
+                >
                     Зарегистрироваться
                 </Button>
             </VStack>

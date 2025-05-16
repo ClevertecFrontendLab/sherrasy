@@ -5,6 +5,7 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { useUniversalModal } from '~/hooks/useUniversalModal';
 import { useAppDispatch } from '~/store/hooks';
 import { setCurrentEmail } from '~/store/user/user-slice';
+import { TestIdName } from '~/utils/constant';
 
 import { UniversalModal } from '../modal/universal-modal';
 import { SignUpStepOne } from './sign-up-steps/sign-up-step-one';
@@ -66,13 +67,24 @@ export const SignUpForm = () => {
                             <Text>
                                 Шаг {activeStep + 1}. {steps[activeStep].title}
                             </Text>
-                            <Progress colorScheme='lime' size='sm' hasStripe value={progress} />
+                            <Progress
+                                data-test-id={TestIdName.SignUpProgress}
+                                colorScheme='lime'
+                                size='sm'
+                                hasStripe
+                                value={progress}
+                            />
                         </Stack>
                         {activeStep === 0 ? <SignUpStepOne onNext={nextStep} /> : <SignUpStepTwo />}
                     </Flex>
                 </form>
             </FormProvider>
-            <UniversalModal isOpen={isOpen} onClose={closeModal} config={config} />
+            <UniversalModal
+                isOpen={isOpen}
+                onClose={closeModal}
+                config={config}
+                testId={TestIdName.ModalSignUpSuccess}
+            />
         </>
     );
 };

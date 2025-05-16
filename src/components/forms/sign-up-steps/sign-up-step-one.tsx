@@ -1,7 +1,7 @@
 import { Button, FormControl, FormErrorMessage, FormLabel, Input, VStack } from '@chakra-ui/react';
 import { useFormContext } from 'react-hook-form';
 
-import { InputNameToPlaceholder } from '~/utils/constant';
+import { InputNameToPlaceholder, TestIdName } from '~/utils/constant';
 
 import { SignUpFormData } from '../validation-scheme/sign-up.scheme';
 
@@ -12,7 +12,7 @@ export const SignUpStepOne = ({ onNext }: { onNext: () => void }) => {
     } = useFormContext<SignUpFormData>();
 
     return (
-        <VStack spacing={6} w='100%'>
+        <VStack spacing={6} w='100%' data-test-id={TestIdName.SignUpForm}>
             <FormControl isInvalid={!!errors.firstName}>
                 <FormLabel htmlFor='firstName'>Ваше имя</FormLabel>
                 <Input
@@ -21,6 +21,7 @@ export const SignUpStepOne = ({ onNext }: { onNext: () => void }) => {
                     id='firstName'
                     placeholder={InputNameToPlaceholder['firstName']}
                     {...register('firstName')}
+                    data-test-id={TestIdName.InputFirstName}
                 />
                 <FormErrorMessage>{errors.firstName?.message}</FormErrorMessage>
             </FormControl>
@@ -33,6 +34,7 @@ export const SignUpStepOne = ({ onNext }: { onNext: () => void }) => {
                     id='lastName'
                     placeholder={InputNameToPlaceholder['lastName']}
                     {...register('lastName')}
+                    data-test-id={TestIdName.InputLastName}
                 />
                 <FormErrorMessage>{errors.lastName?.message}</FormErrorMessage>
             </FormControl>
@@ -46,10 +48,17 @@ export const SignUpStepOne = ({ onNext }: { onNext: () => void }) => {
                     type='email'
                     placeholder={InputNameToPlaceholder['email']}
                     {...register('email')}
+                    data-test-id={TestIdName.InputEmail}
                 />
                 <FormErrorMessage>{errors.email?.message}</FormErrorMessage>
             </FormControl>
-            <Button mt={4} colorScheme='black' onClick={onNext} w='100%'>
+            <Button
+                mt={4}
+                colorScheme='black'
+                onClick={onNext}
+                w='100%'
+                data-test-id={TestIdName.SubmitBtn}
+            >
                 Далее
             </Button>
         </VStack>

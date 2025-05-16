@@ -1,9 +1,10 @@
 import { Category, CatSubPair, Subcategory } from '~/types/category.type';
 import { MultiselectItem } from '~/types/filter-item.type';
+import { ModalType } from '~/types/modal.type';
 import { RecipeQueryParam } from '~/types/query-param.type';
 import { FullRecipe } from '~/types/recipe.interface';
 
-import { ApiBase, CardsLimit } from './constant';
+import { ApiBase, CardsLimit, TestIdName } from './constant';
 
 export const getSortedNewRecipes = (recipes: FullRecipe[]) =>
     [...recipes]
@@ -83,4 +84,17 @@ export const setDataToLocalStorage = (key: string, data: unknown) => {
 export const getDataFromLocalStorage = (key: string) => {
     const item = localStorage.getItem(key);
     return item ? JSON.parse(item) : null;
+};
+
+export const getFlowTestId = (type?: ModalType) => {
+    switch (type) {
+        case 'recoveryEmail':
+            return TestIdName.ModalSendEmail;
+        case 'recoveryPin':
+            return TestIdName.ModalVerificationCode;
+        case 'recoveryForm':
+            return TestIdName.ModalResetCredentials;
+        default:
+            return null;
+    }
 };

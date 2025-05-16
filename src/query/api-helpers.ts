@@ -1,8 +1,8 @@
 import { BaseQueryApi, BaseQueryFn, FetchArgs, FetchBaseQueryError } from '@reduxjs/toolkit/query';
 
-import { setAppError, setAppLoader } from '~/store/app-status/app-slice';
+import { setAppLoader, setAppMessage } from '~/store/app-status/app-slice';
 import { setIsLoadingFiltered } from '~/store/recipes/recipes-slice';
-import { ApiMeta } from '~/types/api-message.type';
+import { AlertMessage, ApiMeta } from '~/types/api-message.type';
 
 import { ApiEndpoints } from './constants/api';
 
@@ -38,6 +38,6 @@ export const handleTokenRefresh = async (
     return false;
 };
 
-export const handleError = (api: BaseQueryApi, errorText: 'load' | 'search') => {
-    api.dispatch(setAppError(errorText));
+export const handleError = (api: BaseQueryApi, apiMessage: AlertMessage | null) => {
+    api.dispatch(setAppMessage(apiMessage));
 };

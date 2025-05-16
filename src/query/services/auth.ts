@@ -1,10 +1,11 @@
 import { EmailFormData, EmailOTPData } from '~/components/forms/validation-scheme/email.sheme';
 import { SignInFormData } from '~/components/forms/validation-scheme/sign-in.scheme';
 import {
-    RecoveryFormData,
+    ExtendedRecoveryFormData,
     SignUpFormData,
 } from '~/components/forms/validation-scheme/sign-up.scheme';
-import { ApiMessage, ApiMeta } from '~/types/api-message.type';
+import { setAppMessage } from '~/store/app-status/app-slice';
+import { AlertMessage, ApiMessage, ApiMeta } from '~/types/api-message.type';
 
 import { ApiEndpoints } from '../constants/api';
 import { ApiGroupNames } from '../constants/api-group-names';
@@ -88,14 +89,28 @@ export const authApiSlice = apiSlice
                     body: data,
                 }),
             }),
-            resetPassword: builder.mutation<ApiMessage, RecoveryFormData>({
-                query: (data: RecoveryFormData) => ({
+            resetPassword: builder.mutation<AlertMessage, ExtendedRecoveryFormData>({
+                query: (data: ExtendedRecoveryFormData) => ({
                     url: ApiEndpoints.AUTH_RESET_PASSWORD,
                     method: 'POST',
                     apiGroupName: ApiGroupNames.AUTH,
                     name: EndpointNames.AUTH_RESET_PASSWORD,
                     body: data,
                 }),
+                async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
+                    try {
+                        await queryFulfilled;
+                        dispatch(
+                            setAppMessage({
+                                title: 'Восстановление данных успешно',
+                                description: '',
+                                type: 'success',
+                            }),
+                        );
+                    } catch (error) {
+                        console.error('Failed to reset password:', error);
+                    }
+                },
             }),
         }),
     });

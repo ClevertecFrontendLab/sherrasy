@@ -6,8 +6,7 @@ import {
     FetchBaseQueryError,
 } from '@reduxjs/toolkit/query/react';
 
-import { setAppError } from '~/store/app-status/app-slice';
-import { ApiBase, LocalStorageKey } from '~/utils/constant';
+import { ApiBase, DEFAULT_ERROR_MESSAGE, LocalStorageKey } from '~/utils/constant';
 
 import { handleError, handleTokenRefresh, setLoadingState } from './api-helpers';
 import { EndpointNames } from './constants/endpoint-names';
@@ -31,7 +30,6 @@ export const updatedBaseQuery: BaseQueryFn<
 > = async (args, api, extraOptions) => {
     const { endpoint } = api;
     const isFiltering = endpoint === EndpointNames.GET_RECIPES;
-    const errorText = isFiltering ? 'search' : 'load';
 
     try {
         setLoadingState(api, isFiltering, true);
@@ -44,15 +42,19 @@ export const updatedBaseQuery: BaseQueryFn<
             }
         }
 
-        if (result.error) {
-            handleError(api, errorText);
-        } else {
-            api.dispatch(setAppError(null));
-        }
+        // if (result.error) {
+        //     const { status, data } = result.error;
+        //     const isServerError = status && status >= 500;
+        //     const isClientError = status && status >= 400 && status < 500;
+
+        //     const errorMessage = isClientError ? data : DEFAULT_ERROR_MESSAGE;
+
+        //     handleError(api, errorMessage);
+        // }
 
         return result;
     } catch (error) {
-        handleError(api, errorText);
+        handleError(api, DEFAULT_ERROR_MESSAGE);
         throw error;
     } finally {
         setLoadingState(api, isFiltering, false);

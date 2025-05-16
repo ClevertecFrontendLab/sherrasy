@@ -9,7 +9,7 @@ import { SignUpPage } from '~/pages/sign-up-page';
 import { VeganPage } from '~/pages/vegan-page';
 import { AppRoute } from '~/utils/constant';
 
-import { protectedRoute, publicRoute } from './private-route';
+import { protectedRoute, publicRoute } from './helper-routes';
 
 const router = createBrowserRouter([
     {

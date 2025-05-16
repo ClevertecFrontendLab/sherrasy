@@ -1,6 +1,8 @@
 import { HStack, PinInput, PinInputField } from '@chakra-ui/react';
 import { useEffect, useRef, useState } from 'react';
 
+import { TestIdName } from '~/utils/constant';
+
 export const PinCodeInput = ({ onSuccess }: { onSuccess: () => void }) => {
     const [pin, setPin] = useState('');
     const pinInputRef = useRef<HTMLInputElement>(null);
@@ -29,8 +31,8 @@ export const PinCodeInput = ({ onSuccess }: { onSuccess: () => void }) => {
                         borderColor={isInvalid ? 'red.500' : undefined}
                         _focus={{
                             borderColor: isInvalid ? 'red.500' : 'lime.500',
-                            boxShadow: isInvalid ? '0 0 0 1px red' : undefined,
                         }}
+                        data-test-id={`${TestIdName.InputVerificationCode}-${i + 1}`}
                     />
                 ))}
             </PinInput>

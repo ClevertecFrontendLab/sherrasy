@@ -1,23 +1,32 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useLocation, useNavigate, useSearchParams } from 'react-router';
 
-import { AppRoute } from '~/utils/constant';
+import { AppRoute, DEFAULT_VERIFIED, LocalStorageKey } from '~/utils/constant';
+import { setDataToLocalStorage } from '~/utils/helpers';
 
 export const useVerificationResult = () => {
     const { pathname } = useLocation();
     const [searchParams] = useSearchParams();
     const navigate = useNavigate();
+    const initialCheckComplete = useRef(false);
 
-    const isVerificationPage = pathname === AppRoute.Verification;
-    const emailVerified = !isVerificationPage || searchParams.get('emailVerified') === 'true';
+    const emailVerified = (() => {
+        if (pathname !== AppRoute.Verification) return DEFAULT_VERIFIED;
+        return searchParams.get('emailVerified') === 'true';
+    })();
+    const isVerified = emailVerified === true;
+    const isVerificationFailed = emailVerified === false;
 
     useEffect(() => {
-        if (!isVerificationPage) return;
+        setDataToLocalStorage(LocalStorageKey.VerifiedEmail, emailVerified);
+        if (emailVerified === DEFAULT_VERIFIED || initialCheckComplete.current) return;
+        initialCheckComplete.current = true;
+        navigate(isVerified ? AppRoute.SignIn : AppRoute.SignUp);
+    }, [emailVerified, isVerified, navigate]);
 
-        if (emailVerified) {
-            navigate(AppRoute.SignIn);
-        }
-    }, [isVerificationPage, emailVerified, navigate]);
-
-    return { emailVerified };
+    return {
+        emailVerified,
+        isVerified,
+        isVerificationFailed,
+    };
 };

@@ -12,7 +12,7 @@ import { useForm } from 'react-hook-form';
 
 import { useAppDispatch } from '~/store/hooks';
 import { setCurrentEmail } from '~/store/user/user-slice';
-import { InputNameToPlaceholder } from '~/utils/constant';
+import { InputNameToPlaceholder, TestIdName } from '~/utils/constant';
 
 import { EmailFormData, emailSchema } from './validation-scheme/email.sheme';
 
@@ -44,10 +44,18 @@ export const RecoveryEmailForm = ({ onSuccess }: { onSuccess: () => void }) => {
                         type='email'
                         placeholder={InputNameToPlaceholder['email']}
                         {...register('email')}
+                        data-test-id={TestIdName.InputEmail}
                     />
                     <FormErrorMessage>{errors.email?.message}</FormErrorMessage>
                 </FormControl>
-                <Button mt={4} colorScheme='black' type='submit' w='100%' isDisabled={!isValid}>
+                <Button
+                    mt={4}
+                    colorScheme='black'
+                    type='submit'
+                    w='100%'
+                    isDisabled={!isValid}
+                    data-test-id={TestIdName.SubmitBtn}
+                >
                     Получить код
                 </Button>
             </VStack>
