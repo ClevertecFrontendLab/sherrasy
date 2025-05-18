@@ -23,11 +23,11 @@ const stepOneSchema = yup.object({
 });
 
 export const stepTwoSchema = yup.object({
-    username: yup
+    login: yup
         .string()
         .required('Введите логин')
         .min(5, 'Не соответствует формату')
-        .matches(FieldRegex.Username, 'Не соответствует формату')
+        .matches(FieldRegex.Login, 'Не соответствует формату')
         .max(50, 'Максимальная длина 50 символов'),
     password: yup
         .string()

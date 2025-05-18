@@ -7,7 +7,7 @@ export const signInSchema = yup.object({
         .string()
         .required('Введите логин')
         .min(5, 'Не соответствует формату')
-        .matches(FieldRegex.Username, 'Не соответствует формату')
+        .matches(FieldRegex.Login, 'Не соответствует формату')
         .max(50, 'Максимальная длина 50 символов'),
     password: yup
         .string()

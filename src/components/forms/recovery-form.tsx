@@ -33,18 +33,18 @@ export const RecoveryForm = ({ onSuccess }: { onSuccess: () => void }) => {
     return (
         <Box as='form' onSubmit={handleSubmit(onSubmit)} w='100%' mt={4}>
             <VStack spacing={6} w='100%'>
-                <FormControl isInvalid={!!errors.username}>
-                    <FormLabel htmlFor='username'>Логин входа на сайт</FormLabel>
+                <FormControl isInvalid={!!errors.login}>
+                    <FormLabel htmlFor='login'>Логин входа на сайт</FormLabel>
                     <Input
                         variant='baseFormInput'
                         size='lg'
-                        id='username'
-                        placeholder={InputNameToPlaceholder['username']}
-                        {...register('username')}
+                        id='login'
+                        placeholder={InputNameToPlaceholder['login']}
+                        {...register('login')}
                         data-test-id={TestIdName.InputLogin}
                     />
                     <FormHelperText>Логин не менее 5 символов, только латиница</FormHelperText>
-                    <FormErrorMessage>{errors.username?.message}</FormErrorMessage>
+                    <FormErrorMessage>{errors.login?.message}</FormErrorMessage>
                 </FormControl>
                 <PasswordInput<RecoveryFormData>
                     type='password'

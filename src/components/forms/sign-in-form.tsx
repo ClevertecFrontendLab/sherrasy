@@ -11,7 +11,8 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 
 import { useUniversalModal } from '~/hooks/useUniversalModal';
-import { InputNameToPlaceholder, TestIdName } from '~/utils/constant';
+import { useLoginMutation } from '~/query/services/auth';
+import { DEFAULT_ERROR_LOG, InputNameToPlaceholder, TestIdName } from '~/utils/constant';
 
 import { PasswordInput } from '../inputs/password-input/password-input';
 import { UniversalModal } from '../modal/universal-modal';
@@ -20,19 +21,29 @@ import { SignInFormData, signInSchema } from './validation-scheme/sign-in.scheme
 export const SignInForm = () => {
     const { isOpen, openModal, closeModal, config } = useUniversalModal();
     const handleOpenModal = () => openModal('login');
+    const [login, { isLoading }] = useLoginMutation();
+
     const {
         register,
         handleSubmit,
-        getValues,
         formState: { errors, isSubmitting },
     } = useForm<SignInFormData>({
         mode: 'onChange',
         resolver: yupResolver(signInSchema),
     });
 
-    const onSubmit = (data: SignInFormData) => {
-        console.log(data, 'd');
-        handleOpenModal();
+    const onSubmit = async (data: SignInFormData) => {
+        try {
+            const result = await login(data).unwrap();
+            console.log(data, 'd');
+            console.log('Login successful', result);
+        } catch (err) {
+            console.error(DEFAULT_ERROR_LOG, err);
+            handleOpenModal();
+        }
+    };
+    const handleRepeat = async () => {
+        await handleSubmit(onSubmit)();
     };
 
     return (
@@ -49,7 +60,7 @@ export const SignInForm = () => {
                         variant='baseFormInput'
                         size='lg'
                         id='login'
-                        placeholder={InputNameToPlaceholder['username']}
+                        placeholder={InputNameToPlaceholder['login']}
                         {...register('login')}
                         data-test-id={TestIdName.InputLogin}
                     />
@@ -63,7 +74,7 @@ export const SignInForm = () => {
                 <Button
                     mt='100px'
                     colorScheme='black'
-                    isLoading={isSubmitting}
+                    isLoading={isSubmitting || isLoading}
                     type='submit'
                     w='100%'
                     data-test-id={TestIdName.SubmitBtn}
@@ -81,7 +92,7 @@ export const SignInForm = () => {
                     mt={8}
                     colorScheme='black'
                     w='100%'
-                    onClick={() => console.log(getValues())}
+                    onClick={handleRepeat}
                     data-test-id={TestIdName.RepeatBtn}
                 >
                     Повторить

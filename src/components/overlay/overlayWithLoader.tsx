@@ -19,7 +19,7 @@ export const OverlayWithLoader = ({ isOpen }: { isOpen: boolean }) => {
             left={0}
             right={0}
             bottom={0}
-            zIndex='overlay'
+            zIndex={9999}
             backdropFilter='blur(2px)'
             bgColor='blackAlpha.300'
             display='flex'

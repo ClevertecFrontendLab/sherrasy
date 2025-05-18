@@ -10,6 +10,7 @@ import {
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 
+import { useForgotPasswordMutation } from '~/query/services/auth';
 import { useAppDispatch } from '~/store/hooks';
 import { setCurrentEmail } from '~/store/user/user-slice';
 import { InputNameToPlaceholder, TestIdName } from '~/utils/constant';
@@ -26,9 +27,10 @@ export const RecoveryEmailForm = ({ onSuccess }: { onSuccess: () => void }) => {
         resolver: yupResolver(emailSchema),
     });
     const dispatch = useAppDispatch();
+    const [forgotPassword, { isLoading }] = useForgotPasswordMutation();
 
-    const onSubmit = (data: EmailFormData) => {
-        console.log(data);
+    const onSubmit = async (data: EmailFormData) => {
+        await forgotPassword(data);
         dispatch(setCurrentEmail(data.email));
         onSuccess();
     };
@@ -53,7 +55,7 @@ export const RecoveryEmailForm = ({ onSuccess }: { onSuccess: () => void }) => {
                     colorScheme='black'
                     type='submit'
                     w='100%'
-                    isDisabled={!isValid}
+                    isDisabled={!isValid || isLoading}
                     data-test-id={TestIdName.SubmitBtn}
                 >
                     Получить код

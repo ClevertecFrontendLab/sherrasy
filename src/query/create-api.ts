@@ -5,8 +5,11 @@ import {
     fetchBaseQuery,
     FetchBaseQueryError,
 } from '@reduxjs/toolkit/query/react';
+import { StatusCodes } from 'http-status-codes';
 
-import { ApiBase, DEFAULT_ERROR_MESSAGE, LocalStorageKey } from '~/utils/constant';
+import { AlertMessage, ApiQueryError } from '~/types/api-message.type';
+import { ALERT_MESSAGES } from '~/utils/alert-messages';
+import { ApiBase, LocalStorageKey } from '~/utils/constant';
 
 import { handleError, handleTokenRefresh, setLoadingState } from './api-helpers';
 import { EndpointNames } from './constants/endpoint-names';
@@ -42,19 +45,32 @@ export const updatedBaseQuery: BaseQueryFn<
             }
         }
 
-        // if (result.error) {
-        //     const { status, data } = result.error;
-        //     const isServerError = status && status >= 500;
-        //     const isClientError = status && status >= 400 && status < 500;
+        if (result.error) {
+            const { status, data } = result.error as ApiQueryError;
+            const isClientError =
+                status &&
+                status >= StatusCodes.BAD_REQUEST &&
+                status < StatusCodes.INTERNAL_SERVER_ERROR;
+            if (status !== StatusCodes.BAD_REQUEST && status < StatusCodes.INTERNAL_SERVER_ERROR)
+                return result;
+            const message: AlertMessage = {
+                title: data.message,
+                description: data.description ?? '',
+                type: 'error',
+            };
+            const errorMessage = isFiltering
+                ? ALERT_MESSAGES.searchError
+                : isClientError
+                  ? message
+                  : ALERT_MESSAGES.serverError;
 
-        //     const errorMessage = isClientError ? data : DEFAULT_ERROR_MESSAGE;
-
-        //     handleError(api, errorMessage);
-        // }
+            handleError(api, errorMessage);
+        }
 
         return result;
     } catch (error) {
-        handleError(api, DEFAULT_ERROR_MESSAGE);
+        console.log(error, 'err');
+        handleError(api, ALERT_MESSAGES.serverError);
         throw error;
     } finally {
         setLoadingState(api, isFiltering, false);

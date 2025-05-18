@@ -1,18 +1,6 @@
-import { AlertMessage } from '~/types/api-message.type';
-
 export const DEFAULT_PAGE = 1;
 export const DEFAULT_VERIFIED = 'unknown';
-
-export const DEFAULT_ERROR_MESSAGE: AlertMessage = {
-    title: 'Ошибка сервера',
-    description: 'Попробуйте поискать снова попозже',
-    type: 'error',
-};
-export const DEFAULT_VERIFIED_MESSAGE: AlertMessage = {
-    title: 'Верификация прошла успешно',
-    description: '',
-    type: 'success',
-};
+export const DEFAULT_ERROR_LOG = 'Falied request';
 
 export const AppRoute = {
     Main: '/',
@@ -33,7 +21,7 @@ export const ApiBase = {
 export const FieldRegex = {
     Firstletter: /^[А-ЯЁ]/,
     Name: /^[А-ЯЁа-яё-]+$/,
-    Username: /^[A-Za-z]{5,}$/,
+    Login: /^[A-Za-z]{5,}$/,
     Password: /^(?=.*[A-Z])(?=.*\d).{8,}$/,
     Email: /^[\w-.]+@([\w-]+\.)+[\w-]{2,5}$/,
 } as const;
@@ -67,7 +55,7 @@ export const InputNameToPlaceholder: Record<string, string> = {
     firstName: 'Имя',
     lastName: 'Фамилия',
     email: 'e-mail',
-    username: 'Введите логин',
+    login: 'Введите логин',
     password: 'Пароль для сайта',
     confirmPassword: 'Повторите пароль',
 };

@@ -6,7 +6,7 @@ import { apiSlice } from '~/query/create-api.ts';
 import { updateHasRecipes, updateIsFiltering } from '~/store/recipes/recipes-slice';
 import { RecipeQueryParam } from '~/types/query-param.type';
 import { FullRecipe, RecipeMeta } from '~/types/recipe.interface';
-import { CardsLimit, SortingBy, SortingDirection } from '~/utils/constant';
+import { CardsLimit, DEFAULT_ERROR_LOG, SortingBy, SortingDirection } from '~/utils/constant';
 import { formatRecipeWithImages, getRecipeQueryString } from '~/utils/helpers';
 
 type RecipeResponse = {
@@ -39,7 +39,7 @@ export const recipesApiSlice = apiSlice
                         dispatch(updateIsFiltering(true));
                         dispatch(updateHasRecipes(hasData));
                     } catch (error) {
-                        console.error('Failed to fetch recipes:', error);
+                        console.error(DEFAULT_ERROR_LOG, error);
                     }
                 },
                 providesTags: [Tags.RECIPES],

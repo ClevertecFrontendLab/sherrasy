@@ -3,6 +3,7 @@ export type ApiMessage = {
     error?: string;
     statusText?: string;
     statusCode?: string;
+    description?: string;
 };
 
 export type AlertMessage = {
@@ -14,3 +15,6 @@ export type AlertMessage = {
 export type ApiMeta = {
     response?: Response;
 };
+
+export type ApiQueryError = { status: number; data: ApiMessage };
+export type ApiQueryErrorWithMeta = { error: ApiQueryError; isUnhandled: boolean; meta: unknown };

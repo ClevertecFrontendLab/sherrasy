@@ -3,9 +3,10 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { FormProvider, useForm } from 'react-hook-form';
 
 import { useUniversalModal } from '~/hooks/useUniversalModal';
+import { useSignupMutation } from '~/query/services/auth';
 import { useAppDispatch } from '~/store/hooks';
 import { setCurrentEmail } from '~/store/user/user-slice';
-import { TestIdName } from '~/utils/constant';
+import { DEFAULT_ERROR_LOG, TestIdName } from '~/utils/constant';
 
 import { UniversalModal } from '../modal/universal-modal';
 import { SignUpStepOne } from './sign-up-steps/sign-up-step-one';
@@ -21,6 +22,7 @@ export const SignUpForm = () => {
         index: 0,
         count: steps.length,
     });
+    const [signup, { isLoading }] = useSignupMutation();
 
     const methods = useForm<SignUpFormData>({
         resolver: yupResolver(signUpSchema),
@@ -53,9 +55,15 @@ export const SignUpForm = () => {
             dispatch(setCurrentEmail(email));
         }
     };
-    const onSubmit = (data: SignUpFormData) => {
-        console.log(data);
-        openModal('verification');
+    const onSubmit = async (data: SignUpFormData) => {
+        try {
+            const result = await signup(data).unwrap();
+            console.log(data, 'd');
+            console.log(result);
+            openModal('verification');
+        } catch (err) {
+            console.error(DEFAULT_ERROR_LOG, err);
+        }
     };
 
     return (
@@ -75,7 +83,11 @@ export const SignUpForm = () => {
                                 value={progress}
                             />
                         </Stack>
-                        {activeStep === 0 ? <SignUpStepOne onNext={nextStep} /> : <SignUpStepTwo />}
+                        {activeStep === 0 ? (
+                            <SignUpStepOne onNext={nextStep} />
+                        ) : (
+                            <SignUpStepTwo isDisabled={isLoading} />
+                        )}
                     </Flex>
                 </form>
             </FormProvider>

@@ -1,3 +1,5 @@
+import { StatusCodes } from 'http-status-codes';
+
 import { EmailFormData, EmailOTPData } from '~/components/forms/validation-scheme/email.sheme';
 import { SignInFormData } from '~/components/forms/validation-scheme/sign-in.scheme';
 import {
@@ -5,7 +7,9 @@ import {
     SignUpFormData,
 } from '~/components/forms/validation-scheme/sign-up.scheme';
 import { setAppMessage } from '~/store/app-status/app-slice';
-import { AlertMessage, ApiMessage, ApiMeta } from '~/types/api-message.type';
+import { AlertMessage, ApiMessage, ApiMeta, ApiQueryErrorWithMeta } from '~/types/api-message.type';
+import { ALERT_MESSAGES } from '~/utils/alert-messages';
+import { DEFAULT_ERROR_LOG } from '~/utils/constant';
 
 import { ApiEndpoints } from '../constants/api';
 import { ApiGroupNames } from '../constants/api-group-names';
@@ -36,6 +40,19 @@ export const authApiSlice = apiSlice
                     name: EndpointNames.AUTH_LOGIN,
                     body: data,
                 }),
+                async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
+                    try {
+                        await queryFulfilled;
+                    } catch (error) {
+                        const { error: apiError } = error as ApiQueryErrorWithMeta;
+                        if (apiError.status === StatusCodes.UNAUTHORIZED) {
+                            dispatch(setAppMessage(ALERT_MESSAGES.loginAuthError));
+                        }
+                        if (apiError.status === StatusCodes.FORBIDDEN) {
+                            dispatch(setAppMessage(ALERT_MESSAGES.loginVerificationError));
+                        }
+                    }
+                },
                 transformResponse: (response: ApiMessage, meta: ApiMeta) => {
                     const token = meta?.response?.headers.get('Authentication-Access');
                     if (token) {
@@ -59,6 +76,7 @@ export const authApiSlice = apiSlice
                     method: 'GET',
                     apiGroupName: ApiGroupNames.AUTH,
                     name: EndpointNames.AUTH_CHECK_AUTH,
+                    credentials: 'include',
                 }),
                 providesTags: [Tags.AUTH],
             }),
@@ -79,6 +97,16 @@ export const authApiSlice = apiSlice
                     name: EndpointNames.AUTH_FORGOT_PASSWORD,
                     body: data,
                 }),
+                async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
+                    try {
+                        await queryFulfilled;
+                    } catch (error) {
+                        const { error: apiError } = error as ApiQueryErrorWithMeta;
+                        if (apiError.status === StatusCodes.FORBIDDEN) {
+                            dispatch(setAppMessage(ALERT_MESSAGES.recoveryEmailError));
+                        }
+                    }
+                },
             }),
             verifyOTP: builder.mutation<ApiMessage, EmailOTPData>({
                 query: (data: EmailOTPData) => ({
@@ -100,15 +128,9 @@ export const authApiSlice = apiSlice
                 async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
                     try {
                         await queryFulfilled;
-                        dispatch(
-                            setAppMessage({
-                                title: 'Восстановление данных успешно',
-                                description: '',
-                                type: 'success',
-                            }),
-                        );
+                        dispatch(setAppMessage(ALERT_MESSAGES.recoverySuccess));
                     } catch (error) {
-                        console.error('Failed to reset password:', error);
+                        console.error(DEFAULT_ERROR_LOG, error);
                     }
                 },
             }),

@@ -8,12 +8,8 @@ import { renderModalFlow, useUniversalModal } from '~/hooks/useUniversalModal';
 import { setAppMessage } from '~/store/app-status/app-slice';
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import { getUserEmail } from '~/store/user/selectors';
-import {
-    DEFAULT_VERIFIED,
-    DEFAULT_VERIFIED_MESSAGE,
-    LocalStorageKey,
-    TestIdName,
-} from '~/utils/constant';
+import { ALERT_MESSAGES } from '~/utils/alert-messages';
+import { DEFAULT_VERIFIED, LocalStorageKey, TestIdName } from '~/utils/constant';
 import { getDataFromLocalStorage, getFlowTestId, setDataToLocalStorage } from '~/utils/helpers';
 
 export const SignInPage = () => {
@@ -34,7 +30,7 @@ export const SignInPage = () => {
     const testId = getFlowTestId(config?.type) ?? '';
     useEffect(() => {
         if (emailVerified == true) {
-            dispatch(setAppMessage(DEFAULT_VERIFIED_MESSAGE));
+            dispatch(setAppMessage(ALERT_MESSAGES.verificationSuccess));
             setDataToLocalStorage(LocalStorageKey.VerifiedEmail, DEFAULT_VERIFIED);
         }
     }, [emailVerified, dispatch]);
