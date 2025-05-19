@@ -6,6 +6,7 @@ import { ReducerName } from '~/utils/constant';
 
 const initialState: AppState = {
     isLoading: false,
+    isModalOpened: false,
     alertMessage: null,
 };
 
@@ -16,12 +17,15 @@ export const appSlice = createSlice({
         setAppMessage(state, { payload }: PayloadAction<AlertMessage | null>) {
             state.alertMessage = payload;
         },
-        setAppLoader(state, { payload: isLoading }: PayloadAction<boolean>) {
-            state.isLoading = isLoading;
+        setModalOpened(state, { payload }: PayloadAction<boolean>) {
+            state.isModalOpened = payload;
+        },
+        setAppLoader(state, { payload }: PayloadAction<boolean>) {
+            state.isLoading = payload;
         },
     },
 });
 
-export const { setAppMessage, setAppLoader } = appSlice.actions;
+export const { setAppMessage, setAppLoader, setModalOpened } = appSlice.actions;
 
 export default appSlice.reducer;

@@ -5,3 +5,5 @@ export const getAppLoading = (state: Pick<State, ReducerName.App>) =>
     state[ReducerName.App].isLoading;
 export const getAppMessage = (state: Pick<State, ReducerName.App>) =>
     state[ReducerName.App].alertMessage;
+export const getAppModalOpen = (state: Pick<State, ReducerName.App>) =>
+    state[ReducerName.App].isModalOpened;

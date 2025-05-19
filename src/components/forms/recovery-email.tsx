@@ -17,15 +17,27 @@ export const RecoveryEmailForm = ({ onSuccess }: { onSuccess: () => void }) => {
     });
     const {
         handleSubmit,
+        reset,
+        setError,
         formState: { isValid },
     } = formMethods;
     const dispatch = useAppDispatch();
     const [forgotPassword, { isLoading }] = useForgotPasswordMutation();
 
     const onSubmit = async (data: EmailFormData) => {
-        await forgotPassword(data);
-        dispatch(setCurrentEmail(data.email));
-        onSuccess();
+        await forgotPassword(data)
+            .unwrap()
+            .then(() => {
+                dispatch(setCurrentEmail(data.email));
+                onSuccess();
+            })
+            .catch(async () => {
+                reset();
+                setError('email', {
+                    type: 'manual',
+                    message: '',
+                });
+            });
     };
     return (
         <Box as='form' onSubmit={handleSubmit(onSubmit)} w='100%' mt={4}>

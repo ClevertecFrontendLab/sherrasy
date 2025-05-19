@@ -1,10 +1,12 @@
 import { Button, Stack, VStack } from '@chakra-ui/react';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { StatusCodes } from 'http-status-codes';
 import { useForm } from 'react-hook-form';
 
 import { useUniversalModal } from '~/hooks/useUniversalModal';
 import { useLoginMutation } from '~/query/services/auth';
-import { DEFAULT_ERROR_LOG, TestIdName } from '~/utils/constant';
+import { ApiQueryError } from '~/types/api-message.type';
+import { TestIdName } from '~/utils/constant';
 
 import { FormInput } from '../inputs/form-input/form-input';
 import { PasswordInput } from '../inputs/password-input/password-input';
@@ -25,11 +27,10 @@ export const SignInForm = () => {
     } = formMethods;
     const onSubmit = async (data: SignInFormData) => {
         try {
-            const result = await login(data).unwrap();
-            console.log(data, 'd');
-            console.log('Login successful', result);
-        } catch (err) {
-            console.error(DEFAULT_ERROR_LOG, err);
+            await login(data).unwrap();
+        } catch (error) {
+            const { status } = error as ApiQueryError;
+            if (status < StatusCodes.INTERNAL_SERVER_ERROR) return;
             handleOpenModal();
         }
     };

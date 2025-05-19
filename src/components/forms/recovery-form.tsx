@@ -2,6 +2,7 @@ import { Box, Button, VStack } from '@chakra-ui/react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 
+import { useResetPasswordMutation } from '~/query/services/auth';
 import { useAppSelector } from '~/store/hooks';
 import { getUserEmail } from '~/store/user/selectors';
 import { InputNameToHelper, TestIdName } from '~/utils/constant';
@@ -15,17 +16,21 @@ export const RecoveryForm = ({ onSuccess }: { onSuccess: () => void }) => {
         mode: 'onChange',
         resolver: yupResolver(stepTwoSchema),
     });
-    const email = useAppSelector(getUserEmail);
-
+    const email = useAppSelector(getUserEmail) ?? '';
+    const [resetPassword, { isLoading }] = useResetPasswordMutation();
     const {
         handleSubmit,
         formState: { isValid },
     } = formMethods;
 
-    const onSubmit = (data: RecoveryFormData) => {
-        console.log({ ...data, email });
-        onSuccess();
+    const onSubmit = async (data: RecoveryFormData) => {
+        await resetPassword({ ...data, email })
+            .unwrap()
+            .then(() => {
+                onSuccess();
+            });
     };
+
     return (
         <Box as='form' onSubmit={handleSubmit(onSubmit)} w='100%' mt={4}>
             <VStack spacing={6} w='100%'>
@@ -52,7 +57,7 @@ export const RecoveryForm = ({ onSuccess }: { onSuccess: () => void }) => {
                     colorScheme='black'
                     type='submit'
                     w='100%'
-                    isDisabled={!isValid}
+                    isDisabled={!isValid || isLoading}
                     data-test-id={TestIdName.SubmitBtn}
                 >
                     Зарегистрироваться

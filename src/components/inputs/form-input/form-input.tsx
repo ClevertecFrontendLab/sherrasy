@@ -38,7 +38,7 @@ export function FormInput<T extends FieldValues>({
     const handleBlur = useTrimOnBlur<T>(setValue, name);
     const isValidData = stepOneValid ? stepOneValid : isValid;
     const handleKeyDown = useSubmitOnEnter(isValidData, onSubmit);
-
+    const errorText = (errors[name] as FieldError)?.message;
     return (
         <FormControl isInvalid={!!errors[name]}>
             <FormLabel htmlFor={name.toString()}>{InputNameToLabel[name]}</FormLabel>
@@ -54,7 +54,7 @@ export function FormInput<T extends FieldValues>({
                 {...props}
             />
             {textHelper && <FormHelperText>{textHelper}</FormHelperText>}
-            <FormErrorMessage>{(errors[name] as FieldError)?.message}</FormErrorMessage>
+            {errorText && <FormErrorMessage>{errorText}</FormErrorMessage>}
         </FormControl>
     );
 }

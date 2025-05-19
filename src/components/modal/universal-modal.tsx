@@ -54,7 +54,14 @@ export const UniversalModal = ({
                 </ModalHeader>
                 <ModalBody data-test-id={testId}>
                     {config.header && (
-                        <Heading as='h1' fontSize='2xl' lineHeight={8} textAlign='center' mb={4}>
+                        <Heading
+                            as='h1'
+                            fontSize='2xl'
+                            lineHeight={8}
+                            textAlign='center'
+                            mb={4}
+                            w='90%'
+                        >
                             {config.header}
                         </Heading>
                     )}

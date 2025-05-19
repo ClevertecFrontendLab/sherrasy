@@ -32,6 +32,7 @@ export type CategoryState = {
 
 export type AppState = {
     isLoading: boolean;
+    isModalOpened: boolean;
     alertMessage: AlertMessage | null;
 };
 
