@@ -8,8 +8,8 @@ export type ApiMessage = {
 
 export type AlertMessage = {
     title: string;
-    description?: string;
     type: 'error' | 'success';
+    description?: string;
 };
 
 export type ApiMeta = {

@@ -1,19 +1,12 @@
-import {
-    Button,
-    FormControl,
-    FormErrorMessage,
-    FormLabel,
-    Input,
-    Stack,
-    VStack,
-} from '@chakra-ui/react';
+import { Button, Stack, VStack } from '@chakra-ui/react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 
 import { useUniversalModal } from '~/hooks/useUniversalModal';
 import { useLoginMutation } from '~/query/services/auth';
-import { DEFAULT_ERROR_LOG, InputNameToPlaceholder, TestIdName } from '~/utils/constant';
+import { DEFAULT_ERROR_LOG, TestIdName } from '~/utils/constant';
 
+import { FormInput } from '../inputs/form-input/form-input';
 import { PasswordInput } from '../inputs/password-input/password-input';
 import { UniversalModal } from '../modal/universal-modal';
 import { SignInFormData, signInSchema } from './validation-scheme/sign-in.scheme';
@@ -22,16 +15,14 @@ export const SignInForm = () => {
     const { isOpen, openModal, closeModal, config } = useUniversalModal();
     const handleOpenModal = () => openModal('login');
     const [login, { isLoading }] = useLoginMutation();
-
-    const {
-        register,
-        handleSubmit,
-        formState: { errors, isSubmitting },
-    } = useForm<SignInFormData>({
+    const formMethods = useForm<SignInFormData>({
         mode: 'onChange',
         resolver: yupResolver(signInSchema),
     });
-
+    const {
+        handleSubmit,
+        formState: { isSubmitting },
+    } = formMethods;
     const onSubmit = async (data: SignInFormData) => {
         try {
             const result = await login(data).unwrap();
@@ -54,22 +45,16 @@ export const SignInForm = () => {
             data-test-id={TestIdName.SignInForm}
         >
             <VStack spacing={6} align='stretch'>
-                <FormControl isInvalid={!!errors.login}>
-                    <FormLabel htmlFor='login'>Логин</FormLabel>
-                    <Input
-                        variant='baseFormInput'
-                        size='lg'
-                        id='login'
-                        placeholder={InputNameToPlaceholder['login']}
-                        {...register('login')}
-                        data-test-id={TestIdName.InputLogin}
-                    />
-                    <FormErrorMessage>{errors.login?.message}</FormErrorMessage>
-                </FormControl>
+                <FormInput<SignInFormData>
+                    name='login'
+                    testId={TestIdName.InputLogin}
+                    formMethods={formMethods}
+                    onSubmit={handleSubmit(onSubmit)}
+                />
                 <PasswordInput<SignInFormData>
                     type='password'
-                    register={register}
-                    errors={errors}
+                    formMethods={formMethods}
+                    onSubmit={handleSubmit(onSubmit)}
                 />
                 <Button
                     mt='100px'

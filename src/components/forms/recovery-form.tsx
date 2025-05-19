@@ -1,61 +1,51 @@
-import {
-    Box,
-    Button,
-    FormControl,
-    FormErrorMessage,
-    FormHelperText,
-    FormLabel,
-    Input,
-    VStack,
-} from '@chakra-ui/react';
+import { Box, Button, VStack } from '@chakra-ui/react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 
-import { InputNameToPlaceholder, TestIdName } from '~/utils/constant';
+import { useAppSelector } from '~/store/hooks';
+import { getUserEmail } from '~/store/user/selectors';
+import { InputNameToHelper, TestIdName } from '~/utils/constant';
 
+import { FormInput } from '../inputs/form-input/form-input';
 import { PasswordInput } from '../inputs/password-input/password-input';
 import { RecoveryFormData, stepTwoSchema } from './validation-scheme/sign-up.scheme';
 
 export const RecoveryForm = ({ onSuccess }: { onSuccess: () => void }) => {
-    const {
-        register,
-        handleSubmit,
-        formState: { errors, isValid },
-    } = useForm<RecoveryFormData>({
+    const formMethods = useForm<RecoveryFormData>({
         mode: 'onChange',
         resolver: yupResolver(stepTwoSchema),
     });
+    const email = useAppSelector(getUserEmail);
+
+    const {
+        handleSubmit,
+        formState: { isValid },
+    } = formMethods;
 
     const onSubmit = (data: RecoveryFormData) => {
-        console.log(data);
+        console.log({ ...data, email });
         onSuccess();
     };
     return (
         <Box as='form' onSubmit={handleSubmit(onSubmit)} w='100%' mt={4}>
             <VStack spacing={6} w='100%'>
-                <FormControl isInvalid={!!errors.login}>
-                    <FormLabel htmlFor='login'>Логин входа на сайт</FormLabel>
-                    <Input
-                        variant='baseFormInput'
-                        size='lg'
-                        id='login'
-                        placeholder={InputNameToPlaceholder['login']}
-                        {...register('login')}
-                        data-test-id={TestIdName.InputLogin}
-                    />
-                    <FormHelperText>Логин не менее 5 символов, только латиница</FormHelperText>
-                    <FormErrorMessage>{errors.login?.message}</FormErrorMessage>
-                </FormControl>
+                <FormInput<RecoveryFormData>
+                    name='login'
+                    testId={TestIdName.InputLogin}
+                    formMethods={formMethods}
+                    textHelper={InputNameToHelper.login}
+                    onSubmit={handleSubmit(onSubmit)}
+                />
                 <PasswordInput<RecoveryFormData>
                     type='password'
-                    register={register}
-                    errors={errors}
+                    formMethods={formMethods}
                     showHelper={true}
+                    onSubmit={handleSubmit(onSubmit)}
                 />
                 <PasswordInput<RecoveryFormData>
                     type='confirmPassword'
-                    register={register}
-                    errors={errors}
+                    formMethods={formMethods}
+                    onSubmit={handleSubmit(onSubmit)}
                 />
                 <Button
                     mt={4}

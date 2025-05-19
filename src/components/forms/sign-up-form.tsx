@@ -86,7 +86,10 @@ export const SignUpForm = () => {
                         {activeStep === 0 ? (
                             <SignUpStepOne onNext={nextStep} />
                         ) : (
-                            <SignUpStepTwo isDisabled={isLoading} />
+                            <SignUpStepTwo
+                                isDisabled={isLoading}
+                                onSubmit={handleSubmit(onSubmit)}
+                            />
                         )}
                     </Flex>
                 </form>

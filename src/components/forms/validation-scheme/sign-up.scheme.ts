@@ -2,7 +2,7 @@ import * as yup from 'yup';
 
 import { FieldRegex } from '~/utils/constant';
 
-const stepOneSchema = yup.object({
+export const stepOneSchema = yup.object({
     firstName: yup
         .string()
         .required('Введите имя')

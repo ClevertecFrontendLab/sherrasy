@@ -60,6 +60,19 @@ export const InputNameToPlaceholder: Record<string, string> = {
     confirmPassword: 'Повторите пароль',
 };
 
+export const InputNameToLabel: Record<string, string> = {
+    firstName: 'Ваше имя',
+    lastName: 'Ваша фамилия',
+    email: 'Ваш e-mail',
+    login: 'Логин для входа на сайт',
+    password: 'Пароль',
+    confirmPassword: 'Повторите пароль',
+};
+export const InputNameToHelper: Record<string, string> = {
+    login: 'Логин не менее 5 символов, только латиница',
+    password: 'Пароль не менее 8 символов, с заглавной буквой и цифрой',
+};
+
 export enum SortingDirection {
     Ascending = 'asc',
     Descending = 'desc',

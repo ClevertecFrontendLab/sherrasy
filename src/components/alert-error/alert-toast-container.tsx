@@ -1,19 +1,22 @@
 import { CreateToastFnReturn, useToast, UseToastOptions } from '@chakra-ui/react';
 import { useEffect, useRef } from 'react';
 
+import { setAppMessage } from '~/store/app-status/app-slice';
 import { getAppMessage } from '~/store/app-status/selectors';
-import { useAppSelector } from '~/store/hooks';
+import { useAppDispatch, useAppSelector } from '~/store/hooks';
 
 import { AlertError } from './alert-error';
 
 const useToastManager = () => {
     const activeToastId = useRef<string | number | undefined>('');
     const lastApiMessage = useAppSelector(getAppMessage);
+    const dispatch = useAppDispatch();
 
     const showAlertToast = (toast: CreateToastFnReturn) => {
         const toastOptions: UseToastOptions = {
             position: 'bottom',
-            duration: null,
+            duration: 15000,
+            onCloseComplete: () => dispatch(setAppMessage(null)),
             render: ({ onClose }) => <AlertError onClose={onClose} messageData={lastApiMessage} />,
         };
 
@@ -36,6 +39,7 @@ export const AlertToastContainer = () => {
         if (appMessage) {
             showAlertToast(toast);
         }
+        return () => toast.closeAll();
     }, [appMessage, toast, showAlertToast]);
 
     return null;

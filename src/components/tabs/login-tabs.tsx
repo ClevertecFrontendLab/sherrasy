@@ -31,7 +31,7 @@ export const LoginTabs = () => {
             <TabList
                 borderBottomColor='blackAlpha.300'
                 display='flex'
-                justifyContent={{ base: 'space-evenly', sm: 'start' }}
+                justifyContent={{ base: 'space-evenly' }}
                 sx={{
                     scrollbarWidth: 'none',
                     '::-webkit-scrollbar': {
@@ -44,7 +44,7 @@ export const LoginTabs = () => {
                         key={`${name}-${i}`}
                         _selected={{ color: 'lime.700', borderBottomColor: 'lime.700' }}
                         minW='max-content'
-                        w={{ base: '50%', sm: 'auto' }}
+                        w={{ base: '50%' }}
                         onClick={() => handleClick(path)}
                         flexShrink={0}
                         mr={isDesktop ? 4 : 0}

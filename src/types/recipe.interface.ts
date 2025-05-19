@@ -1,9 +1,9 @@
 export interface NutritionValue {
     calories: number;
-    proteins?: number;
-    protein?: number;
     fats: number;
     carbohydrates: number;
+    proteins?: number;
+    protein?: number;
 }
 export interface Ingredient {
     title: string;

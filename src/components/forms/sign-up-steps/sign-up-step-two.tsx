@@ -1,50 +1,42 @@
-import {
-    Button,
-    FormControl,
-    FormErrorMessage,
-    FormHelperText,
-    FormLabel,
-    Input,
-    VStack,
-} from '@chakra-ui/react';
+import { Button, VStack } from '@chakra-ui/react';
 import { useFormContext } from 'react-hook-form';
 
+import { FormInput } from '~/components/inputs/form-input/form-input';
 import { PasswordInput } from '~/components/inputs/password-input/password-input';
-import { InputNameToPlaceholder, TestIdName } from '~/utils/constant';
+import { InputNameToHelper, TestIdName } from '~/utils/constant';
 
 import { SignUpFormData } from '../validation-scheme/sign-up.scheme';
 
-export const SignUpStepTwo = ({ isDisabled }: { isDisabled: boolean }) => {
+export const SignUpStepTwo = ({
+    isDisabled,
+    onSubmit,
+}: {
+    isDisabled: boolean;
+    onSubmit: () => void;
+}) => {
+    const formMethods = useFormContext<SignUpFormData>();
     const {
-        register,
-        formState: { errors, isValid },
-    } = useFormContext<SignUpFormData>();
-
+        formState: { isValid },
+    } = formMethods;
     return (
         <VStack spacing={6} w='100%' data-test-id={TestIdName.SignUpForm}>
-            <FormControl isInvalid={!!errors.login}>
-                <FormLabel htmlFor='login'>Логин входа на сайт</FormLabel>
-                <Input
-                    variant='baseFormInput'
-                    size='lg'
-                    id='login'
-                    placeholder={InputNameToPlaceholder['login']}
-                    {...register('login')}
-                    data-test-id={TestIdName.InputLogin}
-                />
-                <FormHelperText>Логин не менее 5 символов, только латиница</FormHelperText>
-                <FormErrorMessage>{errors.login?.message}</FormErrorMessage>
-            </FormControl>
+            <FormInput<SignUpFormData>
+                name='login'
+                testId={TestIdName.InputLogin}
+                formMethods={formMethods}
+                textHelper={InputNameToHelper.login}
+                onSubmit={onSubmit}
+            />
             <PasswordInput<SignUpFormData>
                 type='password'
-                register={register}
-                errors={errors}
+                formMethods={formMethods}
                 showHelper={true}
+                onSubmit={onSubmit}
             />
             <PasswordInput<SignUpFormData>
                 type='confirmPassword'
-                register={register}
-                errors={errors}
+                formMethods={formMethods}
+                onSubmit={onSubmit}
             />
             <Button
                 mt={4}
