@@ -20,7 +20,7 @@ import {
     TestIdName,
 } from '~/utils/constant';
 
-type PasswordFieldType = 'password' | 'confirmPassword';
+type PasswordFieldType = 'password' | 'confirmPassword' | 'passwordConfirm';
 
 interface PasswordFieldConfig {
     name: PasswordFieldType;
@@ -36,6 +36,11 @@ const DEFAULT_PARAMS: Record<PasswordFieldType, PasswordFieldConfig> = {
     },
     confirmPassword: {
         name: 'confirmPassword',
+        label: InputNameToLabel['confirmPassword'],
+        placeholder: InputNameToPlaceholder['confirmPassword'],
+    },
+    passwordConfirm: {
+        name: 'passwordConfirm',
         label: InputNameToLabel['confirmPassword'],
         placeholder: InputNameToPlaceholder['confirmPassword'],
     },

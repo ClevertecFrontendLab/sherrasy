@@ -13,6 +13,7 @@ export const renderModalFlow = (
     handlers: {
         handleRecoverySuccess: () => void;
         handlePinSuccess: () => void;
+        handleResetSuccess: () => void;
     },
 ) => {
     switch (type) {
@@ -21,7 +22,7 @@ export const renderModalFlow = (
         case 'recoveryPin':
             return <PinCodeInput onSuccess={handlers.handlePinSuccess} />;
         case 'recoveryForm':
-            return <RecoveryForm onSuccess={handlers.handleRecoverySuccess} />;
+            return <RecoveryForm onSuccess={handlers.handleResetSuccess} />;
         default:
             return null;
     }

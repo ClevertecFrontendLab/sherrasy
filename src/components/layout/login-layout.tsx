@@ -1,4 +1,4 @@
-import { Flex, Image, Text, useMediaQuery } from '@chakra-ui/react';
+import { Flex, Image, Show, Text } from '@chakra-ui/react';
 import { ReactNode } from 'react';
 
 import { getAppLoading } from '~/store/app-status/selectors';
@@ -13,7 +13,6 @@ type LayoutProps = {
 };
 
 export const LoginLayout = ({ children }: LayoutProps) => {
-    const [isDesktop] = useMediaQuery('(min-width: 1440px)');
     const isLoading = useAppSelector(getAppLoading);
     return (
         <>
@@ -52,7 +51,9 @@ export const LoginLayout = ({ children }: LayoutProps) => {
                         </Text>
                         <AlertToastContainer />
                     </Flex>
-                    {isDesktop && <LoginSidebar />}
+                    <Show above='lg'>
+                        <LoginSidebar />
+                    </Show>
                 </Flex>
             </Flex>
         </>

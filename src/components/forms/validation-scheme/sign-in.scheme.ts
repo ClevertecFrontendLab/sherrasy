@@ -6,15 +6,15 @@ export const signInSchema = yup.object({
     login: yup
         .string()
         .required('Введите логин')
-        .min(5, 'Не соответствует формату')
+        .max(50, 'Максимальная длина 50 символов')
         .matches(FieldRegex.Login, 'Не соответствует формату')
-        .max(50, 'Максимальная длина 50 символов'),
+        .min(5, 'Не соответствует формату'),
     password: yup
         .string()
         .required('Введите пароль')
-        .min(8, 'Не соответствует формату')
+        .max(50, 'Максимальная длина 50 символов')
         .matches(FieldRegex.Password, 'Не соответствует формату')
-        .max(50, 'Максимальная длина 50 символов'),
+        .min(8, 'Не соответствует формату'),
 });
 
 export type SignInFormData = yup.InferType<typeof signInSchema>;

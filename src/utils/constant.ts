@@ -19,10 +19,10 @@ export const ApiBase = {
 } as const;
 
 export const FieldRegex = {
-    Firstletter: /^[А-ЯЁ]/,
+    Firstletter: /^[А-Яа-яЁё]/,
     Name: /^[А-ЯЁа-яё-]+$/,
-    Login: /^[A-Za-z]{5,}$/,
-    Password: /^(?=.*[A-Z])(?=.*\d).{8,}$/,
+    Login: /^[A-Za-z0-9!@#$&_+\-.]{5,}$/,
+    Password: /^(?!.*[А-Яа-яЁё\s])(?=.*[A-Z])(?=.*\d)[a-zA-Z0-9!@#$&_+-.]{8,}$/,
     Email: /^[\w-.]+@([\w-]+\.)+[\w-]{2,5}$/,
 } as const;
 

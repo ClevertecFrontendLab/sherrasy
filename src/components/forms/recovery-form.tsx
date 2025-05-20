@@ -9,19 +9,16 @@ import { InputNameToHelper, TestIdName } from '~/utils/constant';
 
 import { FormInput } from '../inputs/form-input/form-input';
 import { PasswordInput } from '../inputs/password-input/password-input';
-import { RecoveryFormData, stepTwoSchema } from './validation-scheme/sign-up.scheme';
+import { RecoveryFormData, recoveryFormSchema } from './validation-scheme/sign-up.scheme';
 
 export const RecoveryForm = ({ onSuccess }: { onSuccess: () => void }) => {
     const formMethods = useForm<RecoveryFormData>({
         mode: 'onChange',
-        resolver: yupResolver(stepTwoSchema),
+        resolver: yupResolver(recoveryFormSchema),
     });
     const email = useAppSelector(getUserEmail) ?? '';
-    const [resetPassword, { isLoading }] = useResetPasswordMutation();
-    const {
-        handleSubmit,
-        formState: { isValid },
-    } = formMethods;
+    const [resetPassword] = useResetPasswordMutation();
+    const { handleSubmit } = formMethods;
 
     const onSubmit = async (data: RecoveryFormData) => {
         await resetPassword({ ...data, email })
@@ -48,7 +45,7 @@ export const RecoveryForm = ({ onSuccess }: { onSuccess: () => void }) => {
                     onSubmit={handleSubmit(onSubmit)}
                 />
                 <PasswordInput<RecoveryFormData>
-                    type='confirmPassword'
+                    type='passwordConfirm'
                     formMethods={formMethods}
                     onSubmit={handleSubmit(onSubmit)}
                 />
@@ -57,7 +54,6 @@ export const RecoveryForm = ({ onSuccess }: { onSuccess: () => void }) => {
                     colorScheme='black'
                     type='submit'
                     w='100%'
-                    isDisabled={!isValid || isLoading}
                     data-test-id={TestIdName.SubmitBtn}
                 >
                     Зарегистрироваться

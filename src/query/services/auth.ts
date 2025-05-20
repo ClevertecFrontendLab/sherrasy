@@ -7,9 +7,10 @@ import {
     SignUpFormData,
 } from '~/components/forms/validation-scheme/sign-up.scheme';
 import { setAppMessage } from '~/store/app-status/app-slice';
+import { setAuthStatus } from '~/store/user/user-slice';
 import { AlertMessage, ApiMessage, ApiMeta, ApiQueryErrorWithMeta } from '~/types/api-message.type';
 import { ALERT_MESSAGES } from '~/utils/alert-messages';
-import { DEFAULT_ERROR_LOG } from '~/utils/constant';
+import { AuthStatus, DEFAULT_ERROR_LOG } from '~/utils/constant';
 
 import { ApiEndpoints } from '../constants/api';
 import { ApiGroupNames } from '../constants/api-group-names';
@@ -43,6 +44,7 @@ export const authApiSlice = apiSlice
                 async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
                     try {
                         await queryFulfilled;
+                        dispatch(setAuthStatus(AuthStatus.Auth));
                     } catch (error) {
                         const { error: apiError } = error as ApiQueryErrorWithMeta;
                         if (apiError.status === StatusCodes.UNAUTHORIZED) {

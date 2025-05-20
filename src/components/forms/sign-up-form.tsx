@@ -1,12 +1,13 @@
 import { Flex, Progress, Stack, Text, useSteps } from '@chakra-ui/react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { FormProvider, useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router';
 
 import { useUniversalModal } from '~/hooks/useUniversalModal';
 import { useSignupMutation } from '~/query/services/auth';
 import { useAppDispatch } from '~/store/hooks';
 import { setCurrentEmail } from '~/store/user/user-slice';
-import { DEFAULT_ERROR_LOG, TestIdName } from '~/utils/constant';
+import { AppRoute, TestIdName } from '~/utils/constant';
 
 import { UniversalModal } from '../modal/universal-modal';
 import { SignUpStepOne } from './sign-up-steps/sign-up-step-one';
@@ -17,6 +18,7 @@ const steps = [{ title: 'Личная информация' }, { title: 'Лог�
 
 export const SignUpForm = () => {
     const dispatch = useAppDispatch();
+    const navigate = useNavigate();
     const { isOpen, openModal, closeModal, config } = useUniversalModal();
     const { activeStep, setActiveStep } = useSteps({
         index: 0,
@@ -41,29 +43,28 @@ export const SignUpForm = () => {
             (fieldName) => !methods.getFieldState(fieldName as keyof SignUpFormData).invalid,
         ).length;
 
-        return Math.min((validFields / totalFields) * 100, 100);
+        return Math.min((validFields * 100) / totalFields, 100);
     };
 
     const progress = calculateProgress();
+    const email = methods.getValues('email');
 
     const nextStep = async () => {
         if (activeStep === 0) {
             const isValid = await trigger(['firstName', 'lastName', 'email']);
             if (!isValid) return;
             setActiveStep(1);
-            const email = methods.getValues('email');
             dispatch(setCurrentEmail(email));
         }
     };
     const onSubmit = async (data: SignUpFormData) => {
-        try {
-            const result = await signup(data).unwrap();
-            console.log(data, 'd');
-            console.log(result);
-            openModal('verification');
-        } catch (err) {
-            console.error(DEFAULT_ERROR_LOG, err);
-        }
+        await signup(data)
+            .unwrap()
+            .then(() => openModal('verification'));
+    };
+    const handleClose = () => {
+        closeModal();
+        navigate(AppRoute.SignIn);
     };
 
     return (
@@ -96,8 +97,9 @@ export const SignUpForm = () => {
             </FormProvider>
             <UniversalModal
                 isOpen={isOpen}
-                onClose={closeModal}
+                onClose={handleClose}
                 config={config}
+                email={email}
                 testId={TestIdName.ModalSignUpSuccess}
             />
         </>

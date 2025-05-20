@@ -6,8 +6,8 @@ export const emailSchema = yup.object({
     email: yup
         .string()
         .required('Введите e-mail')
-        .matches(FieldRegex.Email, 'Введите корректный e-mail')
-        .max(50, 'Максимальная длина 50 символов'),
+        .max(50, 'Максимальная длина 50 символов')
+        .matches(FieldRegex.Email, 'Введите корректный e-mail'),
 });
 
 export type EmailFormData = yup.InferType<typeof emailSchema>;

@@ -8,7 +8,7 @@ export const MODAL_CONFIGS: Record<ModalType, ModalConfig> = {
         type: 'login',
     },
     verification: {
-        bodyText: ['Мы отправили вам на почту', 'ссылку для верификации.'],
+        bodyText: ['Мы отправили вам на почту', 'email', 'ссылку для верификации.'],
         footerText: 'Не пришло письмо? Проверьте папку Спам. \n По другим вопросам свяжитесь',
         header: 'Остался последний шаг. Нужно верифицировать ваш e-mail ',
         icon: '/verification.svg',
@@ -32,7 +32,6 @@ export const MODAL_CONFIGS: Record<ModalType, ModalConfig> = {
         type: 'recoveryEmail',
     },
     recoveryPin: {
-        bodyText: ['Мы отправили вам на e-mail', 'шестизначный код. Введите его ниже.'],
         footerText: 'Не пришло письмо? Проверьте папку Спам.',
         header: '',
         icon: '/password-recover.svg',

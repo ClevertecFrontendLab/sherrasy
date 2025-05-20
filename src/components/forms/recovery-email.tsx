@@ -15,14 +15,9 @@ export const RecoveryEmailForm = ({ onSuccess }: { onSuccess: () => void }) => {
         mode: 'onChange',
         resolver: yupResolver(emailSchema),
     });
-    const {
-        handleSubmit,
-        reset,
-        setError,
-        formState: { isValid },
-    } = formMethods;
+    const { handleSubmit, reset, setError } = formMethods;
     const dispatch = useAppDispatch();
-    const [forgotPassword, { isLoading }] = useForgotPasswordMutation();
+    const [forgotPassword] = useForgotPasswordMutation();
 
     const onSubmit = async (data: EmailFormData) => {
         await forgotPassword(data)
@@ -54,7 +49,6 @@ export const RecoveryEmailForm = ({ onSuccess }: { onSuccess: () => void }) => {
                     colorScheme='black'
                     type='submit'
                     w='100%'
-                    isDisabled={!isValid || isLoading}
                     data-test-id={TestIdName.SubmitBtn}
                 >
                     Получить код

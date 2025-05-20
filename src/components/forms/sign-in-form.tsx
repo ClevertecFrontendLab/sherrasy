@@ -2,11 +2,12 @@ import { Button, Stack, VStack } from '@chakra-ui/react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { StatusCodes } from 'http-status-codes';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router';
 
 import { useUniversalModal } from '~/hooks/useUniversalModal';
 import { useLoginMutation } from '~/query/services/auth';
 import { ApiQueryError } from '~/types/api-message.type';
-import { TestIdName } from '~/utils/constant';
+import { AppRoute, TestIdName } from '~/utils/constant';
 
 import { FormInput } from '../inputs/form-input/form-input';
 import { PasswordInput } from '../inputs/password-input/password-input';
@@ -15,19 +16,19 @@ import { SignInFormData, signInSchema } from './validation-scheme/sign-in.scheme
 
 export const SignInForm = () => {
     const { isOpen, openModal, closeModal, config } = useUniversalModal();
+    const navigate = useNavigate();
     const handleOpenModal = () => openModal('login');
-    const [login, { isLoading }] = useLoginMutation();
+    const [login] = useLoginMutation();
     const formMethods = useForm<SignInFormData>({
         mode: 'onChange',
         resolver: yupResolver(signInSchema),
     });
-    const {
-        handleSubmit,
-        formState: { isSubmitting },
-    } = formMethods;
+    const { handleSubmit } = formMethods;
     const onSubmit = async (data: SignInFormData) => {
         try {
-            await login(data).unwrap();
+            await login(data)
+                .unwrap()
+                .then(() => navigate(AppRoute.Main));
         } catch (error) {
             const { status } = error as ApiQueryError;
             if (status < StatusCodes.INTERNAL_SERVER_ERROR) return;
@@ -60,7 +61,6 @@ export const SignInForm = () => {
                 <Button
                     mt='100px'
                     colorScheme='black'
-                    isLoading={isSubmitting || isLoading}
                     type='submit'
                     w='100%'
                     data-test-id={TestIdName.SubmitBtn}

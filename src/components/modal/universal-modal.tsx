@@ -40,7 +40,7 @@ export const UniversalModal = ({
     return (
         <Modal isOpen={isOpen} onClose={onClose} isCentered>
             <ModalOverlay />
-            <ModalContent>
+            <ModalContent data-test-id={testId}>
                 <ModalHeader>
                     {config.icon && (
                         <Image
@@ -52,7 +52,7 @@ export const UniversalModal = ({
                     )}
                     <ModalCloseButton data-test-id={TestIdName.ModalClose} />
                 </ModalHeader>
-                <ModalBody data-test-id={testId}>
+                <ModalBody>
                     {config.header && (
                         <Heading
                             as='h1'
