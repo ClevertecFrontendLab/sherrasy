@@ -40,7 +40,7 @@ export const RelevantKitchenSection = () => {
                     fontWeight='500'
                     fontSize={{ base: '2xl', lg: '4xl', xl: '5xl' }}
                     lineHeight={{ base: 8, lg: 10, '2xl': 'none' }}
-                    maxW={{ lg: '30%', '2xl': '50%' }}
+                    maxW={{ lg: '32%', '2xl': '50%' }}
                     mb={{ base: 2, xs: 2.5 }}
                 >
                     {currentCategory?.title}

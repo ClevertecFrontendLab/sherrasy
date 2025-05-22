@@ -30,8 +30,8 @@ const hCard = definePartsStyle({
     container: {
         ...outlineStyles,
         minH: ['7.75rem', '8rem', null, '8.0625rem', '15.25rem'],
-        minW: ['19.375rem', '20.5rem', '21.75rem', '22.25rem', '55rem', null, '41.75rem'],
-        maxW: ['19.375rem', '20.5rem', '21.75rem', '22.25rem', '55rem', null, '41.75rem'],
+        minW: ['19.375rem', '20.5rem', '21.75rem', '22.25rem', '375rem', null, '40.625rem'],
+        maxW: ['19.375rem', '20.5rem', '21.75rem', '22.25rem', '54.375rem', null, '40.625rem'],
     },
     body: {
         py: [2, null, null, null, 1],

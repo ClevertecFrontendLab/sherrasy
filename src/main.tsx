@@ -7,6 +7,9 @@ import App from '~/app/App.tsx';
 import { store } from '~/store/configure-store.ts';
 
 import { theme } from './chakra-ui.theme';
+import { configureTestMode } from './utils/helpers';
+
+configureTestMode();
 
 createRoot(document.getElementById('root')!).render(
     <StrictMode>

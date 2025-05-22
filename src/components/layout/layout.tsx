@@ -1,5 +1,5 @@
 import { Center, Flex, useMediaQuery } from '@chakra-ui/react';
-import { ReactNode } from 'react';
+import { PropsWithChildren } from 'react';
 
 import { useGetCategoriesQuery } from '~/query/services/categories';
 import { getAppLoading } from '~/store/app-status/selectors';
@@ -12,9 +12,7 @@ import { MenuDishes } from '../menu-dishes/menu-dishes';
 import { OverlayWithLoader } from '../overlay/overlayWithLoader';
 import { Sidebar } from '../sidebar/sidebar';
 
-type LayoutProps = {
-    children: ReactNode;
-};
+type LayoutProps = PropsWithChildren;
 
 export const Layout = ({ children }: LayoutProps) => {
     const [isDesktop] = useMediaQuery('(min-width: 1440px)');
@@ -48,7 +46,7 @@ export const Layout = ({ children }: LayoutProps) => {
                                 md: '767px',
                                 lg: '920px',
                                 xl: '1160px',
-                                '2xl': '1360px',
+                                '2xl': '1380px',
                             }}
                             overflowX='hidden'
                             position='relative'

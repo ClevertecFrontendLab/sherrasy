@@ -1,9 +1,14 @@
+import { MotionGlobalConfig } from 'framer-motion';
+import { StatusCodes } from 'http-status-codes';
+
+import { AlertMessage, ApiMessage } from '~/types/api-message.type';
 import { Category, CatSubPair, Subcategory } from '~/types/category.type';
 import { MultiselectItem } from '~/types/filter-item.type';
 import { ModalType } from '~/types/modal.type';
 import { RecipeQueryParam } from '~/types/query-param.type';
 import { FullRecipe } from '~/types/recipe.interface';
 
+import { ALERT_MESSAGES } from './alert-messages';
 import { ApiBase, CardsLimit, TestIdName } from './constant';
 
 export const getSortedNewRecipes = (recipes: FullRecipe[]) =>
@@ -97,4 +102,43 @@ export const getFlowTestId = (type?: ModalType) => {
         default:
             return null;
     }
+};
+
+const cypressIsRunning = (): boolean => !!(window as unknown as { Cypress: unknown }).Cypress;
+
+export const configureTestMode = (): void => {
+    if (cypressIsRunning()) {
+        MotionGlobalConfig.skipAnimations = true;
+    }
+    return;
+};
+
+export const createErrorMessage = ({
+    status,
+    data,
+    isAuth,
+    isFiltering,
+    isClientError,
+}: {
+    status: number;
+    data: ApiMessage;
+    isAuth: boolean;
+    isFiltering: boolean;
+    isClientError: boolean;
+}): AlertMessage => {
+    const isRecipesNotFound = !isAuth && status === StatusCodes.NOT_FOUND;
+
+    if (isFiltering || isRecipesNotFound) {
+        return ALERT_MESSAGES.searchError;
+    }
+
+    if (isClientError) {
+        return {
+            title: data.message,
+            description: data.description ?? '',
+            type: 'error',
+        };
+    }
+
+    return ALERT_MESSAGES.serverError;
 };

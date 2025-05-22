@@ -7,9 +7,10 @@ import {
 } from '@reduxjs/toolkit/query/react';
 import { StatusCodes } from 'http-status-codes';
 
-import { AlertMessage, ApiQueryError } from '~/types/api-message.type';
+import { ApiQueryError } from '~/types/api-message.type';
 import { ALERT_MESSAGES } from '~/utils/alert-messages';
 import { ApiBase, LocalStorageKey } from '~/utils/constant';
+import { createErrorMessage } from '~/utils/helpers';
 
 import { handleError, handleTokenRefresh, setLoadingState } from './api-helpers';
 import { EndpointNames } from './constants/endpoint-names';
@@ -33,7 +34,7 @@ export const updatedBaseQuery: BaseQueryFn<
 > = async (args, api, extraOptions) => {
     const { endpoint } = api;
     const isFiltering = endpoint === EndpointNames.GET_RECIPES;
-
+    const isAuth = endpoint.includes('Auth');
     try {
         setLoadingState(api, isFiltering, true);
         let result = await baseQuery(args, api, extraOptions);
@@ -48,21 +49,23 @@ export const updatedBaseQuery: BaseQueryFn<
         if (result.error) {
             const { status, data } = result.error as ApiQueryError;
             const isClientError =
-                status &&
-                status >= StatusCodes.BAD_REQUEST &&
-                status < StatusCodes.INTERNAL_SERVER_ERROR;
-            if (status !== StatusCodes.BAD_REQUEST && status < StatusCodes.INTERNAL_SERVER_ERROR)
+                status >= StatusCodes.BAD_REQUEST && status < StatusCodes.INTERNAL_SERVER_ERROR;
+
+            if (
+                status !== StatusCodes.BAD_REQUEST &&
+                status < StatusCodes.INTERNAL_SERVER_ERROR &&
+                isAuth
+            ) {
                 return result;
-            const message: AlertMessage = {
-                title: data.message,
-                description: data.description ?? '',
-                type: 'error',
-            };
-            const errorMessage = isFiltering
-                ? ALERT_MESSAGES.searchError
-                : isClientError
-                  ? message
-                  : ALERT_MESSAGES.serverError;
+            }
+
+            const errorMessage = createErrorMessage({
+                status,
+                data,
+                isAuth,
+                isFiltering,
+                isClientError,
+            });
 
             handleError(api, errorMessage);
         }

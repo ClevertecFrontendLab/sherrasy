@@ -1,5 +1,5 @@
 import { Flex, Image, Show, Text } from '@chakra-ui/react';
-import { ReactNode } from 'react';
+import { PropsWithChildren } from 'react';
 
 import { getAppLoading } from '~/store/app-status/selectors';
 import { useAppSelector } from '~/store/hooks';
@@ -8,9 +8,7 @@ import { AlertToastContainer } from '../alert-error/alert-toast-container';
 import { OverlayWithLoader } from '../overlay/overlayWithLoader';
 import { LoginSidebar } from '../sidebar/login-sidebar';
 
-type LayoutProps = {
-    children: ReactNode;
-};
+type LayoutProps = PropsWithChildren;
 
 export const LoginLayout = ({ children }: LayoutProps) => {
     const isLoading = useAppSelector(getAppLoading);

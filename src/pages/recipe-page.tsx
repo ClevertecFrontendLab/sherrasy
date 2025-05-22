@@ -56,7 +56,7 @@ export const RecipePage = () => {
                     <AuthorCard author={MockAuthor} />
                 </Flex>
                 <Box mt={{ base: 10, lg: '3.75rem' }}>
-                    <NewSection isRecipePage={true} />
+                    <NewSection />
                 </Box>
             </Layout>
         </>

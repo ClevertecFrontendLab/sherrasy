@@ -46,7 +46,7 @@ export const MainPage = () => {
                     </Box>
                 ) : (
                     <Box alignSelf='start'>
-                        <NewSection isRecipePage={false} />
+                        <NewSection />
                         <JuicySection />
                         <CookBlogSection />
                     </Box>

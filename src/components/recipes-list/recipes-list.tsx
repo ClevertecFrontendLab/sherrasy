@@ -24,9 +24,10 @@ export const RecipesList = ({ recipes, isLastPage, handleLoadMore }: RecipesList
                 spacing={{ base: '13px', xs: 4, sm: 3.5, lg: 4, '2xl': '24px' }}
                 spacingY={{ '2xl': 4 }}
                 templateColumns={{
-                    base: 'repeat(auto-fill, minmax(20.375rem, 1fr))',
-                    lg: 'repeat(1, minmax(41.75rem, 1fr))',
-                    xl: 'repeat(2, minmax(41.75rem, 1fr))',
+                    base: '1fr',
+                    md: 'repeat(2, 1fr)',
+                    lg: 'repeat(1, 1fr)',
+                    xl: 'repeat(2, 1fr)',
                 }}
             >
                 {recipes.map((item: FullRecipe, i: number) => (

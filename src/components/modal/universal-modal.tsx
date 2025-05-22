@@ -11,14 +11,14 @@ import {
     ModalOverlay,
     Text,
 } from '@chakra-ui/react';
+import { PropsWithChildren } from 'react';
 
 import { ModalConfig } from '~/types/modal.type';
 import { TestIdName } from '~/utils/constant';
 
-type UniversalModalProps = {
+type UniversalModalProps = PropsWithChildren & {
     isOpen: boolean;
     onClose: () => void;
-    children?: React.ReactNode;
     config: ModalConfig | null;
     email?: string | null;
     testId?: string;

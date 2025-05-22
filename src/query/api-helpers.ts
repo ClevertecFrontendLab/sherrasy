@@ -3,6 +3,7 @@ import { BaseQueryApi, BaseQueryFn, FetchArgs, FetchBaseQueryError } from '@redu
 import { setAppLoader, setAppMessage } from '~/store/app-status/app-slice';
 import { setIsLoadingFiltered } from '~/store/recipes/recipes-slice';
 import { AlertMessage, ApiMeta } from '~/types/api-message.type';
+import { LocalStorageKey } from '~/utils/constant';
 
 import { ApiEndpoints } from './constants/api';
 
@@ -20,21 +21,25 @@ export const handleTokenRefresh = async (
     extraOptions: object,
 ) => {
     const refreshResult = await baseQuery(
-        { url: ApiEndpoints.AUTH_REFRESH, method: 'POST' },
+        {
+            url: ApiEndpoints.AUTH_REFRESH,
+            method: 'GET',
+        },
         api,
         extraOptions,
     );
-
     if (refreshResult?.data) {
         const response = (refreshResult.meta as ApiMeta)?.response;
+
         const newToken = response?.headers.get('Authentication-Access');
+
         if (newToken) {
-            localStorage.setItem('accessToken', newToken);
+            localStorage.setItem(LocalStorageKey.AToken, newToken);
         }
         return true;
     }
 
-    localStorage.removeItem('accessToken');
+    localStorage.removeItem(LocalStorageKey.AToken);
     return false;
 };
 

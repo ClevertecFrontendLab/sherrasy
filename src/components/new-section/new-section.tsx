@@ -1,4 +1,4 @@
-import { Box, Button, Heading } from '@chakra-ui/react';
+import { Box, Button } from '@chakra-ui/react';
 import { useRef } from 'react';
 import { Swiper as SwiperType } from 'swiper';
 import { Navigation } from 'swiper/modules';
@@ -10,12 +10,9 @@ import { FullRecipe } from '~/types/recipe.interface';
 import { TestIdName } from '~/utils/constant';
 
 import { RecipeCard } from '../cards/recipe-cards/recipe-card';
+import { SectionLayout } from '../layout/section-layout';
 
-type NewSectionProps = {
-    isRecipePage: boolean;
-};
-
-export const NewSection = ({ isRecipePage }: NewSectionProps) => {
+export const NewSection = () => {
     const swiperBreakponts = {
         0: {
             spaceBetween: 12,
@@ -39,20 +36,17 @@ export const NewSection = ({ isRecipePage }: NewSectionProps) => {
         return <Box mt={{ base: 3.5, xs: 4, lg: '2.5rem' }} pl={0}></Box>;
     }
     return (
-        <Box mt={{ base: 3.5, xs: 4, lg: '2.5rem' }} pl={isRecipePage ? 0 : { base: 2.5, sm: 5 }}>
-            <Heading
-                fontWeight='500'
-                fontSize={{ base: '2xl', lg: '4xl', xl: '5xl' }}
-                lineHeight={{ base: 8, lg: 10, '2xl': 'none' }}
-                mb={{ base: '0.625rem', xs: 3, lg: '1.25rem' }}
-                pr={{ base: 0, sm: 5, lg: 0 }}
-            >
-                Новые рецепты
-            </Heading>
-            <Box maxW='100%'>
+        <SectionLayout type='new'>
+            <Box maxW='100%' ml={{ lg: 2 }}>
                 <Box
                     position='relative'
-                    maxW={{ base: '330px', sm: '45.5rem', lg: '55rem', xl: '75rem' }}
+                    maxW={{
+                        base: '330px',
+                        sm: '45.5rem',
+                        lg: '55rem',
+                        xl: '70rem',
+                        '2xl': '85rem',
+                    }}
                     w='100%'
                     sx={{
                         '.swiper-slide': {
@@ -113,6 +107,6 @@ export const NewSection = ({ isRecipePage }: NewSectionProps) => {
                     </Button>
                 </Box>
             </Box>
-        </Box>
+        </SectionLayout>
     );
 };

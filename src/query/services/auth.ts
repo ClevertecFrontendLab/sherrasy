@@ -10,7 +10,7 @@ import { setAppMessage } from '~/store/app-status/app-slice';
 import { setAuthStatus } from '~/store/user/user-slice';
 import { AlertMessage, ApiMessage, ApiMeta, ApiQueryErrorWithMeta } from '~/types/api-message.type';
 import { ALERT_MESSAGES } from '~/utils/alert-messages';
-import { AuthStatus, DEFAULT_ERROR_LOG } from '~/utils/constant';
+import { AuthStatus, DEFAULT_ERROR_LOG, LocalStorageKey } from '~/utils/constant';
 
 import { ApiEndpoints } from '../constants/api';
 import { ApiGroupNames } from '../constants/api-group-names';
@@ -58,7 +58,7 @@ export const authApiSlice = apiSlice
                 transformResponse: (response: ApiMessage, meta: ApiMeta) => {
                     const token = meta?.response?.headers.get('Authentication-Access');
                     if (token) {
-                        localStorage.setItem('accessToken', token);
+                        localStorage.setItem(LocalStorageKey.AToken, token);
                     }
                     return response;
                 },
@@ -143,7 +143,7 @@ export const {
     useSignupMutation,
     useLoginMutation,
     useRefreshQuery,
-    useLazyCheckAuthQuery,
+    useCheckAuthQuery,
     useLazyVerifyEmailQuery,
     useForgotPasswordMutation,
     useVerifyOTPMutation,
