@@ -72,7 +72,6 @@ export const updatedBaseQuery: BaseQueryFn<
 
         return result;
     } catch (error) {
-        console.log(error, 'err');
         handleError(api, ALERT_MESSAGES.serverError);
         throw error;
     } finally {
