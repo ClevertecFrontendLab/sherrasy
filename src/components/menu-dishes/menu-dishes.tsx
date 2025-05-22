@@ -40,7 +40,6 @@ export const MenuDishes = ({ isBurgerMenu }: MenuDishesProps) => {
         const link = `/${category}/${subcategory}`;
         navigate(link, { state: { keepMenuOpen: isBurgerMenu } });
     };
-
     useEffect(() => {
         if (!data) return;
         const currentIndex = data.findIndex(
@@ -63,9 +62,10 @@ export const MenuDishes = ({ isBurgerMenu }: MenuDishesProps) => {
             h={{ base: 'calc(100vh - 240px)', lg: 'calc(100vh - 80px)' }}
             borderColor='blackAlpha.100'
             position={{ lg: 'fixed' }}
-            left={isBurgerMenu ? 'auto' : 0}
+            left={isBurgerMenu ? 'auto' : { lg: 0, '2xl': 'calc((100vw - 1920px)/2)' }}
             mt={{ base: 5, sm: 8, lg: 0 }}
             bg='white'
+            zIndex={10}
         >
             <ScrollArea extraStylesType='menu'>
                 <Accordion

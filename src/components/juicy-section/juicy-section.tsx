@@ -10,7 +10,6 @@ import { getRecipeQueryString } from '~/utils/helpers';
 import { RecipeCard } from '../cards/recipe-cards/recipe-card';
 
 export const JuicySection = () => {
-    const [isTablet] = useMediaQuery('(min-width: 767px )');
     const [isDesktop] = useMediaQuery('(min-width: 1440px)');
     const query = getRecipeQueryString({
         limit: CardsLimit.JuicyPreview,
@@ -29,8 +28,7 @@ export const JuicySection = () => {
         <Flex
             direction='column'
             mt={{ base: 8, sm: '1.875rem', md: 8, lg: '2.5rem' }}
-            pl={{ base: 4, lg: '17.75rem' }}
-            pr={{ base: 0, sm: 5, lg: '16.25rem' }}
+            pl={{ base: 4 }}
             gap={{ base: 2, xs: 3, sm: 2.5, md: 3, lg: 4, '2xl': '1.375rem' }}
             position='relative'
         >
@@ -65,7 +63,7 @@ export const JuicySection = () => {
                 rightIcon={<ArrowRightIcon />}
                 onClick={handleAllClick}
                 data-test-id={TestIdName.JuiciestLink}
-                display={isTablet ? 'flex' : 'none'}
+                display={isDesktop ? 'flex' : 'none'}
                 position={isDesktop ? 'absolute' : 'initial'}
                 right={{ sm: 5, lg: '270px' }}
             >
@@ -84,7 +82,7 @@ export const JuicySection = () => {
                 rightIcon={<ArrowRightIcon />}
                 onClick={handleAllClick}
                 data-test-id={TestIdName.JuiciestLinkMobile}
-                display={isTablet ? 'none' : 'flex'}
+                display={isDesktop ? 'none' : 'flex'}
             >
                 <Text
                     fontWeight={600}

@@ -33,8 +33,8 @@ export const RecipeHeader = ({ recipe }: RecipeHeaderProps) => {
             variant='ghost'
             _hover={{ boxShadow: 'none' }}
             minW={{ base: '20.5rem', sm: '45.5rem', lg: '55rem', xl: '85rem' }}
-            ml={{ base: 4, sm: 5, lg: '17.75rem' }}
-            mr={{ base: 4, sm: 5, lg: '17.375rem' }}
+            ml={{ base: 4, sm: 5 }}
+            mr={{ base: 4, sm: 5 }}
             gap={{ sm: 4, lg: 6 }}
         >
             <Box>

@@ -41,6 +41,7 @@ export const BurgerMenu = ({ isMenuOpen, handleMenuOpen }: BurgerMenuProps) => {
                     minW={{ base: '344px' }}
                     maxW={{ base: '344px' }}
                     h={{ base: 'calc(100vh - 150px)', sm: 'calc(100vh - 156px)' }}
+                    justify='center'
                     position='absolute'
                     right={2}
                     top={16}

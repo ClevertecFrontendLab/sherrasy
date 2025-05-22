@@ -1,4 +1,4 @@
-import { Flex, useMediaQuery } from '@chakra-ui/react';
+import { Center, Flex, useMediaQuery } from '@chakra-ui/react';
 import { ReactNode } from 'react';
 
 import { useGetCategoriesQuery } from '~/query/services/categories';
@@ -23,28 +23,42 @@ export const Layout = ({ children }: LayoutProps) => {
     return (
         <>
             <OverlayWithLoader isOpen={isCatLoading || isLoading} />
-            <Flex direction='column' minH='100vh' maxH='100vh'>
+            <Flex direction='column' align='center' minH='100vh' maxH='100vh' maxW='100%'>
                 <Header />
-                <Flex
-                    flex={1}
-                    pt={{ base: '4rem', lg: '5rem' }}
-                    pb={{ base: '5.25rem', lg: '2rem' }}
-                >
-                    {isDesktop && <MenuDishes isBurgerMenu={false} />}
+                <Center maxW='1920px' w='100%' position='relative'>
                     <Flex
-                        flex='1'
-                        direction='column'
-                        alignItems='center'
-                        overflowY='auto'
-                        mb={{ base: 4, md: 0, lg: '0' }}
+                        flex={1}
+                        pt={{ base: '4rem', lg: '5rem' }}
+                        pb={{ base: '5.25rem', lg: '2rem' }}
+                        maxW='1920px'
+                        justify='center'
                         w='100%'
-                        maxW='100%'
-                        overflowX='hidden'
                     >
-                        {children}
+                        {isDesktop && <MenuDishes isBurgerMenu={false} />}
+
+                        <Flex
+                            flex='1'
+                            direction='column'
+                            align='center'
+                            overflowY='auto'
+                            mb={{ base: 4, md: 0, lg: '0' }}
+                            w='100%'
+                            maxW={{
+                                base: '100%',
+                                md: '767px',
+                                lg: '920px',
+                                xl: '1160px',
+                                '2xl': '1360px',
+                            }}
+                            overflowX='hidden'
+                            position='relative'
+                        >
+                            {children}
+                        </Flex>
+
+                        {isDesktop && <Sidebar />}
                     </Flex>
-                    {isDesktop && <Sidebar />}
-                </Flex>
+                </Center>
                 <AlertToastContainer />
                 <Footer />
             </Flex>

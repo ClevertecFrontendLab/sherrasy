@@ -26,14 +26,14 @@ export const RelevantKitchenSection = () => {
     return (
         <Box
             mt={{ base: '30px', xs: 8, lg: 14 }}
-            pl={{ base: 4, sm: '1.25rem', md: 5, lg: '284px' }}
-            pr={{ xs: 4, md: 5, lg: '278px' }}
+            pl={{ base: 4, sm: '1.25rem', md: 5 }}
+            pr={{ xs: 4, md: 5 }}
             width='100%'
         >
             <Divider mb={2} />
             <Flex
                 direction={{ base: 'column', lg: 'row' }}
-                justify={{ base: 'space-between', lg: 'flex-start', '2xl': 'space-between' }}
+                justify={{ base: 'space-between' }}
                 gap={{ lg: 10 }}
             >
                 <Heading

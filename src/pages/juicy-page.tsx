@@ -71,8 +71,8 @@ export const JuicyPage = () => {
                 <ContentHeader headline='Самое сочное' handleFilterRecipes={handleFilterRecipes} />
                 <Box
                     mt={{ base: 8, sm: 4, lg: 3 }}
-                    pl={{ base: 4, sm: 5, lg: '17.75rem' }}
-                    pr={{ base: 0, sm: 5, lg: '17.375rem' }}
+                    pl={{ base: 4, sm: 5 }}
+                    pr={{ base: 0, sm: 5 }}
                     alignSelf='start'
                     width='100%'
                 >

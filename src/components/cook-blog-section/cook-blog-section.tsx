@@ -14,8 +14,8 @@ export const CookBlogSection = () => (
         gap={{ base: 2, xs: 3, sm: 2.5, md: 3, lg: 5, '2xl': 8 }}
         borderRadius='2xl'
         p={{ base: 3, lg: '1.375rem' }}
-        ml={{ base: 4, sm: 5, lg: '17.75rem' }}
-        mr={{ base: 8, sm: 5, lg: '16.25rem' }}
+        ml={{ base: 4, sm: 5 }}
+        mr={{ base: 8, sm: 5 }}
         position='relative'
     >
         <Heading
