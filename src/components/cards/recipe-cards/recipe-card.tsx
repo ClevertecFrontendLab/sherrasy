@@ -16,6 +16,7 @@ import {
     Text,
     useMediaQuery,
 } from '@chakra-ui/react';
+import { memo } from 'react';
 
 import { BookmarkIcon, HeartEyesIcon } from '~/assets/icons/icons';
 import { BadgesList } from '~/components/badges-list/badges-list';
@@ -23,8 +24,8 @@ import { withRecipeNavigation } from '~/hoc/withRecipeNavigation';
 import { useAppSelector } from '~/store/hooks';
 import { getRecipesSearchString } from '~/store/recipes/selectors';
 import { FullRecipe } from '~/types/recipe.interface';
-import { TestIdName } from '~/utils/constant';
 import { cookBlog } from '~/utils/data/mock-cards.json';
+import { TestIdName } from '~/utils/testId-name.enum';
 
 type CardProps = {
     recipe: FullRecipe;
@@ -35,13 +36,14 @@ type RecipeCardProps = CardProps & {
     type: 'horizontal' | 'vertical';
 };
 
-const VerticalRecipeCard = ({ recipe, onClick, testI }: CardProps) => {
+const VerticalRecipeCard = memo(({ recipe, onClick, testI }: CardProps) => {
     const { title, image, description, categoriesIds, bookmarks, likes } = recipe;
     const [isDesktop] = useMediaQuery('(min-width: 1440px)');
     return (
         <Card position='relative' variant='vCard' onClick={onClick} data-test-id={testI}>
             <CardBody>
                 <Image
+                    loading='lazy'
                     objectFit='cover'
                     src={image}
                     alt={title}
@@ -76,10 +78,17 @@ const VerticalRecipeCard = ({ recipe, onClick, testI }: CardProps) => {
                 </Stack>
             </CardBody>
             <CardFooter>
-                <HStack w='100%' justify='space-between' align='start'>
+                <HStack
+                    w='100%'
+                    justify={{ base: 'space-between', lg: 'flex-end' }}
+                    align='flex-start'
+                >
                     <SimpleGrid
                         gap={2}
                         templateColumns={{ base: 'repeat(1, 60px)', lg: 'repeat(1, 140px)' }}
+                        position='absolute'
+                        top={2}
+                        left={2}
                     >
                         <BadgesList categoriesIds={categoriesIds} type='vCard' />
                     </SimpleGrid>
@@ -113,7 +122,7 @@ const VerticalRecipeCard = ({ recipe, onClick, testI }: CardProps) => {
             </CardFooter>
         </Card>
     );
-};
+});
 
 const HorizontalRecipeCard = ({ recipe, onClick, testI }: CardProps) => {
     const {
@@ -135,6 +144,7 @@ const HorizontalRecipeCard = ({ recipe, onClick, testI }: CardProps) => {
         <Card direction='row' variant='hCard' data-test-id={testI?.includes('food') ? testI : ''}>
             <Box position='relative' maxW='50%' maxH='min-content'>
                 <Image
+                    loading='lazy'
                     objectFit='cover'
                     aspectRatio={16 / 9}
                     src={image}

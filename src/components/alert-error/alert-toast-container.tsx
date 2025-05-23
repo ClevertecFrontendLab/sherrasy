@@ -1,19 +1,31 @@
 import { CreateToastFnReturn, useToast, UseToastOptions } from '@chakra-ui/react';
 import { useEffect, useRef } from 'react';
+import { useLocation } from 'react-router';
 
-import { getAppError } from '~/store/app-status/selectors';
-import { useAppSelector } from '~/store/hooks';
+import { setAppMessage } from '~/store/app-status/app-slice';
+import { getAppMessage, getAppModalOpen } from '~/store/app-status/selectors';
+import { useAppDispatch, useAppSelector } from '~/store/hooks';
+import { AlertMessage } from '~/types/api-message.type';
+import { AppRoute } from '~/utils/constant';
 
 import { AlertError } from './alert-error';
 
 const useToastManager = () => {
     const activeToastId = useRef<string | number | undefined>('');
+    const dispatch = useAppDispatch();
 
-    const showAlertToast = (toast: CreateToastFnReturn) => {
+    const showAlertToast = (
+        toast: CreateToastFnReturn,
+        appMessage: AlertMessage | null,
+        isCentered: boolean,
+    ) => {
         const toastOptions: UseToastOptions = {
             position: 'bottom',
-            duration: null,
-            render: ({ onClose }) => <AlertError onClose={onClose} />,
+            duration: 15000,
+            onCloseComplete: () => dispatch(setAppMessage(null)),
+            render: ({ onClose }) => (
+                <AlertError onClose={onClose} messageData={appMessage} isCentered={isCentered} />
+            ),
         };
 
         if (activeToastId.current && toast.isActive(activeToastId.current)) {
@@ -27,15 +39,18 @@ const useToastManager = () => {
 };
 
 export const AlertToastContainer = () => {
-    const appError = useAppSelector(getAppError);
+    const appMessage = useAppSelector(getAppMessage);
+    const isModalOpened = useAppSelector(getAppModalOpen);
     const toast = useToast();
     const { showAlertToast } = useToastManager();
-
+    const { pathname } = useLocation();
+    const isEntryPage = pathname === AppRoute.SignIn || pathname === AppRoute.SignUp;
+    const isCentered = !isEntryPage || isModalOpened;
     useEffect(() => {
-        if (appError) {
-            showAlertToast(toast);
+        if (appMessage) {
+            showAlertToast(toast, appMessage, isCentered);
         }
-    }, [appError, toast, showAlertToast]);
+    }, [appMessage, toast, isCentered, showAlertToast]);
 
     return null;
 };

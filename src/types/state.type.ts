@@ -1,5 +1,7 @@
 import { store } from '~/store/configure-store';
+import { AuthStatus } from '~/utils/constant';
 
+import { AlertMessage } from './api-message.type';
 import { Category } from './category.type';
 
 export type State = ReturnType<typeof store.getState>;
@@ -30,6 +32,11 @@ export type CategoryState = {
 
 export type AppState = {
     isLoading: boolean;
-    hasError: boolean;
-    error: string | null;
+    isModalOpened: boolean;
+    alertMessage: AlertMessage | null;
+};
+
+export type UserState = {
+    email: string | null;
+    authStatus: AuthStatus;
 };

@@ -8,7 +8,7 @@ import { setCurrentParams } from '~/store/categories/categories-slice';
 import { useAppDispatch } from '~/store/hooks';
 import { Subcategory } from '~/types/category.type';
 import { PathParams } from '~/types/params.type';
-import { TestIdName } from '~/utils/constant';
+import { TestIdName } from '~/utils/testId-name.enum';
 
 import { RecipesList } from '../recipes-list/recipes-list';
 
@@ -47,7 +47,7 @@ export const RecipesTabs = ({ tabsNames }: RecipesTabsProps) => {
             align={isDesktop ? 'center' : 'start'}
         >
             <TabList
-                borderBottomColor='blackAlpha.320'
+                borderBottomColor='blackAlpha.300'
                 display='flex'
                 flexWrap={isDesktop ? 'wrap' : 'nowrap'}
                 overflowX={isDesktop ? 'visible' : 'auto'}
@@ -77,9 +77,7 @@ export const RecipesTabs = ({ tabsNames }: RecipesTabsProps) => {
             <TabPanels p={0}>
                 {tabsNames.map((name) => (
                     <TabPanel p={0} pt={{ base: 5, xs: 6, md: '22px' }} key={`${name}-panel`}>
-                        {!isFetching && (
-                            <RecipesList recipes={recipes} isLastPage={true} isFetching={false} />
-                        )}
+                        {!isFetching && <RecipesList recipes={recipes} isLastPage={true} />}
                     </TabPanel>
                 ))}
             </TabPanels>

@@ -5,49 +5,80 @@ import {
     fetchBaseQuery,
     FetchBaseQueryError,
 } from '@reduxjs/toolkit/query/react';
+import { StatusCodes } from 'http-status-codes';
 
-import { setAppError, setAppLoader } from '~/store/app-status/app-slice';
-import { setIsLoadingFiltered } from '~/store/recipes/recipes-slice';
-import { ApiBase } from '~/utils/constant';
+import { ApiQueryError } from '~/types/api-message.type';
+import { ALERT_MESSAGES } from '~/utils/alert-messages';
+import { ApiBase, LocalStorageKey } from '~/utils/constant';
+import { createErrorMessage } from '~/utils/helpers';
 
+import { handleError, handleTokenRefresh, setLoadingState } from './api-helpers';
 import { EndpointNames } from './constants/endpoint-names';
 
-const baseQuery = fetchBaseQuery({ baseUrl: ApiBase.Main });
+export const baseQuery = fetchBaseQuery({
+    baseUrl: ApiBase.Main,
+    credentials: 'include',
+    prepareHeaders: (headers) => {
+        const token = localStorage.getItem(LocalStorageKey.AToken);
+        if (token) {
+            headers.set('Authorization', `Bearer ${token}`);
+        }
+        return headers;
+    },
+});
 
 export const updatedBaseQuery: BaseQueryFn<
     string | FetchArgs,
     unknown,
     FetchBaseQueryError
 > = async (args, api, extraOptions) => {
-    const endpointName = api.endpoint;
-    const isFiltering = endpointName === EndpointNames.GET_RECIPES;
-    const errorText = isFiltering ? 'search' : 'load';
-    if (isFiltering) {
-        api.dispatch(setIsLoadingFiltered(true));
-    } else {
-        api.dispatch(setAppLoader(true));
-    }
+    const { endpoint } = api;
+    const isFiltering = endpoint === EndpointNames.GET_RECIPES;
+    const isAuth = [
+        EndpointNames.AUTH_CHECK_AUTH,
+        EndpointNames.AUTH_VERIFY_OTP,
+        EndpointNames.AUTH_FORGOT_PASSWORD,
+    ].some((item) => item.includes(endpoint));
     try {
-        const result = await baseQuery(args, api, extraOptions);
+        setLoadingState(api, isFiltering, true);
+        let result = await baseQuery(args, api, extraOptions);
+
+        if (result?.error?.status === 401) {
+            const tokenRefreshed = await handleTokenRefresh(baseQuery, api, extraOptions);
+            if (tokenRefreshed) {
+                result = await baseQuery(args, api, extraOptions);
+            }
+        }
 
         if (result.error) {
-            api.dispatch(setAppLoader(false));
-            api.dispatch(setAppError(errorText));
-        } else {
-            api.dispatch(setAppError(null));
+            const { status, data } = result.error as ApiQueryError;
+            const isClientError =
+                status >= StatusCodes.BAD_REQUEST && status < StatusCodes.INTERNAL_SERVER_ERROR;
+
+            if (
+                status !== StatusCodes.BAD_REQUEST &&
+                status < StatusCodes.INTERNAL_SERVER_ERROR &&
+                isAuth
+            ) {
+                return result;
+            }
+            const errorMessage = createErrorMessage({
+                status,
+                data,
+                isAuth,
+                isFiltering,
+                isClientError,
+            });
+
+            handleError(api, errorMessage);
         }
 
         return result;
-    } catch (e) {
-        api.dispatch(setAppLoader(false));
-        api.dispatch(setAppError(errorText));
-        throw e;
+    } catch (error) {
+        handleError(api, ALERT_MESSAGES.serverError);
+        throw error;
     } finally {
-        if (isFiltering) {
-            api.dispatch(setIsLoadingFiltered(false));
-        } else {
-            api.dispatch(setAppLoader(false));
-        }
+        setLoadingState(api, isFiltering, false);
     }
 };
 

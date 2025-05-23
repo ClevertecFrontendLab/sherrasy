@@ -1,13 +1,15 @@
-import { Flex, Image, Spacer, useMediaQuery } from '@chakra-ui/react';
+import { Center, Flex, Image, Spacer, useMediaQuery } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router';
 
-import { TestIdName } from '~/utils/constant';
+import logo from '~/assets/images/logo/logo.svg';
+import logoMobile from '~/assets/images/logo/logo-mobile.svg';
+import { TestIdName } from '~/utils/testId-name.enum';
 
 import { Breadcrumbs } from '../breadcrumbs/breadcrumbs';
 import { BurgerMenu } from '../burger-menu/burger-menu';
 import { Overlay } from '../overlay/overlay';
-import { Sidebar } from '../sidebar/sidebar';
+import { SidebarMobile } from '../sidebar/sidebar';
 import { UserBlock } from '../user-block/user-block';
 
 export const Header = () => {
@@ -21,38 +23,34 @@ export const Header = () => {
         if (location.state?.keepMenuOpen) {
             setIsMenuOpen(true);
         }
-        if (location.pathname === '/vegan/snacks/0' && window.Cypress) {
-            setIsMenuOpen(true);
-        }
     }, [location]);
 
     return (
         <Overlay isOpen={isMenuOpen} onClose={handleMenuOpen}>
-            <Flex
-                px={{ base: 3.5, xs: 4, md: 5 }}
-                py={{ base: 3.5, xs: 4 }}
-                bg={isMenuOpen ? 'white' : 'lime.50'}
-                align='center'
-                data-test-id={TestIdName.Header}
+            <Center
                 width='100%'
                 sx={{ position: 'fixed !important' }}
-                top={0}
                 left={0}
-                right={0}
+                top={0}
+                bgColor={isMenuOpen ? 'white' : 'lime.50'}
                 zIndex={isMenuOpen ? 9999 : 9}
                 maxH={{ base: '4rem', lg: '5rem' }}
+                px={{ base: 3.5, xs: 4, md: 5 }}
+                py={{ base: 3.5, xs: 4 }}
             >
-                {isMobile ? (
-                    <Image src='/logo-mobile.svg' alt='yee-daa logo'></Image>
-                ) : (
-                    <Image src='/logo.svg' alt='yee-daa logo'></Image>
-                )}
-                {isDesktop && <Breadcrumbs />}
-                {!isDesktop && !isMenuOpen && <Sidebar />}
-                <Spacer minW={isDesktop ? '200px' : 0} />
-                {isDesktop && <UserBlock />}
-                <BurgerMenu isMenuOpen={isMenuOpen} handleMenuOpen={handleMenuOpen} />
-            </Flex>
+                <Flex align='center' data-test-id={TestIdName.Header} width='100%' maxW='1920px'>
+                    {isMobile ? (
+                        <Image src={logoMobile} alt='yee-daa logo'></Image>
+                    ) : (
+                        <Image src={logo} alt='yee-daa logo'></Image>
+                    )}
+                    {isDesktop && <Breadcrumbs />}
+                    <Spacer minW={isDesktop ? '200px' : 0} />
+                    {!isDesktop && !isMenuOpen && <SidebarMobile />}
+                    {isDesktop && <UserBlock />}
+                    <BurgerMenu isMenuOpen={isMenuOpen} handleMenuOpen={handleMenuOpen} />
+                </Flex>
+            </Center>
         </Overlay>
     );
 };

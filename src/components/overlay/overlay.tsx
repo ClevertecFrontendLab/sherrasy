@@ -1,5 +1,5 @@
 import { Box } from '@chakra-ui/react';
-import { useEffect } from 'react';
+import { PropsWithChildren, useEffect } from 'react';
 
 export const Overlay = ({
     isOpen,
@@ -8,8 +8,7 @@ export const Overlay = ({
 }: {
     isOpen: boolean;
     onClose: () => void;
-    children: React.ReactNode;
-}) => {
+} & PropsWithChildren) => {
     useEffect(() => {
         if (isOpen) {
             document.body.style.overflow = 'hidden';

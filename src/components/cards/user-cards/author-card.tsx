@@ -18,8 +18,8 @@ export const AuthorCard = ({ author }: AuthorCardProps) => {
             minW={['19.375rem', '20.5rem', '37.25rem', '37.75rem', '36.125rem', null, '41.75rem']}
             maxW={['19.375rem', '20.5rem', '37.25rem', '37.75rem', '36.125rem', null, '41.75rem']}
             mt={{ base: 6, lg: 10 }}
-            ml={{ base: 4, sm: 5, lg: '17.75rem' }}
-            mr={{ base: 4, sm: 5, lg: '17.375rem' }}
+            ml={{ base: 4, sm: 5 }}
+            mr={{ base: 4, sm: 5 }}
             p={{ base: 3, sm: '22px' }}
         >
             <Avatar size={{ base: 'xl' }} name={name} src={avatar} />

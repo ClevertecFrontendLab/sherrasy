@@ -1,7 +1,7 @@
 import { CloseIcon, HamburgerIcon } from '@chakra-ui/icons';
 import { Box, Button, Flex, useMediaQuery } from '@chakra-ui/react';
 
-import { TestIdName } from '~/utils/constant';
+import { TestIdName } from '~/utils/testId-name.enum';
 
 import { Breadcrumbs } from '../breadcrumbs/breadcrumbs';
 import { MenuDishes } from '../menu-dishes/menu-dishes';
@@ -41,6 +41,7 @@ export const BurgerMenu = ({ isMenuOpen, handleMenuOpen }: BurgerMenuProps) => {
                     minW={{ base: '344px' }}
                     maxW={{ base: '344px' }}
                     h={{ base: 'calc(100vh - 150px)', sm: 'calc(100vh - 156px)' }}
+                    justify='center'
                     position='absolute'
                     right={2}
                     top={16}

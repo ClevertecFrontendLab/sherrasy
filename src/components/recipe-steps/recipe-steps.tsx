@@ -14,8 +14,8 @@ export const RecipeSteps = ({ steps }: RecipeStepsProps) => {
         <Flex
             direction='column'
             mt={{ base: 6, lg: 9, xl: '2.375rem' }}
-            pl={{ base: 4, sm: 5, lg: '17.75rem' }}
-            pr={{ base: 4, sm: 5, lg: '17.375rem' }}
+            pl={{ base: 4, sm: 5 }}
+            pr={{ base: 4, sm: 5 }}
         >
             <Heading
                 fontWeight={{ base: 'medium', xl: 'semibold' }}

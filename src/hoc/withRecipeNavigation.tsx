@@ -2,7 +2,6 @@ import { ReactElement } from 'react';
 import { useLocation, useNavigate } from 'react-router';
 
 import { useGetCategoriesQuery } from '~/query/services/categories';
-import { useLazyGetRecipeByIdQuery } from '~/query/services/recipes';
 import { getCategories } from '~/store/categories/selectors';
 import { useAppSelector } from '~/store/hooks';
 import { FullRecipe } from '~/types/recipe.interface';
@@ -25,28 +24,19 @@ export const withRecipeNavigation =
         const { data: dataCategories = [], isError: hasCatError } = useGetCategoriesQuery();
         const backupCategories = useAppSelector(getCategories);
         const categories = hasCatError ? backupCategories : dataCategories;
-        const [triggerRecipe] = useLazyGetRecipeByIdQuery();
         const pathSegments = getCatSubPairs(categories, categoriesIds)[0];
 
         const handleClick = async () => {
             const basePath = pathname.includes(AppRoute.Juiciest) ? `${AppRoute.Juiciest}` : '';
-            const result = await triggerRecipe(_id);
 
-            if (result.error) {
-                return;
-            }
-
-            if (result.data) {
-                navigate(
-                    `${basePath}/${pathSegments.category.category}/${pathSegments.subcategory.category}/${_id}`,
-                    {
-                        state: {
-                            recipeName: title,
-                        },
-                        replace: true,
+            navigate(
+                `${basePath}/${pathSegments.category.category}/${pathSegments.subcategory.category}/${_id}`,
+                {
+                    state: {
+                        recipeName: title,
                     },
-                );
-            }
+                },
+            );
         };
         return <WrappedComponent {...(props as P)} onClick={handleClick} />;
     };

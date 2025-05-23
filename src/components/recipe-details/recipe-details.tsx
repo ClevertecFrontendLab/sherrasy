@@ -15,8 +15,8 @@ export const RecipeDetails = ({ portions, nutritionValue, ingredients }: RecipeD
     <Flex
         direction='column'
         mt={{ base: '1.375rem', lg: 10 }}
-        pl={{ base: 4, sm: 5, lg: '17.75rem' }}
-        pr={{ base: 4, sm: 5, lg: '17.375rem' }}
+        pl={{ base: 4, sm: 5 }}
+        pr={{ base: 4, sm: 5 }}
         align={{ base: 'start', sm: 'center' }}
         w='100%'
     >

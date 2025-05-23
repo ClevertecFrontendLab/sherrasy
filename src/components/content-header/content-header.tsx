@@ -12,8 +12,8 @@ import { Loader } from '../loader/loader';
 
 type ContentHeaderProps = {
     headline: string;
-    description?: string;
     handleFilterRecipes: () => void;
+    description?: string;
 };
 
 export const ContentHeader = ({

@@ -3,6 +3,7 @@ import { skipToken } from '@reduxjs/toolkit/query';
 import { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router';
 
+import authorAvatar from '~/assets/images/avatar/author-avatar.jpg';
 import { AuthorCard } from '~/components/cards/user-cards/author-card';
 import { Layout } from '~/components/layout/layout';
 import { NewSection } from '~/components/new-section/new-section';
@@ -13,7 +14,7 @@ import { useGetRecipeByIdQuery } from '~/query/services/recipes';
 
 const MockAuthor = {
     id: '16',
-    avatar: '/img/author-avatar.jpg',
+    avatar: authorAvatar,
     name: 'Сергей Разумов',
     nick: '@serge25',
     description: '',
@@ -56,7 +57,7 @@ export const RecipePage = () => {
                     <AuthorCard author={MockAuthor} />
                 </Flex>
                 <Box mt={{ base: 10, lg: '3.75rem' }}>
-                    <NewSection isRecipePage={true} />
+                    <NewSection />
                 </Box>
             </Layout>
         </>

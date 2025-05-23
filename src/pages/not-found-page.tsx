@@ -1,7 +1,9 @@
 import { Heading, Image, Link, Text, VStack } from '@chakra-ui/react';
 
+import errorImage from '~/assets/images/error-image.svg';
 import { Layout } from '~/components/layout/layout';
-import { AppRoute, TestIdName } from '~/utils/constant';
+import { AppRoute } from '~/utils/constant';
+import { TestIdName } from '~/utils/testId-name.enum';
 
 export const NotFoundPage = () => (
     <>
@@ -10,7 +12,7 @@ export const NotFoundPage = () => (
                 <Image
                     minH={{ base: '108px', lg: '206px' }}
                     maxW={{ base: '108px', lg: '206px' }}
-                    src='/error-image.svg'
+                    src={errorImage}
                     alt='error-img'
                 />
                 <VStack maxW={{ base: '252px', lg: '332px' }} textAlign='center'>

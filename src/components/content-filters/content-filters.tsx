@@ -2,7 +2,7 @@ import { Flex, useDisclosure } from '@chakra-ui/react';
 
 import { AlergiesFilter } from '../allergies-filter/allergies-filter';
 import { FilterDrawer } from '../filter-drawer/filter-drawer';
-import { SearchInput } from '../search-input/search-input';
+import { SearchInput } from '../inputs/search-input/search-input';
 
 type ContentFiltersProps = {
     handleFilterRecipes: () => void;

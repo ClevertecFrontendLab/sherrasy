@@ -26,21 +26,21 @@ export const RelevantKitchenSection = () => {
     return (
         <Box
             mt={{ base: '30px', xs: 8, lg: 14 }}
-            pl={{ base: 4, sm: '1.25rem', md: 5, lg: '284px' }}
-            pr={{ xs: 4, md: 5, lg: '278px' }}
+            pl={{ base: 4, sm: '1.25rem', md: 5 }}
+            pr={{ xs: 4, md: 5 }}
             width='100%'
         >
             <Divider mb={2} />
             <Flex
                 direction={{ base: 'column', lg: 'row' }}
-                justify={{ base: 'space-between', lg: 'flex-start', '2xl': 'space-between' }}
+                justify={{ base: 'space-between' }}
                 gap={{ lg: 10 }}
             >
                 <Heading
                     fontWeight='500'
                     fontSize={{ base: '2xl', lg: '4xl', xl: '5xl' }}
                     lineHeight={{ base: 8, lg: 10, '2xl': 'none' }}
-                    maxW={{ lg: '30%', '2xl': '50%' }}
+                    maxW={{ lg: '32%', '2xl': '50%' }}
                     mb={{ base: 2, xs: 2.5 }}
                 >
                     {currentCategory?.title}

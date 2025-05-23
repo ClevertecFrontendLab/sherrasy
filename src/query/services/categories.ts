@@ -5,7 +5,7 @@ import { Tags } from '~/query/constants/tags.ts';
 import { apiSlice } from '~/query/create-api.ts';
 import { setBackupCategories } from '~/store/categories/categories-slice';
 import { Category } from '~/types/category.type';
-import { LocalStorageKey } from '~/utils/constant';
+import { DEFAULT_ERROR_LOG, LocalStorageKey } from '~/utils/constant';
 import { setDataToLocalStorage, updateImagePath } from '~/utils/helpers';
 
 export const categoryApiSlice = apiSlice
@@ -32,7 +32,7 @@ export const categoryApiSlice = apiSlice
                         dispatch(setBackupCategories(data));
                         setDataToLocalStorage(LocalStorageKey.Categories, data);
                     } catch (error) {
-                        console.error('Failed to fetch categories:', error);
+                        console.error(DEFAULT_ERROR_LOG, error);
                     }
                 },
             }),

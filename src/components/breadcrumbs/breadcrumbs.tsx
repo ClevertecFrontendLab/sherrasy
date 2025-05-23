@@ -6,8 +6,9 @@ import { getCategories } from '~/store/categories/selectors';
 import { useAppSelector } from '~/store/hooks';
 import { Subcategory } from '~/types/category.type';
 import { PathParams } from '~/types/params.type';
-import { AppRoute, TestIdName } from '~/utils/constant';
+import { AppRoute } from '~/utils/constant';
 import { getTabNames } from '~/utils/helpers';
+import { TestIdName } from '~/utils/testId-name.enum';
 
 const renderSubcategoryBreadcrumb = (
     subcategoryId: string,

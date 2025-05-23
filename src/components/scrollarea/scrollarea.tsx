@@ -1,8 +1,7 @@
 import { Box } from '@chakra-ui/react';
-import React from 'react';
+import { PropsWithChildren } from 'react';
 
 interface ScrollAreaProps {
-    children: React.ReactNode;
     extraStylesType: string;
 }
 
@@ -23,8 +22,8 @@ const ScrollAreaStyles = {
     },
 };
 
-export const ScrollArea = ({ children, extraStylesType }: ScrollAreaProps) => {
-    const maxHeightValue: { [key: string]: string } = {
+export const ScrollArea = ({ children, extraStylesType }: ScrollAreaProps & PropsWithChildren) => {
+    const maxHeightValue: Record<string, string> = {
         multiselect: '320px',
         'drawer-filters': 'calc( 100vh - 96px)',
     };

@@ -16,10 +16,10 @@ import { getCategories } from '~/store/categories/selectors';
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import { clearFilters, updateCurrentFilters } from '~/store/recipes/recipes-slice';
 import { getPendingFilters } from '~/store/recipes/selectors';
-import { TestIdName } from '~/utils/constant';
 import filterData from '~/utils/data/filters-data.json';
 import { cookBlog } from '~/utils/data/mock-cards.json';
 import { getMultiselectCategories } from '~/utils/helpers';
+import { TestIdName } from '~/utils/testId-name.enum';
 
 import { AlergiesFilter } from '../allergies-filter/allergies-filter';
 import { CheckboxList } from '../checkbox-list/checkbox-list';

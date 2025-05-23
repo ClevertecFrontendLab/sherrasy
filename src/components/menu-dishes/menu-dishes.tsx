@@ -20,7 +20,7 @@ import { ExitIcon } from '~/assets/icons/icons';
 import { getCategories } from '~/store/categories/selectors';
 import { useAppSelector } from '~/store/hooks';
 import { PathParams } from '~/types/params.type';
-import { TestIdName } from '~/utils/constant';
+import { TestIdName } from '~/utils/testId-name.enum';
 
 import { ScrollArea } from '../scrollarea/scrollarea';
 
@@ -40,7 +40,6 @@ export const MenuDishes = ({ isBurgerMenu }: MenuDishesProps) => {
         const link = `/${category}/${subcategory}`;
         navigate(link, { state: { keepMenuOpen: isBurgerMenu } });
     };
-
     useEffect(() => {
         if (!data) return;
         const currentIndex = data.findIndex(
@@ -63,9 +62,10 @@ export const MenuDishes = ({ isBurgerMenu }: MenuDishesProps) => {
             h={{ base: 'calc(100vh - 240px)', lg: 'calc(100vh - 80px)' }}
             borderColor='blackAlpha.100'
             position={{ lg: 'fixed' }}
-            left={isBurgerMenu ? 'auto' : 0}
+            left={isBurgerMenu ? 'auto' : { lg: 0, '2xl': 'calc((100vw - 1920px)/2)' }}
             mt={{ base: 5, sm: 8, lg: 0 }}
             bg='white'
+            zIndex={10}
         >
             <ScrollArea extraStylesType='menu'>
                 <Accordion
@@ -76,71 +76,60 @@ export const MenuDishes = ({ isBurgerMenu }: MenuDishesProps) => {
                     index={activeIndex}
                     onChange={(index) => setActiveIndex(index)}
                 >
-                    {data &&
-                        data.map(
-                            ({
-                                title: groupName,
-                                category: tag,
-                                subCategories: elements,
-                                icon,
-                            }) => (
-                                <AccordionItem border='none' key={groupName} minH='3rem'>
-                                    <AccordionButton
-                                        data-test-id={tag === 'vegan' ? 'vegan-cuisine' : tag}
-                                        _expanded={{ bg: 'lime.100', fontWeight: '600' }}
-                                        _hover={{ bg: 'lime.50' }}
-                                        onClick={() => handleMenuClick(tag, elements[0].category)}
-                                        pt={{ base: 3, xl: 2 }}
-                                        pr={2}
-                                        pl={{ base: 0, lg: 4 }}
-                                    >
-                                        <Flex flex='1' textAlign='left'>
-                                            <Image mr={3} boxSize={6} src={icon} />
-                                            <Text fontSize='md' lineHeight={6}>
-                                                {groupName}
-                                            </Text>
-                                        </Flex>
-                                        <AccordionIcon
-                                            boxSize={{ base: 6, xl: 7 }}
-                                            mr={{ xl: 2 }}
-                                        />
-                                    </AccordionButton>
-                                    <AccordionPanel pb={2} pr={1}>
-                                        <List spacing={3}>
-                                            {elements?.map(({ category: id, title: name }) => (
-                                                <ListItem
-                                                    key={`${id}-${tag}`}
-                                                    onClick={() => handleMenuClick(tag, id)}
-                                                    pl={{
-                                                        base: subcategoryParam === id ? 3 : 5,
-                                                        lg: subcategoryParam === id ? 7 : 9,
-                                                    }}
-                                                    data-test-id={
-                                                        subcategoryParam === id &&
-                                                        `${id}-${TestIdName.MenuActive}`
+                    {data?.map(
+                        ({ title: groupName, category: tag, subCategories: elements, icon }) => (
+                            <AccordionItem border='none' key={groupName} minH='3rem'>
+                                <AccordionButton
+                                    data-test-id={tag === 'vegan' ? 'vegan-cuisine' : tag}
+                                    _expanded={{ bg: 'lime.100', fontWeight: '600' }}
+                                    _hover={{ bg: 'lime.50' }}
+                                    onClick={() => handleMenuClick(tag, elements[0].category)}
+                                    pt={{ base: 3, xl: 2 }}
+                                    pr={2}
+                                    pl={{ base: 0, lg: 4 }}
+                                >
+                                    <Flex flex='1' textAlign='left'>
+                                        <Image mr={3} boxSize={6} src={icon} />
+                                        <Text fontSize='md' lineHeight={6}>
+                                            {groupName}
+                                        </Text>
+                                    </Flex>
+                                    <AccordionIcon boxSize={{ base: 6, xl: 7 }} mr={{ xl: 2 }} />
+                                </AccordionButton>
+                                <AccordionPanel pb={2} pr={1}>
+                                    <List spacing={3}>
+                                        {elements?.map(({ category: id, title: name }) => (
+                                            <ListItem
+                                                key={`${id}-${tag}`}
+                                                onClick={() => handleMenuClick(tag, id)}
+                                                pl={{
+                                                    base: subcategoryParam === id ? 3 : 5,
+                                                    lg: subcategoryParam === id ? 7 : 9,
+                                                }}
+                                                data-test-id={
+                                                    subcategoryParam === id &&
+                                                    `${id}-${TestIdName.MenuActive}`
+                                                }
+                                                _hover={{ cursor: 'pointer' }}
+                                            >
+                                                <Text
+                                                    fontWeight={subcategoryParam === id ? 600 : 400}
+                                                    borderLeftStyle='solid'
+                                                    borderLeftWidth={
+                                                        subcategoryParam === id ? '8px' : '1px'
                                                     }
-                                                    _hover={{ cursor: 'pointer' }}
+                                                    borderColor='lime.300'
+                                                    pl={3}
                                                 >
-                                                    <Text
-                                                        fontWeight={
-                                                            subcategoryParam === id ? 600 : 400
-                                                        }
-                                                        borderLeftStyle='solid'
-                                                        borderLeftWidth={
-                                                            subcategoryParam === id ? '8px' : '1px'
-                                                        }
-                                                        borderColor='lime.300'
-                                                        pl={3}
-                                                    >
-                                                        {name}
-                                                    </Text>
-                                                </ListItem>
-                                            ))}
-                                        </List>
-                                    </AccordionPanel>
-                                </AccordionItem>
-                            ),
-                        )}
+                                                    {name}
+                                                </Text>
+                                            </ListItem>
+                                        ))}
+                                    </List>
+                                </AccordionPanel>
+                            </AccordionItem>
+                        ),
+                    )}
                 </Accordion>
             </ScrollArea>
             <Spacer />

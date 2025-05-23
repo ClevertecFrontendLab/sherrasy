@@ -5,8 +5,8 @@ import { useParams } from 'react-router';
 import { ContentHeader } from '~/components/content-header/content-header';
 import { Layout } from '~/components/layout/layout';
 import { RecipesList } from '~/components/recipes-list/recipes-list';
-import { RecipesTabs } from '~/components/recipes-tabs/recipes-tabs';
 import { RelevantKitchenSection } from '~/components/relevant-kitchen-section/relevant-kitchen-section';
+import { RecipesTabs } from '~/components/tabs/recipes-tabs';
 import { withCatSubValidation } from '~/hoc/withCatSubValidation';
 import { useLazyGetRecipesQuery } from '~/query/services/recipes';
 import { getCategories } from '~/store/categories/selectors';
@@ -55,15 +55,10 @@ const VeganPageComponent = () => {
                         w={{ base: '100%', lg: 'auto' }}
                         alignSelf='center'
                     >
-                        <RecipesList recipes={recipes} isLastPage={true} />
+                        <RecipesList recipes={recipes} />
                     </Box>
                 ) : (
-                    <Box
-                        pl={{ base: 4, sm: 5, lg: '17.75rem' }}
-                        pr={{ base: 0, sm: 5, lg: '17.375rem' }}
-                        w='100%'
-                        alignSelf='start'
-                    >
+                    <Box pl={{ base: 4, sm: 5 }} pr={{ base: 0, sm: 5 }} w='100%' alignSelf='start'>
                         <RecipesTabs tabsNames={tabsNames} />
                     </Box>
                 )}

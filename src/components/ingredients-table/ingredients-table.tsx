@@ -16,7 +16,7 @@ import {
 import { useState } from 'react';
 
 import { Ingredient } from '~/types/recipe.interface';
-import { TestIdName } from '~/utils/constant';
+import { TestIdName } from '~/utils/testId-name.enum';
 
 type IngredientsTableProps = {
     portions: number;

@@ -8,4 +8,12 @@ export enum EndpointNames {
     GET_RECIPIES_BY_USER_ID = 'getRecipeByUser',
     GET_CATEGORIES = 'getCategories',
     GET_CATEGORY_BY_ID = 'getCategoryById',
+    AUTH_SIGNUP = 'signupAuth',
+    AUTH_LOGIN = 'loginAuth',
+    AUTH_REFRESH = 'refreshAuth',
+    AUTH_CHECK_AUTH = 'checkAuth',
+    AUTH_VERIFY_EMAIL = 'verifyEmailAuth',
+    AUTH_VERIFY_OTP = 'verifyOTPAuth',
+    AUTH_FORGOT_PASSWORD = 'forgotPasswordAuth',
+    AUTH_RESET_PASSWORD = 'resetPasswordAuth',
 }
