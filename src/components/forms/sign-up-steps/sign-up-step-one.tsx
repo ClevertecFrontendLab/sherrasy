@@ -2,7 +2,7 @@ import { Button, VStack } from '@chakra-ui/react';
 import { useFormContext } from 'react-hook-form';
 
 import { FormInput } from '~/components/inputs/form-input/form-input';
-import { TestIdName } from '~/utils/constant';
+import { TestIdName } from '~/utils/testId-name.enum';
 
 import { SignUpFormData } from '../validation-scheme/sign-up.scheme';
 
@@ -12,7 +12,7 @@ export const SignUpStepOne = ({ onNext }: { onNext: () => void }) => {
         const values = formMethods.getValues();
         return ['firstName', 'lastName', 'email'].every((field) => {
             const value = values[field as keyof SignUpFormData];
-            return value !== undefined && value !== null && value !== '';
+            return Boolean(value);
         });
     };
     const stepOneValid = getAllFieldsFilled();

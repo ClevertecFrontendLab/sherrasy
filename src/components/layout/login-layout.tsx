@@ -22,7 +22,7 @@ export const LoginLayout = ({ children }: LayoutProps) => {
                         flex='1'
                         direction='column'
                         alignItems='center'
-                        justifyContent='center'
+                        justifyContent='start'
                         overflowY='auto'
                         w={{ base: '100%', lg: '50%' }}
                         maxW='100%'
@@ -33,7 +33,8 @@ export const LoginLayout = ({ children }: LayoutProps) => {
                         <Image
                             src={logo}
                             alt='yee-daa logo'
-                            minH={{ base: '38px', lg: '64px' }}
+                            minH={{ base: '2.375rem', lg: '4rem' }}
+                            mt={{ base: '4.5rem', sm: '8.75rem', lg: '10.625rem' }}
                             mb={{ base: 3, xs: 4 }}
                         />
                         {children}

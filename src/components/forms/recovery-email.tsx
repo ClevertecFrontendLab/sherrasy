@@ -1,11 +1,12 @@
 import { Box, Button, VStack } from '@chakra-ui/react';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { useForgotPasswordMutation } from '~/query/services/auth';
 import { useAppDispatch } from '~/store/hooks';
 import { setCurrentEmail } from '~/store/user/user-slice';
-import { TestIdName } from '~/utils/constant';
+import { TestIdName } from '~/utils/testId-name.enum';
 
 import { FormInput } from '../inputs/form-input/form-input';
 import { EmailFormData, emailSchema } from './validation-scheme/email.sheme';
@@ -17,23 +18,26 @@ export const RecoveryEmailForm = ({ onSuccess }: { onSuccess: () => void }) => {
     });
     const { handleSubmit, reset, setError } = formMethods;
     const dispatch = useAppDispatch();
-    const [forgotPassword] = useForgotPasswordMutation();
+    const [forgotPassword, { isSuccess, isError }] = useForgotPasswordMutation();
 
     const onSubmit = async (data: EmailFormData) => {
-        await forgotPassword(data)
-            .unwrap()
-            .then(() => {
-                dispatch(setCurrentEmail(data.email));
-                onSuccess();
-            })
-            .catch(async () => {
-                reset();
-                setError('email', {
-                    type: 'manual',
-                    message: '',
-                });
-            });
+        await forgotPassword(data);
+        dispatch(setCurrentEmail(data.email));
     };
+
+    useEffect(() => {
+        if (isSuccess) {
+            onSuccess();
+        }
+        if (isError) {
+            reset();
+            setError('email', {
+                type: 'manual',
+                message: '',
+            });
+        }
+    }, [isSuccess, isError, onSuccess, reset, setError]);
+
     return (
         <Box as='form' onSubmit={handleSubmit(onSubmit)} w='100%' mt={4}>
             <VStack spacing={6} w='100%'>

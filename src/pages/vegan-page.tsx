@@ -55,7 +55,7 @@ const VeganPageComponent = () => {
                         w={{ base: '100%', lg: 'auto' }}
                         alignSelf='center'
                     >
-                        <RecipesList recipes={recipes} isLastPage={true} />
+                        <RecipesList recipes={recipes} />
                     </Box>
                 ) : (
                     <Box pl={{ base: 4, sm: 5 }} pr={{ base: 0, sm: 5 }} w='100%' alignSelf='start'>

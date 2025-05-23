@@ -11,7 +11,7 @@ import { SectionLayout } from '../layout/section-layout';
 
 export const JuicySection = () => {
     const query = getRecipeQueryString({
-        limit: CardsLimit.JuicyPreview,
+        limit: CardsLimit.Default,
         page: 1,
         sortBy: SortingBy.Likes,
         sortOrder: SortingDirection.Descending,
@@ -19,7 +19,7 @@ export const JuicySection = () => {
     const { data: JuiciestData } = useGetJuiciestRecipesQuery(query);
     const currentRecipes = JuiciestData?.data ?? [];
     const navigate = useNavigate();
-    const handleAllClick = async () => {
+    const handleAllClick = () => {
         navigate(AppRoute.Juiciest);
     };
 

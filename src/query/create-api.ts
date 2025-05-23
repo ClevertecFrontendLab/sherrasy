@@ -34,7 +34,11 @@ export const updatedBaseQuery: BaseQueryFn<
 > = async (args, api, extraOptions) => {
     const { endpoint } = api;
     const isFiltering = endpoint === EndpointNames.GET_RECIPES;
-    const isAuth = endpoint.includes('Auth');
+    const isAuth = [
+        EndpointNames.AUTH_CHECK_AUTH,
+        EndpointNames.AUTH_VERIFY_OTP,
+        EndpointNames.AUTH_FORGOT_PASSWORD,
+    ].some((item) => item.includes(endpoint));
     try {
         setLoadingState(api, isFiltering, true);
         let result = await baseQuery(args, api, extraOptions);
@@ -58,7 +62,6 @@ export const updatedBaseQuery: BaseQueryFn<
             ) {
                 return result;
             }
-
             const errorMessage = createErrorMessage({
                 status,
                 data,

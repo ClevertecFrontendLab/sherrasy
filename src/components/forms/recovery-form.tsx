@@ -1,11 +1,13 @@
 import { Box, Button, VStack } from '@chakra-ui/react';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { useResetPasswordMutation } from '~/query/services/auth';
 import { useAppSelector } from '~/store/hooks';
 import { getUserEmail } from '~/store/user/selectors';
-import { InputNameToHelper, TestIdName } from '~/utils/constant';
+import { InputNameToHelper } from '~/utils/forms.constant';
+import { TestIdName } from '~/utils/testId-name.enum';
 
 import { FormInput } from '../inputs/form-input/form-input';
 import { PasswordInput } from '../inputs/password-input/password-input';
@@ -17,16 +19,18 @@ export const RecoveryForm = ({ onSuccess }: { onSuccess: () => void }) => {
         resolver: yupResolver(recoveryFormSchema),
     });
     const email = useAppSelector(getUserEmail) ?? '';
-    const [resetPassword] = useResetPasswordMutation();
+    const [resetPassword, { isSuccess }] = useResetPasswordMutation();
     const { handleSubmit } = formMethods;
 
     const onSubmit = async (data: RecoveryFormData) => {
-        await resetPassword({ ...data, email })
-            .unwrap()
-            .then(() => {
-                onSuccess();
-            });
+        await resetPassword({ ...data, email });
     };
+
+    useEffect(() => {
+        if (isSuccess) {
+            onSuccess();
+        }
+    }, [isSuccess, onSuccess]);
 
     return (
         <Box as='form' onSubmit={handleSubmit(onSubmit)} w='100%' mt={4}>

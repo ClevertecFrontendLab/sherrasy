@@ -1,4 +1,4 @@
-import { Box } from '@chakra-ui/react';
+import { Box, Button, Flex, Text } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 
 import { ContentHeader } from '~/components/content-header/content-header';
@@ -17,6 +17,7 @@ import { getIsFilteringRecipes, getRecipeQuery } from '~/store/recipes/selectors
 import { RecipeQueryParam } from '~/types/query-param.type';
 import { DEFAULT_PAGE } from '~/utils/constant';
 import { getRecipeQueryString } from '~/utils/helpers';
+import { TestIdName } from '~/utils/testId-name.enum';
 
 const DefaultParams: RecipeQueryParam = {
     limit: 8,
@@ -76,11 +77,23 @@ export const JuicyPage = () => {
                     alignSelf='start'
                     width='100%'
                 >
-                    <RecipesList
-                        recipes={recipesCurrent ?? []}
-                        isLastPage={isLastPage}
-                        handleLoadMore={loadRecipes}
-                    />
+                    <Flex direction='column' gap={{ base: 3, sm: 3.5 }} justify='center'>
+                        <RecipesList recipes={recipesCurrent ?? []} />
+                        {!isLastPage && (
+                            <Button
+                                bg='lime.400'
+                                mt={1}
+                                size='md'
+                                alignSelf='center'
+                                data-test-id={TestIdName.LoadMoreBtn}
+                                onClick={loadRecipes}
+                            >
+                                <Text fontWeight={600} fontSize='md' lineHeight={6}>
+                                    {isFetching ? 'Загрузка' : 'Загрузить еще'}
+                                </Text>
+                            </Button>
+                        )}
+                    </Flex>
                 </Box>
                 <RelevantKitchenSection />
             </Layout>

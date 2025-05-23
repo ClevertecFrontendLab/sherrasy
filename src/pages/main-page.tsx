@@ -42,7 +42,7 @@ export const MainPage = () => {
                         w={{ base: '100%', lg: 'auto' }}
                         alignSelf='center'
                     >
-                        <RecipesList recipes={recipes} isLastPage={true} />
+                        <RecipesList recipes={recipes} />
                     </Box>
                 ) : (
                     <Box alignSelf='start'>

@@ -1,13 +1,15 @@
 import { Button, Stack, VStack } from '@chakra-ui/react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { StatusCodes } from 'http-status-codes';
+import { useCallback, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
 
 import { useUniversalModal } from '~/hooks/useUniversalModal';
 import { useLoginMutation } from '~/query/services/auth';
 import { ApiQueryError } from '~/types/api-message.type';
-import { AppRoute, TestIdName } from '~/utils/constant';
+import { AppRoute } from '~/utils/constant';
+import { TestIdName } from '~/utils/testId-name.enum';
 
 import { FormInput } from '../inputs/form-input/form-input';
 import { PasswordInput } from '../inputs/password-input/password-input';
@@ -17,27 +19,38 @@ import { SignInFormData, signInSchema } from './validation-scheme/sign-in.scheme
 export const SignInForm = () => {
     const { isOpen, openModal, closeModal, config } = useUniversalModal();
     const navigate = useNavigate();
-    const handleOpenModal = () => openModal('login');
-    const [login] = useLoginMutation();
+    const handleOpenModal = useCallback(() => {
+        openModal('login');
+    }, []);
+    const [login, { isSuccess, isError, error, reset }] = useLoginMutation();
     const formMethods = useForm<SignInFormData>({
         mode: 'onChange',
         resolver: yupResolver(signInSchema),
     });
-    const { handleSubmit } = formMethods;
+    const { handleSubmit, reset: resetForm } = formMethods;
     const onSubmit = async (data: SignInFormData) => {
-        try {
-            await login(data)
-                .unwrap()
-                .then(() => navigate(AppRoute.Main));
-        } catch (error) {
+        await login(data);
+    };
+
+    const handleRepeat = async () => {
+        await handleSubmit(onSubmit)();
+    };
+    const handleClose = async () => {
+        closeModal();
+        resetForm();
+        reset();
+    };
+
+    useEffect(() => {
+        if (isSuccess) {
+            navigate(AppRoute.Main);
+        }
+        if (isError) {
             const { status } = error as ApiQueryError;
             if (status < StatusCodes.INTERNAL_SERVER_ERROR) return;
             handleOpenModal();
         }
-    };
-    const handleRepeat = async () => {
-        await handleSubmit(onSubmit)();
-    };
+    }, [isSuccess, isError, error, handleOpenModal, navigate]);
 
     return (
         <Stack
@@ -70,7 +83,7 @@ export const SignInForm = () => {
             </VStack>
             <UniversalModal
                 isOpen={isOpen}
-                onClose={closeModal}
+                onClose={handleClose}
                 config={config}
                 testId={TestIdName.ModalSignIn}
             >
