@@ -14,7 +14,9 @@ import {
 import { PropsWithChildren } from 'react';
 
 import { ModalConfig } from '~/types/modal.type';
-import { TestIdName } from '~/utils/constant';
+import { TestIdName } from '~/utils/testId-name.enum';
+
+import { DynamicModalText } from './dynamic-modal-text';
 
 type UniversalModalProps = PropsWithChildren & {
     isOpen: boolean;
@@ -29,8 +31,8 @@ export const UniversalModal = ({
     config,
     children,
     onClose,
-    email = '',
-    testId = '',
+    email,
+    testId,
 }: UniversalModalProps) => {
     if (!config) return null;
 
@@ -40,7 +42,7 @@ export const UniversalModal = ({
     return (
         <Modal isOpen={isOpen} onClose={onClose} isCentered>
             <ModalOverlay />
-            <ModalContent data-test-id={testId}>
+            <ModalContent data-test-id={testId || ''}>
                 <ModalHeader>
                     {config.icon && (
                         <Image
@@ -65,20 +67,12 @@ export const UniversalModal = ({
                             {config.header}
                         </Heading>
                     )}
-
-                    {config.bodyText?.map((text, index) => (
-                        <Text
-                            key={index}
-                            color={index === 1 && showEmail ? 'blackAlpha.900' : 'blackAlpha.700'}
-                            textAlign='center'
-                            fontSize='md'
-                            lineHeight={6}
-                            fontWeight={index === 1 && showEmail ? 'bold' : 'normal'}
-                        >
-                            {index === 1 && showEmail ? email : text}
-                        </Text>
-                    ))}
-
+                    <DynamicModalText
+                        textData={config.bodyText}
+                        highlightIndex={1}
+                        highlightCondition={showEmail}
+                        customText={email || ''}
+                    />
                     {children}
                 </ModalBody>
 

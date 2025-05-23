@@ -1,67 +1,67 @@
 import * as yup from 'yup';
 
-import { FieldRegex } from '~/utils/constant';
+import { FieldRegex, ValidationMessage } from '~/utils/forms.constant';
 
 export const stepOneSchema = yup.object({
     firstName: yup
         .string()
-        .required('Введите имя')
-        .matches(FieldRegex.Firstletter, 'Должно начинаться с кириллицы А-Я')
-        .matches(FieldRegex.Name, 'Только кириллица А-Я, и "-"')
-        .max(50, 'Максимальная длина 50 символов'),
+        .required(ValidationMessage.RequiredFirstName)
+        .matches(FieldRegex.Firstletter, ValidationMessage.InvalidNameLetter)
+        .matches(FieldRegex.Name, ValidationMessage.InvalidName)
+        .max(50, ValidationMessage.MaxLength),
     lastName: yup
         .string()
-        .required('Введите фамилию')
-        .matches(FieldRegex.Firstletter, 'Должно начинаться с кириллицы А-Я')
-        .matches(FieldRegex.Name, 'Только кириллица А-Я, и "-"')
-        .max(50, 'Максимальная длина 50 символов'),
+        .required(ValidationMessage.RequiredLastName)
+        .matches(FieldRegex.Firstletter, ValidationMessage.InvalidNameLetter)
+        .matches(FieldRegex.Name, ValidationMessage.InvalidName)
+        .max(50, ValidationMessage.MaxLength),
     email: yup
         .string()
-        .required('Введите e-mail')
-        .max(50, 'Максимальная длина 50 символов')
-        .matches(FieldRegex.Email, 'Введите корректный e-mail'),
+        .required(ValidationMessage.RequiredEmail)
+        .max(50, ValidationMessage.MaxLength)
+        .matches(FieldRegex.Email, ValidationMessage.InvalidEmail),
 });
 
 export const stepTwoSchema = yup.object({
     login: yup
         .string()
-        .required('Введите логин')
-        .max(50, 'Максимальная длина 50 символов')
-        .matches(FieldRegex.Login, 'Не соответствует формату')
-        .min(5, 'Не соответствует формату'),
+        .required(ValidationMessage.RequiredLogin)
+        .max(50, ValidationMessage.MaxLength)
+        .matches(FieldRegex.Login, ValidationMessage.InvalidFormat)
+        .min(5, ValidationMessage.InvalidFormat),
 
     password: yup
         .string()
-        .required('Введите пароль')
-        .max(50, 'Максимальная длина 50 символов')
-        .matches(FieldRegex.Password, 'Не соответствует формату')
-        .min(8, 'Не соответствует формату'),
+        .required(ValidationMessage.RequiredPassword)
+        .max(50, ValidationMessage.MaxLength)
+        .matches(FieldRegex.Password, ValidationMessage.InvalidFormat)
+        .min(8, ValidationMessage.InvalidFormat),
 
     confirmPassword: yup
         .string()
-        .required('Повторите пароль')
-        .oneOf([yup.ref('password')], 'Пароли должны совпадать'),
+        .required(ValidationMessage.RequiredPasswordConfirm)
+        .oneOf([yup.ref('password')], ValidationMessage.InvalidPasswordConfirm),
 });
 
 export const recoveryFormSchema = yup.object({
     login: yup
         .string()
-        .required('Введите логин')
-        .max(50, 'Максимальная длина 50 символов')
-        .matches(FieldRegex.Login, 'Не соответствует формату')
-        .min(5, 'Не соответствует формату'),
+        .required(ValidationMessage.RequiredLogin)
+        .max(50, ValidationMessage.MaxLength)
+        .matches(FieldRegex.Login, ValidationMessage.InvalidFormat)
+        .min(5, ValidationMessage.InvalidFormat),
 
     password: yup
         .string()
-        .required('Введите пароль')
-        .max(50, 'Максимальная длина 50 символов')
-        .matches(FieldRegex.Password, 'Не соответствует формату')
-        .min(8, 'Не соответствует формату'),
+        .required(ValidationMessage.RequiredPassword)
+        .max(50, ValidationMessage.MaxLength)
+        .matches(FieldRegex.Password, ValidationMessage.InvalidFormat)
+        .min(8, ValidationMessage.InvalidFormat),
 
     passwordConfirm: yup
         .string()
-        .required('Повторите пароль')
-        .oneOf([yup.ref('password')], 'Пароли должны совпадать'),
+        .required(ValidationMessage.RequiredPasswordConfirm)
+        .oneOf([yup.ref('password')], ValidationMessage.InvalidPasswordConfirm),
 });
 
 export const signUpSchema = stepOneSchema.concat(stepTwoSchema);

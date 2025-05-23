@@ -10,7 +10,7 @@ import { FieldError, FieldValues, Path, UseFormReturn } from 'react-hook-form';
 
 import { useSubmitOnEnter } from '~/hooks/useSubmitOnEnter';
 import { useTrimOnBlur } from '~/hooks/useTrimValue';
-import { InputNameToLabel, InputNameToPlaceholder } from '~/utils/constant';
+import { InputNameToLabel, InputNameToPlaceholder } from '~/utils/forms.constant';
 
 interface FormInputProps<T extends FieldValues> extends Omit<InputProps, 'name'> {
     name: Path<T>;
@@ -41,7 +41,15 @@ export function FormInput<T extends FieldValues>({
     const errorText = (errors[name] as FieldError)?.message;
     return (
         <FormControl isInvalid={!!errors[name]}>
-            <FormLabel htmlFor={name.toString()}>{InputNameToLabel[name]}</FormLabel>
+            <FormLabel
+                color='black'
+                lineHeight={6}
+                fontSize='md'
+                fontWeight='normal'
+                htmlFor={name.toString()}
+            >
+                {InputNameToLabel[name]}
+            </FormLabel>
             <Input
                 id={name.toString()}
                 {...register(name)}

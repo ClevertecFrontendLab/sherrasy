@@ -8,7 +8,7 @@ import { setCurrentParams } from '~/store/categories/categories-slice';
 import { useAppDispatch } from '~/store/hooks';
 import { Subcategory } from '~/types/category.type';
 import { PathParams } from '~/types/params.type';
-import { TestIdName } from '~/utils/constant';
+import { TestIdName } from '~/utils/testId-name.enum';
 
 import { RecipesList } from '../recipes-list/recipes-list';
 

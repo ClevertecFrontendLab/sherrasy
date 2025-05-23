@@ -1,7 +1,7 @@
 import { CloseIcon, HamburgerIcon } from '@chakra-ui/icons';
 import { Box, Button, Flex, useMediaQuery } from '@chakra-ui/react';
 
-import { TestIdName } from '~/utils/constant';
+import { TestIdName } from '~/utils/testId-name.enum';
 
 import { Breadcrumbs } from '../breadcrumbs/breadcrumbs';
 import { MenuDishes } from '../menu-dishes/menu-dishes';

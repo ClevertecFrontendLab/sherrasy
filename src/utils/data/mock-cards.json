@@ -2,7 +2,7 @@
     "cookBlog": [
         {
             "id": "14",
-            "avatar": "/img/avatar-1.png",
+            "avatar": "src/assets/images/avatar/avatar-1.png",
             "name": "Елена Высоцкая",
             "nick": "@elenapovar",
             "description": "Как раз после праздников, когда мясные продукты еще остались, но никто их уже не хочет, время варить солянку.",
@@ -10,7 +10,7 @@
         },
         {
             "id": "15",
-            "avatar": "/img/avatar-2.png",
+            "avatar": "src/assets/images/avatar/avatar-2.png",
             "name": "Alex Cook",
             "nick": "@funtasticooking",
             "description": "Как раз после праздников, когда мясные продукты еще остались, но никто их уже не хочет, время варить солянку.",
@@ -18,7 +18,7 @@
         },
         {
             "id": "16",
-            "avatar": "/img/avatar-3.png",
+            "avatar": "src/assets/images/avatar/avatar-3.png",
             "name": "Екатерина Константинопольская",
             "nick": "@bake_and_pie",
             "description": "Как раз после праздников, когда мясные продукты еще остались, но никто их уже не хочет, время варить солянку.",

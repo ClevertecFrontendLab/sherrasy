@@ -2,7 +2,9 @@ import { Center, Flex, Image, Spacer, useMediaQuery } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router';
 
-import { TestIdName } from '~/utils/constant';
+import logo from '~/assets/images/logo/logo.svg';
+import logoMobile from '~/assets/images/logo/logo-mobile.svg';
+import { TestIdName } from '~/utils/testId-name.enum';
 
 import { Breadcrumbs } from '../breadcrumbs/breadcrumbs';
 import { BurgerMenu } from '../burger-menu/burger-menu';
@@ -38,9 +40,9 @@ export const Header = () => {
             >
                 <Flex align='center' data-test-id={TestIdName.Header} width='100%' maxW='1920px'>
                     {isMobile ? (
-                        <Image src='/logo-mobile.svg' alt='yee-daa logo'></Image>
+                        <Image src={logoMobile} alt='yee-daa logo'></Image>
                     ) : (
-                        <Image src='/logo.svg' alt='yee-daa logo'></Image>
+                        <Image src={logo} alt='yee-daa logo'></Image>
                     )}
                     {isDesktop && <Breadcrumbs />}
                     <Spacer minW={isDesktop ? '200px' : 0} />

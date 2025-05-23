@@ -1,7 +1,8 @@
 import { Avatar, Box, Button, Circle, Flex, Text, useMediaQuery } from '@chakra-ui/react';
 
 import { HomeIcon, PenIcon, SearchIcon } from '~/assets/icons/icons';
-import { TestIdName } from '~/utils/constant';
+import userAvatar from '~/assets/images/avatar/photo-dekstop.jpg';
+import { TestIdName } from '~/utils/testId-name.enum';
 
 import styles from './footer.module.css';
 
@@ -96,7 +97,7 @@ export const Footer = () => {
                     >
                         <Avatar
                             name='Екатерина Константинопольская'
-                            src='/photo-dekstop.jpg'
+                            src={userAvatar}
                             size='md'
                             maxH='2.5rem'
                             maxW='2.5rem'

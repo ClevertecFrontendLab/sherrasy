@@ -15,7 +15,7 @@ import {
     getIsFilteringRecipes,
     getRecipesSearchString,
 } from '~/store/recipes/selectors';
-import { TestIdName } from '~/utils/constant';
+import { TestIdName } from '~/utils/testId-name.enum';
 
 type SearchInputProps = {
     handleFilterRecipes: () => void;

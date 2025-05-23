@@ -1,17 +1,21 @@
+import loginErrorImage from '~/assets/images/modal/login-error.svg';
+import passwordRecoverImage from '~/assets/images/modal/password-recover.svg';
+import verificationImage from '~/assets/images/modal/verification.svg';
+import verificationErrorImage from '~/assets/images/modal/verification-error.svg';
 import { ModalConfig, ModalType } from '~/types/modal.type';
 
 export const MODAL_CONFIGS: Record<ModalType, ModalConfig> = {
     login: {
         bodyText: ['Что-то пошло не так.', 'Попробуйте еще раз'],
         header: 'Вход не выполнен',
-        icon: '/login-error.svg',
+        icon: loginErrorImage,
         type: 'login',
     },
     verification: {
         bodyText: ['Мы отправили вам на почту', 'email', 'ссылку для верификации.'],
         footerText: 'Не пришло письмо? Проверьте папку Спам. \n По другим вопросам свяжитесь',
         header: 'Остался последний шаг. Нужно верифицировать ваш e-mail ',
-        icon: '/verification.svg',
+        icon: verificationImage,
         type: 'verification',
     },
     verificationError: {
@@ -20,7 +24,7 @@ export const MODAL_CONFIGS: Record<ModalType, ModalConfig> = {
         ],
         footerText: 'Остались вопросы? Свяжитесь',
         header: 'Упс! Что-то пошло не так',
-        icon: '/verification-error.svg',
+        icon: verificationErrorImage,
         type: 'verificationError',
     },
     recoveryEmail: {
@@ -28,13 +32,13 @@ export const MODAL_CONFIGS: Record<ModalType, ModalConfig> = {
             'Для восстановления входа введите ваш e-mail, куда можно отправить уникальный код',
         ],
         header: '',
-        icon: '/login-error.svg',
+        icon: loginErrorImage,
         type: 'recoveryEmail',
     },
     recoveryPin: {
         footerText: 'Не пришло письмо? Проверьте папку Спам.',
         header: '',
-        icon: '/password-recover.svg',
+        icon: passwordRecoverImage,
         type: 'recoveryPin',
     },
     recoveryForm: {

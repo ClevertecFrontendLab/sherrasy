@@ -24,8 +24,8 @@ import { withRecipeNavigation } from '~/hoc/withRecipeNavigation';
 import { useAppSelector } from '~/store/hooks';
 import { getRecipesSearchString } from '~/store/recipes/selectors';
 import { FullRecipe } from '~/types/recipe.interface';
-import { TestIdName } from '~/utils/constant';
 import { cookBlog } from '~/utils/data/mock-cards.json';
+import { TestIdName } from '~/utils/testId-name.enum';
 
 type CardProps = {
     recipe: FullRecipe;

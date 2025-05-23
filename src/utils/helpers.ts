@@ -9,7 +9,8 @@ import { RecipeQueryParam } from '~/types/query-param.type';
 import { FullRecipe } from '~/types/recipe.interface';
 
 import { ALERT_MESSAGES } from './alert-messages';
-import { ApiBase, CardsLimit, TestIdName } from './constant';
+import { ApiBase, CardsLimit } from './constant';
+import { TestIdName } from './testId-name.enum';
 
 export const getSortedNewRecipes = (recipes: FullRecipe[]) =>
     [...recipes]

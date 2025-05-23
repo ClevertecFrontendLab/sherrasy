@@ -3,7 +3,8 @@ import { useFormContext } from 'react-hook-form';
 
 import { FormInput } from '~/components/inputs/form-input/form-input';
 import { PasswordInput } from '~/components/inputs/password-input/password-input';
-import { InputNameToHelper, TestIdName } from '~/utils/constant';
+import { InputNameToHelper } from '~/utils/forms.constant';
+import { TestIdName } from '~/utils/testId-name.enum';
 
 import { SignUpFormData } from '../validation-scheme/sign-up.scheme';
 

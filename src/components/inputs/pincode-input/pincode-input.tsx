@@ -1,12 +1,13 @@
-import { Heading, HStack, PinInput, PinInputField, Text, VStack } from '@chakra-ui/react';
+import { Heading, HStack, PinInput, PinInputField, VStack } from '@chakra-ui/react';
 import { StatusCodes } from 'http-status-codes';
 import { useEffect, useRef, useState } from 'react';
 
+import { DynamicModalText } from '~/components/modal/dynamic-modal-text';
 import { useVerifyOTPMutation } from '~/query/services/auth';
 import { useAppSelector } from '~/store/hooks';
 import { getUserEmail } from '~/store/user/selectors';
 import { ApiQueryError } from '~/types/api-message.type';
-import { TestIdName } from '~/utils/constant';
+import { TestIdName } from '~/utils/testId-name.enum';
 
 export const PinCodeInput = ({ onSuccess }: { onSuccess: () => void }) => {
     const [pin, setPin] = useState('');
@@ -53,18 +54,12 @@ export const PinCodeInput = ({ onSuccess }: { onSuccess: () => void }) => {
                 </Heading>
             )}
             <VStack gap={0}>
-                {PIN_TEXT.body.map((text, index) => (
-                    <Text
-                        key={index}
-                        color={index === 1 ? 'blackAlpha.900' : 'blackAlpha.700'}
-                        textAlign='center'
-                        fontSize='md'
-                        lineHeight={6}
-                        fontWeight={index === 1 ? 'bold' : 'normal'}
-                    >
-                        {text}
-                    </Text>
-                ))}{' '}
+                <DynamicModalText
+                    textData={PIN_TEXT.body}
+                    highlightIndex={1}
+                    highlightCondition={true}
+                    customText={email || ''}
+                />
             </VStack>
             <HStack spacing={3} mt={4}>
                 <PinInput

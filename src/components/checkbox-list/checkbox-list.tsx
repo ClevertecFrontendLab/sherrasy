@@ -5,7 +5,7 @@ import { updateFilter } from '~/store/recipes/recipes-slice';
 import { getPendingFilters } from '~/store/recipes/selectors';
 import { CheckboxListItem } from '~/types/filter-item.type';
 import { RecipeFilters } from '~/types/state.type';
-import { TestIdName } from '~/utils/constant';
+import { TestIdName } from '~/utils/testId-name.enum';
 
 type CheckboxListProps = {
     data: CheckboxListItem;

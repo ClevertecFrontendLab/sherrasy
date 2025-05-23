@@ -20,7 +20,7 @@ import { ExitIcon } from '~/assets/icons/icons';
 import { getCategories } from '~/store/categories/selectors';
 import { useAppSelector } from '~/store/hooks';
 import { PathParams } from '~/types/params.type';
-import { TestIdName } from '~/utils/constant';
+import { TestIdName } from '~/utils/testId-name.enum';
 
 import { ScrollArea } from '../scrollarea/scrollarea';
 

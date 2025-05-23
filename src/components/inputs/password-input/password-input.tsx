@@ -17,8 +17,8 @@ import {
     InputNameToHelper,
     InputNameToLabel,
     InputNameToPlaceholder,
-    TestIdName,
-} from '~/utils/constant';
+} from '~/utils/forms.constant';
+import { TestIdName } from '~/utils/testId-name.enum';
 
 type PasswordFieldType = 'password' | 'confirmPassword' | 'passwordConfirm';
 
@@ -69,7 +69,15 @@ export const PasswordInput = <T extends FieldValues>({
 
     return (
         <FormControl isInvalid={!!errors[name as Path<T>]}>
-            <FormLabel htmlFor={name}>{label}</FormLabel>
+            <FormLabel
+                color='black'
+                lineHeight={6}
+                fontSize='md'
+                fontWeight='normal'
+                htmlFor={name}
+            >
+                {label}
+            </FormLabel>
             <InputGroup>
                 <Input
                     variant='baseFormInput'

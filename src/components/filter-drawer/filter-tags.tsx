@@ -4,10 +4,10 @@ import { getCategories } from '~/store/categories/selectors';
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import { updateFilter } from '~/store/recipes/recipes-slice';
 import { RecipeFilters } from '~/types/state.type';
-import { TestIdName } from '~/utils/constant';
 import filterData from '~/utils/data/filters-data.json';
 import { cookBlog } from '~/utils/data/mock-cards.json';
 import { getMultiselectCategories } from '~/utils/helpers';
+import { TestIdName } from '~/utils/testId-name.enum';
 
 type FilterTagProps = {
     filterType: keyof RecipeFilters;

@@ -1,6 +1,7 @@
 import { Flex, Image, Show, Text } from '@chakra-ui/react';
 import { PropsWithChildren } from 'react';
 
+import logo from '~/assets/images/logo/logo.svg';
 import { getAppLoading } from '~/store/app-status/selectors';
 import { useAppSelector } from '~/store/hooks';
 
@@ -30,9 +31,10 @@ export const LoginLayout = ({ children }: LayoutProps) => {
                         position='relative'
                     >
                         <Image
-                            src='/logo.svg'
+                            src={logo}
                             alt='yee-daa logo'
                             minH={{ base: '38px', lg: '64px' }}
+                            mb={{ base: 3, xs: 4 }}
                         />
                         {children}
                         <Text

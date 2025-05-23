@@ -1,13 +1,13 @@
 import * as yup from 'yup';
 
-import { FieldRegex } from '~/utils/constant';
+import { FieldRegex, ValidationMessage } from '~/utils/forms.constant';
 
 export const emailSchema = yup.object({
     email: yup
         .string()
-        .required('Введите e-mail')
-        .max(50, 'Максимальная длина 50 символов')
-        .matches(FieldRegex.Email, 'Введите корректный e-mail'),
+        .required(ValidationMessage.RequiredEmail)
+        .max(50, ValidationMessage.MaxLength)
+        .matches(FieldRegex.Email, ValidationMessage.InvalidEmail),
 });
 
 export type EmailFormData = yup.InferType<typeof emailSchema>;

@@ -1,10 +1,12 @@
 import { Avatar, HStack, Text, VStack } from '@chakra-ui/react';
 
+import userAvatar from '~/assets/images/avatar/photo-dekstop.jpg';
+
 export const UserBlock = () => {
     const name = 'Екатерина Константинопольская';
     return (
         <HStack spacing={2} align='center' mr='40px'>
-            <Avatar name={name} size={{ base: 'sm', sm: 'md' }} src='/photo-dekstop.jpg' />
+            <Avatar name={name} size={{ base: 'sm', sm: 'md' }} src={userAvatar} />
             <VStack align='start' spacing={0}>
                 <Text
                     fontSize={{ base: 'sm', sm: 'lg' }}

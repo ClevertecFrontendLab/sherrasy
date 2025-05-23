@@ -2,7 +2,7 @@ import { Button, Flex, Heading, Stack, Text } from '@chakra-ui/react';
 import { PropsWithChildren } from 'react';
 
 import { ArrowRightIcon } from '~/assets/icons/icons';
-import { TestIdName } from '~/utils/constant';
+import { TestIdName } from '~/utils/testId-name.enum';
 
 type SectionType = 'juiciest' | 'new' | 'cook-blog';
 

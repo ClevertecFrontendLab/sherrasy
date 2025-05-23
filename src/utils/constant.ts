@@ -18,14 +18,6 @@ export const ApiBase = {
     Images: 'https://training-api.clevertec.ru',
 } as const;
 
-export const FieldRegex = {
-    Firstletter: /^[А-Яа-яЁё]/,
-    Name: /^[А-ЯЁа-яё-]+$/,
-    Login: /^[A-Za-z0-9!@#$&_+\-.]{5,}$/,
-    Password: /^(?!.*[А-Яа-яЁё\s])(?=.*[A-Z])(?=.*\d)[a-zA-Z0-9!@#$&_+-.]{8,}$/,
-    Email: /^[\w-.]+@([\w-]+\.)+[\w-]{2,5}$/,
-} as const;
-
 export const CardsLimit = {
     Default: 8,
     RelativeKitchen: 5,
@@ -51,28 +43,6 @@ export const NutritionToName: Record<string, string> = {
     carbohydrates: 'углеводы',
 };
 
-export const InputNameToPlaceholder: Record<string, string> = {
-    firstName: 'Имя',
-    lastName: 'Фамилия',
-    email: 'e-mail',
-    login: 'Введите логин',
-    password: 'Пароль для сайта',
-    confirmPassword: 'Повторите пароль',
-};
-
-export const InputNameToLabel: Record<string, string> = {
-    firstName: 'Ваше имя',
-    lastName: 'Ваша фамилия',
-    email: 'Ваш e-mail',
-    login: 'Логин для входа на сайт',
-    password: 'Пароль',
-    confirmPassword: 'Повторите пароль',
-};
-export const InputNameToHelper: Record<string, string> = {
-    login: 'Логин не менее 5 символов, только латиница',
-    password: 'Пароль не менее 8 символов, с заглавной буквой и цифрой',
-};
-
 export enum SortingDirection {
     Ascending = 'asc',
     Descending = 'desc',
@@ -95,75 +65,4 @@ export enum LocalStorageKey {
     Categories = 'yee-daa_categories',
     AToken = 'yee-daa_accessToken',
     VerifiedEmail = 'yee-daa_verified-email',
-}
-
-export enum TestIdName {
-    AllergensAddBtn = 'add-allergen-button',
-    AllergensAddInput = 'add-other-allergen',
-    AllergensCheckbox = 'allergen',
-    AllergensMenu = 'allergens-menu',
-    AllergensMenuBtn = 'allergens-menu-button',
-    AllergensMenuBtnFilter = 'allergens-menu-button-filter',
-    AllergensSwitcher = 'allergens-switcher',
-    AllergensSwitcherFilter = 'allergens-switcher-filter',
-
-    Breadcrumbs = 'breadcrumbs',
-    BurgerCloseIcon = 'close-icon',
-    BurgerNav = 'nav',
-    BurgerOpenIcon = 'hamburger-icon',
-    CardLink = 'card-link',
-
-    Carousel = 'carousel',
-    CarouselBack = 'carousel-back',
-    CarouselForward = 'carousel-forward',
-
-    Checkbox = 'checkbox',
-
-    ErrorNotif = 'error-notification',
-    ErrorNotifClose = 'close-alert-button',
-    ErrorPageHome = 'error-page-go-home',
-
-    FilterCategory = 'filter-menu-button-категория',
-    FilterClearBtn = 'clear-filter-button',
-    FilterCloseBtn = 'close-filter-drawer',
-    FilterDrawer = 'filter-drawer',
-    FilterFindBtn = 'find-recipe-button',
-    FilterOpenBtn = 'filter-button',
-    FilterTag = 'filter-tag',
-
-    Footer = 'footer',
-    Header = 'header',
-    IngredientQuantity = 'ingredient-quantity',
-    JuiciestLink = 'juiciest-link',
-    JuiciestLinkMobile = 'juiciest-link-mobile',
-    LoaderApp = 'app-loader',
-    LoaderSearch = 'loader-search-block',
-    LoadMoreBtn = 'load-more-button',
-    MenuActive = 'active',
-    SearchBtn = 'search-button',
-    SearchInput = 'search-input',
-    StepperDecrement = 'decrement-stepper',
-    StepperIncrement = 'increment-stepper',
-    Tab = 'tab',
-    SignInForm = 'sign-in-form',
-    InputLogin = 'login-input',
-    InputPassword = 'password-input',
-    PasswordBtn = 'password-visibility-button',
-    SubmitBtn = 'submit-button',
-    ForgotPassword = 'forgot-password',
-    ModalSignIn = 'sign-in-error-modal',
-    ModalClose = 'close-button',
-    RepeatBtn = 'repeat-button',
-    SignUpProgress = 'sign-up-progress',
-    SignUpForm = 'sign-up-form',
-    InputFirstName = 'first-name-input',
-    InputLastName = 'last-name-input',
-    InputEmail = 'email-input',
-    InputPasswordConfirm = 'confirm-password-input',
-    InputVerificationCode = 'verification-code-input',
-    ModalSignUpSuccess = 'sign-up-success-modal',
-    ModalEmailVerificationFailed = 'email-verification-failed-modal',
-    ModalSendEmail = 'send-email-modal',
-    ModalVerificationCode = 'verification-code-modal',
-    ModalResetCredentials = 'reset-credentials-modal',
 }

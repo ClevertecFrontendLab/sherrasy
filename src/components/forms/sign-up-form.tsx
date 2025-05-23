@@ -7,7 +7,8 @@ import { useUniversalModal } from '~/hooks/useUniversalModal';
 import { useSignupMutation } from '~/query/services/auth';
 import { useAppDispatch } from '~/store/hooks';
 import { setCurrentEmail } from '~/store/user/user-slice';
-import { AppRoute, TestIdName } from '~/utils/constant';
+import { AppRoute } from '~/utils/constant';
+import { TestIdName } from '~/utils/testId-name.enum';
 
 import { UniversalModal } from '../modal/universal-modal';
 import { SignUpStepOne } from './sign-up-steps/sign-up-step-one';
@@ -73,7 +74,7 @@ export const SignUpForm = () => {
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <Flex direction='column' alignItems='start' w='100%' gap={6}>
                         <Stack w='100%' gap={0}>
-                            <Text>
+                            <Text color='black' lineHeight={6} fontSize='md' fontWeight='normal'>
                                 Шаг {activeStep + 1}. {steps[activeStep].title}
                             </Text>
                             <Progress

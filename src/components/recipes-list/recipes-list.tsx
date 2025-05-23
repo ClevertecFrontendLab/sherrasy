@@ -3,7 +3,7 @@ import { Button, Flex, SimpleGrid, Text } from '@chakra-ui/react';
 import { getAppLoading } from '~/store/app-status/selectors';
 import { useAppSelector } from '~/store/hooks';
 import { FullRecipe } from '~/types/recipe.interface';
-import { TestIdName } from '~/utils/constant';
+import { TestIdName } from '~/utils/testId-name.enum';
 
 import { RecipeCard } from '../cards/recipe-cards/recipe-card';
 

@@ -10,8 +10,9 @@ import { setAppMessage } from '~/store/app-status/app-slice';
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import { getUserEmail } from '~/store/user/selectors';
 import { ALERT_MESSAGES } from '~/utils/alert-messages';
-import { AppRoute, DEFAULT_VERIFIED, LocalStorageKey, TestIdName } from '~/utils/constant';
+import { AppRoute, DEFAULT_VERIFIED, LocalStorageKey } from '~/utils/constant';
 import { getDataFromLocalStorage, getFlowTestId, setDataToLocalStorage } from '~/utils/helpers';
+import { TestIdName } from '~/utils/testId-name.enum';
 
 export const SignInPage = () => {
     const { isOpen, openModal, closeModal, config } = useUniversalModal();
@@ -47,7 +48,8 @@ export const SignInPage = () => {
             <Flex
                 direction='column'
                 mt={{ base: '40px', sm: '56px', lg: '80px' }}
-                w={{ base: '90%', sm: '60%' }}
+                w='100%'
+                maxW={{ base: '328px', sm: '355px', lg: '451px', xl: '461px' }}
             >
                 <LoginTabs />
                 <Button

@@ -23,7 +23,6 @@ export const LoginTabs = () => {
         <Tabs
             index={activeTabIndex}
             isLazy
-            mt={{ base: 3, xs: 4 }}
             color='lime.800'
             size={{ base: 'sm', lg: 'md' }}
             w='100%'

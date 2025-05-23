@@ -47,12 +47,12 @@ export const theme = extendTheme({
         Input: inputTheme,
     },
     breakpoints: {
-        base: '0em', //0px
-        xs: '22em', //352px
-        sm: '30em', //480px
-        md: '48em', //768px
-        lg: '90em', //1440px
-        xl: '110em', //1760px
-        '2xl': '120em', //1920px
+        base: '0em',
+        xs: '22em',
+        sm: '30em',
+        md: '48em',
+        lg: '90em',
+        xl: '110em',
+        '2xl': '120em',
     },
 });

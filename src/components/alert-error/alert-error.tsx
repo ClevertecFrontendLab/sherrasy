@@ -12,7 +12,7 @@ import {
 import { setAppMessage } from '~/store/app-status/app-slice';
 import { useAppDispatch } from '~/store/hooks';
 import { AlertMessage } from '~/types/api-message.type';
-import { TestIdName } from '~/utils/constant';
+import { TestIdName } from '~/utils/testId-name.enum';
 
 type AlertErrrorProps = {
     onClose: () => void;

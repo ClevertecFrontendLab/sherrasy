@@ -4,8 +4,8 @@ import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import { clearAllergens } from '~/store/recipes/recipes-slice';
 import { getActiveFilters } from '~/store/recipes/selectors';
-import { TestIdName } from '~/utils/constant';
 import filterData from '~/utils/data/filters-data.json';
+import { TestIdName } from '~/utils/testId-name.enum';
 
 import { MultiSelect } from '../multiselect/multiselect';
 

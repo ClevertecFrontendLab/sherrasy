@@ -23,7 +23,7 @@ const baseStyle = definePartsStyle({
         flexDir: 'column',
         alignItems: 'center',
     },
-    dialog: { p: 6, w: ['316px', '316px', '316px', '316px', '396px'] },
+    dialog: { p: 6, w: ['316px', '316px', '316px', '316px', '396px'], borderRadius: '1rem' },
     closeButton: {
         width: '24px',
         height: '24px',
