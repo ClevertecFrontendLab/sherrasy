@@ -1,5 +1,5 @@
 import { Category } from '~/types/category.type';
-import { getCatSubPairs } from '~/utils/helpers';
+import { getCatSubPairs } from '~/utils/helpers/categories-helpers';
 
 export const useUniqueBadges = (categories: Category[], categoriesIds: string[]) => {
     const pairs = getCatSubPairs(categories, categoriesIds);

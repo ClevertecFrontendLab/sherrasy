@@ -2,7 +2,7 @@ import { Button, Flex } from '@chakra-ui/react';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router';
 
-import { LoginLayout } from '~/components/layout/login-layout';
+import { LoginLayout } from '~/components/layout/page-layout/login-layout';
 import { UniversalModal } from '~/components/modal/universal-modal';
 import { LoginTabs } from '~/components/tabs/login-tabs';
 import { renderModalFlow, useUniversalModal } from '~/hooks/useUniversalModal';
@@ -11,7 +11,11 @@ import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import { getUserEmail } from '~/store/user/selectors';
 import { ALERT_MESSAGES } from '~/utils/alert-messages';
 import { AppRoute, DEFAULT_VERIFIED, LocalStorageKey } from '~/utils/constant';
-import { getDataFromLocalStorage, getFlowTestId, setDataToLocalStorage } from '~/utils/helpers';
+import { getFlowTestId } from '~/utils/helpers/helpers';
+import {
+    getDataFromLocalStorage,
+    setDataToLocalStorage,
+} from '~/utils/helpers/localstorage-helpers';
 import { TestIdName } from '~/utils/testId-name.enum';
 
 export const SignInPage = () => {

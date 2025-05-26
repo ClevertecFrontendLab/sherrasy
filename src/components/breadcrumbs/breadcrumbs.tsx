@@ -1,68 +1,25 @@
 import { ChevronRightIcon } from '@chakra-ui/icons';
-import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, Text } from '@chakra-ui/react';
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink } from '@chakra-ui/react';
 import { Link, useLocation, useParams } from 'react-router';
 
 import { getCategories } from '~/store/categories/selectors';
 import { useAppSelector } from '~/store/hooks';
-import { Subcategory } from '~/types/category.type';
 import { PathParams } from '~/types/params.type';
-import { AppRoute } from '~/utils/constant';
-import { getTabNames } from '~/utils/helpers';
+import { AppRoute, AppRouteToName } from '~/utils/constant';
+import { getTabNames } from '~/utils/helpers/categories-helpers';
 import { TestIdName } from '~/utils/testId-name.enum';
 
-const renderSubcategoryBreadcrumb = (
-    subcategoryId: string,
-    tabsNames: Subcategory[],
-    categoryId: string,
-    isLast: boolean,
-) => {
-    const currentItem = tabsNames.find(({ category: id }) => id === subcategoryId);
-    const name = currentItem?.title || tabsNames[0]?.title || subcategoryId;
-
-    return (
-        <BreadcrumbItem key={name} isCurrentPage={isLast}>
-            <BreadcrumbLink as={Link} to={`/${categoryId}/${subcategoryId}`}>
-                <Text w='max-content'>{name}</Text>
-            </BreadcrumbLink>
-        </BreadcrumbItem>
-    );
-};
-
-const renderRecipeBreadcrumb = (recipeName: string, recipeId: string, isLast: boolean) => (
-    <BreadcrumbItem key={recipeId} isCurrentPage={isLast}>
-        <BreadcrumbLink maxH={6}>
-            <Text
-                whiteSpace='nowrap'
-                overflow='hidden'
-                textOverflow='ellipsis'
-                display='inline-block'
-                maxW={{ base: '19rem', lg: '38rem', xl: '56.25rem' }}
-            >
-                {recipeName}
-            </Text>
-        </BreadcrumbLink>
-    </BreadcrumbItem>
-);
-
-const renderCategoryBreadcrumb = (
-    segment: string,
-    categoryName: string,
-    tabsNames: Subcategory[],
-    isLast: boolean,
-) => (
-    <BreadcrumbItem key={segment} isCurrentPage={isLast}>
-        <BreadcrumbLink as={Link} to={`/${segment}/${tabsNames[0]?.category}`}>
-            <Text w='max-content'>{categoryName}</Text>
-        </BreadcrumbLink>
-    </BreadcrumbItem>
-);
+import { renderCustomBreadcrumb } from './render-breadcrumbs';
 
 export const Breadcrumbs = () => {
+    const DEFAULT_SEGMENTS = ['the-juiciest', 'new-recipe', 'edit-recipe'];
     const location = useLocation();
     const { categoryId, subcategoryId, recipeId } = useParams<PathParams>();
     const { recipeName } = location.state || {};
     const pathnames = location.pathname.split('/').filter(Boolean);
-    const isJuiciestPath = pathnames.includes('the-juiciest');
+    const isJuiciestPath = pathnames.includes(DEFAULT_SEGMENTS[0]);
+    const isNewRecipePath = pathnames.includes(DEFAULT_SEGMENTS[1]);
+    const isLastFromDefault = (segment: string) => pathnames[pathnames.length - 1] === segment;
     const data = useAppSelector(getCategories);
     if (!data || location.pathname === AppRoute.NotFound) {
         return null;
@@ -73,17 +30,24 @@ export const Breadcrumbs = () => {
     const breadcrumbItems = pathnames.map((segment, index) => {
         const isLast = index === pathnames.length - 1;
 
-        if (segment === 'the-juiciest') return null;
+        if (DEFAULT_SEGMENTS.includes(segment)) return null;
 
         if (subcategoryId && segment === subcategoryId) {
-            return renderSubcategoryBreadcrumb(subcategoryId, tabsNames, categoryId!, isLast);
+            return renderCustomBreadcrumb(subcategoryId, '', isLast, {
+                categoryId,
+                subcategories: tabsNames,
+            });
         }
 
         if (recipeId && segment === recipeId) {
-            return renderRecipeBreadcrumb(recipeName, recipeId, isLast);
+            return renderCustomBreadcrumb(recipeId, recipeName, isLast, {
+                type: 'text',
+            });
         }
 
-        return renderCategoryBreadcrumb(segment, categoryName, tabsNames, isLast);
+        return renderCustomBreadcrumb(segment, categoryName, isLast, {
+            subcategories: tabsNames,
+        });
     });
 
     return (
@@ -95,13 +59,20 @@ export const Breadcrumbs = () => {
         >
             <BreadcrumbItem>
                 <BreadcrumbLink as={Link} to={AppRoute.Main}>
-                    Главная
+                    {AppRouteToName[AppRoute.Main]}
                 </BreadcrumbLink>
             </BreadcrumbItem>
             {isJuiciestPath && (
-                <BreadcrumbItem>
+                <BreadcrumbItem isCurrentPage={isLastFromDefault(DEFAULT_SEGMENTS[0])}>
                     <BreadcrumbLink as={Link} to={AppRoute.Juiciest}>
-                        Самое сочное
+                        {AppRouteToName[AppRoute.Juiciest]}
+                    </BreadcrumbLink>
+                </BreadcrumbItem>
+            )}
+            {isNewRecipePath && (
+                <BreadcrumbItem isCurrentPage={isLastFromDefault(DEFAULT_SEGMENTS[1])}>
+                    <BreadcrumbLink as={Link} to={AppRoute.NewRecipe}>
+                        {AppRouteToName[AppRoute.NewRecipe]}
                     </BreadcrumbLink>
                 </BreadcrumbItem>
             )}

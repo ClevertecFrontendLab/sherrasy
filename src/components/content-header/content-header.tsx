@@ -8,7 +8,7 @@ import {
 } from '~/store/recipes/selectors';
 
 import { ContentFilters } from '../content-filters/content-filters';
-import { Loader } from '../loader/loader';
+import { Loader } from '../layout/loader/loader';
 
 type ContentHeaderProps = {
     headline: string;

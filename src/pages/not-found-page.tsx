@@ -1,7 +1,7 @@
 import { Heading, Image, Link, Text, VStack } from '@chakra-ui/react';
 
 import errorImage from '~/assets/images/error-image.svg';
-import { Layout } from '~/components/layout/layout';
+import { Layout } from '~/components/layout/page-layout/layout';
 import { AppRoute } from '~/utils/constant';
 import { TestIdName } from '~/utils/testId-name.enum';
 

@@ -6,7 +6,7 @@ import { getCategories } from '~/store/categories/selectors';
 import { useAppSelector } from '~/store/hooks';
 import { FullRecipe } from '~/types/recipe.interface';
 import { AppRoute } from '~/utils/constant';
-import { getCatSubPairs } from '~/utils/helpers';
+import { getCatSubPairs } from '~/utils/helpers/categories-helpers';
 
 type withRecipeNavigationProps = {
     recipe: FullRecipe;

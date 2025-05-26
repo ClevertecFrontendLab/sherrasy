@@ -1,19 +1,17 @@
-import { Center, Flex, Image, Spacer, useMediaQuery } from '@chakra-ui/react';
+import { Center, Flex, Spacer, useMediaQuery } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router';
 
-import logo from '~/assets/images/logo/logo.svg';
-import logoMobile from '~/assets/images/logo/logo-mobile.svg';
 import { TestIdName } from '~/utils/testId-name.enum';
 
-import { Breadcrumbs } from '../breadcrumbs/breadcrumbs';
-import { BurgerMenu } from '../burger-menu/burger-menu';
+import { Breadcrumbs } from '../../breadcrumbs/breadcrumbs';
+import { BurgerMenu } from '../../burger-menu/burger-menu';
+import { UserBlock } from '../../user-block/user-block';
+import { Logo } from '../logo/logo';
 import { Overlay } from '../overlay/overlay';
 import { SidebarMobile } from '../sidebar/sidebar';
-import { UserBlock } from '../user-block/user-block';
 
 export const Header = () => {
-    const [isMobile] = useMediaQuery('(max-width: 767px)');
     const [isDesktop] = useMediaQuery('(min-width: 1440px)');
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const location = useLocation();
@@ -39,11 +37,7 @@ export const Header = () => {
                 py={{ base: 3.5, xs: 4 }}
             >
                 <Flex align='center' data-test-id={TestIdName.Header} width='100%' maxW='1920px'>
-                    {isMobile ? (
-                        <Image src={logoMobile} alt='yee-daa logo'></Image>
-                    ) : (
-                        <Image src={logo} alt='yee-daa logo'></Image>
-                    )}
+                    <Logo />
                     {isDesktop && <Breadcrumbs />}
                     <Spacer minW={isDesktop ? '200px' : 0} />
                     {!isDesktop && !isMenuOpen && <SidebarMobile />}

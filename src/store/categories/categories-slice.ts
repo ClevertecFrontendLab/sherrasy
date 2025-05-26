@@ -3,7 +3,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Category } from '~/types/category.type';
 import { CategoryState } from '~/types/state.type';
 import { LocalStorageKey, ReducerName } from '~/utils/constant';
-import { getDataFromLocalStorage } from '~/utils/helpers';
+import { getDataFromLocalStorage } from '~/utils/helpers/localstorage-helpers';
 
 const fallback: Category[] = getDataFromLocalStorage(LocalStorageKey.Categories);
 

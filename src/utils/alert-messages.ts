@@ -11,6 +11,21 @@ export const ALERT_MESSAGES: Record<string, AlertMessage> = {
         description: 'Попробуйте поискать снова попозже',
         type: 'error',
     },
+    publishRecipeError: {
+        title: 'Ошибка сервера',
+        description: 'Попробуйте пока сохранить черновик',
+        type: 'error',
+    },
+    removeRecipeError: {
+        title: 'Ошибка сервера',
+        description: 'Не удалось удалить рецепт',
+        type: 'error',
+    },
+    publishDraftError: {
+        title: 'Ошибка сервера',
+        description: 'Не удалось сохранить черновик рецепта',
+        type: 'error',
+    },
     loginAuthError: {
         title: 'Неверный логин или пароль',
         description: 'Попробуйте снова.',
@@ -33,6 +48,21 @@ export const ALERT_MESSAGES: Record<string, AlertMessage> = {
     },
     recoverySuccess: {
         title: 'Восстановление данных успешно',
+        description: '',
+        type: 'success',
+    },
+    publishRecipeSuccess: {
+        title: 'Рецепт успешно опубликован',
+        description: '',
+        type: 'success',
+    },
+    removeRecipeSuccess: {
+        title: 'Рецепт успешно удален',
+        description: '',
+        type: 'success',
+    },
+    publishDraftSuccess: {
+        title: 'Черновик успешно сохранен',
         description: '',
         type: 'success',
     },

@@ -1,7 +1,7 @@
 import { Flex } from '@chakra-ui/react';
 import { useEffect } from 'react';
 
-import { LoginLayout } from '~/components/layout/login-layout';
+import { LoginLayout } from '~/components/layout/page-layout/login-layout';
 import { UniversalModal } from '~/components/modal/universal-modal';
 import { LoginTabs } from '~/components/tabs/login-tabs';
 import { useUniversalModal } from '~/hooks/useUniversalModal';

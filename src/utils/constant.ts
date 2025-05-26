@@ -11,6 +11,8 @@ export const AppRoute = {
     SignIn: '/sign-in',
     SignUp: '/sign-up',
     Verification: '/verification',
+    NewRecipe: '/new-recipe',
+    EditRecipe: '/edit-recipe/:categoryId/:subcategoryId/:recipeId',
 } as const;
 
 export const ApiBase = {
@@ -34,6 +36,7 @@ export const AppRouteToName: Record<string, string> = {
     '/': 'Главная',
     '/vegan': 'Веганская кухня',
     '/the-juiciest': 'Самое сочное',
+    '/new-recipe': 'Новый рецепт',
 };
 
 export const NutritionToName: Record<string, string> = {

@@ -18,7 +18,7 @@ import { clearFilters, updateCurrentFilters } from '~/store/recipes/recipes-slic
 import { getPendingFilters } from '~/store/recipes/selectors';
 import filterData from '~/utils/data/filters-data.json';
 import { cookBlog } from '~/utils/data/mock-cards.json';
-import { getMultiselectCategories } from '~/utils/helpers';
+import { getMultiselectCategories } from '~/utils/helpers/categories-helpers';
 import { TestIdName } from '~/utils/testId-name.enum';
 
 import { AlergiesFilter } from '../allergies-filter/allergies-filter';

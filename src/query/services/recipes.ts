@@ -7,7 +7,8 @@ import { updateHasRecipes, updateIsFiltering } from '~/store/recipes/recipes-sli
 import { RecipeQueryParam } from '~/types/query-param.type';
 import { FullRecipe, RecipeMeta } from '~/types/recipe.interface';
 import { CardsLimit, DEFAULT_ERROR_LOG, SortingBy, SortingDirection } from '~/utils/constant';
-import { formatRecipeWithImages, getRecipeQueryString } from '~/utils/helpers';
+import { formatRecipeWithImages } from '~/utils/helpers/format-images';
+import { getRecipeQueryString } from '~/utils/helpers/get-request-query';
 
 type RecipeResponse = {
     data: FullRecipe[];

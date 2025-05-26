@@ -6,7 +6,7 @@ import { AppRoute } from '~/utils/constant';
 import { cookBlog } from '~/utils/data/mock-cards.json';
 
 import { CookBlogCard } from '../cards/user-cards/cook-blog-card';
-import { SectionLayout } from '../layout/section-layout';
+import { SectionLayout } from '../layout/section-layout/section-layout';
 
 export const CookBlogSection = () => {
     const navigate = useNavigate();

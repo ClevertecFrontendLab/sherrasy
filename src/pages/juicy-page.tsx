@@ -2,7 +2,7 @@ import { Box, Button, Flex, Text } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 
 import { ContentHeader } from '~/components/content-header/content-header';
-import { Layout } from '~/components/layout/layout';
+import { Layout } from '~/components/layout/page-layout/layout';
 import { RecipesList } from '~/components/recipes-list/recipes-list';
 import { RelevantKitchenSection } from '~/components/relevant-kitchen-section/relevant-kitchen-section';
 import { Tags } from '~/query/constants/tags';
@@ -16,7 +16,7 @@ import { clearFilteringParams } from '~/store/recipes/recipes-slice';
 import { getIsFilteringRecipes, getRecipeQuery } from '~/store/recipes/selectors';
 import { RecipeQueryParam } from '~/types/query-param.type';
 import { DEFAULT_PAGE } from '~/utils/constant';
-import { getRecipeQueryString } from '~/utils/helpers';
+import { getRecipeQueryString } from '~/utils/helpers/get-request-query';
 import { TestIdName } from '~/utils/testId-name.enum';
 
 const DefaultParams: RecipeQueryParam = {

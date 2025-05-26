@@ -16,4 +16,11 @@ export enum EndpointNames {
     AUTH_VERIFY_OTP = 'verifyOTPAuth',
     AUTH_FORGOT_PASSWORD = 'forgotPasswordAuth',
     AUTH_RESET_PASSWORD = 'resetPasswordAuth',
+    CREATE_RECIPE = 'createRecipe',
+    UPDATE_RECIPE = 'updateRecipe',
+    DELETE_RECIPE = 'deleteRecipe',
+    SAVE_RECIPE_DRAFT = 'saveDraft',
+    GET_MEASURE_UNITS = 'getMeasureUnits',
+    LIKE_RECIPE = 'likeRecipe',
+    BOOKMARK_RECIPE = 'bookmarkRecipe',
 }

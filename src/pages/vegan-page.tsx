@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { useParams } from 'react-router';
 
 import { ContentHeader } from '~/components/content-header/content-header';
-import { Layout } from '~/components/layout/layout';
+import { Layout } from '~/components/layout/page-layout/layout';
 import { RecipesList } from '~/components/recipes-list/recipes-list';
 import { RelevantKitchenSection } from '~/components/relevant-kitchen-section/relevant-kitchen-section';
 import { RecipesTabs } from '~/components/tabs/recipes-tabs';
@@ -14,7 +14,7 @@ import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import { clearFilteringParams } from '~/store/recipes/recipes-slice';
 import { getIsFilteringRecipes, getRecipeQuery } from '~/store/recipes/selectors';
 import { PathParams } from '~/types/params.type';
-import { getTabNames } from '~/utils/helpers';
+import { getTabNames } from '~/utils/helpers/categories-helpers';
 
 const VeganPageComponent = () => {
     const { categoryId } = useParams<PathParams>();

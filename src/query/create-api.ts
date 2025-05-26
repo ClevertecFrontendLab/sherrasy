@@ -10,7 +10,7 @@ import { StatusCodes } from 'http-status-codes';
 import { ApiQueryError } from '~/types/api-message.type';
 import { ALERT_MESSAGES } from '~/utils/alert-messages';
 import { ApiBase, LocalStorageKey } from '~/utils/constant';
-import { createErrorMessage } from '~/utils/helpers';
+import { createErrorMessage } from '~/utils/helpers/create-error-message';
 
 import { handleError, handleTokenRefresh, setLoadingState } from './api-helpers';
 import { EndpointNames } from './constants/endpoint-names';

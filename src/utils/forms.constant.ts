@@ -19,6 +19,12 @@ export const ValidationMessage = {
     InvalidPasswordConfirm: 'Пароли должны совпадать',
     InvalidFormat: 'Не соответствует формату',
     MaxLength: 'Максимальная длина 50 символов',
+    MaxNameLength: 'Не более 50 символов',
+    MaxDecriptionLength: 'Не более 500 символов',
+    MaxStepDecriptionLength: 'Не более 300 символов',
+    CategoriesLength: 'Не менее 3 категорий',
+    TimeLimit: 'Только положительное число, не более 10000',
+    IngredientsAmount: 'Только положительное число',
 } as const;
 
 export const InputNameToPlaceholder: Record<string, string> = {
@@ -28,6 +34,14 @@ export const InputNameToPlaceholder: Record<string, string> = {
     login: 'Введите логин',
     password: 'Пароль для сайта',
     confirmPassword: 'Повторите пароль',
+    recipeName: 'Название рецепта',
+    recipeDescription: 'Краткое описание рецепта',
+    recipeCategory: 'Категория рецепта',
+    recipePortions: '0',
+    cookingTime: '0',
+    ingredientName: 'Ингредиент',
+    ingredientAmount: '100',
+    stepDescription: 'Шаг',
 };
 
 export const InputNameToLabel: Record<string, string> = {
@@ -37,6 +51,12 @@ export const InputNameToLabel: Record<string, string> = {
     login: 'Логин для входа на сайт',
     password: 'Пароль',
     confirmPassword: 'Повторите пароль',
+    recipeName: '',
+    recipeDescription: '',
+    recipeCategory: 'Выберите не менее 3-х тегов',
+    recipePortions: 'На сколько человек ваш рецепт?',
+    cookingTime: 'Сколько времени готовить в минутах?',
+    stepDescription: 'Шаг',
 };
 
 export const InputNameToHelper: Record<string, string> = {

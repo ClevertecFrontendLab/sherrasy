@@ -18,15 +18,20 @@ import {
 
 import { BookmarkIcon, HeartEyesIcon, TimeIcon } from '~/assets/icons/icons';
 import { FullRecipe } from '~/types/recipe.interface';
+import { checkRecipeAuthor } from '~/utils/helpers/helpers';
 
 import { BadgesList } from '../badges-list/badges-list';
+import { RecipeControls } from '../recipe-controls/recipe-controls';
 
 type RecipeHeaderProps = {
     recipe: FullRecipe;
 };
 
 export const RecipeHeader = ({ recipe }: RecipeHeaderProps) => {
-    const { title, time, description, categoriesIds, bookmarks, likes, image } = recipe;
+    const { _id, title, time, description, categoriesIds, bookmarks, likes, image, authorId } =
+        recipe;
+    const isAuthor = checkRecipeAuthor(authorId);
+
     return (
         <Card
             direction={{ base: 'column', sm: 'row' }}
@@ -144,24 +149,7 @@ export const RecipeHeader = ({ recipe }: RecipeHeaderProps) => {
                         </Icon>
                         <Text>{time} минут</Text>
                     </Badge>
-                    <ButtonGroup gap={0.5}>
-                        <Button
-                            variant='outline'
-                            colorScheme='black'
-                            size={{ base: 'xs', lg: 'sm', xl: 'lg' }}
-                        >
-                            <HeartEyesIcon color='black' />
-                            <Text ml={2}>Оценить рецепт</Text>
-                        </Button>
-                        <Button
-                            variant='solid'
-                            bg='lime.400'
-                            size={{ base: 'xs', lg: 'sm', xl: 'lg' }}
-                        >
-                            <BookmarkIcon color='black' />
-                            <Text ml={2}>Сохранить в закладки</Text>
-                        </Button>
-                    </ButtonGroup>
+                    <RecipeControls isAuthor={isAuthor} recipeId={_id} />
                 </CardFooter>
             </Stack>
         </Card>

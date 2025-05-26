@@ -1,7 +1,7 @@
 import { PropsWithChildren } from 'react';
 import { Navigate } from 'react-router';
 
-import { OverlayWithLoader } from '~/components/overlay/overlayWithLoader';
+import { OverlayWithLoader } from '~/components/layout/overlay/overlayWithLoader';
 import { useCheckAuthQuery } from '~/query/services/auth';
 import { useAppSelector } from '~/store/hooks';
 import { getIsAuthorized } from '~/store/user/selectors';

@@ -4,10 +4,10 @@ import { useNavigate } from 'react-router';
 import { useGetJuiciestRecipesQuery } from '~/query/services/recipes';
 import { FullRecipe } from '~/types/recipe.interface';
 import { AppRoute, CardsLimit, SortingBy, SortingDirection } from '~/utils/constant';
-import { getRecipeQueryString } from '~/utils/helpers';
+import { getRecipeQueryString } from '~/utils/helpers/get-request-query';
 
 import { RecipeCard } from '../cards/recipe-cards/recipe-card';
-import { SectionLayout } from '../layout/section-layout';
+import { SectionLayout } from '../layout/section-layout/section-layout';
 
 export const JuicySection = () => {
     const query = getRecipeQueryString({
