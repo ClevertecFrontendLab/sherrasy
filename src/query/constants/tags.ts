@@ -5,5 +5,4 @@ export enum Tags {
     CATEGORIES = 'categories',
     CATEGORY = 'category',
     AUTH = 'auth',
-    MEASURE_UNITS = 'measure-units',
 }

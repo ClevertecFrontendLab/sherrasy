@@ -1,3 +1,4 @@
+import { RecipeFormData } from '~/components/forms/validation-scheme/recipe.scheme';
 import { ApiEndpoints } from '~/query/constants/api.ts';
 import { ApiGroupNames } from '~/query/constants/api-group-names.ts';
 import { EndpointNames } from '~/query/constants/endpoint-names.ts';
@@ -5,7 +6,7 @@ import { Tags } from '~/query/constants/tags.ts';
 import { apiSlice } from '~/query/create-api.ts';
 import { updateHasRecipes, updateIsFiltering } from '~/store/recipes/recipes-slice';
 import { RecipeQueryParam } from '~/types/query-param.type';
-import { FullRecipe, RecipeMeta } from '~/types/recipe.interface';
+import { FullRecipe, RecipeMeasureUnit, RecipeMeta } from '~/types/recipe.interface';
 import { CardsLimit, DEFAULT_ERROR_LOG, SortingBy, SortingDirection } from '~/utils/constant';
 import { formatRecipeWithImages } from '~/utils/helpers/format-images';
 import { getRecipeQueryString } from '~/utils/helpers/get-request-query';
@@ -43,7 +44,13 @@ export const recipesApiSlice = apiSlice
                         console.error(DEFAULT_ERROR_LOG, error);
                     }
                 },
-                providesTags: [Tags.RECIPES],
+                providesTags: (result) =>
+                    result
+                        ? [
+                              ...result.map(({ _id }) => ({ type: Tags.RECIPE as const, id: _id })),
+                              Tags.RECIPES,
+                          ]
+                        : [Tags.RECIPES],
             }),
             getNewRecipes: builder.query<FullRecipe[], void>({
                 query: () => ({
@@ -116,7 +123,65 @@ export const recipesApiSlice = apiSlice
                     name: EndpointNames.GET_RECIPE_BY_ID,
                 }),
                 transformResponse: (recipe: FullRecipe) => formatRecipeWithImages(recipe),
-                providesTags: [Tags.RECIPES],
+                providesTags: (_result, _error, id) => [{ type: Tags.RECIPE, id }],
+            }),
+            getMeasureUnits: builder.query<RecipeMeasureUnit[], void>({
+                query: () => ({
+                    url: ApiEndpoints.MEASURE_UNITS,
+                    method: 'GET',
+                    apiGroupName: ApiGroupNames.MEASURE_UNITS,
+                    name: EndpointNames.GET_MEASURE_UNITS,
+                }),
+            }),
+            createRecipe: builder.mutation<RecipeResponse, RecipeFormData>({
+                query: (data: RecipeFormData) => ({
+                    url: ApiEndpoints.RECIPE,
+                    method: 'POST',
+                    apiGroupName: ApiGroupNames.RECIPES,
+                    name: EndpointNames.CREATE_RECIPE,
+                    body: data,
+                }),
+                invalidatesTags: [Tags.RECIPES, Tags.JUICY_RECIPES],
+            }),
+
+            saveDraftRecipe: builder.mutation<RecipeResponse, RecipeFormData>({
+                query: (data: RecipeFormData) => ({
+                    url: ApiEndpoints.RECIPE_DRAFT,
+                    method: 'POST',
+                    apiGroupName: ApiGroupNames.RECIPES,
+                    name: EndpointNames.SAVE_RECIPE_DRAFT,
+                    body: data,
+                }),
+                invalidatesTags: [Tags.RECIPES],
+            }),
+
+            updateRecipe: builder.mutation<RecipeResponse, RecipeFormData & { _id: string }>({
+                query: (data) => ({
+                    url: `${ApiEndpoints.RECIPE}/${data._id}`,
+                    method: 'PATCH',
+                    apiGroupName: ApiGroupNames.RECIPES,
+                    name: EndpointNames.UPDATE_RECIPE,
+                    body: data,
+                }),
+                invalidatesTags: (_result, _error, arg) => [
+                    { type: Tags.RECIPE, id: arg._id },
+                    Tags.RECIPES,
+                    Tags.JUICY_RECIPES,
+                ],
+            }),
+
+            deleteRecipe: builder.mutation<RecipeResponse, string>({
+                query: (id) => ({
+                    url: `${ApiEndpoints.RECIPE}/${id}`,
+                    method: 'DELETE',
+                    apiGroupName: ApiGroupNames.RECIPES,
+                    name: EndpointNames.DELETE_RECIPE,
+                }),
+                invalidatesTags: (_result, _error, id) => [
+                    { type: Tags.RECIPE, id },
+                    Tags.RECIPES,
+                    Tags.JUICY_RECIPES,
+                ],
             }),
         }),
     });
@@ -130,4 +195,9 @@ export const {
     useLazyGetJuiciestRecipesQuery,
     useGetRecipeByIdQuery,
     useLazyGetRecipeByIdQuery,
+    useGetMeasureUnitsQuery,
+    useCreateRecipeMutation,
+    useSaveDraftRecipeMutation,
+    useUpdateRecipeMutation,
+    useDeleteRecipeMutation,
 } = recipesApiSlice;
