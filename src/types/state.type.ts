@@ -20,6 +20,7 @@ export type RecipeState = {
     currentFilters: RecipeFilters;
     pendingFilters: RecipeFilters;
     searchString: string | null;
+    recipeName: string | null;
 };
 
 export type CategoryState = {

@@ -4,6 +4,7 @@ import { Link, useLocation, useParams } from 'react-router';
 
 import { getCategories } from '~/store/categories/selectors';
 import { useAppSelector } from '~/store/hooks';
+import { getRecipeName } from '~/store/recipes/selectors';
 import { PathParams } from '~/types/params.type';
 import { AppRoute, AppRouteToName } from '~/utils/constant';
 import { getTabNames } from '~/utils/helpers/categories-helpers';
@@ -15,7 +16,7 @@ export const Breadcrumbs = () => {
     const DEFAULT_SEGMENTS = ['the-juiciest', 'new-recipe', 'edit-recipe'];
     const location = useLocation();
     const { categoryId, subcategoryId, recipeId } = useParams<PathParams>();
-    const { recipeName } = location.state || {};
+    const recipeName = useAppSelector(getRecipeName);
     const pathnames = location.pathname.split('/').filter(Boolean);
     const isJuiciestPath = pathnames.includes(DEFAULT_SEGMENTS[0]);
     const isNewRecipePath = pathnames.includes(DEFAULT_SEGMENTS[1]);
@@ -45,9 +46,7 @@ export const Breadcrumbs = () => {
             });
         }
 
-        return renderCustomBreadcrumb(segment, categoryName, isLast, {
-            subcategories: tabsNames,
-        });
+        return renderCustomBreadcrumb(segment, categoryName, isLast);
     });
 
     return (
