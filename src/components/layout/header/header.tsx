@@ -2,6 +2,7 @@ import { Center, Flex, Spacer, useMediaQuery } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router';
 
+import { isRecipeEditOrCreatePath } from '~/utils/helpers/helpers';
 import { TestIdName } from '~/utils/testId-name.enum';
 
 import { Breadcrumbs } from '../../breadcrumbs/breadcrumbs';
@@ -16,7 +17,8 @@ export const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const location = useLocation();
     const handleMenuOpen = () => setIsMenuOpen(!isMenuOpen);
-
+    const isHidden = isRecipeEditOrCreatePath(location.pathname);
+    const showSidebar = !isDesktop && !isMenuOpen && !isHidden;
     useEffect(() => {
         if (location.state?.keepMenuOpen) {
             setIsMenuOpen(true);
@@ -40,7 +42,7 @@ export const Header = () => {
                     <Logo />
                     {isDesktop && <Breadcrumbs />}
                     <Spacer minW={isDesktop ? '200px' : 0} />
-                    {!isDesktop && !isMenuOpen && <SidebarMobile />}
+                    {showSidebar && <SidebarMobile />}
                     {isDesktop && <UserBlock />}
                     <BurgerMenu isMenuOpen={isMenuOpen} handleMenuOpen={handleMenuOpen} />
                 </Flex>

@@ -3,6 +3,7 @@ import { jwtDecode } from 'jwt-decode';
 import { ModalType } from '~/types/modal.type';
 import { TokenPayloadData } from '~/types/token-payload.type';
 
+import { AppRoute } from '../constant';
 import { TestIdName } from '../testId-name.enum';
 
 export const getRandomElement = <T extends Record<string, unknown>>(
@@ -38,4 +39,11 @@ export const checkRecipeAuthor = (recipeAuthorId: string) => {
 
     const decoded = jwtDecode<TokenPayloadData>(token);
     return decoded.userId === recipeAuthorId;
+};
+
+export const isRecipeEditOrCreatePath = (pathname: string): boolean => {
+    const newRecipePath = AppRoute.NewRecipe;
+    const editRecipePath = AppRoute.EditRecipe.split('/:')[0];
+
+    return pathname === newRecipePath || pathname.startsWith(editRecipePath);
 };

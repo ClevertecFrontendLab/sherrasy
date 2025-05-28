@@ -38,20 +38,20 @@ export function FormNumberInput<T extends FieldValues>({
     const errorText = (errors[name] as FieldError)?.message;
     const value = watch(name);
     const stringValue = value === undefined || isNaN(value) ? '0' : String(value);
-    console.log(errors);
     return (
         <FormControl isInvalid={!!errors[name]}>
             <HStack>
                 <FormLabel
                     color='black'
-                    lineHeight={6}
-                    fontSize='md'
-                    fontWeight='normal'
+                    fontSize={{ base: 'sm', lg: 'md' }}
+                    lineHeight={{ base: 5, lg: 6 }}
+                    fontWeight='semibold'
                     htmlFor={name.toString()}
                 >
                     {InputNameToLabel[name]}
                 </FormLabel>
                 <NumberInput
+                    maxW='5.625rem'
                     value={stringValue}
                     onChange={(valueString) => {
                         const numValue = valueString === '' ? undefined : Number(valueString);

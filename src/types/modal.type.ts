@@ -9,6 +9,7 @@ export type ModalConfig = {
 export type ModalType =
     | 'login'
     | 'exitRecipe'
+    | 'imageLoad'
     | 'verification'
     | 'verificationError'
     | 'recoveryEmail'

@@ -56,7 +56,6 @@ export const InputNameToLabel: Record<string, string> = {
     categoriesIds: 'Выберите не менее 3-х тегов',
     portions: 'На сколько человек ваш рецепт?',
     time: 'Сколько времени готовить в минутах?',
-    stepDescription: 'Шаг',
 };
 
 export const InputNameToHelper: Record<string, string> = {

@@ -31,6 +31,9 @@ export function FormTextarea<T extends FieldValues>({
     } = formMethods;
     const handleBlur = useTrimOnBlur<T>(setValue, name);
     const errorText = (errors[name] as FieldError)?.message;
+    const placeholderText = name.includes('steps')
+        ? InputNameToPlaceholder.stepDescription
+        : InputNameToPlaceholder[name];
     return (
         <FormControl isInvalid={!!errors[name]}>
             <FormLabel
@@ -49,7 +52,7 @@ export function FormTextarea<T extends FieldValues>({
                 variant='outline'
                 size='lg'
                 resize='vertical'
-                placeholder={InputNameToPlaceholder[name]}
+                placeholder={placeholderText}
                 data-test-id={testId}
                 {...props}
             />

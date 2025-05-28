@@ -21,6 +21,7 @@ import { memo } from 'react';
 import { BookmarkIcon, HeartEyesIcon } from '~/assets/icons/icons';
 import { BadgesList } from '~/components/badges-list/badges-list';
 import { withRecipeNavigation } from '~/hoc/withRecipeNavigation';
+import { useBookmarkRecipeMutation } from '~/query/services/recipes';
 import { useAppSelector } from '~/store/hooks';
 import { getRecipesSearchString } from '~/store/recipes/selectors';
 import { FullRecipe } from '~/types/recipe.interface';
@@ -126,6 +127,7 @@ const VerticalRecipeCard = memo(({ recipe, onClick, testI }: CardProps) => {
 
 const HorizontalRecipeCard = ({ recipe, onClick, testI }: CardProps) => {
     const {
+        _id,
         title = '',
         image,
         description,
@@ -135,11 +137,14 @@ const HorizontalRecipeCard = ({ recipe, onClick, testI }: CardProps) => {
         recommendedBy,
     } = recipe;
     const searchString = useAppSelector(getRecipesSearchString);
+    const [bookmarkRecipe] = useBookmarkRecipeMutation();
     const author = recommendedBy
         ? cookBlog.find((item) => +item.id === recommendedBy) || null
         : null;
     const [isDesktop] = useMediaQuery('(min-width: 1440px)');
     const hilghlightStr = searchString ? searchString : '';
+    const handleBookmarkClick = async () => await bookmarkRecipe(_id);
+
     return (
         <Card direction='row' variant='hCard' data-test-id={testI?.includes('food') ? testI : ''}>
             <Box position='relative' maxW='50%' maxH='min-content'>
@@ -273,6 +278,7 @@ const HorizontalRecipeCard = ({ recipe, onClick, testI }: CardProps) => {
                         colorScheme='black'
                         size={{ base: 'xs', lg: 'sm' }}
                         w={{ base: 4, lg: 'initial' }}
+                        onClick={handleBookmarkClick}
                     >
                         <BookmarkIcon color='black' />
                         <Text ml={2} display={{ base: 'none', lg: 'inline' }}>

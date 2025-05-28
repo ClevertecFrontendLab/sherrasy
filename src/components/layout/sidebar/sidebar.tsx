@@ -1,8 +1,9 @@
 import { Button, Circle, Flex, Text } from '@chakra-ui/react';
-import { useNavigate } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
 
 import { BookmarkIcon, HeartEyesIcon, PenIcon, PeopleIcon } from '~/assets/icons/icons';
 import { AppRoute } from '~/utils/constant';
+import { isRecipeEditOrCreatePath } from '~/utils/helpers/helpers';
 
 import styles from './sidebar.module.css';
 
@@ -11,8 +12,11 @@ const people = 589;
 const likes = 587;
 
 export const Sidebar = () => {
+    const { pathname } = useLocation();
+    const isHidden = isRecipeEditOrCreatePath(pathname);
     const navigate = useNavigate();
     const handleCreateNewClick = () => navigate(AppRoute.NewRecipe);
+    if (isHidden) return null;
     return (
         <Flex
             direction={{ lg: 'column' }}

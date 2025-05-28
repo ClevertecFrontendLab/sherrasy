@@ -51,4 +51,8 @@ export const MODAL_CONFIGS: Record<ModalType, ModalConfig> = {
         header: 'Восстановление аккаунта',
         type: 'recoveryForm',
     },
+    imageLoad: {
+        header: 'Изображение',
+        type: 'imageLoad',
+    },
 };

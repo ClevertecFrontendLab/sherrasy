@@ -1,10 +1,34 @@
-import { Badge, Card, CardBody, Image, Stack, Text } from '@chakra-ui/react';
+import {
+    Badge,
+    Box,
+    Card,
+    CardBody,
+    HStack,
+    IconButton,
+    Image,
+    Stack,
+    Text,
+} from '@chakra-ui/react';
+import { FieldArrayWithId, UseFormReturn } from 'react-hook-form';
 
+import { RemoveIcon } from '~/assets/icons/icons';
 import { RecipeStep } from '~/types/recipe.interface';
+import { TestIdName } from '~/utils/testId-name.enum';
+
+import { RecipeFormData } from '../forms/validation-scheme/recipe.scheme';
+import { ImagePreview } from '../image-preview/image-preview';
+import { FormTextarea } from '../inputs/form-textarea/form-textarea';
 
 type StepCardProps = {
     step: RecipeStep;
     isLast: boolean;
+};
+
+type StepCardForm = {
+    index: number;
+    formMethods: UseFormReturn<RecipeFormData>;
+    fields: FieldArrayWithId<RecipeFormData, 'steps', 'id'>[];
+    onRemove: () => void;
 };
 
 export const StepCard = ({ step, isLast }: StepCardProps) => {
@@ -38,3 +62,45 @@ export const StepCard = ({ step, isLast }: StepCardProps) => {
         </Card>
     );
 };
+
+export const StepCardForm = ({ index, formMethods, fields, onRemove }: StepCardForm) => (
+    <Card
+        w='100%'
+        maxH={{ base: undefined, sm: '180px' }}
+        direction={{ base: 'column', sm: 'row' }}
+        overflow='hidden'
+        key={index}
+        variant='recipeStep'
+    >
+        <Box position='relative' w={{ base: '100%', sm: '50%' }}>
+            <ImagePreview<RecipeFormData>
+                isCard
+                name={`steps.${index}.image`}
+                testId={TestIdName.RecipeStepsImageBlock}
+                formMethods={formMethods}
+            />
+        </Box>
+        <CardBody display='flex' gap={4} flexDirection='column' p={4}>
+            <HStack justifyContent='space-between' alignItems='center'>
+                <Badge py={0} px={{ base: '8px', lg: 2 }} variant='time' maxW='min-content'>
+                    <Text>Шаг {fields?.[index]?.stepNumber}</Text>
+                </Badge>
+                {fields.length > 1 && (
+                    <IconButton
+                        aria-label='Удалить'
+                        icon={<RemoveIcon />}
+                        variant='ghost'
+                        colorScheme='lime'
+                        h={8}
+                        onClick={onRemove}
+                    />
+                )}
+            </HStack>
+            <FormTextarea<RecipeFormData>
+                name={`steps.${index}.description`}
+                testId={TestIdName.RecipeStepsDescription}
+                formMethods={formMethods}
+            />
+        </CardBody>
+    </Card>
+);

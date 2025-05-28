@@ -1,30 +1,45 @@
-import { Stack } from '@chakra-ui/react';
+import { Button, Center, VStack } from '@chakra-ui/react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 
+import { EditIcon } from '~/assets/icons/icons';
 import { useUniversalModal } from '~/hooks/useUniversalModal';
 import { FullRecipe } from '~/types/recipe.interface';
 import { TestIdName } from '~/utils/testId-name.enum';
 
-import { FormInput } from '../inputs/form-input/form-input';
-import { FormNumberInput } from '../inputs/form-input/form-number-input';
-import { FormTextarea } from '../inputs/form-textarea/form-textarea';
-import { DraftModalBody } from '../modal/draft-modal-body';
+import { DraftModalBody } from '../modal/modal-body/draft-modal-body';
 import { UniversalModal } from '../modal/universal-modal';
+import { RecipeFormIngredients } from './recipe-form-parts/recipe-form-ingredients';
+import { RecipeFormMain } from './recipe-form-parts/recipe-form-main';
+import { RecipeFormSteps } from './recipe-form-parts/recipe-form-steps';
 import { RecipeFormData, recipeSchema } from './validation-scheme/recipe.scheme';
 
 type RecipeFormProps = {
     recipe?: FullRecipe;
 };
 
+const DEFAULT_FORMDATA = {
+    title: '',
+    description: '',
+    portions: undefined,
+    time: undefined,
+    image: '',
+    categoriesIds: [],
+    ingredients: [{ title: '', count: undefined, measureUnit: '' }],
+    steps: [{ stepNumber: 1, description: '', image: '' }],
+};
+
 export const RecipeForm = ({ recipe }: RecipeFormProps) => {
     const { isOpen, openModal, closeModal, config } = useUniversalModal();
     const hasChanges = false;
-    // const {data:measureUnits} = useGetMeasureUnitsQuery();
 
     const formMethods = useForm<RecipeFormData>({
+        mode: 'onSubmit',
+        reValidateMode: 'onSubmit',
+        shouldFocusError: false,
         resolver: yupResolver(recipeSchema),
+        defaultValues: DEFAULT_FORMDATA,
     });
     const { handleSubmit, reset: resetForm } = formMethods;
 
@@ -64,34 +79,36 @@ export const RecipeForm = ({ recipe }: RecipeFormProps) => {
 
     return (
         <>
-            <Stack
+            <Center
+                flexDirection='column'
                 as='form'
                 onSubmit={handleSubmit(onSubmit)}
                 w='100%'
                 data-test-id={TestIdName.RecipeForm}
+                gap={{ base: 8, lg: 10 }}
+                px={4}
             >
-                <FormInput<RecipeFormData>
-                    name='title'
-                    testId={TestIdName.RecipeTitle}
-                    formMethods={formMethods}
-                    onSubmit={handleSubmit(onSubmit)}
-                />
-                <FormTextarea<RecipeFormData>
-                    name='description'
-                    testId={TestIdName.RecipeDescription}
-                    formMethods={formMethods}
-                />
-                <FormNumberInput<RecipeFormData>
-                    name='portions'
-                    testId={TestIdName.RecipePortions}
-                    formMethods={formMethods}
-                />
-                <FormNumberInput<RecipeFormData>
-                    name='time'
-                    testId={TestIdName.RecipeTime}
-                    formMethods={formMethods}
-                />
-            </Stack>
+                <RecipeFormMain formMethods={formMethods} />
+                <VStack w={{ base: '100%', sm: '50%' }} alignItems='start'>
+                    <RecipeFormIngredients formMethods={formMethods} />
+                    <RecipeFormSteps formMethods={formMethods} />
+                </VStack>
+                <Center w='100%' flexDirection={{ base: 'column', sm: 'row' }} gap={5}>
+                    <Button
+                        variant='outline'
+                        colorScheme='black'
+                        w='100%'
+                        size='lg'
+                        maxW={{ sm: '15.375rem' }}
+                    >
+                        <EditIcon mr={2} />
+                        Сохранить черновик
+                    </Button>
+                    <Button colorScheme='black' w='100%' size='lg' maxW={{ sm: '15.375rem' }}>
+                        Опубликовать рецепт
+                    </Button>
+                </Center>
+            </Center>
             <UniversalModal
                 isOpen={isOpen}
                 onClose={handleClose}
