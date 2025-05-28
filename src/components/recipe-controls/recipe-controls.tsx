@@ -2,12 +2,15 @@ import { Button, ButtonGroup, Text } from '@chakra-ui/react';
 import { useLocation, useNavigate } from 'react-router';
 
 import { BookmarkIcon, EditIcon, HeartEyesIcon, RemoveIcon } from '~/assets/icons/icons';
+import { useBookmarkRecipeMutation, useLikeRecipeMutation } from '~/query/services/recipes';
 
 export const RecipeControls = ({ isAuthor, recipeId }: { isAuthor: boolean; recipeId: string }) => {
     const { pathname } = useLocation();
+    const [likeRecipe] = useLikeRecipeMutation();
+    const [bookmarkRecipe] = useBookmarkRecipeMutation();
     const navigate = useNavigate();
-    const handleLikeClick = () => console.log('like', recipeId);
-    const handleBookmarkClick = () => console.log('bookmark', recipeId);
+    const handleLikeClick = async () => await likeRecipe(recipeId);
+    const handleBookmarkClick = async () => await bookmarkRecipe(recipeId);
     const handleDeleteClick = () => console.log('delete', recipeId);
     const handleNavigateClick = () => navigate(`/edit-recipe${pathname}`);
     return (

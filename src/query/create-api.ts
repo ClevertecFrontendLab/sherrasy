@@ -43,7 +43,7 @@ export const updatedBaseQuery: BaseQueryFn<
         setLoadingState(api, isFiltering, true);
         let result = await baseQuery(args, api, extraOptions);
 
-        if (result?.error?.status === 401) {
+        if (result?.error?.status === 401 || result?.error?.status === 403) {
             const tokenRefreshed = await handleTokenRefresh(baseQuery, api, extraOptions);
             if (tokenRefreshed) {
                 result = await baseQuery(args, api, extraOptions);

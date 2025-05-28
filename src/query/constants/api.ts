@@ -13,6 +13,7 @@ export enum ApiEndpoints {
     AUTH_VERIFY_OTP = '/auth/verify-otp',
     AUTH_RESET_PASSWORD = '/auth/reset-password',
     MEASURE_UNITS = 'measure-units',
-    LIKE = '/like',
-    BOOKMARK = '/bookmark',
+    LIKE = 'like',
+    BOOKMARK = 'bookmark',
+    UPLOAD_FILE = '/file/upload',
 }

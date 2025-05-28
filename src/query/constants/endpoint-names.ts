@@ -23,4 +23,5 @@ export enum EndpointNames {
     GET_MEASURE_UNITS = 'getMeasureUnits',
     LIKE_RECIPE = 'likeRecipe',
     BOOKMARK_RECIPE = 'bookmarkRecipe',
+    UPLOAD_FILE = 'uploadFile',
 }
