@@ -1,6 +1,7 @@
 import {
     Flex,
     FormControl,
+    FormErrorMessage,
     FormLabel,
     IconButton,
     Input,
@@ -43,8 +44,13 @@ export const RecipeIngredientRow = ({
     const INGREDIENTS_HEADINGS = ['Ингредиент', 'Количество', 'Единица измерения'];
     const [isMobile] = useMediaQuery('(max-width: 767px)');
     const showLabel = index === 0 && !isMobile;
+    const errorText = {
+        title: errors.ingredients?.[index]?.title?.message,
+        count: errors.ingredients?.[index]?.count?.message,
+        measureUnit: errors.ingredients?.[index]?.measureUnit?.message,
+    };
     return (
-        <Flex w='100%' gap={4} mb={2} flexWrap='wrap' alignItems='flex-end'>
+        <Flex w='100%' gap={4} mb={2} flexWrap='wrap'>
             <FormControl
                 w={{ base: '100%', sm: undefined }}
                 flex={{ base: undefined, sm: '3' }}
@@ -65,6 +71,7 @@ export const RecipeIngredientRow = ({
                     placeholder='Ингредиент'
                     {...register(`ingredients.${index}.title` as const)}
                 />
+                {errorText && <FormErrorMessage>{errorText.title}</FormErrorMessage>}
             </FormControl>
 
             <FormControl flex='1' isInvalid={!!errors.ingredients?.[index]?.count}>
@@ -88,6 +95,7 @@ export const RecipeIngredientRow = ({
                         </NumberInput>
                     )}
                 />
+                {errorText && <FormErrorMessage>{errorText.count}</FormErrorMessage>}
             </FormControl>
             <FormControl flex='2' isInvalid={!!errors.ingredients?.[index]?.measureUnit}>
                 {showLabel && (
@@ -102,7 +110,7 @@ export const RecipeIngredientRow = ({
                     </FormLabel>
                 )}
                 <Select
-                    {...register(`ingredients.${index}.measureUnit` as const)}
+                    {...register(`ingredients.${index}.measureUnit`)}
                     placeholder='Единица измерения'
                     color={!measureUnitValue ? 'blackAlpha.700' : 'current'}
                     _placeholder={{ color: 'blackAlpha.700' }}
@@ -119,6 +127,7 @@ export const RecipeIngredientRow = ({
                         </option>
                     ))}
                 </Select>
+                {errorText && <FormErrorMessage>{errorText.measureUnit}</FormErrorMessage>}
             </FormControl>
             {isLast ? (
                 <IconButton
@@ -127,6 +136,7 @@ export const RecipeIngredientRow = ({
                     variant='dark'
                     icon={<AddItemIcon w={8} h={8} />}
                     onClick={onAdd}
+                    mt={showLabel ? 8 : undefined}
                 />
             ) : (
                 <IconButton
@@ -135,6 +145,7 @@ export const RecipeIngredientRow = ({
                     colorScheme='lime'
                     icon={<RemoveIcon w={{ base: 4 }} h={{ base: 4 }} />}
                     onClick={onRemove}
+                    mt={showLabel ? 8 : undefined}
                 />
             )}
         </Flex>

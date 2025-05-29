@@ -57,6 +57,13 @@ export const RecipeForm = ({ recipe }: RecipeFormProps) => {
         resetForm();
     };
 
+    const handleSubmitDraft = async () => {
+        await handleSubmit(onSubmit)();
+    };
+    const handleSubmitPublish = async () => {
+        await handleSubmit(onSubmit)();
+    };
+
     useEffect(() => {
         if (hasChanges) handleBlockedNavigation();
     }, [hasChanges]);
@@ -89,7 +96,7 @@ export const RecipeForm = ({ recipe }: RecipeFormProps) => {
                 px={4}
             >
                 <RecipeFormMain formMethods={formMethods} />
-                <VStack w={{ base: '100%', sm: '50%' }} alignItems='start'>
+                <VStack w={{ base: '100%', sm: '604px', lg: '658px' }} alignItems='start'>
                     <RecipeFormIngredients formMethods={formMethods} />
                     <RecipeFormSteps formMethods={formMethods} />
                 </VStack>
@@ -100,11 +107,18 @@ export const RecipeForm = ({ recipe }: RecipeFormProps) => {
                         w='100%'
                         size='lg'
                         maxW={{ sm: '15.375rem' }}
+                        onClick={handleSubmitDraft}
                     >
                         <EditIcon mr={2} />
                         Сохранить черновик
                     </Button>
-                    <Button colorScheme='black' w='100%' size='lg' maxW={{ sm: '15.375rem' }}>
+                    <Button
+                        colorScheme='black'
+                        w='100%'
+                        size='lg'
+                        maxW={{ sm: '15.375rem' }}
+                        onClick={handleSubmitPublish}
+                    >
                         Опубликовать рецепт
                     </Button>
                 </Center>

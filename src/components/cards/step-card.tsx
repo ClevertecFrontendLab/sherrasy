@@ -66,6 +66,7 @@ export const StepCard = ({ step, isLast }: StepCardProps) => {
 export const StepCardForm = ({ index, formMethods, fields, onRemove }: StepCardForm) => (
     <Card
         w='100%'
+        minW={{ base: '100%', sm: '604px', lg: '658px' }}
         maxH={{ base: undefined, sm: '180px' }}
         direction={{ base: 'column', sm: 'row' }}
         overflow='hidden'

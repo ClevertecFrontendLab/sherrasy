@@ -5,6 +5,7 @@ import { ImagePreview } from '~/components/image-preview/image-preview';
 import { FormInput } from '~/components/inputs/form-input/form-input';
 import { FormNumberInput } from '~/components/inputs/form-input/form-number-input';
 import { FormTextarea } from '~/components/inputs/form-textarea/form-textarea';
+import { SubcategoriesMultiSelect } from '~/components/multiselect/subcategories-multiselect';
 import { TestIdName } from '~/utils/testId-name.enum';
 
 import { RecipeFormData } from '../validation-scheme/recipe.scheme';
@@ -22,6 +23,10 @@ export const RecipeFormMain = ({ formMethods }: { formMethods: UseFormReturn<Rec
             formMethods={formMethods}
         />
         <VStack w='100%'>
+            <SubcategoriesMultiSelect<RecipeFormData>
+                name='categoriesIds'
+                formMethods={formMethods}
+            />
             <FormInput<RecipeFormData>
                 name='title'
                 testId={TestIdName.RecipeTitle}

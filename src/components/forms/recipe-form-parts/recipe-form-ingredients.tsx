@@ -18,7 +18,6 @@ export const RecipeFormIngredients = ({
         control,
         name: 'ingredients',
     });
-
     return (
         <VStack alignItems='start'>
             <HStack

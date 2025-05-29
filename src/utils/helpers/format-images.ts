@@ -13,3 +13,9 @@ export const formatRecipeWithImages = (recipe: FullRecipe) => ({
         image: updateImagePath(step.image),
     })),
 });
+
+export const formatImageToServer = (file: File) => {
+    const formData = new FormData();
+    formData.append('file', file);
+    return formData;
+};

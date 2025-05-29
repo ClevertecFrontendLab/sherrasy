@@ -13,6 +13,7 @@ export const ValidationMessage = {
     RequiredPassword: 'Введите пароль',
     RequiredPasswordConfirm: 'Повторите пароль',
     RequiredEmail: 'Введите e-mail',
+    Required: 'Обязательное поле',
     InvalidNameLetter: 'Должно начинаться с кириллицы А-Я',
     InvalidName: 'Только кириллица А-Я, и "-"',
     InvalidEmail: 'Введите корректный e-mail',
