@@ -154,8 +154,24 @@ const HorizontalRecipeCard = ({ recipe, onClick, testI }: CardProps) => {
                     aspectRatio={16 / 9}
                     src={image}
                     alt={title}
-                    minW={['9.25rem', '9.875rem', '9.625rem', '9.875rem', '21.625rem']}
-                    maxW={['9.25rem', '9.875rem', '9.625rem', '9.875rem', '21.625rem']}
+                    minW={[
+                        '9.25rem',
+                        '9.875rem',
+                        '9.625rem',
+                        '9.875rem',
+                        '21.625rem',
+                        '15.5rem',
+                        '21.625rem',
+                    ]}
+                    maxW={[
+                        '9.25rem',
+                        '9.875rem',
+                        '9.625rem',
+                        '9.875rem',
+                        '21.625rem',
+                        '15.5rem',
+                        '21.625rem',
+                    ]}
                     h='100%'
                     borderTopLeftRadius={{ base: 'md', md: 'lg' }}
                     borderBottomLeftRadius={{ base: 'md', md: 'lg' }}
@@ -243,7 +259,7 @@ const HorizontalRecipeCard = ({ recipe, onClick, testI }: CardProps) => {
                         pr={{ lg: 0.5, '2xl': 1 }}
                         textAlign='start'
                         minH={{ base: '55px', xs: '48px' }}
-                        maxW={{ base: '94%', lg: '100%' }}
+                        maxW={{ base: '94%', lg: '100%', xl: '19.625rem', '2xl': '100%' }}
                     >
                         <Text
                             size='md'

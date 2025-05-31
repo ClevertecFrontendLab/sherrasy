@@ -9,6 +9,7 @@ import { FieldError, FieldValues, Path, UseFormReturn } from 'react-hook-form';
 
 import { useTrimOnBlur } from '~/hooks/useTrimValue';
 import { InputNameToLabel, InputNameToPlaceholder } from '~/utils/forms.constant';
+import { getNestedError } from '~/utils/helpers/get-nested-error';
 
 interface FormTextareaProps<T extends FieldValues> extends Omit<TextareaProps, 'name'> {
     name: Path<T>;
@@ -30,12 +31,19 @@ export function FormTextarea<T extends FieldValues>({
         setValue,
     } = formMethods;
     const handleBlur = useTrimOnBlur<T>(setValue, name);
-    const errorText = (errors[name] as FieldError)?.message;
-    const placeholderText = name.includes('steps')
+    const isSteps = name.includes('steps');
+    const placeholderText = isSteps
         ? InputNameToPlaceholder.stepDescription
         : InputNameToPlaceholder[name];
+
+    const error = name.includes('.')
+        ? getNestedError<T>(errors, name)
+        : (errors[name] as FieldError | undefined);
+
+    const errorText = error?.message;
+
     return (
-        <FormControl isInvalid={!!errors[name]}>
+        <FormControl isInvalid={!!error}>
             <FormLabel
                 color='black'
                 lineHeight={6}

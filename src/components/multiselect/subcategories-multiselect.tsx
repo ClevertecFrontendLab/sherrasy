@@ -21,6 +21,7 @@ import { FieldError, FieldValues, Path, PathValue, UseFormReturn } from 'react-h
 import { getCategories } from '~/store/categories/selectors';
 import { useAppSelector } from '~/store/hooks';
 import { InputNameToLabel } from '~/utils/forms.constant';
+import { TestIdName } from '~/utils/testId-name.enum';
 
 import { ScrollArea } from '../scrollarea/scrollarea';
 
@@ -104,6 +105,7 @@ export const SubcategoriesMultiSelect = <T extends FieldValues>({
                         minWidth={{ base: '12.375rem', sm: '14.5rem', lg: '21.875rem' }}
                         maxW='21.875rem'
                         borderRadius='0.25rem'
+                        data-test-id={TestIdName.RecipeCategories}
                     >
                         {selectedItems.length > 0 ? (
                             <Flex wrap='wrap' gap={2} alignItems='center'>

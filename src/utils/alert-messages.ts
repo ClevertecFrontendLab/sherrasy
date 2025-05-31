@@ -11,9 +11,14 @@ export const ALERT_MESSAGES: Record<string, AlertMessage> = {
         description: 'Попробуйте поискать снова попозже',
         type: 'error',
     },
+    publishRecipeNameError: {
+        title: 'Ошибка ',
+        description: 'Рецепт с таким названием уже существует',
+        type: 'error',
+    },
     publishRecipeError: {
         title: 'Ошибка сервера',
-        description: 'Попробуйте пока сохранить черновик',
+        description: 'Попробуйте пока сохранить в черновик',
         type: 'error',
     },
     removeRecipeError: {

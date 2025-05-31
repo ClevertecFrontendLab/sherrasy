@@ -26,7 +26,8 @@ export const Breadcrumbs = () => {
         return null;
     }
     const tabsNames = getTabNames(data, categoryId);
-    const categoryName = data.find(({ category }) => category === categoryId)?.title || '';
+    const category = data.find(({ category }) => category === categoryId);
+    const categoryName = category?.title || '';
 
     const breadcrumbItems = pathnames.map((segment, index) => {
         const isLast = index === pathnames.length - 1;
@@ -43,6 +44,15 @@ export const Breadcrumbs = () => {
         if (recipeId && segment === recipeId) {
             return renderCustomBreadcrumb(recipeId, recipeName, isLast, {
                 type: 'text',
+            });
+        }
+
+        if (categoryId && segment === categoryId && !isLast) {
+            const categoryData = data.find(({ category }) => category === segment);
+            const firstSubcategoryId = categoryData?.subCategories[0]?.category;
+            return renderCustomBreadcrumb(segment, categoryName, isLast, {
+                categoryId: segment,
+                currentLink: firstSubcategoryId ? `/${segment}/${firstSubcategoryId}` : undefined,
             });
         }
 

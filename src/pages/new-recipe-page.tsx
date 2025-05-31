@@ -4,7 +4,7 @@ import { Layout } from '~/components/layout/page-layout/layout';
 export const NewRecipePage = () => (
     <>
         <Layout>
-            <RecipeForm />
+            <RecipeForm type='create' />
         </Layout>
     </>
 );

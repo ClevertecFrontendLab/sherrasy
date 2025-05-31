@@ -3,8 +3,8 @@ import { Button } from '@chakra-ui/react';
 import { EditIcon } from '~/assets/icons/icons';
 
 type DraftModalBodyProps = {
-    handleSaveDraft?: () => void;
-    handleExit?: () => void;
+    handleSaveDraft: () => void;
+    handleExit: () => void;
 };
 export const DraftModalBody = ({ handleSaveDraft, handleExit }: DraftModalBodyProps) => (
     <>

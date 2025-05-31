@@ -11,13 +11,18 @@ import { UniversalModal } from '../modal/universal-modal';
 interface ImagePreviewProps<T extends FieldValues> {
     name: Path<T>;
     formMethods: UseFormReturn<T>;
+    testIds: {
+        block: string;
+        input: string;
+        preview: string;
+    };
     isCard?: boolean;
-    testId?: string;
 }
 
 export const ImagePreview = <T extends FieldValues>({
     name,
     formMethods,
+    testIds,
     isCard,
 }: ImagePreviewProps<T>) => {
     const {
@@ -35,9 +40,12 @@ export const ImagePreview = <T extends FieldValues>({
 
     const handleImageSave = (url: string) => {
         setValue(name, url as PathValue<T, Path<T>>, { shouldDirty: true });
+        closeModal();
     };
+
     const handleImageDelete = () => {
         setValue(name, '' as PathValue<T, Path<T>>, { shouldDirty: true });
+        closeModal();
     };
 
     const isInvalid = !!errors[name];
@@ -57,6 +65,7 @@ export const ImagePreview = <T extends FieldValues>({
                 position='relative'
                 borderWidth={isInvalid ? '2px' : undefined}
                 borderColor={isInvalid ? 'red.500' : undefined}
+                data-test-id={testIds.block}
             >
                 {value ? (
                     <Image
@@ -66,6 +75,7 @@ export const ImagePreview = <T extends FieldValues>({
                         w='100%'
                         h='100%'
                         rounded='md'
+                        data-test-id={testIds.preview}
                     />
                 ) : (
                     <Box textAlign='center'>
@@ -77,10 +87,11 @@ export const ImagePreview = <T extends FieldValues>({
                 isOpen={isOpen}
                 onClose={handleCloseModal}
                 config={config}
-                testId={TestIdName.RecipeImageModalImageBlock}
+                testId={TestIdName.RecipeImageModal}
             >
                 <ImageModalBody
                     url={value}
+                    inputTestId={testIds.input}
                     handleSaveImage={handleImageSave}
                     handleDeleteImage={handleImageDelete}
                 />

@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from 'react-router';
 import { BookmarkIcon, HeartEyesIcon, PenIcon, PeopleIcon } from '~/assets/icons/icons';
 import { AppRoute } from '~/utils/constant';
 import { isRecipeEditOrCreatePath } from '~/utils/helpers/helpers';
+import { TestIdName } from '~/utils/testId-name.enum';
 
 import styles from './sidebar.module.css';
 
@@ -80,6 +81,7 @@ export const Sidebar = () => {
                 h='208px'
                 className={styles.sidebarBtn}
                 onClick={handleCreateNewClick}
+                data-test-id={TestIdName.RecipeAddRecipeButton}
             >
                 <Flex direction='column' align='center' justify='baseline' gap={3} mr={7} mb={0}>
                     <Circle size='3rem' className={styles.sidebarIcon}>

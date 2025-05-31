@@ -1,18 +1,31 @@
 import { Button, ButtonGroup, Text } from '@chakra-ui/react';
+import { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router';
 
 import { BookmarkIcon, EditIcon, HeartEyesIcon, RemoveIcon } from '~/assets/icons/icons';
-import { useBookmarkRecipeMutation, useLikeRecipeMutation } from '~/query/services/recipes';
+import {
+    useBookmarkRecipeMutation,
+    useDeleteRecipeMutation,
+    useLikeRecipeMutation,
+} from '~/query/services/recipes';
+import { AppRoute } from '~/utils/constant';
+import { TestIdName } from '~/utils/testId-name.enum';
 
 export const RecipeControls = ({ isAuthor, recipeId }: { isAuthor: boolean; recipeId: string }) => {
     const { pathname } = useLocation();
     const [likeRecipe] = useLikeRecipeMutation();
     const [bookmarkRecipe] = useBookmarkRecipeMutation();
+    const [deleteRecipe, { isSuccess: isDeleted }] = useDeleteRecipeMutation();
     const navigate = useNavigate();
     const handleLikeClick = async () => await likeRecipe(recipeId);
     const handleBookmarkClick = async () => await bookmarkRecipe(recipeId);
-    const handleDeleteClick = () => console.log('delete', recipeId);
+    const handleDeleteClick = async () => await deleteRecipe(recipeId);
     const handleNavigateClick = () => navigate(`/edit-recipe${pathname}`);
+    useEffect(() => {
+        if (isDeleted) {
+            navigate(AppRoute.Main);
+        }
+    }, [isDeleted, navigate]);
     return (
         <ButtonGroup gap={0.5}>
             {isAuthor ? (
@@ -23,6 +36,7 @@ export const RecipeControls = ({ isAuthor, recipeId }: { isAuthor: boolean; reci
                         size={{ base: 'xs', lg: 'sm', xl: 'lg' }}
                         px={{ lg: 3 }}
                         onClick={handleDeleteClick}
+                        data-test-id={TestIdName.RecipeDeleteButton}
                     >
                         <RemoveIcon />
                     </Button>

@@ -19,7 +19,7 @@ export enum EndpointNames {
     CREATE_RECIPE = 'createRecipe',
     UPDATE_RECIPE = 'updateRecipe',
     DELETE_RECIPE = 'deleteRecipe',
-    SAVE_RECIPE_DRAFT = 'saveDraft',
+    SAVE_RECIPE_DRAFT = 'saveDraftRecipe',
     GET_MEASURE_UNITS = 'getMeasureUnits',
     LIKE_RECIPE = 'likeRecipe',
     BOOKMARK_RECIPE = 'bookmarkRecipe',

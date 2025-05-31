@@ -33,7 +33,7 @@ export const EditRecipePage = () => {
     return (
         <>
             <Layout>
-                <RecipeForm recipe={recipe} />
+                <RecipeForm recipe={recipe} type='edit' />
             </Layout>
         </>
     );

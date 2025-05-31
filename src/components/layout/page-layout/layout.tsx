@@ -45,7 +45,7 @@ export const Layout = ({ children }: LayoutProps) => {
                                 base: '100%',
                                 md: '767px',
                                 lg: '920px',
-                                xl: '1160px',
+                                xl: '1230px',
                                 '2xl': '1380px',
                             }}
                             overflowX='hidden'

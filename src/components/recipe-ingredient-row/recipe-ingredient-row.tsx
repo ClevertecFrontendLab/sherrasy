@@ -14,6 +14,7 @@ import { Controller, UseFormReturn } from 'react-hook-form';
 
 import { AddItemIcon, RemoveIcon } from '~/assets/icons/icons';
 import { RecipeMeasureUnit } from '~/types/recipe.interface';
+import { TestIdName } from '~/utils/testId-name.enum';
 
 import { RecipeFormData } from '../forms/validation-scheme/recipe.scheme';
 
@@ -70,6 +71,7 @@ export const RecipeIngredientRow = ({
                 <Input
                     placeholder='Ингредиент'
                     {...register(`ingredients.${index}.title` as const)}
+                    data-test-id={`${TestIdName.RecipeIngredientsTitle}-${index}`}
                 />
                 {errorText && <FormErrorMessage>{errorText.title}</FormErrorMessage>}
             </FormControl>
@@ -90,7 +92,11 @@ export const RecipeIngredientRow = ({
                     control={control}
                     name={`ingredients.${index}.count`}
                     render={({ field: { onChange, value } }) => (
-                        <NumberInput value={value} onChange={onChange}>
+                        <NumberInput
+                            value={value}
+                            onChange={onChange}
+                            data-test-id={`${TestIdName.RecipeIngredientsCount}-${index}`}
+                        >
                             <NumberInputField placeholder='100' />
                         </NumberInput>
                     )}
@@ -120,6 +126,7 @@ export const RecipeIngredientRow = ({
                         },
                     }}
                     isTruncated={true}
+                    data-test-id={`${TestIdName.RecipeIngredientsMeasureUnit}-${index}`}
                 >
                     {measureUnits?.map((unit) => (
                         <option key={unit.name} value={unit.name}>
@@ -137,6 +144,7 @@ export const RecipeIngredientRow = ({
                     icon={<AddItemIcon w={8} h={8} />}
                     onClick={onAdd}
                     mt={showLabel ? 8 : undefined}
+                    data-test-id={TestIdName.RecipeAddIngredientsButton}
                 />
             ) : (
                 <IconButton
@@ -146,6 +154,7 @@ export const RecipeIngredientRow = ({
                     icon={<RemoveIcon w={{ base: 4 }} h={{ base: 4 }} />}
                     onClick={onRemove}
                     mt={showLabel ? 8 : undefined}
+                    data-test-id={`${TestIdName.RecipeIngredientsRemoveIngredients}-${index}`}
                 />
             )}
         </Flex>

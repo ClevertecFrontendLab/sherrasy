@@ -4,9 +4,11 @@ import { ApiGroupNames } from '~/query/constants/api-group-names.ts';
 import { EndpointNames } from '~/query/constants/endpoint-names.ts';
 import { Tags } from '~/query/constants/tags.ts';
 import { apiSlice } from '~/query/create-api.ts';
+import { setAppMessage } from '~/store/app-status/app-slice';
 import { updateHasRecipes, updateIsFiltering } from '~/store/recipes/recipes-slice';
 import { RecipeQueryParam } from '~/types/query-param.type';
 import { FullRecipe, RecipeMeta } from '~/types/recipe.interface';
+import { ALERT_MESSAGES } from '~/utils/alert-messages';
 import { CardsLimit, DEFAULT_ERROR_LOG, SortingBy, SortingDirection } from '~/utils/constant';
 import { formatRecipeWithImages } from '~/utils/helpers/format-images';
 import { getRecipeQueryString } from '~/utils/helpers/get-request-query';
@@ -134,8 +136,15 @@ export const recipesApiSlice = apiSlice
                     body: data,
                 }),
                 invalidatesTags: [Tags.RECIPES, Tags.JUICY_RECIPES],
+                async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
+                    try {
+                        await queryFulfilled;
+                        dispatch(setAppMessage(ALERT_MESSAGES.publishRecipeSuccess));
+                    } catch (error) {
+                        console.error(DEFAULT_ERROR_LOG, error);
+                    }
+                },
             }),
-
             saveDraftRecipe: builder.mutation<RecipeResponse, RecipeFormData>({
                 query: (data: RecipeFormData) => ({
                     url: ApiEndpoints.RECIPE_DRAFT,
@@ -145,21 +154,36 @@ export const recipesApiSlice = apiSlice
                     body: data,
                 }),
                 invalidatesTags: [Tags.RECIPES],
+                async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
+                    try {
+                        await queryFulfilled;
+                        dispatch(setAppMessage(ALERT_MESSAGES.publishDraftSuccess));
+                    } catch (error) {
+                        console.error(DEFAULT_ERROR_LOG, error);
+                    }
+                },
             }),
-
-            updateRecipe: builder.mutation<RecipeResponse, RecipeFormData & { _id: string }>({
-                query: (data) => ({
-                    url: `${ApiEndpoints.RECIPE}/${data._id}`,
+            updateRecipe: builder.mutation<RecipeResponse, { id: string; body: RecipeFormData }>({
+                query: ({ id, body }) => ({
+                    url: `${ApiEndpoints.RECIPE}/${id}`,
                     method: 'PATCH',
                     apiGroupName: ApiGroupNames.RECIPES,
                     name: EndpointNames.UPDATE_RECIPE,
-                    body: data,
+                    body: body,
                 }),
                 invalidatesTags: (_result, _error, arg) => [
-                    { type: Tags.RECIPE, id: arg._id },
+                    { type: Tags.RECIPE, id: arg.id },
                     Tags.RECIPES,
                     Tags.JUICY_RECIPES,
                 ],
+                async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
+                    try {
+                        await queryFulfilled;
+                        dispatch(setAppMessage(ALERT_MESSAGES.publishRecipeSuccess));
+                    } catch (error) {
+                        console.error(DEFAULT_ERROR_LOG, error);
+                    }
+                },
             }),
             deleteRecipe: builder.mutation<RecipeResponse, string>({
                 query: (id) => ({
@@ -173,6 +197,14 @@ export const recipesApiSlice = apiSlice
                     Tags.RECIPES,
                     Tags.JUICY_RECIPES,
                 ],
+                async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
+                    try {
+                        await queryFulfilled;
+                        dispatch(setAppMessage(ALERT_MESSAGES.removeRecipeSuccess));
+                    } catch (error) {
+                        console.error(DEFAULT_ERROR_LOG, error);
+                    }
+                },
             }),
             likeRecipe: builder.mutation<RecipeResponse, string>({
                 query: (id) => ({

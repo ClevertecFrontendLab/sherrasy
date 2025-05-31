@@ -1,11 +1,19 @@
 import { Button, Center, VStack } from '@chakra-ui/react';
-import { yupResolver } from '@hookform/resolvers/yup';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router';
 
 import { EditIcon } from '~/assets/icons/icons';
+import { useDirtyRedirectBlocker } from '~/hooks/useDirtyRedirectBlocker';
+import { useRecipeFormHandler } from '~/hooks/useRecipeFormHandler';
 import { useUniversalModal } from '~/hooks/useUniversalModal';
+import {
+    useCreateRecipeMutation,
+    useSaveDraftRecipeMutation,
+    useUpdateRecipeMutation,
+} from '~/query/services/recipes';
 import { FullRecipe } from '~/types/recipe.interface';
+import { AppRoute } from '~/utils/constant';
 import { TestIdName } from '~/utils/testId-name.enum';
 
 import { DraftModalBody } from '../modal/modal-body/draft-modal-body';
@@ -13,9 +21,10 @@ import { UniversalModal } from '../modal/universal-modal';
 import { RecipeFormIngredients } from './recipe-form-parts/recipe-form-ingredients';
 import { RecipeFormMain } from './recipe-form-parts/recipe-form-main';
 import { RecipeFormSteps } from './recipe-form-parts/recipe-form-steps';
-import { RecipeFormData, recipeSchema } from './validation-scheme/recipe.scheme';
+import { draftRecipeSchema, RecipeFormData, recipeSchema } from './validation-scheme/recipe.scheme';
 
 type RecipeFormProps = {
+    type: 'create' | 'edit';
     recipe?: FullRecipe;
 };
 
@@ -30,43 +39,55 @@ const DEFAULT_FORMDATA = {
     steps: [{ stepNumber: 1, description: '', image: '' }],
 };
 
-export const RecipeForm = ({ recipe }: RecipeFormProps) => {
+export const RecipeForm = ({ recipe, type }: RecipeFormProps) => {
     const { isOpen, openModal, closeModal, config } = useUniversalModal();
-    const hasChanges = false;
-
+    const [createRecipe, { isSuccess: isCreated }] = useCreateRecipeMutation();
+    const [saveDraft, { isSuccess: isSaved }] = useSaveDraftRecipeMutation();
+    const [editRecipe, { isSuccess: isEdited }] = useUpdateRecipeMutation();
+    const navigate = useNavigate();
+    const recipeId = recipe ? recipe._id : '';
     const formMethods = useForm<RecipeFormData>({
         mode: 'onSubmit',
         reValidateMode: 'onSubmit',
         shouldFocusError: false,
-        resolver: yupResolver(recipeSchema),
         defaultValues: DEFAULT_FORMDATA,
     });
-    const { handleSubmit, reset: resetForm } = formMethods;
+    const {
+        reset: resetForm,
+        formState: { isDirty },
+    } = formMethods;
+    const { handlePublish, handleDraft } = useRecipeFormHandler(formMethods, {
+        draft: draftRecipeSchema,
+        publish: recipeSchema,
+    });
+    const { modalVisible, confirmExitPage, cancelPageLeave, markAsSaved } =
+        useDirtyRedirectBlocker(isDirty);
 
-    const onSubmit = async (data: RecipeFormData) => {
-        console.log(data);
+    const handleSubmitPublish = async (data: RecipeFormData) => {
+        if (type === 'edit') await editRecipe({ id: recipeId, body: data });
+        if (type === 'create') await createRecipe(data);
     };
+
     const handleBlockedNavigation = () => openModal('exitRecipe');
 
     const handleClose = () => {
         closeModal();
+        cancelPageLeave();
     };
 
     const handleConfirmExit = () => {
         closeModal();
+        markAsSaved();
         resetForm();
     };
 
-    const handleSubmitDraft = async () => {
-        await handleSubmit(onSubmit)();
-    };
-    const handleSubmitPublish = async () => {
-        await handleSubmit(onSubmit)();
+    const handleSubmitDraft = async (data: RecipeFormData) => {
+        await saveDraft(data);
     };
 
     useEffect(() => {
-        if (hasChanges) handleBlockedNavigation();
-    }, [hasChanges]);
+        if (modalVisible) handleBlockedNavigation();
+    }, [modalVisible]);
 
     useEffect(() => {
         if (recipe) {
@@ -84,12 +105,18 @@ export const RecipeForm = ({ recipe }: RecipeFormProps) => {
         }
     }, [recipe]);
 
+    useEffect(() => {
+        if (isSaved) {
+            navigate(AppRoute.Main);
+            confirmExitPage();
+        }
+    }, [isCreated, isEdited, isSaved]);
+
     return (
         <>
             <Center
                 flexDirection='column'
                 as='form'
-                onSubmit={handleSubmit(onSubmit)}
                 w='100%'
                 data-test-id={TestIdName.RecipeForm}
                 gap={{ base: 8, lg: 10 }}
@@ -107,7 +134,8 @@ export const RecipeForm = ({ recipe }: RecipeFormProps) => {
                         w='100%'
                         size='lg'
                         maxW={{ sm: '15.375rem' }}
-                        onClick={handleSubmitDraft}
+                        onClick={handleDraft(handleSubmitDraft)}
+                        data-test-id={TestIdName.RecipeSaveDraftButton}
                     >
                         <EditIcon mr={2} />
                         Сохранить черновик
@@ -117,7 +145,8 @@ export const RecipeForm = ({ recipe }: RecipeFormProps) => {
                         w='100%'
                         size='lg'
                         maxW={{ sm: '15.375rem' }}
-                        onClick={handleSubmitPublish}
+                        onClick={handlePublish(handleSubmitPublish)}
+                        data-test-id={TestIdName.RecipePublishButton}
                     >
                         Опубликовать рецепт
                     </Button>
@@ -129,7 +158,10 @@ export const RecipeForm = ({ recipe }: RecipeFormProps) => {
                 config={config}
                 testId={TestIdName.PreventiveModal}
             >
-                <DraftModalBody handleExit={handleConfirmExit} />
+                <DraftModalBody
+                    handleExit={handleConfirmExit}
+                    handleSaveDraft={handleDraft(handleSubmitDraft)}
+                />
             </UniversalModal>
         </>
     );

@@ -5,10 +5,12 @@ import { useForm } from 'react-hook-form';
 import { ImageIcon } from '~/assets/icons/icons';
 import { useUploadFileMutation } from '~/query/services/file';
 import { formatImageToServer } from '~/utils/helpers/format-images';
+import { TestIdName } from '~/utils/testId-name.enum';
 
 type ImageModalBody = {
     handleSaveImage: (url: string) => void;
     handleDeleteImage: () => void;
+    inputTestId: string;
     url?: string;
 };
 
@@ -16,7 +18,12 @@ type FileFormData = {
     file: FileList | null;
 };
 
-export const ImageModalBody = ({ handleSaveImage, handleDeleteImage, url }: ImageModalBody) => {
+export const ImageModalBody = ({
+    handleSaveImage,
+    handleDeleteImage,
+    url,
+    inputTestId,
+}: ImageModalBody) => {
     const [uploadFile, { data, isLoading, isSuccess }] = useUploadFileMutation();
     const { register, handleSubmit, watch, reset } = useForm<FileFormData>();
     const inputRef = useRef<HTMLInputElement | null>(null);
@@ -51,6 +58,7 @@ export const ImageModalBody = ({ handleSaveImage, handleDeleteImage, url }: Imag
                     _hover={{ bg: 'blackAlpha.300' }}
                     position='relative'
                     overflow='hidden'
+                    data-test-id={TestIdName.RecipeImageModalImageBlock}
                 >
                     <Input
                         type='file'
@@ -61,6 +69,7 @@ export const ImageModalBody = ({ handleSaveImage, handleDeleteImage, url }: Imag
                             inputRef.current = e;
                         }}
                         display='none'
+                        data-test-id={inputTestId}
                     />
                     {showImage ? (
                         <Image
@@ -70,6 +79,7 @@ export const ImageModalBody = ({ handleSaveImage, handleDeleteImage, url }: Imag
                             w='100%'
                             h='100%'
                             rounded='md'
+                            data-test-id={TestIdName.RecipeImageModalPreviewImage}
                         />
                     ) : (
                         <Box textAlign='center'>

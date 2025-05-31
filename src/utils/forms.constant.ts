@@ -13,19 +13,13 @@ export const ValidationMessage = {
     RequiredPassword: 'Введите пароль',
     RequiredPasswordConfirm: 'Повторите пароль',
     RequiredEmail: 'Введите e-mail',
-    Required: 'Обязательное поле',
+    EmptyMessage: ' ',
     InvalidNameLetter: 'Должно начинаться с кириллицы А-Я',
     InvalidName: 'Только кириллица А-Я, и "-"',
     InvalidEmail: 'Введите корректный e-mail',
     InvalidPasswordConfirm: 'Пароли должны совпадать',
     InvalidFormat: 'Не соответствует формату',
     MaxLength: 'Максимальная длина 50 символов',
-    MaxNameLength: 'Не более 50 символов',
-    MaxDecriptionLength: 'Не более 500 символов',
-    MaxStepDecriptionLength: 'Не более 300 символов',
-    CategoriesLength: 'Не менее 3 категорий',
-    TimeLimit: 'Только положительное число, не более 10000',
-    IngredientsAmount: 'Только положительное число',
 } as const;
 
 export const InputNameToPlaceholder: Record<string, string> = {

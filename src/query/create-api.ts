@@ -13,6 +13,7 @@ import { ApiBase, LocalStorageKey } from '~/utils/constant';
 import { createErrorMessage } from '~/utils/helpers/create-error-message';
 
 import { handleError, handleTokenRefresh, setLoadingState } from './api-helpers';
+import { API_MESSAGES } from './api-messages';
 import { EndpointNames } from './constants/endpoint-names';
 
 export const baseQuery = fetchBaseQuery({
@@ -39,6 +40,12 @@ export const updatedBaseQuery: BaseQueryFn<
         EndpointNames.AUTH_VERIFY_OTP,
         EndpointNames.AUTH_FORGOT_PASSWORD,
     ].some((item) => item.includes(endpoint));
+    const isRecipeMutation = [
+        EndpointNames.CREATE_RECIPE,
+        EndpointNames.UPDATE_RECIPE,
+        EndpointNames.DELETE_RECIPE,
+        EndpointNames.SAVE_RECIPE_DRAFT,
+    ].some((item) => item.includes(endpoint)); // TODO: временное, изменить отображение ошибок
     try {
         setLoadingState(api, isFiltering, true);
         let result = await baseQuery(args, api, extraOptions);
@@ -55,6 +62,14 @@ export const updatedBaseQuery: BaseQueryFn<
             const isClientError =
                 status >= StatusCodes.BAD_REQUEST && status < StatusCodes.INTERNAL_SERVER_ERROR;
 
+            if (isRecipeMutation) {
+                const endpointMessages = API_MESSAGES[endpoint as EndpointNames];
+                if (endpointMessages && status in endpointMessages) {
+                    handleError(api, endpointMessages[status as keyof typeof endpointMessages]);
+                    return result;
+                }
+            }
+
             if (
                 status !== StatusCodes.BAD_REQUEST &&
                 status < StatusCodes.INTERNAL_SERVER_ERROR &&
@@ -62,6 +77,7 @@ export const updatedBaseQuery: BaseQueryFn<
             ) {
                 return result;
             }
+
             const errorMessage = createErrorMessage({
                 status,
                 data,
