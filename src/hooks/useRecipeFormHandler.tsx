@@ -67,5 +67,6 @@ export const useRecipeFormHandler = (
             handleFormSubmit(onSubmit, false),
         handleDraft: (onSubmit: (data: RecipeFormData) => Promise<void>) => () =>
             handleFormSubmit(onSubmit, true),
+        validateForm,
     };
 };

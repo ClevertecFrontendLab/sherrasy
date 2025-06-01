@@ -17,6 +17,7 @@ type RecipeResponse = {
     data: FullRecipe[];
     meta: RecipeMeta;
 };
+type RecipeMutationResponse = FullRecipe;
 
 export const recipesApiSlice = apiSlice
     .enhanceEndpoints({
@@ -87,6 +88,36 @@ export const recipesApiSlice = apiSlice
                     data.map((recipe) => formatRecipeWithImages(recipe)),
                 providesTags: [Tags.RECIPES],
             }),
+            getJuiciestPaginated: builder.infiniteQuery<
+                RecipeResponse,
+                RecipeQueryParam,
+                { page: number }
+            >({
+                infiniteQueryOptions: {
+                    initialPageParam: { page: 1 },
+                    getNextPageParam: (lastPage: {
+                        meta: { page: number; totalPages: number };
+                    }) => {
+                        const nextPage = lastPage.meta.page + 1;
+                        return nextPage > lastPage.meta.totalPages ? undefined : { page: nextPage };
+                    },
+                },
+                query: ({ queryArg, pageParam }) => {
+                    const page = pageParam?.page || 1;
+                    return {
+                        url: `${ApiEndpoints.RECIPE}`,
+                        method: 'GET',
+                        params: { ...queryArg, page },
+                        apiGroupName: ApiGroupNames.RECIPES,
+                        name: EndpointNames.GET_JUICIEST_PAGINATED,
+                    };
+                },
+                transformResponse: ({ data, meta }: RecipeResponse) => ({
+                    data: data.map((recipe) => formatRecipeWithImages(recipe)),
+                    meta,
+                }),
+                providesTags: [Tags.RECIPES, Tags.JUICY_RECIPES],
+            }),
             getJuiciestRecipes: builder.query<RecipeResponse, string>({
                 query: (query) => ({
                     url: `${ApiEndpoints.RECIPE}${query}`,
@@ -94,27 +125,10 @@ export const recipesApiSlice = apiSlice
                     apiGroupName: ApiGroupNames.RECIPES,
                     name: EndpointNames.GET_JUICIEST_RECIPIES,
                 }),
-
-                serializeQueryArgs: ({ endpointName }) => endpointName,
-
-                merge: (currentCache, newData) => {
-                    const samePage = currentCache.meta.page === newData.meta.page;
-                    const newRecipeIds = new Set(newData.data.map((r) => r._id));
-                    const filteredPrev = !samePage
-                        ? currentCache.data
-                        : currentCache.data.filter((recipe) => !newRecipeIds.has(recipe._id));
-                    return {
-                        data: [...filteredPrev, ...newData.data],
-                        meta: newData.meta,
-                    };
-                },
                 transformResponse: ({ data, meta }: RecipeResponse) => ({
                     data: data.map((recipe) => formatRecipeWithImages(recipe)),
                     meta,
                 }),
-                onCacheEntryAdded: async (_arg, { cacheEntryRemoved }) => {
-                    await cacheEntryRemoved;
-                },
                 providesTags: [Tags.RECIPES, Tags.JUICY_RECIPES],
             }),
             getRecipeById: builder.query<FullRecipe, string>({
@@ -127,7 +141,7 @@ export const recipesApiSlice = apiSlice
                 transformResponse: (recipe: FullRecipe) => formatRecipeWithImages(recipe),
                 providesTags: (_result, _error, id) => [{ type: Tags.RECIPE, id }],
             }),
-            createRecipe: builder.mutation<RecipeResponse, RecipeFormData>({
+            createRecipe: builder.mutation<RecipeMutationResponse, RecipeFormData>({
                 query: (data: RecipeFormData) => ({
                     url: ApiEndpoints.RECIPE,
                     method: 'POST',
@@ -145,7 +159,7 @@ export const recipesApiSlice = apiSlice
                     }
                 },
             }),
-            saveDraftRecipe: builder.mutation<RecipeResponse, RecipeFormData>({
+            saveDraftRecipe: builder.mutation<RecipeMutationResponse, RecipeFormData>({
                 query: (data: RecipeFormData) => ({
                     url: ApiEndpoints.RECIPE_DRAFT,
                     method: 'POST',
@@ -163,7 +177,10 @@ export const recipesApiSlice = apiSlice
                     }
                 },
             }),
-            updateRecipe: builder.mutation<RecipeResponse, { id: string; body: RecipeFormData }>({
+            updateRecipe: builder.mutation<
+                RecipeMutationResponse,
+                { id: string; body: RecipeFormData }
+            >({
                 query: ({ id, body }) => ({
                     url: `${ApiEndpoints.RECIPE}/${id}`,
                     method: 'PATCH',
@@ -241,7 +258,7 @@ export const {
     useGetRelevantRecipesQuery,
     useGetRecipesByCategoryQuery,
     useGetJuiciestRecipesQuery,
-    useLazyGetJuiciestRecipesQuery,
+    useGetJuiciestPaginatedInfiniteQuery,
     useGetRecipeByIdQuery,
     useLazyGetRecipeByIdQuery,
     useCreateRecipeMutation,

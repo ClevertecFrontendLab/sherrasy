@@ -15,12 +15,12 @@ export const useDirtyRedirectBlocker = (isDirty: boolean) => {
             setModalVisible(true);
             setOnContinue(() => blocker.proceed);
         }
-    }, [blocker]);
+    }, [blocker.state]);
 
     const confirmExitPage = () => {
         savedRef.current = true;
         setModalVisible(false);
-        onContinue?.();
+        if (onContinue) onContinue();
     };
 
     const cancelPageLeave = () => {

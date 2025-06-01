@@ -27,6 +27,7 @@ export const createErrorMessage = ({
 
     if (isClientError) {
         return {
+            id: `${status}-${data.statusText}`,
             title: data.message,
             description: data.description ?? '',
             type: 'error',

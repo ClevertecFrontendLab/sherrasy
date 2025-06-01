@@ -19,3 +19,6 @@ export const formatImageToServer = (file: File) => {
     formData.append('file', file);
     return formData;
 };
+
+export const formatImageSrcToForm = (imageSrc: string) =>
+    imageSrc.substring(imageSrc.indexOf('/media'));

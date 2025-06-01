@@ -92,12 +92,11 @@ export const RecipeIngredientRow = ({
                     control={control}
                     name={`ingredients.${index}.count`}
                     render={({ field: { onChange, value } }) => (
-                        <NumberInput
-                            value={value}
-                            onChange={onChange}
-                            data-test-id={`${TestIdName.RecipeIngredientsCount}-${index}`}
-                        >
-                            <NumberInputField placeholder='100' />
+                        <NumberInput value={value} onChange={onChange}>
+                            <NumberInputField
+                                placeholder='100'
+                                data-test-id={`${TestIdName.RecipeIngredientsCount}-${index}`}
+                            />
                         </NumberInput>
                     )}
                 />
@@ -115,25 +114,32 @@ export const RecipeIngredientRow = ({
                         {INGREDIENTS_HEADINGS[2]}
                     </FormLabel>
                 )}
-                <Select
-                    {...register(`ingredients.${index}.measureUnit`)}
-                    placeholder='Единица измерения'
-                    color={!measureUnitValue ? 'blackAlpha.700' : 'current'}
-                    _placeholder={{ color: 'blackAlpha.700' }}
-                    sx={{
-                        option: {
-                            color: 'black',
-                        },
-                    }}
-                    isTruncated={true}
-                    data-test-id={`${TestIdName.RecipeIngredientsMeasureUnit}-${index}`}
-                >
-                    {measureUnits?.map((unit) => (
-                        <option key={unit.name} value={unit.name}>
-                            {unit.name}
-                        </option>
-                    ))}
-                </Select>
+                <Controller
+                    control={control}
+                    name={`ingredients.${index}.measureUnit`}
+                    render={({ field: { onChange, value } }) => (
+                        <Select
+                            placeholder='Единица измерения'
+                            color={!measureUnitValue ? 'blackAlpha.700' : 'current'}
+                            _placeholder={{ color: 'blackAlpha.700' }}
+                            sx={{
+                                option: {
+                                    color: 'black',
+                                },
+                            }}
+                            onChange={onChange}
+                            value={value}
+                            isTruncated={true}
+                            data-test-id={`${TestIdName.RecipeIngredientsMeasureUnit}-${index}`}
+                        >
+                            {measureUnits?.map((unit) => (
+                                <option key={unit.name} value={unit.name}>
+                                    {unit.name}
+                                </option>
+                            ))}
+                        </Select>
+                    )}
+                />
                 {errorText && <FormErrorMessage>{errorText.measureUnit}</FormErrorMessage>}
             </FormControl>
             {isLast ? (

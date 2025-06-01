@@ -3,6 +3,7 @@ import { FieldValues, Path, PathValue, UseFormReturn } from 'react-hook-form';
 
 import { ImageIcon } from '~/assets/icons/icons';
 import { useUniversalModal } from '~/hooks/useUniversalModal';
+import { updateImagePath } from '~/utils/helpers/format-images';
 import { TestIdName } from '~/utils/testId-name.enum';
 
 import { ImageModalBody } from '../modal/modal-body/image-modal-body';
@@ -69,7 +70,7 @@ export const ImagePreview = <T extends FieldValues>({
             >
                 {value ? (
                     <Image
-                        src={value}
+                        src={updateImagePath(value)}
                         alt='yeedaa-preview'
                         objectFit='cover'
                         w='100%'

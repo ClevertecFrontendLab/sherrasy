@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 
 import { ImageIcon } from '~/assets/icons/icons';
 import { useUploadFileMutation } from '~/query/services/file';
-import { formatImageToServer } from '~/utils/helpers/format-images';
+import { formatImageToServer, updateImagePath } from '~/utils/helpers/format-images';
 import { TestIdName } from '~/utils/testId-name.enum';
 
 type ImageModalBody = {
@@ -31,11 +31,11 @@ export const ImageModalBody = ({
     const file = watch('file')?.[0];
     const previewUrl = file ? URL.createObjectURL(file) : null;
     const showImage = !!file || !!url;
-
+    const formattedImage = url ? updateImagePath(url) : undefined;
     const handleUpload = async () => {
         if (!file) return;
         const fileData = formatImageToServer(file);
-        await uploadFile(fileData).unwrap();
+        await uploadFile(fileData);
     };
 
     useEffect(() => {
@@ -73,7 +73,7 @@ export const ImageModalBody = ({
                     />
                     {showImage ? (
                         <Image
-                            src={previewUrl || url}
+                            src={previewUrl || formattedImage}
                             alt='Preview'
                             objectFit='cover'
                             w='100%'

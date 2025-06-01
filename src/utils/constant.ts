@@ -42,6 +42,7 @@ export const AppRouteToName: Record<string, string> = {
 export const NutritionToName: Record<string, string> = {
     calories: 'калорийность',
     proteins: 'белки',
+    protein: 'белки',
     fats: 'жиры',
     carbohydrates: 'углеводы',
 };

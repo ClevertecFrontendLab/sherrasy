@@ -12,8 +12,12 @@ import {
     useSaveDraftRecipeMutation,
     useUpdateRecipeMutation,
 } from '~/query/services/recipes';
+import { getCategories } from '~/store/categories/selectors';
+import { useAppSelector } from '~/store/hooks';
 import { FullRecipe } from '~/types/recipe.interface';
 import { AppRoute } from '~/utils/constant';
+import { getCatSubPairs } from '~/utils/helpers/categories-helpers';
+import { formatImageSrcToForm } from '~/utils/helpers/format-images';
 import { TestIdName } from '~/utils/testId-name.enum';
 
 import { DraftModalBody } from '../modal/modal-body/draft-modal-body';
@@ -41,9 +45,10 @@ const DEFAULT_FORMDATA = {
 
 export const RecipeForm = ({ recipe, type }: RecipeFormProps) => {
     const { isOpen, openModal, closeModal, config } = useUniversalModal();
-    const [createRecipe, { isSuccess: isCreated }] = useCreateRecipeMutation();
+    const categories = useAppSelector(getCategories);
+    const [createRecipe, { data: createdRecipe, isSuccess: isCreated }] = useCreateRecipeMutation();
     const [saveDraft, { isSuccess: isSaved }] = useSaveDraftRecipeMutation();
-    const [editRecipe, { isSuccess: isEdited }] = useUpdateRecipeMutation();
+    const [editRecipe, { data: updatedRecipe, isSuccess: isUpdated }] = useUpdateRecipeMutation();
     const navigate = useNavigate();
     const recipeId = recipe ? recipe._id : '';
     const formMethods = useForm<RecipeFormData>({
@@ -56,7 +61,7 @@ export const RecipeForm = ({ recipe, type }: RecipeFormProps) => {
         reset: resetForm,
         formState: { isDirty },
     } = formMethods;
-    const { handlePublish, handleDraft } = useRecipeFormHandler(formMethods, {
+    const { handlePublish, handleDraft, validateForm } = useRecipeFormHandler(formMethods, {
         draft: draftRecipeSchema,
         publish: recipeSchema,
     });
@@ -78,11 +83,22 @@ export const RecipeForm = ({ recipe, type }: RecipeFormProps) => {
     const handleConfirmExit = () => {
         closeModal();
         markAsSaved();
+        confirmExitPage();
         resetForm();
     };
 
     const handleSubmitDraft = async (data: RecipeFormData) => {
         await saveDraft(data);
+    };
+    const handleSubmitDraftModal = async () => {
+        const isValid = await validateForm(true);
+        handleDraft(handleSubmitDraft)();
+        closeModal();
+        if (isValid) {
+            confirmExitPage();
+        } else {
+            cancelPageLeave();
+        }
     };
 
     useEffect(() => {
@@ -97,9 +113,12 @@ export const RecipeForm = ({ recipe, type }: RecipeFormProps) => {
                 time: recipe.time,
                 categoriesIds: recipe.categoriesIds,
                 portions: recipe.portions,
-                image: recipe.image,
+                image: formatImageSrcToForm(recipe.image),
                 ingredients: recipe.ingredients.map((value) => ({ ...value, count: +value.count })),
-                steps: recipe.steps,
+                steps: recipe.steps.map((value) => ({
+                    ...value,
+                    image: value.image ? formatImageSrcToForm(value.image) : undefined,
+                })),
             };
             resetForm(formData);
         }
@@ -107,10 +126,19 @@ export const RecipeForm = ({ recipe, type }: RecipeFormProps) => {
 
     useEffect(() => {
         if (isSaved) {
-            navigate(AppRoute.Main);
             confirmExitPage();
+            navigate(AppRoute.Main);
         }
-    }, [isCreated, isEdited, isSaved]);
+        if (isCreated || isUpdated) {
+            const recipeData = type === 'create' ? createdRecipe : updatedRecipe;
+            if (!recipeData) return;
+            const pathSegments = getCatSubPairs(categories, recipeData.categoriesIds)[0];
+            confirmExitPage();
+            navigate(
+                `${AppRoute.Main}${pathSegments.category.category}/${pathSegments.subcategory.category}/${recipeData._id}`,
+            );
+        }
+    }, [isCreated, isUpdated, isSaved]);
 
     return (
         <>
@@ -160,7 +188,7 @@ export const RecipeForm = ({ recipe, type }: RecipeFormProps) => {
             >
                 <DraftModalBody
                     handleExit={handleConfirmExit}
-                    handleSaveDraft={handleDraft(handleSubmitDraft)}
+                    handleSaveDraft={handleSubmitDraftModal}
                 />
             </UniversalModal>
         </>

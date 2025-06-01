@@ -13,7 +13,7 @@ export const MODAL_CONFIGS: Record<ModalType, ModalConfig> = {
     },
     exitRecipe: {
         bodyText: ['Чтобы сохранить, нажмите кнопку \n сохранить черновик'],
-        header: 'Выйти без сохранения',
+        header: 'Выйти без сохранения?',
         icon: loginErrorImage,
         type: 'exitRecipe',
     },

@@ -2,6 +2,7 @@ export enum EndpointNames {
     GET_RECIPES = 'getRecipes',
     GET_NEW_RECIPIES = 'getNewRecipes',
     GET_JUICIEST_RECIPIES = 'getJuiciestRecipes',
+    GET_JUICIEST_PAGINATED = 'getJuiciestPaginated',
     GET_RELEVANT_RECIPIES = 'getRelevantRecipes',
     GET_RECIPIES_BY_CATEGORY = 'getRecipesByCategory',
     GET_RECIPE_BY_ID = 'getRecipeById',

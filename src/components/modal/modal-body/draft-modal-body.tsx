@@ -9,7 +9,7 @@ type DraftModalBodyProps = {
 export const DraftModalBody = ({ handleSaveDraft, handleExit }: DraftModalBodyProps) => (
     <>
         <Button mt={8} colorScheme='black' w='100%' onClick={handleSaveDraft}>
-            <EditIcon color='white' />
+            <EditIcon color='white' mr={2} />
             Сохранить черновик
         </Button>
         <Button mt={4} variant='chost' colorScheme='black' w='100%' onClick={handleExit}>

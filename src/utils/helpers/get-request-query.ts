@@ -5,7 +5,7 @@ import { CardsLimit } from '../constant';
 export const getRecipeQueryString = (query: RecipeQueryParam) => {
     const subcatIds = query.subcategoriesIds ? query.subcategoriesIds : query.categories?.join(',');
     const limit = query.limit ? `limit=${query.limit}` : `limit=${CardsLimit.Default}`;
-    const page = query.page ? `&page=${query.page}` : `&page=1`;
+    const page = query.page ? `&page=${query.page}` : ``;
     const allergens =
         query.allergens && query.allergens.length ? `&allergens=${query.allergens.join(',')}` : '';
     const searchString = query.searchString ? `&searchString=${query.searchString}` : ``;
