@@ -2,13 +2,13 @@ import { Box, Button, Flex, Text } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 
 import { ContentHeader } from '~/components/content-header/content-header';
-import { Layout } from '~/components/layout/layout';
+import { Layout } from '~/components/layout/page-layout/layout';
 import { RecipesList } from '~/components/recipes-list/recipes-list';
 import { RelevantKitchenSection } from '~/components/relevant-kitchen-section/relevant-kitchen-section';
 import { Tags } from '~/query/constants/tags';
 import {
     recipesApiSlice,
-    useGetJuiciestRecipesQuery,
+    useGetJuiciestPaginatedInfiniteQuery,
     useLazyGetRecipesQuery,
 } from '~/query/services/recipes';
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
@@ -16,12 +16,10 @@ import { clearFilteringParams } from '~/store/recipes/recipes-slice';
 import { getIsFilteringRecipes, getRecipeQuery } from '~/store/recipes/selectors';
 import { RecipeQueryParam } from '~/types/query-param.type';
 import { DEFAULT_PAGE } from '~/utils/constant';
-import { getRecipeQueryString } from '~/utils/helpers';
 import { TestIdName } from '~/utils/testId-name.enum';
 
 const DefaultParams: RecipeQueryParam = {
     limit: 8,
-    page: 1,
     sortBy: 'likes',
     sortOrder: 'desc',
 };
@@ -37,22 +35,20 @@ export const JuicyPage = () => {
             page,
         }),
     );
-    const query = getRecipeQueryString({
-        ...DefaultParams,
-        page,
-    });
-    const { data: recipesData, isFetching } = useGetJuiciestRecipesQuery(query, {
-        refetchOnMountOrArgChange: true,
-    });
-    const recipesCurrent = isFiltering ? recipes : recipesData?.data;
-    const isLastPage = isFiltering
-        ? isFiltering
-        : Boolean(recipesData?.meta && recipesData.meta.page === recipesData.meta.totalPages);
+    const {
+        data: recipesData,
+        fetchNextPage,
+        hasNextPage,
+        isFetching,
+        isLoading,
+    } = useGetJuiciestPaginatedInfiniteQuery(DefaultParams);
 
-    const loadRecipes = async () => {
-        if (!isFetching && !isLastPage) {
-            setPage((prev) => prev + 1);
-        }
+    const recipesCurrent = isFiltering
+        ? recipes
+        : (recipesData?.pages.flatMap((page) => page.data) ?? []);
+    const isLastPage = isFiltering ? isFiltering : !hasNextPage && !isLoading;
+    const loadRecipes = () => {
+        fetchNextPage();
     };
 
     const handleFilterRecipes = async () => await triggerRecipes(queryFilters);

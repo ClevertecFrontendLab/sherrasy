@@ -5,7 +5,8 @@ import { useNavigate, useParams } from 'react-router';
 
 import authorAvatar from '~/assets/images/avatar/author-avatar.jpg';
 import { AuthorCard } from '~/components/cards/user-cards/author-card';
-import { Layout } from '~/components/layout/layout';
+import { OverlayWithLoader } from '~/components/layout/overlay/overlayWithLoader';
+import { Layout } from '~/components/layout/page-layout/layout';
 import { NewSection } from '~/components/new-section/new-section';
 import { RecipeDetails } from '~/components/recipe-details/recipe-details';
 import { RecipeHeader } from '~/components/recipe-header/recipe-header';
@@ -27,12 +28,15 @@ export const RecipePage = () => {
     const { data: recipe, isFetching, error } = useGetRecipeByIdQuery(recipeId ?? skipToken);
 
     useEffect(() => {
-        if (!isFetching) {
-            if (error || !recipe) {
-                navigate(-1);
-            }
+        if (isFetching) return;
+        if (error || !recipe) {
+            navigate(-1);
         }
     }, [recipe, isFetching, error, navigate]);
+
+    if (isFetching) {
+        return <OverlayWithLoader isOpen={isFetching}></OverlayWithLoader>;
+    }
 
     if (!recipe || error) {
         return null;

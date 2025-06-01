@@ -22,6 +22,7 @@ const initialState: RecipeState = {
         allergens: null,
     },
     searchString: null,
+    recipeName: null,
 };
 
 export const recipeSlice = createSlice({
@@ -30,6 +31,9 @@ export const recipeSlice = createSlice({
     reducers: {
         updateIsFiltering: (state, { payload }: PayloadAction<boolean>) => {
             state.isFiltering = payload;
+        },
+        setRecipeName: (state, { payload }: PayloadAction<string>) => {
+            state.recipeName = payload;
         },
         setIsLoadingFiltered: (state, { payload }: PayloadAction<boolean>) => {
             state.isLoading = payload;
@@ -85,6 +89,7 @@ export const {
     clearFilters,
     setIsLoadingFiltered,
     updateHasRecipes,
+    setRecipeName,
 } = recipeSlice.actions;
 
 export default recipeSlice.reducer;

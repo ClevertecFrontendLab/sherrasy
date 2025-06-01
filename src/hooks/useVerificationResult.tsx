@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react';
 import { useLocation, useNavigate, useSearchParams } from 'react-router';
 
 import { AppRoute, DEFAULT_VERIFIED, LocalStorageKey } from '~/utils/constant';
-import { setDataToLocalStorage } from '~/utils/helpers';
+import { setDataToLocalStorage } from '~/utils/helpers/localstorage-helpers';
 
 export const useVerificationResult = () => {
     const { pathname } = useLocation();

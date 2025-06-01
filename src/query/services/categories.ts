@@ -6,7 +6,8 @@ import { apiSlice } from '~/query/create-api.ts';
 import { setBackupCategories } from '~/store/categories/categories-slice';
 import { Category } from '~/types/category.type';
 import { DEFAULT_ERROR_LOG, LocalStorageKey } from '~/utils/constant';
-import { setDataToLocalStorage, updateImagePath } from '~/utils/helpers';
+import { updateImagePath } from '~/utils/helpers/format-images';
+import { setDataToLocalStorage } from '~/utils/helpers/localstorage-helpers';
 
 export const categoryApiSlice = apiSlice
     .enhanceEndpoints({

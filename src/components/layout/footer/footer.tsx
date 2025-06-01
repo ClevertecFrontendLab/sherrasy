@@ -1,14 +1,17 @@
 import { Avatar, Box, Button, Circle, Flex, Text, useMediaQuery } from '@chakra-ui/react';
+import { useNavigate } from 'react-router';
 
 import { HomeIcon, PenIcon, SearchIcon } from '~/assets/icons/icons';
 import userAvatar from '~/assets/images/avatar/photo-dekstop.jpg';
+import { AppRoute } from '~/utils/constant';
 import { TestIdName } from '~/utils/testId-name.enum';
 
 import styles from './footer.module.css';
 
 export const Footer = () => {
     const [isDesktop] = useMediaQuery('(min-width: 1440px)');
-
+    const navigate = useNavigate();
+    const handleCreateNewClick = () => navigate(AppRoute.NewRecipe);
     return (
         <Box
             minW='100%'
@@ -71,6 +74,7 @@ export const Footer = () => {
                     size='lg'
                     w={{ base: '5.625rem', sm: '12rem' }}
                     className={styles.footerBtn}
+                    onClick={handleCreateNewClick}
                 >
                     <Flex direction='column' align='center' justify='center' gap={1}>
                         <Circle size='2.5rem' className={styles.footerIcon} mt='1px'>

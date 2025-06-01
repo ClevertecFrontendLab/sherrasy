@@ -13,6 +13,9 @@ export const getRecipeParams = (
     sortParams?: { limit?: number; page?: number; sortOrder?: 'asc' | 'desc'; sortBy?: string },
 ) => sortParams;
 
+export const getRecipeName = (state: Pick<State, ReducerName.Recipe>): string =>
+    state[ReducerName.Recipe].recipeName || '';
+
 export const getRecipesSearchString = (state: Pick<State, ReducerName.Recipe>): string =>
     state[ReducerName.Recipe].searchString || '';
 

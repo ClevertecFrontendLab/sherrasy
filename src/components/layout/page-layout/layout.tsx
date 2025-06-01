@@ -1,14 +1,14 @@
 import { Center, Flex, useMediaQuery } from '@chakra-ui/react';
 import { PropsWithChildren } from 'react';
 
+import { AlertToastContainer } from '~/components/alert-error/alert-toast-container';
+import { MenuDishes } from '~/components/menu-dishes/menu-dishes';
 import { useGetCategoriesQuery } from '~/query/services/categories';
 import { getAppLoading } from '~/store/app-status/selectors';
 import { useAppSelector } from '~/store/hooks';
 
-import { AlertToastContainer } from '../alert-error/alert-toast-container';
 import { Footer } from '../footer/footer';
 import { Header } from '../header/header';
-import { MenuDishes } from '../menu-dishes/menu-dishes';
 import { OverlayWithLoader } from '../overlay/overlayWithLoader';
 import { Sidebar } from '../sidebar/sidebar';
 
@@ -45,7 +45,7 @@ export const Layout = ({ children }: LayoutProps) => {
                                 base: '100%',
                                 md: '767px',
                                 lg: '920px',
-                                xl: '1160px',
+                                xl: '1230px',
                                 '2xl': '1380px',
                             }}
                             overflowX='hidden'

@@ -3,7 +3,7 @@ import { useMemo } from 'react';
 import { getCategories } from '~/store/categories/selectors';
 import { useAppSelector } from '~/store/hooks';
 import { Category, Subcategory } from '~/types/category.type';
-import { getRandomElement } from '~/utils/helpers';
+import { getRandomElement } from '~/utils/helpers/helpers';
 
 export const useRandomCategory = (categoryId?: string) => {
     const categories = useAppSelector(getCategories);

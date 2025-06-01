@@ -15,6 +15,10 @@ export interface RecipeStep {
     description: string;
     image: string;
 }
+export interface RecipeMeasureUnit {
+    _id: string;
+    name: string;
+}
 
 export interface RecipeMeta {
     limit: number;
@@ -33,7 +37,7 @@ export interface FullRecipe {
     likes: number;
     views: number;
     createdAt: string;
-    time: string;
+    time: number;
     portions: number;
     nutritionValue: NutritionValue;
     ingredients: Ingredient[];

@@ -4,7 +4,7 @@ import { useGetCategoriesQuery } from '~/query/services/categories';
 import { getCategories } from '~/store/categories/selectors';
 import { useAppSelector } from '~/store/hooks';
 import { AppRoute } from '~/utils/constant';
-import { getTabNames } from '~/utils/helpers';
+import { getTabNames } from '~/utils/helpers/categories-helpers';
 
 export const withCatSubValidation = (WrappedComponent: React.ComponentType) => () => {
     const { categoryId, subcategoryId } = useParams();

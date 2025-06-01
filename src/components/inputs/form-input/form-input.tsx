@@ -15,13 +15,13 @@ import { InputNameToLabel, InputNameToPlaceholder } from '~/utils/forms.constant
 interface FormInputProps<T extends FieldValues> extends Omit<InputProps, 'name'> {
     name: Path<T>;
     formMethods: UseFormReturn<T>;
-    onSubmit: () => void;
+    onSubmit?: () => void;
     testId?: string;
     textHelper?: string;
     stepOneValid?: boolean;
 }
 
-export function FormInput<T extends FieldValues>({
+export const FormInput = <T extends FieldValues>({
     name,
     formMethods,
     testId,
@@ -29,7 +29,7 @@ export function FormInput<T extends FieldValues>({
     onSubmit,
     stepOneValid,
     ...props
-}: FormInputProps<T>) {
+}: FormInputProps<T>) => {
     const {
         register,
         formState: { errors, isValid },
@@ -65,4 +65,4 @@ export function FormInput<T extends FieldValues>({
             {errorText && <FormErrorMessage>{errorText}</FormErrorMessage>}
         </FormControl>
     );
-}
+};

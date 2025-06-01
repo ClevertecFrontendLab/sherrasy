@@ -30,7 +30,6 @@ export const handleTokenRefresh = async (
     );
     if (refreshResult?.data) {
         const response = (refreshResult.meta as ApiMeta)?.response;
-
         const newToken = response?.headers.get('Authentication-Access');
 
         if (newToken) {

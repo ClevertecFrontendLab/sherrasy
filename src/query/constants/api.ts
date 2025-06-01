@@ -1,5 +1,6 @@
 export enum ApiEndpoints {
     RECIPE = '/recipe',
+    RECIPE_DRAFT = '/recipe/draft',
     RECIPIES_BY_CATEGORY = '/recipe/category',
     RECIPIES_BY_USER = '/recipe/user',
     CATEGORY = '/category',
@@ -11,4 +12,8 @@ export enum ApiEndpoints {
     AUTH_FORGOT_PASSWORD = '/auth/forgot-password',
     AUTH_VERIFY_OTP = '/auth/verify-otp',
     AUTH_RESET_PASSWORD = '/auth/reset-password',
+    MEASURE_UNITS = 'measure-units',
+    LIKE = 'like',
+    BOOKMARK = 'bookmark',
+    UPLOAD_FILE = '/file/upload',
 }

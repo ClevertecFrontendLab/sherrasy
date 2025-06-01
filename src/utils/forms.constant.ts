@@ -13,6 +13,7 @@ export const ValidationMessage = {
     RequiredPassword: 'Введите пароль',
     RequiredPasswordConfirm: 'Повторите пароль',
     RequiredEmail: 'Введите e-mail',
+    EmptyMessage: ' ',
     InvalidNameLetter: 'Должно начинаться с кириллицы А-Я',
     InvalidName: 'Только кириллица А-Я, и "-"',
     InvalidEmail: 'Введите корректный e-mail',
@@ -28,6 +29,14 @@ export const InputNameToPlaceholder: Record<string, string> = {
     login: 'Введите логин',
     password: 'Пароль для сайта',
     confirmPassword: 'Повторите пароль',
+    title: 'Название рецепта',
+    description: 'Краткое описание рецепта',
+    categoriesIds: 'Категория рецепта',
+    portions: '0',
+    time: '0',
+    ingredientName: 'Ингредиент',
+    ingredientAmount: '100',
+    stepDescription: 'Шаг',
 };
 
 export const InputNameToLabel: Record<string, string> = {
@@ -37,6 +46,11 @@ export const InputNameToLabel: Record<string, string> = {
     login: 'Логин для входа на сайт',
     password: 'Пароль',
     confirmPassword: 'Повторите пароль',
+    title: '',
+    description: '',
+    categoriesIds: 'Выберите не менее 3-х тегов',
+    portions: 'На сколько человек ваш рецепт?',
+    time: 'Сколько времени готовить в минутах?',
 };
 
 export const InputNameToHelper: Record<string, string> = {

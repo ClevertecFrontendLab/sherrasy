@@ -1,7 +1,9 @@
 import { createBrowserRouter, Navigate } from 'react-router';
 
+import { EditRecipePage } from '~/pages/edit-recipe-page';
 import { JuicyPage } from '~/pages/juicy-page';
 import { MainPage } from '~/pages/main-page';
+import { NewRecipePage } from '~/pages/new-recipe-page';
 import { NotFoundPage } from '~/pages/not-found-page';
 import { RecipePage } from '~/pages/recipe-page';
 import { SignInPage } from '~/pages/sign-in-page';
@@ -33,6 +35,14 @@ const router = createBrowserRouter([
         element: protectedRoute(<NotFoundPage />),
     },
     {
+        path: AppRoute.NewRecipe,
+        element: protectedRoute(<NewRecipePage />),
+    },
+    {
+        path: AppRoute.EditRecipe,
+        element: protectedRoute(<EditRecipePage />),
+    },
+    {
         path: AppRoute.SignIn,
         element: publicRoute(<SignInPage />),
     },
@@ -44,7 +54,6 @@ const router = createBrowserRouter([
         path: AppRoute.Verification,
         element: publicRoute(<SignUpPage />),
     },
-
     {
         path: '*',
         element: <Navigate to={AppRoute.NotFound} replace />,

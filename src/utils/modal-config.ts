@@ -11,6 +11,12 @@ export const MODAL_CONFIGS: Record<ModalType, ModalConfig> = {
         icon: loginErrorImage,
         type: 'login',
     },
+    exitRecipe: {
+        bodyText: ['Чтобы сохранить, нажмите кнопку \n сохранить черновик'],
+        header: 'Выйти без сохранения?',
+        icon: loginErrorImage,
+        type: 'exitRecipe',
+    },
     verification: {
         bodyText: ['Мы отправили вам на почту', 'email', 'ссылку для верификации.'],
         footerText: 'Не пришло письмо? Проверьте папку Спам. \n По другим вопросам свяжитесь',
@@ -44,5 +50,9 @@ export const MODAL_CONFIGS: Record<ModalType, ModalConfig> = {
     recoveryForm: {
         header: 'Восстановление аккаунта',
         type: 'recoveryForm',
+    },
+    imageLoad: {
+        header: 'Изображение',
+        type: 'imageLoad',
     },
 };

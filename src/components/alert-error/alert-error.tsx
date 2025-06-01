@@ -25,7 +25,10 @@ export const AlertError = ({ onClose, messageData, isCentered }: AlertErrrorProp
     if (!messageData) return null;
     const { type, title, description } = messageData;
     const showDescription = type === 'error' && description;
-    const containerWidth = isCentered ? '100%' : { base: '100%', lg: '50%' };
+    const containerWidth = isCentered
+        ? { base: '100%', xl: 'min-content' }
+        : { base: '100%', lg: '50%' };
+    const transformContainer = isCentered ? { xl: 'translateX(40vw)' } : undefined;
     const handleClose = () => {
         dispatch(setAppMessage(null));
         onClose();
@@ -35,8 +38,9 @@ export const AlertError = ({ onClose, messageData, isCentered }: AlertErrrorProp
             <Center
                 position='fixed'
                 zIndex={1441}
-                bottom={{ base: '80px', sm: '100px', lg: '16px' }}
+                bottom={{ base: '80px', sm: '100px', lg: '16px', xl: '80px' }}
                 width={containerWidth}
+                transform={transformContainer}
             >
                 <Alert
                     status={type}

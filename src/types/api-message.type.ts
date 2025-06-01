@@ -7,6 +7,7 @@ export type ApiMessage = {
 };
 
 export type AlertMessage = {
+    id: string;
     title: string;
     type: 'error' | 'success';
     description?: string;

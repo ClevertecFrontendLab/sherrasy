@@ -7,7 +7,7 @@ import App from '~/app/App.tsx';
 import { store } from '~/store/configure-store.ts';
 
 import { theme } from './chakra-ui.theme';
-import { configureTestMode } from './utils/helpers';
+import { configureTestMode } from './utils/helpers/configure-tests-mode';
 
 configureTestMode();
 

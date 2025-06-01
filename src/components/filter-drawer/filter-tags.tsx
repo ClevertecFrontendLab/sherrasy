@@ -6,7 +6,7 @@ import { updateFilter } from '~/store/recipes/recipes-slice';
 import { RecipeFilters } from '~/types/state.type';
 import filterData from '~/utils/data/filters-data.json';
 import { cookBlog } from '~/utils/data/mock-cards.json';
-import { getMultiselectCategories } from '~/utils/helpers';
+import { getMultiselectCategories } from '~/utils/helpers/categories-helpers';
 import { TestIdName } from '~/utils/testId-name.enum';
 
 type FilterTagProps = {

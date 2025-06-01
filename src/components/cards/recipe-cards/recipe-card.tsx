@@ -21,6 +21,7 @@ import { memo } from 'react';
 import { BookmarkIcon, HeartEyesIcon } from '~/assets/icons/icons';
 import { BadgesList } from '~/components/badges-list/badges-list';
 import { withRecipeNavigation } from '~/hoc/withRecipeNavigation';
+import { useBookmarkRecipeMutation } from '~/query/services/recipes';
 import { useAppSelector } from '~/store/hooks';
 import { getRecipesSearchString } from '~/store/recipes/selectors';
 import { FullRecipe } from '~/types/recipe.interface';
@@ -126,6 +127,7 @@ const VerticalRecipeCard = memo(({ recipe, onClick, testI }: CardProps) => {
 
 const HorizontalRecipeCard = ({ recipe, onClick, testI }: CardProps) => {
     const {
+        _id,
         title = '',
         image,
         description,
@@ -135,11 +137,14 @@ const HorizontalRecipeCard = ({ recipe, onClick, testI }: CardProps) => {
         recommendedBy,
     } = recipe;
     const searchString = useAppSelector(getRecipesSearchString);
+    const [bookmarkRecipe] = useBookmarkRecipeMutation();
     const author = recommendedBy
         ? cookBlog.find((item) => +item.id === recommendedBy) || null
         : null;
     const [isDesktop] = useMediaQuery('(min-width: 1440px)');
     const hilghlightStr = searchString ? searchString : '';
+    const handleBookmarkClick = async () => await bookmarkRecipe(_id);
+
     return (
         <Card direction='row' variant='hCard' data-test-id={testI?.includes('food') ? testI : ''}>
             <Box position='relative' maxW='50%' maxH='min-content'>
@@ -149,8 +154,24 @@ const HorizontalRecipeCard = ({ recipe, onClick, testI }: CardProps) => {
                     aspectRatio={16 / 9}
                     src={image}
                     alt={title}
-                    minW={['9.25rem', '9.875rem', '9.625rem', '9.875rem', '21.625rem']}
-                    maxW={['9.25rem', '9.875rem', '9.625rem', '9.875rem', '21.625rem']}
+                    minW={[
+                        '9.25rem',
+                        '9.875rem',
+                        '9.625rem',
+                        '9.875rem',
+                        '21.625rem',
+                        '15.5rem',
+                        '21.625rem',
+                    ]}
+                    maxW={[
+                        '9.25rem',
+                        '9.875rem',
+                        '9.625rem',
+                        '9.875rem',
+                        '21.625rem',
+                        '15.5rem',
+                        '21.625rem',
+                    ]}
                     h='100%'
                     borderTopLeftRadius={{ base: 'md', md: 'lg' }}
                     borderBottomLeftRadius={{ base: 'md', md: 'lg' }}
@@ -238,7 +259,7 @@ const HorizontalRecipeCard = ({ recipe, onClick, testI }: CardProps) => {
                         pr={{ lg: 0.5, '2xl': 1 }}
                         textAlign='start'
                         minH={{ base: '55px', xs: '48px' }}
-                        maxW={{ base: '94%', lg: '100%' }}
+                        maxW={{ base: '94%', lg: '100%', xl: '19.625rem', '2xl': '100%' }}
                     >
                         <Text
                             size='md'
@@ -273,6 +294,7 @@ const HorizontalRecipeCard = ({ recipe, onClick, testI }: CardProps) => {
                         colorScheme='black'
                         size={{ base: 'xs', lg: 'sm' }}
                         w={{ base: 4, lg: 'initial' }}
+                        onClick={handleBookmarkClick}
                     >
                         <BookmarkIcon color='black' />
                         <Text ml={2} display={{ base: 'none', lg: 'inline' }}>

@@ -2,10 +2,10 @@ import { Flex, Image, Show, Text } from '@chakra-ui/react';
 import { PropsWithChildren } from 'react';
 
 import logo from '~/assets/images/logo/logo.svg';
+import { AlertToastContainer } from '~/components/alert-error/alert-toast-container';
 import { getAppLoading } from '~/store/app-status/selectors';
 import { useAppSelector } from '~/store/hooks';
 
-import { AlertToastContainer } from '../alert-error/alert-toast-container';
 import { OverlayWithLoader } from '../overlay/overlayWithLoader';
 import { LoginSidebar } from '../sidebar/login-sidebar';
 
