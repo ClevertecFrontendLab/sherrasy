@@ -33,12 +33,17 @@ export const getFlowTestId = (type?: ModalType) => {
     }
 };
 
-export const checkRecipeAuthor = (recipeAuthorId: string) => {
+export const getCurrentId = () => {
     const token = localStorage.getItem(LocalStorageKey.AToken);
-    if (!token) return false;
+    if (!token) return null;
 
     const decoded = jwtDecode<TokenPayloadData>(token);
-    return decoded.userId === recipeAuthorId;
+    return decoded.userId;
+};
+
+export const checkRecipeAuthor = (recipeAuthorId: string) => {
+    const userId = getCurrentId();
+    return userId === recipeAuthorId;
 };
 
 export const isRecipeEditOrCreatePath = (pathname: string): boolean => {
@@ -46,4 +51,13 @@ export const isRecipeEditOrCreatePath = (pathname: string): boolean => {
     const editRecipePath = AppRoute.EditRecipe.split('/:')[0];
 
     return pathname === newRecipePath || pathname.startsWith(editRecipePath);
+};
+
+export const findNameById = <T extends { name?: string }>(
+    array: T[],
+    id: string,
+    getId: (item: T) => string | undefined,
+): string => {
+    const item = array.find((item) => getId(item) === id);
+    return item?.name || id;
 };

@@ -46,7 +46,7 @@ export const JuicyPage = () => {
     const recipesCurrent = isFiltering
         ? recipes
         : (recipesData?.pages.flatMap((page) => page.data) ?? []);
-    const isLastPage = isFiltering ? isFiltering : !hasNextPage && !isLoading;
+    const isLastPage = isFiltering || (!hasNextPage && !isLoading);
     const loadRecipes = () => {
         fetchNextPage();
     };
@@ -63,36 +63,34 @@ export const JuicyPage = () => {
     );
 
     return (
-        <>
-            <Layout>
-                <ContentHeader headline='Самое сочное' handleFilterRecipes={handleFilterRecipes} />
-                <Box
-                    mt={{ base: 8, sm: 4, lg: 3 }}
-                    pl={{ base: 4, sm: 5 }}
-                    pr={{ base: 0, sm: 5 }}
-                    alignSelf='start'
-                    width='100%'
-                >
-                    <Flex direction='column' gap={{ base: 3, sm: 3.5 }} justify='center'>
-                        <RecipesList recipes={recipesCurrent ?? []} />
-                        {!isLastPage && (
-                            <Button
-                                bg='lime.400'
-                                mt={1}
-                                size='md'
-                                alignSelf='center'
-                                data-test-id={TestIdName.LoadMoreBtn}
-                                onClick={loadRecipes}
-                            >
-                                <Text fontWeight={600} fontSize='md' lineHeight={6}>
-                                    {isFetching ? 'Загрузка' : 'Загрузить еще'}
-                                </Text>
-                            </Button>
-                        )}
-                    </Flex>
-                </Box>
-                <RelevantKitchenSection />
-            </Layout>
-        </>
+        <Layout>
+            <ContentHeader headline='Самое сочное' handleFilterRecipes={handleFilterRecipes} />
+            <Box
+                mt={{ base: 8, sm: 4, lg: 3 }}
+                pl={{ base: 4, sm: 5 }}
+                pr={{ base: 0, sm: 5 }}
+                alignSelf='start'
+                width='100%'
+            >
+                <Flex direction='column' gap={{ base: 3, sm: 3.5 }} justify='center'>
+                    <RecipesList recipes={recipesCurrent ?? []} />
+                    {!isLastPage && (
+                        <Button
+                            bg='lime.400'
+                            mt={1}
+                            size='md'
+                            alignSelf='center'
+                            data-test-id={TestIdName.LoadMoreBtn}
+                            onClick={loadRecipes}
+                        >
+                            <Text fontWeight={600} fontSize='md' lineHeight={6}>
+                                {isFetching ? 'Загрузка' : 'Загрузить еще'}
+                            </Text>
+                        </Button>
+                    )}
+                </Flex>
+            </Box>
+            <RelevantKitchenSection />
+        </Layout>
     );
 };

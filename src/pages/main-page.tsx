@@ -29,30 +29,28 @@ export const MainPage = () => {
     );
 
     return (
-        <>
-            <Layout>
-                <ContentHeader
-                    headline='Приятного аппетита!'
-                    handleFilterRecipes={handleFilterRecipes}
-                />
-                {isFiltering ? (
-                    <Box
-                        mt={{ base: 8, sm: 4, lg: 3 }}
-                        px={{ base: 4, lg: 0 }}
-                        w={{ base: '100%', lg: 'auto' }}
-                        alignSelf='center'
-                    >
-                        <RecipesList recipes={recipes} />
-                    </Box>
-                ) : (
-                    <Box alignSelf='start'>
-                        <NewSection />
-                        <JuicySection />
-                        <CookBlogSection />
-                    </Box>
-                )}{' '}
-                <RelevantKitchenSection />
-            </Layout>
-        </>
+        <Layout>
+            <ContentHeader
+                headline='Приятного аппетита!'
+                handleFilterRecipes={handleFilterRecipes}
+            />
+            {isFiltering ? (
+                <Box
+                    mt={{ base: 8, sm: 4, lg: 3 }}
+                    px={{ base: 4, lg: 0 }}
+                    w={{ base: '100%', lg: 'auto' }}
+                    alignSelf='center'
+                >
+                    <RecipesList recipes={recipes} />
+                </Box>
+            ) : (
+                <Box alignSelf='start'>
+                    <NewSection />
+                    <JuicySection />
+                    <CookBlogSection />
+                </Box>
+            )}{' '}
+            <RelevantKitchenSection />
+        </Layout>
     );
 };

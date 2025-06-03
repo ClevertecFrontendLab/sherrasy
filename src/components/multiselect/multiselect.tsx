@@ -23,6 +23,7 @@ import { updateFilter } from '~/store/recipes/recipes-slice';
 import { getActiveFilters, getPendingFilters } from '~/store/recipes/selectors';
 import { MultiselectItem } from '~/types/filter-item.type';
 import { RecipeFilters } from '~/types/state.type';
+import { findNameById } from '~/utils/helpers/helpers';
 import { TestIdName } from '~/utils/testId-name.enum';
 
 import { ScrollArea } from '../scrollarea/scrollarea';
@@ -103,11 +104,6 @@ export const MultiSelect = ({
         updateData(selectedValues);
     };
 
-    const getNameById = (id: string) => data.find((item) => item.id === id)?.name || id;
-
-    const getNameByCategories = (id: string) =>
-        data.find((item) => item.elements === id)?.name || id;
-
     const handleAddCustomItem = () => {
         const value = inputRef.current?.value.trim();
         if (value && !selectedItems.includes(value)) {
@@ -167,8 +163,8 @@ export const MultiSelect = ({
                             >
                                 <TagLabel display='inline-block'>
                                     {type === 'categories'
-                                        ? getNameByCategories(item)
-                                        : getNameById(item)}
+                                        ? findNameById(data, item, (item) => item.elements)
+                                        : findNameById(data, item, (item) => item.id)}
                                 </TagLabel>
                                 {!isDrawerActive && type === 'allergies-filter' && (
                                     <TagCloseButton

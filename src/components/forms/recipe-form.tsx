@@ -11,7 +11,7 @@ import {
     useCreateRecipeMutation,
     useSaveDraftRecipeMutation,
     useUpdateRecipeMutation,
-} from '~/query/services/recipes';
+} from '~/query/services/recipe';
 import { getCategories } from '~/store/categories/selectors';
 import { useAppSelector } from '~/store/hooks';
 import { FullRecipe } from '~/types/recipe.interface';
@@ -50,7 +50,7 @@ export const RecipeForm = ({ recipe, type }: RecipeFormProps) => {
     const [saveDraft, { isSuccess: isSaved }] = useSaveDraftRecipeMutation();
     const [editRecipe, { data: updatedRecipe, isSuccess: isUpdated }] = useUpdateRecipeMutation();
     const navigate = useNavigate();
-    const recipeId = recipe ? recipe._id : '';
+    const recipeId = recipe?._id ?? '';
     const formMethods = useForm<RecipeFormData>({
         mode: 'onSubmit',
         reValidateMode: 'onSubmit',

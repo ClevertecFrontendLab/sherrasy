@@ -41,30 +41,28 @@ const VeganPageComponent = () => {
         description: categoryInfo?.description,
     };
     return (
-        <>
-            <Layout>
-                <ContentHeader
-                    headline={contentData.headline}
-                    description={contentData.description}
-                    handleFilterRecipes={handleFilterRecipes}
-                />
-                {isFiltering ? (
-                    <Box
-                        mt={{ base: 8, sm: 4, lg: 3 }}
-                        px={{ base: 4, lg: 0 }}
-                        w={{ base: '100%', lg: 'auto' }}
-                        alignSelf='center'
-                    >
-                        <RecipesList recipes={recipes} />
-                    </Box>
-                ) : (
-                    <Box pl={{ base: 4, sm: 5 }} pr={{ base: 0, sm: 5 }} w='100%' alignSelf='start'>
-                        <RecipesTabs tabsNames={tabsNames} />
-                    </Box>
-                )}
-                <RelevantKitchenSection />
-            </Layout>
-        </>
+        <Layout>
+            <ContentHeader
+                headline={contentData.headline}
+                description={contentData.description}
+                handleFilterRecipes={handleFilterRecipes}
+            />
+            {isFiltering ? (
+                <Box
+                    mt={{ base: 8, sm: 4, lg: 3 }}
+                    px={{ base: 4, lg: 0 }}
+                    w={{ base: '100%', lg: 'auto' }}
+                    alignSelf='center'
+                >
+                    <RecipesList recipes={recipes} />
+                </Box>
+            ) : (
+                <Box pl={{ base: 4, sm: 5 }} pr={{ base: 0, sm: 5 }} w='100%' alignSelf='start'>
+                    <RecipesTabs tabsNames={tabsNames} />
+                </Box>
+            )}
+            <RelevantKitchenSection />
+        </Layout>
     );
 };
 export const VeganPage = withCatSubValidation(VeganPageComponent);

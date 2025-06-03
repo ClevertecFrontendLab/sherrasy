@@ -21,7 +21,7 @@ import { memo } from 'react';
 import { BookmarkIcon, HeartEyesIcon } from '~/assets/icons/icons';
 import { BadgesList } from '~/components/badges-list/badges-list';
 import { withRecipeNavigation } from '~/hoc/withRecipeNavigation';
-import { useBookmarkRecipeMutation } from '~/query/services/recipes';
+import { useBookmarkRecipeMutation } from '~/query/services/recipe';
 import { useAppSelector } from '~/store/hooks';
 import { getRecipesSearchString } from '~/store/recipes/selectors';
 import { FullRecipe } from '~/types/recipe.interface';

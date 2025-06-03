@@ -31,10 +31,8 @@ export const EditRecipePage = () => {
     }, [recipe, categoryId, subcategoryId, recipeId, isFetching, dispatch, navigate]);
 
     return (
-        <>
-            <Layout>
-                <RecipeForm recipe={recipe} type='edit' />
-            </Layout>
-        </>
+        <Layout>
+            <RecipeForm recipe={recipe} type='edit' />
+        </Layout>
     );
 };

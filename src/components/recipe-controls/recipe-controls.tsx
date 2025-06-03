@@ -7,7 +7,7 @@ import {
     useBookmarkRecipeMutation,
     useDeleteRecipeMutation,
     useLikeRecipeMutation,
-} from '~/query/services/recipes';
+} from '~/query/services/recipe';
 import { AppRoute } from '~/utils/constant';
 import { TestIdName } from '~/utils/testId-name.enum';
 
