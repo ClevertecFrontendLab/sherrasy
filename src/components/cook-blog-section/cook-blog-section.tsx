@@ -1,31 +1,47 @@
-import { Flex } from '@chakra-ui/react';
+import { SimpleGrid } from '@chakra-ui/react';
 import { useNavigate } from 'react-router';
 
-import { Author } from '~/types/author.interface';
-import { AppRoute } from '~/utils/constant';
-import { cookBlog } from '~/utils/data/mock-cards.json';
+import { useGetBloggersQuery } from '~/query/services/bloggers';
+import { Blogger } from '~/types/blogger.type';
+import { AppRoute, CardsLimit } from '~/utils/constant';
+import { getCookBlogQueryString } from '~/utils/helpers/get-request-query';
+import { getCurrentId } from '~/utils/helpers/helpers';
 
 import { CookBlogCard } from '../cards/user-cards/cook-blog-card';
 import { SectionLayout } from '../layout/section-layout/section-layout';
 
 export const CookBlogSection = () => {
+    const currentUserId = getCurrentId() ?? '';
+    const query = getCookBlogQueryString(
+        { limit: CardsLimit.CookBlogPreview, currentUserId },
+        false,
+    );
+    const { data, isFetching, isError } = useGetBloggersQuery(query);
     const navigate = useNavigate();
     const handleAllClick = async () => {
-        navigate(AppRoute.Main);
+        navigate(AppRoute.CookBlog);
     };
+    if (isError || isFetching || !data) {
+        return null;
+    }
+    const cookBlog = data.others;
     return (
         <SectionLayout type='cook-blog' onBtnClick={handleAllClick} isVibrant>
-            <Flex
+            <SimpleGrid
                 maxW='100%'
                 gap={{ base: 3, lg: 4 }}
                 px={{ base: 3, md: 6 }}
-                justifyContent='space-between'
-                flexDirection={{ base: 'column', sm: 'row' }}
+                templateColumns={{
+                    base: '1',
+                    sm: 'repeat(3, 1fr)',
+                    lg: 'repeat(3, minmax(16.625rem, 1fr))',
+                    '2xl': 'repeat(3, minmax(26.625rem, 1fr))',
+                }}
             >
-                {cookBlog.map((item: Author) => (
-                    <CookBlogCard key={item.id} author={item} />
+                {cookBlog.map((item: Blogger) => (
+                    <CookBlogCard key={item._id} author={item} />
                 ))}
-            </Flex>
+            </SimpleGrid>
         </SectionLayout>
     );
 };

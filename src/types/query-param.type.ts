@@ -12,3 +12,9 @@ export type RecipeQueryParam = {
     sortBy?: string;
     sortOrder?: 'asc' | 'desc';
 };
+
+export type CookBlogQueryParam = {
+    limit?: number;
+    currentUserId?: string;
+    bloggerId?: string;
+};

@@ -13,6 +13,7 @@ export const AppRoute = {
     Verification: '/verification',
     NewRecipe: '/new-recipe',
     EditRecipe: '/edit-recipe/:categoryId/:subcategoryId/:recipeId',
+    CookBlog: '/blog',
 } as const;
 
 export const ApiBase = {
@@ -25,6 +26,9 @@ export const CardsLimit = {
     RelativeKitchen: 5,
     New: 10,
     JuicyPreview: 4,
+    CookBlogPreview: 3,
+    CookBlogOthers: 9,
+    CookBlogAll: 'all',
 };
 
 export const SortingBy = {

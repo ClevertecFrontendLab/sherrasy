@@ -1,15 +1,18 @@
 import { Avatar, Box, Card, CardBody, CardHeader, Flex, Text } from '@chakra-ui/react';
 
-import { Author } from '~/types/author.interface';
+import { Blogger } from '~/types/blogger.type';
 
 type CookCookBlogCardProps = {
-    author: Author;
+    author: Blogger;
 };
 
 export const CookBlogCard = ({ author }: CookCookBlogCardProps) => {
-    const { avatar, name, description, nick } = author;
+    const { firstName, lastName, login: nick, notes } = author;
+    const name = `${firstName} ${lastName}`;
+    const description = notes.length ? notes[0].text : '';
     return (
         <Card
+            maxW={{ '2xl': '26.625rem' }}
             minH={{
                 base: '9rem',
                 xs: '9.5rem',
@@ -29,7 +32,7 @@ export const CookBlogCard = ({ author }: CookCookBlogCardProps) => {
         >
             <CardHeader p={{ base: 3.5, xs: 4, '2xl': 6 }}>
                 <Flex flex='1' gap={{ base: 2, lg: 4, '2xl': 3.5 }} alignItems='center'>
-                    <Avatar size={{ base: 'sm', lg: 'md' }} name={name} src={avatar} />
+                    <Avatar size={{ base: 'sm', lg: 'md' }} name={name} />
                     <Box maxW={{ base: '85%', md: '80%', lg: '70%', '2xl': '80%' }}>
                         <Text fontSize={{ base: 'md', lg: 'lg' }} isTruncated>
                             {name}
@@ -39,7 +42,7 @@ export const CookBlogCard = ({ author }: CookCookBlogCardProps) => {
                             lineHeight={{ base: 4, lg: 5 }}
                             color='blackAlpha.700'
                         >
-                            {nick}
+                            @{nick}
                         </Text>
                     </Box>
                 </Flex>
