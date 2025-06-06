@@ -1,16 +1,16 @@
 import { Box, Flex } from '@chakra-ui/react';
 import { skipToken } from '@reduxjs/toolkit/query';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
 
 import authorAvatar from '~/assets/images/avatar/author-avatar.jpg';
 import { AuthorCard } from '~/components/cards/user-cards/author-card';
 import { OverlayWithLoader } from '~/components/layout/overlay/overlayWithLoader';
 import { Layout } from '~/components/layout/page-layout/layout';
-import { NewSection } from '~/components/new-section/new-section';
 import { RecipeDetails } from '~/components/recipe-details/recipe-details';
 import { RecipeHeader } from '~/components/recipe-header/recipe-header';
 import { RecipeSteps } from '~/components/recipe-steps/recipe-steps';
+import { NewSection } from '~/components/sections/new-section/new-section';
 import { useGetRecipeByIdQuery } from '~/query/services/recipes';
 
 const MockAuthor = {
@@ -25,7 +25,12 @@ const MockAuthor = {
 export const RecipePage = () => {
     const { recipeId } = useParams();
     const navigate = useNavigate();
-    const { data: recipe, isFetching, error } = useGetRecipeByIdQuery(recipeId ?? skipToken);
+    const [isDeleting, setIsDeleting] = useState(false);
+    const {
+        data: recipe,
+        isFetching,
+        error,
+    } = useGetRecipeByIdQuery(isDeleting || !recipeId ? skipToken : recipeId);
 
     useEffect(() => {
         if (isFetching) return;
@@ -50,7 +55,7 @@ export const RecipePage = () => {
                 align='center'
                 mt={{ base: 4, sm: '1.125rem', md: 4, lg: 14 }}
             >
-                <RecipeHeader recipe={recipe} />
+                <RecipeHeader recipe={recipe} onDeleteStart={() => setIsDeleting(true)} />
                 <RecipeDetails
                     portions={portions}
                     nutritionValue={nutritionValue}

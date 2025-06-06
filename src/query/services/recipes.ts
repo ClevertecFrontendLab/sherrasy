@@ -4,6 +4,7 @@ import { EndpointNames } from '~/query/constants/endpoint-names.ts';
 import { Tags } from '~/query/constants/tags.ts';
 import { apiSlice } from '~/query/create-api.ts';
 import { updateHasRecipes, updateIsFiltering } from '~/store/recipes/recipes-slice';
+import { Note } from '~/types/blogger.type';
 import { RecipeQueryParam } from '~/types/query-param.type';
 import { FullRecipe, RecipeMeta } from '~/types/recipe.interface';
 import { CardsLimit, DEFAULT_ERROR_LOG, SortingBy, SortingDirection } from '~/utils/constant';
@@ -13,6 +14,10 @@ import { getRecipeQueryString } from '~/utils/helpers/get-request-query';
 type RecipeResponse = {
     data: FullRecipe[];
     meta: RecipeMeta;
+};
+type RecipeBlogResponse = {
+    notes: Note[];
+    recipes: FullRecipe[];
 };
 
 export const recipesApiSlice = apiSlice
@@ -31,7 +36,7 @@ export const recipesApiSlice = apiSlice
                         name: EndpointNames.GET_RECIPES,
                     };
                 },
-                transformResponse: ({ data }: RecipeResponse) =>
+                transformResponse: ({ data = [] }: RecipeResponse) =>
                     data.map((recipe) => formatRecipeWithImages(recipe)),
                 async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
                     try {
@@ -58,7 +63,7 @@ export const recipesApiSlice = apiSlice
                     apiGroupName: ApiGroupNames.RECIPES,
                     name: EndpointNames.GET_NEW_RECIPIES,
                 }),
-                transformResponse: ({ data }: RecipeResponse) =>
+                transformResponse: ({ data = [] }: RecipeResponse) =>
                     data.map((recipe) => formatRecipeWithImages(recipe)),
                 providesTags: [Tags.RECIPES],
             }),
@@ -69,7 +74,7 @@ export const recipesApiSlice = apiSlice
                     apiGroupName: ApiGroupNames.RECIPES,
                     name: EndpointNames.GET_RELEVANT_RECIPIES,
                 }),
-                transformResponse: ({ data }: RecipeResponse) =>
+                transformResponse: ({ data = [] }: RecipeResponse) =>
                     data.map((recipe) => formatRecipeWithImages(recipe)),
                 providesTags: [Tags.RECIPES],
             }),
@@ -80,7 +85,7 @@ export const recipesApiSlice = apiSlice
                     apiGroupName: ApiGroupNames.RECIPES,
                     name: EndpointNames.GET_RECIPIES_BY_CATEGORY,
                 }),
-                transformResponse: ({ data }: RecipeResponse) =>
+                transformResponse: ({ data = [] }: RecipeResponse) =>
                     data.map((recipe) => formatRecipeWithImages(recipe)),
                 providesTags: [Tags.RECIPES],
             }),
@@ -108,7 +113,7 @@ export const recipesApiSlice = apiSlice
                         name: EndpointNames.GET_JUICIEST_PAGINATED,
                     };
                 },
-                transformResponse: ({ data, meta }: RecipeResponse) => ({
+                transformResponse: ({ data = [], meta }: RecipeResponse) => ({
                     data: data.map((recipe) => formatRecipeWithImages(recipe)),
                     meta,
                 }),
@@ -121,7 +126,7 @@ export const recipesApiSlice = apiSlice
                     apiGroupName: ApiGroupNames.RECIPES,
                     name: EndpointNames.GET_JUICIEST_RECIPIES,
                 }),
-                transformResponse: ({ data, meta }: RecipeResponse) => ({
+                transformResponse: ({ data = [], meta }: RecipeResponse) => ({
                     data: data.map((recipe) => formatRecipeWithImages(recipe)),
                     meta,
                 }),
@@ -137,6 +142,19 @@ export const recipesApiSlice = apiSlice
                 transformResponse: (recipe: FullRecipe) => formatRecipeWithImages(recipe),
                 providesTags: (_result, _error, id) => [{ type: Tags.RECIPE, id }],
             }),
+            getRecipesByUser: builder.query<RecipeBlogResponse, string>({
+                query: (userId) => ({
+                    url: `${ApiEndpoints.RECIPIES_BY_USER}/${userId}`,
+                    method: 'GET',
+                    apiGroupName: ApiGroupNames.RECIPES,
+                    name: EndpointNames.GET_RECIPIES_BY_USER_ID,
+                }),
+                transformResponse: ({ recipes = [], notes = [] }: RecipeBlogResponse) => ({
+                    recipes: recipes.map((recipe) => formatRecipeWithImages(recipe)),
+                    notes,
+                }),
+                providesTags: [Tags.RECIPES],
+            }),
         }),
     });
 
@@ -149,4 +167,5 @@ export const {
     useGetJuiciestPaginatedInfiniteQuery,
     useGetRecipeByIdQuery,
     useLazyGetRecipeByIdQuery,
+    useGetRecipesByUserQuery,
 } = recipesApiSlice;

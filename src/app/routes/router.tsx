@@ -1,5 +1,6 @@
 import { createBrowserRouter, Navigate } from 'react-router';
 
+import { BloggerPage } from '~/pages/blogger-page';
 import { CookBlogPage } from '~/pages/cook-blog-page';
 import { EditRecipePage } from '~/pages/edit-recipe-page';
 import { JuicyPage } from '~/pages/juicy-page';
@@ -46,6 +47,10 @@ const router = createBrowserRouter([
     {
         path: AppRoute.CookBlog,
         element: protectedRoute(<CookBlogPage />),
+    },
+    {
+        path: AppRoute.Blogger,
+        element: protectedRoute(<BloggerPage />),
     },
     {
         path: AppRoute.SignIn,

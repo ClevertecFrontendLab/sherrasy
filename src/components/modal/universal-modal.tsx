@@ -38,18 +38,20 @@ export const UniversalModal = ({
 
     const showEmail = config.type === 'verification' || config.type === 'recoveryPin';
     const hasSupportLink = config.type.includes('verification');
-
+    const isImageModal = config.type === 'imageLoad';
+    const isDraftModal = config.type === 'exitRecipe';
     return (
         <Modal isOpen={isOpen} onClose={onClose} isCentered>
             <ModalOverlay />
             <ModalContent data-test-id={testId || ''}>
-                <ModalHeader>
+                <ModalHeader p={isImageModal ? 0 : 'initial'}>
                     {config.icon && (
                         <Image
                             src={config.icon}
                             alt='modal-icon'
                             w={{ base: '108px', lg: '206px' }}
                             h={{ base: '108px', lg: '206px' }}
+                            mb={isDraftModal ? '22px' : 'initial'}
                         />
                     )}
                     <ModalCloseButton data-test-id={TestIdName.ModalClose} />
@@ -61,7 +63,7 @@ export const UniversalModal = ({
                             fontSize='2xl'
                             lineHeight={8}
                             textAlign='center'
-                            mb={4}
+                            mb={isImageModal ? 6 : 4}
                             w='90%'
                         >
                             {config.header}

@@ -13,7 +13,8 @@ export const AppRoute = {
     Verification: '/verification',
     NewRecipe: '/new-recipe',
     EditRecipe: '/edit-recipe/:categoryId/:subcategoryId/:recipeId',
-    CookBlog: '/blog',
+    CookBlog: '/blogs',
+    Blogger: '/blogs/:userId',
 } as const;
 
 export const ApiBase = {
@@ -28,7 +29,7 @@ export const CardsLimit = {
     JuicyPreview: 4,
     CookBlogPreview: 3,
     CookBlogOthers: 9,
-    CookBlogAll: 'all',
+    All: 'all',
 };
 
 export const SortingBy = {
@@ -39,8 +40,9 @@ export const SortingBy = {
 export const AppRouteToName: Record<string, string> = {
     '/': 'Главная',
     '/vegan': 'Веганская кухня',
-    '/the-juiciest': 'Самое сочное',
-    '/new-recipe': 'Новый рецепт',
+    'the-juiciest': 'Самое сочное',
+    'new-recipe': 'Новый рецепт',
+    blogs: 'Блоги',
 };
 
 export const NutritionToName: Record<string, string> = {

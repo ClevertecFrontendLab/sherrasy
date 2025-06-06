@@ -79,7 +79,7 @@ export const StepCardForm = ({ index, formMethods, fields, onRemove }: StepCardF
             key={index}
             variant='recipeStep'
         >
-            <Box position='relative' w={{ base: '100%', sm: '50%' }}>
+            <Box position='relative' w={{ base: '100%', sm: '52%' }}>
                 <ImagePreview<RecipeFormData>
                     isCard
                     name={`steps.${index}.image`}

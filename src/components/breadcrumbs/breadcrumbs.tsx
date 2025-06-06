@@ -13,13 +13,12 @@ import { TestIdName } from '~/utils/testId-name.enum';
 import { renderCustomBreadcrumb } from './render-breadcrumbs';
 
 export const Breadcrumbs = () => {
-    const DEFAULT_SEGMENTS = ['the-juiciest', 'new-recipe', 'edit-recipe'];
+    const DEFAULT_SEGMENTS = ['the-juiciest', 'new-recipe', 'edit-recipe', 'blogs'];
     const location = useLocation();
     const { categoryId, subcategoryId, recipeId } = useParams<PathParams>();
     const recipeName = useAppSelector(getRecipeName);
     const pathnames = location.pathname.split('/').filter(Boolean);
-    const isJuiciestPath = pathnames.includes(DEFAULT_SEGMENTS[0]);
-    const isNewRecipePath = pathnames.includes(DEFAULT_SEGMENTS[1]);
+    const isDefaultSegment = (segment: string) => DEFAULT_SEGMENTS.includes(segment);
     const isLastFromDefault = (segment: string) => pathnames[pathnames.length - 1] === segment;
     const data = useAppSelector(getCategories);
     if (!data || location.pathname === AppRoute.NotFound) {
@@ -29,10 +28,18 @@ export const Breadcrumbs = () => {
     const category = data.find(({ category }) => category === categoryId);
     const categoryName = category?.title || '';
 
+    const defaultBreadcrumbs = DEFAULT_SEGMENTS.filter((segment) =>
+        pathnames.includes(segment),
+    ).map((segment) => {
+        const name = AppRouteToName[segment];
+        const isLast = isLastFromDefault(segment);
+        return renderCustomBreadcrumb(segment, name, isLast);
+    });
+
     const breadcrumbItems = pathnames.map((segment, index) => {
         const isLast = index === pathnames.length - 1;
 
-        if (DEFAULT_SEGMENTS.includes(segment)) return null;
+        if (isDefaultSegment(segment)) return null;
 
         if (subcategoryId && segment === subcategoryId) {
             return renderCustomBreadcrumb(subcategoryId, '', isLast, {
@@ -71,20 +78,7 @@ export const Breadcrumbs = () => {
                     {AppRouteToName[AppRoute.Main]}
                 </BreadcrumbLink>
             </BreadcrumbItem>
-            {isJuiciestPath && (
-                <BreadcrumbItem isCurrentPage={isLastFromDefault(DEFAULT_SEGMENTS[0])}>
-                    <BreadcrumbLink as={Link} to={AppRoute.Juiciest}>
-                        {AppRouteToName[AppRoute.Juiciest]}
-                    </BreadcrumbLink>
-                </BreadcrumbItem>
-            )}
-            {isNewRecipePath && (
-                <BreadcrumbItem isCurrentPage={isLastFromDefault(DEFAULT_SEGMENTS[1])}>
-                    <BreadcrumbLink as={Link} to={AppRoute.NewRecipe}>
-                        {AppRouteToName[AppRoute.NewRecipe]}
-                    </BreadcrumbLink>
-                </BreadcrumbItem>
-            )}
+            {defaultBreadcrumbs}
             {breadcrumbItems}
         </Breadcrumb>
     );

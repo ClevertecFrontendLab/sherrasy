@@ -22,13 +22,14 @@ export const RecipeFormMain = ({ formMethods }: { formMethods: UseFormReturn<Rec
             gap={{ base: 4, lg: 6 }}
             flexDirection={{ base: 'column', sm: 'row' }}
             w='100%'
+            alignSelf='start'
         >
             <ImagePreview<RecipeFormData>
                 name='image'
                 formMethods={formMethods}
                 testIds={testIds}
             />
-            <VStack w='100%'>
+            <VStack w='100%' maxW={{ base: '100%', lg: '575px', xl: '668px' }} gap='18px'>
                 <SubcategoriesMultiSelect<RecipeFormData>
                     name='categoriesIds'
                     formMethods={formMethods}
@@ -43,16 +44,18 @@ export const RecipeFormMain = ({ formMethods }: { formMethods: UseFormReturn<Rec
                     testId={TestIdName.RecipeDescription}
                     formMethods={formMethods}
                 />
-                <FormNumberInput<RecipeFormData>
-                    name='portions'
-                    testId={TestIdName.RecipePortions}
-                    formMethods={formMethods}
-                />
-                <FormNumberInput<RecipeFormData>
-                    name='time'
-                    testId={TestIdName.RecipeTime}
-                    formMethods={formMethods}
-                />
+                <VStack w='100%' mt={2} gap={6}>
+                    <FormNumberInput<RecipeFormData>
+                        name='portions'
+                        testId={TestIdName.RecipePortions}
+                        formMethods={formMethods}
+                    />
+                    <FormNumberInput<RecipeFormData>
+                        name='time'
+                        testId={TestIdName.RecipeTime}
+                        formMethods={formMethods}
+                    />
+                </VStack>
             </VStack>
         </Stack>
     );

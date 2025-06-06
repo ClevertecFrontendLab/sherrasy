@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { ContentHeader } from '~/components/content-header/content-header';
 import { Layout } from '~/components/layout/page-layout/layout';
 import { RecipesList } from '~/components/recipes-list/recipes-list';
-import { RelevantKitchenSection } from '~/components/relevant-kitchen-section/relevant-kitchen-section';
+import { RelevantKitchenSection } from '~/components/sections/relevant-kitchen-section/relevant-kitchen-section';
 import { Tags } from '~/query/constants/tags';
 import {
     recipesApiSlice,

@@ -14,7 +14,6 @@ export type RecipeQueryParam = {
 };
 
 export type CookBlogQueryParam = {
-    limit?: number;
+    limit?: number | string;
     currentUserId?: string;
-    bloggerId?: string;
 };

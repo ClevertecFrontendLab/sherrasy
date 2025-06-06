@@ -61,3 +61,21 @@ export const findNameById = <T extends { name?: string }>(
     const item = array.find((item) => getId(item) === id);
     return item?.name || id;
 };
+
+export const getRecipeText = (count: number): string => {
+    const lastDigit = count % 10;
+    const lastTwoDigits = count % 100;
+
+    const isSingularForm = lastDigit === 1 && lastTwoDigits !== 11;
+    const isPluralForm1 = [2, 3, 4].includes(lastDigit) && ![12, 13, 14].includes(lastTwoDigits);
+
+    if (isSingularForm) {
+        return `${count} новый рецепт`;
+    }
+
+    if (isPluralForm1) {
+        return `${count} новых рецепта`;
+    }
+
+    return `${count} новых рецептов`;
+};

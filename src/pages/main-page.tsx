@@ -2,12 +2,12 @@ import { Box } from '@chakra-ui/react';
 import { useEffect } from 'react';
 
 import { ContentHeader } from '~/components/content-header/content-header';
-import { CookBlogSection } from '~/components/cook-blog-section/cook-blog-section';
-import { JuicySection } from '~/components/juicy-section/juicy-section';
 import { Layout } from '~/components/layout/page-layout/layout';
-import { NewSection } from '~/components/new-section/new-section';
 import { RecipesList } from '~/components/recipes-list/recipes-list';
-import { RelevantKitchenSection } from '~/components/relevant-kitchen-section/relevant-kitchen-section';
+import { CookBlogSection } from '~/components/sections/cook-blog-section/cook-blog-section';
+import { JuicySection } from '~/components/sections/juicy-section/juicy-section';
+import { NewSection } from '~/components/sections/new-section/new-section';
+import { RelevantKitchenSection } from '~/components/sections/relevant-kitchen-section/relevant-kitchen-section';
 import { useLazyGetRecipesQuery } from '~/query/services/recipes';
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import { clearFilteringParams } from '~/store/recipes/recipes-slice';

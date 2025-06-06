@@ -39,12 +39,12 @@ export const RecipeFormSteps = ({
         <VStack alignItems='start' w='100%'>
             <HStack
                 alignItems='center'
-                mb={4}
+                mb={2}
                 fontSize={{ base: 'sm', lg: 'md' }}
                 lineHeight={{ base: 5, lg: 6 }}
                 fontWeight='semibold'
             >
-                <Text> Добавить шаг приготовления</Text>
+                <Text> Добавить шаги приготовления</Text>
             </HStack>
             {fields.map((field, index) => (
                 <StepCardForm
@@ -56,11 +56,12 @@ export const RecipeFormSteps = ({
                 />
             ))}
             <Button
-                size={{ base: 'sm', sm: 'md' }}
+                size='sm'
                 onClick={handleAddStep}
                 rightIcon={<AddItemIcon />}
                 variant='outline'
                 alignSelf='end'
+                mt={2}
             >
                 Новый шаг
             </Button>

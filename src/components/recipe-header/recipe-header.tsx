@@ -25,9 +25,10 @@ import { RecipeControls } from '../recipe-controls/recipe-controls';
 
 type RecipeHeaderProps = {
     recipe: FullRecipe;
+    onDeleteStart?: () => void;
 };
 
-export const RecipeHeader = ({ recipe }: RecipeHeaderProps) => {
+export const RecipeHeader = ({ recipe, onDeleteStart }: RecipeHeaderProps) => {
     const { _id, title, time, description, categoriesIds, bookmarks, likes, image, authorId } =
         recipe;
     const isAuthor = checkRecipeAuthor(authorId);
@@ -149,7 +150,11 @@ export const RecipeHeader = ({ recipe }: RecipeHeaderProps) => {
                         </Icon>
                         <Text>{time} минут</Text>
                     </Badge>
-                    <RecipeControls isAuthor={isAuthor} recipeId={_id} />
+                    <RecipeControls
+                        isAuthor={isAuthor}
+                        recipeId={_id}
+                        onDeleteStart={onDeleteStart}
+                    />
                 </CardFooter>
             </Stack>
         </Card>

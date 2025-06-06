@@ -1,8 +1,10 @@
 import { Heading } from '@chakra-ui/react';
+import { useState } from 'react';
 
-import { CookBlogListSection } from '~/components/cook-blog-section/cook-blog-list-section';
+import { OverlayWithLoader } from '~/components/layout/overlay/overlayWithLoader';
 import { Layout } from '~/components/layout/page-layout/layout';
-import { NewSection } from '~/components/new-section/new-section';
+import { CookBlogListSection } from '~/components/sections/cook-blog-section/cook-blog-list-section';
+import { NewSection } from '~/components/sections/new-section/new-section';
 import { useGetBloggersQuery } from '~/query/services/bloggers';
 import { CardsLimit } from '~/utils/constant';
 import { getCookBlogQueryString } from '~/utils/helpers/get-request-query';
@@ -10,16 +12,20 @@ import { getCurrentId } from '~/utils/helpers/helpers';
 
 export const CookBlogPage = () => {
     const currentUserId = getCurrentId() ?? '';
-    const query = getCookBlogQueryString(
-        { limit: CardsLimit.CookBlogOthers, currentUserId },
-        false,
-    );
-    const { data, isFetching } = useGetBloggersQuery(query);
-    if (isFetching || !data) {
+    const [limit, setLimit] = useState<string | number>(CardsLimit.CookBlogOthers);
+    const query = getCookBlogQueryString({ limit, currentUserId });
+    const { data, isFetching, error } = useGetBloggersQuery(query);
+
+    const handleShowAll = () => {
+        setLimit(CardsLimit.All);
+    };
+
+    if (!data || error) {
         return null;
     }
     return (
         <Layout>
+            <OverlayWithLoader isOpen={isFetching} />
             <Heading
                 mb={{
                     base: '13px',
@@ -37,7 +43,12 @@ export const CookBlogPage = () => {
                 Кулинарные блоги
             </Heading>
             <CookBlogListSection type='favorite' data={data.favorites} />
-            <CookBlogListSection type='others' data={data.others} />
+            <CookBlogListSection
+                type='others'
+                data={data.others}
+                handleShowAll={handleShowAll}
+                btnHidden={limit === CardsLimit.All}
+            />
             <NewSection />
         </Layout>
     );

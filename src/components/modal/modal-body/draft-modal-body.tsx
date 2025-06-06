@@ -1,4 +1,4 @@
-import { Button } from '@chakra-ui/react';
+import { Button, VStack } from '@chakra-ui/react';
 
 import { EditIcon } from '~/assets/icons/icons';
 
@@ -7,13 +7,13 @@ type DraftModalBodyProps = {
     handleExit: () => void;
 };
 export const DraftModalBody = ({ handleSaveDraft, handleExit }: DraftModalBodyProps) => (
-    <>
-        <Button mt={8} colorScheme='black' w='100%' onClick={handleSaveDraft}>
+    <VStack w='100%' gap={4} mt={8}>
+        <Button colorScheme='black' w='100%' onClick={handleSaveDraft} size='lg'>
             <EditIcon color='white' mr={2} />
             Сохранить черновик
         </Button>
-        <Button mt={4} variant='chost' colorScheme='black' w='100%' onClick={handleExit}>
+        <Button variant='chost' colorScheme='black' w='100%' onClick={handleExit} size='lg'>
             Выйти без сохранения
         </Button>
-    </>
+    </VStack>
 );

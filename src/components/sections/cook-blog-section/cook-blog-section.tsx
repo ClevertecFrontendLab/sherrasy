@@ -7,15 +7,12 @@ import { AppRoute, CardsLimit } from '~/utils/constant';
 import { getCookBlogQueryString } from '~/utils/helpers/get-request-query';
 import { getCurrentId } from '~/utils/helpers/helpers';
 
-import { CookBlogCard } from '../cards/user-cards/cook-blog-card';
-import { SectionLayout } from '../layout/section-layout/section-layout';
+import { CookBlogCard } from '../../cards/user-cards/cook-blog-card/cook-blog-card';
+import { SectionLayout } from '../../layout/section-layout/section-layout';
 
 export const CookBlogSection = () => {
     const currentUserId = getCurrentId() ?? '';
-    const query = getCookBlogQueryString(
-        { limit: CardsLimit.CookBlogPreview, currentUserId },
-        false,
-    );
+    const query = getCookBlogQueryString({ limit: CardsLimit.CookBlogPreview, currentUserId });
     const { data, isFetching, isError } = useGetBloggersQuery(query);
     const navigate = useNavigate();
     const handleAllClick = async () => {

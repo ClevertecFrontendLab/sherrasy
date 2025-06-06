@@ -33,7 +33,7 @@ export function FormNumberInput<T extends FieldValues>({
     const errorText = (errors[name] as FieldError)?.message;
     return (
         <FormControl isInvalid={!!errors[name]}>
-            <HStack>
+            <HStack alignItems='flex-end'>
                 <FormLabel
                     color='black'
                     fontSize={{ base: 'sm', lg: 'md' }}
@@ -47,7 +47,13 @@ export function FormNumberInput<T extends FieldValues>({
                     control={control}
                     name={name}
                     render={({ field: { onChange, value } }) => (
-                        <NumberInput size='md' maxW='5.625rem' value={value} onChange={onChange}>
+                        <NumberInput
+                            size='md'
+                            maxW='5.625rem'
+                            value={value}
+                            onChange={onChange}
+                            ml={1}
+                        >
                             <NumberInputField data-test-id={testId} />
                             <NumberInputStepper>
                                 <NumberIncrementStepper />

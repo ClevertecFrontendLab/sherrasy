@@ -1,35 +1,24 @@
-import { Avatar, Box, Card, CardBody, CardHeader, Flex, Text } from '@chakra-ui/react';
+import { Avatar, Box, Card, CardBody, CardFooter, CardHeader, Flex, Text } from '@chakra-ui/react';
 
 import { Blogger } from '~/types/blogger.type';
 
+import { CookBlogCardControls } from './cook-blog-card-controls';
+
 type CookCookBlogCardProps = {
     author: Blogger;
+    isExtended?: boolean;
+    type?: 'favorite' | 'others';
 };
 
-export const CookBlogCard = ({ author }: CookCookBlogCardProps) => {
+export const CookBlogCard = ({ author, isExtended, type }: CookCookBlogCardProps) => {
     const { firstName, lastName, login: nick, notes } = author;
     const name = `${firstName} ${lastName}`;
     const description = notes.length ? notes[0].text : '';
+    const heightParams = isExtended
+        ? ['13rem', null, null, null, '14rem']
+        : ['9rem', '9.5rem', '9.25rem', '9.5rem', '10rem', '10rem', '11.5rem'];
     return (
-        <Card
-            maxW={{ '2xl': '26.625rem' }}
-            minH={{
-                base: '9rem',
-                xs: '9.5rem',
-                sm: '9.25rem',
-                md: '9.5rem',
-                lg: '10rem',
-                '2xl': '11.5rem',
-            }}
-            maxH={{
-                base: '9rem',
-                xs: '9.5rem',
-                sm: '9.25rem',
-                md: '9.5rem',
-                lg: '10rem',
-                '2xl': '11.5rem',
-            }}
-        >
+        <Card maxW={{ '2xl': '26.625rem' }} minH={heightParams} maxH={heightParams}>
             <CardHeader p={{ base: 3.5, xs: 4, '2xl': 6 }}>
                 <Flex flex='1' gap={{ base: 2, lg: 4, '2xl': 3.5 }} alignItems='center'>
                     <Avatar size={{ base: 'sm', lg: 'md' }} name={name} />
@@ -56,6 +45,12 @@ export const CookBlogCard = ({ author }: CookCookBlogCardProps) => {
                     {description}
                 </Text>
             </CardBody>
+            {isExtended && (
+                <CardFooter pt={0} justify='space-between'>
+                    {' '}
+                    <CookBlogCardControls author={author} type={type} />
+                </CardFooter>
+            )}
         </Card>
     );
 };

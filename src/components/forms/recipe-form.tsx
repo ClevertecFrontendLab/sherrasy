@@ -148,10 +148,14 @@ export const RecipeForm = ({ recipe, type }: RecipeFormProps) => {
                 w='100%'
                 data-test-id={TestIdName.RecipeForm}
                 gap={{ base: 8, lg: 10 }}
-                px={4}
+                px={3}
             >
                 <RecipeFormMain formMethods={formMethods} />
-                <VStack w={{ base: '100%', sm: '604px', lg: '658px' }} alignItems='start'>
+                <VStack
+                    w={{ base: '100%', sm: '604px', lg: '658px', xl: '668px' }}
+                    alignItems='start'
+                    gap={8}
+                >
                     <RecipeFormIngredients formMethods={formMethods} />
                     <RecipeFormSteps formMethods={formMethods} />
                 </VStack>

@@ -6,7 +6,7 @@ import { useRandomCategory } from '~/hooks/useRandomCategory';
 import { useGetRelevantRecipesQuery } from '~/query/services/recipes';
 import { PathParams } from '~/types/params.type';
 
-import { RelevantKitchenCard } from '../cards/recipe-cards/relevant-kitchen-card';
+import { RelevantKitchenCard } from '../../cards/recipe-cards/relevant-kitchen-card';
 
 export const RelevantKitchenSection = () => {
     const { categoryId } = useParams<PathParams>();

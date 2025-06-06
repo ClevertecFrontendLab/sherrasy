@@ -10,6 +10,7 @@ type SectionLayoutProps = PropsWithChildren & {
     type: SectionType;
     isVibrant?: boolean;
     isDull?: boolean;
+    btnHidden?: boolean;
     onBtnClick?: () => void;
 };
 
@@ -51,13 +52,14 @@ export const SectionLayout = ({
     isVibrant,
     isDull,
     onBtnClick,
+    btnHidden,
     children,
 }: SectionLayoutProps) => {
     const { title, btnName, testId, testIdMobile } = DEFAULT_CONFIG[type];
     return (
         <Stack
             w='100%'
-            pt={{ base: 4, sm: 6 }}
+            pt={!isDull ? { base: 4, sm: 6 } : 0}
             borderRadius='1rem'
             mt={isVibrant ? 8 : 0}
             bg={isVibrant ? 'lime.300' : isDull ? 'blackAlpha.50' : 'white'}
@@ -109,7 +111,7 @@ export const SectionLayout = ({
             <Flex align='center' justify={type === 'new' ? 'start' : 'center'}>
                 {children}
             </Flex>
-            {btnName && (
+            {btnName && !btnHidden && (
                 <Flex p={4} justifyContent='center'>
                     <Button
                         size='md'

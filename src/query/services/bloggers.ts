@@ -3,7 +3,12 @@ import { ApiGroupNames } from '~/query/constants/api-group-names.ts';
 import { EndpointNames } from '~/query/constants/endpoint-names.ts';
 import { Tags } from '~/query/constants/tags.ts';
 import { apiSlice } from '~/query/create-api.ts';
-import { Blogger, BloggersFullData } from '~/types/blogger.type';
+import { BloggerFull, BloggersFullData } from '~/types/blogger.type';
+
+export type BloggerParams = {
+    bloggerId: string;
+    queryStr: string;
+};
 
 export const bloggersApiSlice = apiSlice
     .enhanceEndpoints({
@@ -20,14 +25,14 @@ export const bloggersApiSlice = apiSlice
                 }),
                 providesTags: [Tags.BLOGGERS],
             }),
-            getBloggerById: builder.query<Blogger, string>({
-                query: (id) => ({
-                    url: `${ApiEndpoints.BLOGGERS}/${id}`,
+            getBloggerById: builder.query<BloggerFull, string>({
+                query: (query) => ({
+                    url: `${ApiEndpoints.BLOGGERS}/${query}`,
                     method: 'GET',
                     apiGroupName: ApiGroupNames.BLOGGERS,
                     name: EndpointNames.GET_BLOGGER_BY_ID,
                 }),
-                providesTags: (_result, _error, id) => [{ type: Tags.BLOGGER, id }],
+                providesTags: (result) => [{ type: Tags.BLOGGER, id: result?.bloggerInfo._id }],
             }),
             subscribeToBlogger: builder.mutation<unknown, string>({
                 query: (id) => ({

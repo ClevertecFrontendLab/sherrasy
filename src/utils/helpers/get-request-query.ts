@@ -58,12 +58,11 @@ export const getRecipeQueryString = (query: RecipeQueryParam) => {
     return getQueryString(params);
 };
 
-export const getCookBlogQueryString = (query: CookBlogQueryParam, isSubscription: boolean) => {
-    const { limit, currentUserId, bloggerId } = query;
+export const getCookBlogQueryString = (query: CookBlogQueryParam) => {
+    const { limit, currentUserId } = query;
     const params = [
         createQueryParam('limit', limit),
-        createQueryParam(isSubscription ? 'fromUserId' : 'currentUserId', currentUserId),
-        createQueryParam(isSubscription ? 'toUserId' : 'bloggerId', bloggerId),
+        createQueryParam('currentUserId', currentUserId),
     ];
 
     return getQueryString(params);
