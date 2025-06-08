@@ -7,7 +7,7 @@ import { Layout } from '~/components/layout/page-layout/layout';
 import { useGetRecipeByIdQuery } from '~/query/services/recipes';
 import { useAppDispatch } from '~/store/hooks';
 import { setRecipeName } from '~/store/recipes/recipes-slice';
-import { checkRecipeAuthor } from '~/utils/helpers/helpers';
+import { checkRecipeAuthor } from '~/utils/helpers/blogger-author-helpers';
 
 export const EditRecipePage = () => {
     const { categoryId, subcategoryId, recipeId } = useParams();

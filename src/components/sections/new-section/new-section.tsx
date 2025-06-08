@@ -36,7 +36,7 @@ export const NewSection = () => {
         return <Box mt={{ base: 3.5, xs: 4, lg: '2.5rem' }} pl={0}></Box>;
     }
     return (
-        <SectionLayout type='new'>
+        <SectionLayout type='new' title='Новые рецепты'>
             <Box maxW='100%' ml={{ lg: 2 }}>
                 <Box
                     position='relative'

@@ -1,9 +1,6 @@
-import { jwtDecode } from 'jwt-decode';
-
 import { ModalType } from '~/types/modal.type';
-import { TokenPayloadData } from '~/types/token-payload.type';
 
-import { AppRoute, LocalStorageKey } from '../constant';
+import { AppRoute } from '../constant';
 import { TestIdName } from '../testId-name.enum';
 
 export const getRandomElement = <T extends Record<string, unknown>>(
@@ -31,19 +28,6 @@ export const getFlowTestId = (type?: ModalType) => {
         default:
             return null;
     }
-};
-
-export const getCurrentId = () => {
-    const token = localStorage.getItem(LocalStorageKey.AToken);
-    if (!token) return null;
-
-    const decoded = jwtDecode<TokenPayloadData>(token);
-    return decoded.userId;
-};
-
-export const checkRecipeAuthor = (recipeAuthorId: string) => {
-    const userId = getCurrentId();
-    return userId === recipeAuthorId;
 };
 
 export const isRecipeEditOrCreatePath = (pathname: string): boolean => {

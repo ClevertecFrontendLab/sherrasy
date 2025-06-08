@@ -3,8 +3,11 @@ import { useState } from 'react';
 import { Link } from 'react-router';
 
 import { BookmarkIcon, PeopleIconOutline, SubscribeIcon } from '~/assets/icons/icons';
+import { setBloggerName } from '~/store/blogger/blogger-slice';
+import { useAppDispatch } from '~/store/hooks';
 import { Blogger } from '~/types/blogger.type';
 import { AppRoute } from '~/utils/constant';
+import { getBloggerCardName } from '~/utils/helpers/blogger-author-helpers';
 import { getRecipeText } from '~/utils/helpers/helpers';
 
 type BloggerStatsProps = {
@@ -37,51 +40,61 @@ const BloggerStats = ({ subscribersCount, bookmarksCount }: BloggerStatsProps) =
     </HStack>
 );
 
-const FavoriteControls = ({ author }: CookBlogCardControlsProps) => (
-    <>
-        <ButtonGroup>
-            <Button
-                variant='solid'
-                colorScheme='lime'
-                color='black'
-                size='xs'
-                as={Link}
-                to={`${AppRoute.CookBlog}/${author._id}`}
-                fontSize={14}
+const FavoriteControls = ({ author }: CookBlogCardControlsProps) => {
+    const dispatch = useAppDispatch();
+    const name = getBloggerCardName(author.firstName, author.lastName);
+    const handleClick = () => dispatch(setBloggerName(`${name} (@${author.login})`));
+
+    return (
+        <>
+            <ButtonGroup>
+                <Button
+                    variant='solid'
+                    colorScheme='lime'
+                    color='black'
+                    size='xs'
+                    as={Link}
+                    to={`${AppRoute.CookBlog}/${author._id}`}
+                    fontSize={14}
+                >
+                    Рецепты
+                </Button>
+                <Button
+                    variant='outline'
+                    colorScheme='lime'
+                    size='xs'
+                    as={Link}
+                    to={`/blogs/${author._id}#notes`}
+                    onClick={handleClick}
+                    fontSize={14}
+                >
+                    Читать
+                </Button>
+            </ButtonGroup>
+            <BloggerStats
+                subscribersCount={author.subscribersCount}
+                bookmarksCount={author.bookmarksCount}
+            />
+            <Badge
+                py={0}
+                px={{ base: '8px', lg: 2 }}
+                variant='time'
+                maxW='min-content'
+                position='absolute'
+                top={2}
+                right={2}
             >
-                Рецепты
-            </Button>
-            <Button
-                variant='outline'
-                colorScheme='lime'
-                size='xs'
-                as={Link}
-                to={`/blogs/${author._id}#notes`}
-                fontSize={14}
-            >
-                Читать
-            </Button>
-        </ButtonGroup>
-        <BloggerStats
-            subscribersCount={author.subscribersCount}
-            bookmarksCount={author.bookmarksCount}
-        />
-        <Badge
-            py={0}
-            px={{ base: '8px', lg: 2 }}
-            variant='time'
-            maxW='min-content'
-            position='absolute'
-            top={2}
-            right={2}
-        >
-            <Text> {getRecipeText(author.newRecipesCount)}</Text>
-        </Badge>
-    </>
-);
+                <Text> {getRecipeText(author.newRecipesCount)}</Text>
+            </Badge>
+        </>
+    );
+};
 
 const OtherControls = ({ author }: CookBlogCardControlsProps) => {
     const [isLoading, setIsLoading] = useState(false);
+    const dispatch = useAppDispatch();
+    const name = getBloggerCardName(author.firstName, author.lastName);
+    const handleClick = () => dispatch(setBloggerName(`${name} (@${author.login})`));
 
     const handleSubscription = (_id: string) => {
         setIsLoading((prev) => !prev);
@@ -108,6 +121,7 @@ const OtherControls = ({ author }: CookBlogCardControlsProps) => {
                     size='xs'
                     as={Link}
                     to={`/blogs/${author._id}#notes`}
+                    onClick={handleClick}
                 >
                     Читать
                 </Button>

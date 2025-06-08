@@ -63,6 +63,7 @@ export enum ReducerName {
     Category = 'CATEGORY',
     Recipe = 'RECIPE',
     User = 'USER',
+    Blogger = 'BLOGGER',
 }
 
 export enum AuthStatus {

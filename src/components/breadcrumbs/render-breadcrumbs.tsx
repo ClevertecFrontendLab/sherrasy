@@ -45,8 +45,8 @@ export const renderCustomBreadcrumb = (
           subcategories[0]?.title ||
           id
         : name;
-
     const href = currentLink || (categoryId ? `/${categoryId}/${id}` : undefined);
+
     return (
         <BreadcrumbItem key={id} isCurrentPage={isLast}>
             <BreadcrumbLink {...linkProps[type]} to={href}>

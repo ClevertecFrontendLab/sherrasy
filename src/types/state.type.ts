@@ -13,6 +13,7 @@ export type RecipeFilters = {
     side_type: string[] | null;
     allergens: string[] | null;
 };
+
 export type RecipeState = {
     isLoading: boolean;
     isFiltering: boolean;
@@ -21,6 +22,10 @@ export type RecipeState = {
     pendingFilters: RecipeFilters;
     searchString: string | null;
     recipeName: string | null;
+};
+
+export type BloggerState = {
+    bloggerName: string | null;
 };
 
 export type CategoryState = {

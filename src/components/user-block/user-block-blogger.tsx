@@ -2,6 +2,7 @@ import { Avatar, Button, HStack, Text, Tooltip, VStack } from '@chakra-ui/react'
 
 import { BookmarkIcon, PeopleIconOutline, SubscribeIcon } from '~/assets/icons/icons';
 import { BloggerFull } from '~/types/blogger.type';
+import { getBloggerCardName } from '~/utils/helpers/blogger-author-helpers';
 
 import { Loader } from '../layout/loader/loader';
 
@@ -11,7 +12,7 @@ type UserBlockBloggerProps = {
 export const UserBlockBlogger = ({ blogger }: UserBlockBloggerProps) => {
     const { bloggerInfo, totalBookmarks, totalSubscribers, isFavorite } = blogger;
     const { firstName, lastName, login: nick } = bloggerInfo;
-    const name = `${firstName} ${lastName}`;
+    const name = getBloggerCardName(firstName, lastName);
     const isLoading = false;
     const TOOLTIP_TEXT = 'Нажмите, если хотите отписаться';
     const toggleSubscription = () => console.log('clicked');

@@ -18,7 +18,7 @@ import {
 
 import { BookmarkIcon, HeartEyesIcon, TimeIcon } from '~/assets/icons/icons';
 import { FullRecipe } from '~/types/recipe.interface';
-import { checkRecipeAuthor } from '~/utils/helpers/helpers';
+import { checkRecipeAuthor } from '~/utils/helpers/blogger-author-helpers';
 
 import { BadgesList } from '../badges-list/badges-list';
 import { RecipeControls } from '../recipe-controls/recipe-controls';

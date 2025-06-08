@@ -2,6 +2,7 @@ import { ChevronRightIcon } from '@chakra-ui/icons';
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink } from '@chakra-ui/react';
 import { Link, useLocation, useParams } from 'react-router';
 
+import { getBloggerName } from '~/store/blogger/selectors';
 import { getCategories } from '~/store/categories/selectors';
 import { useAppSelector } from '~/store/hooks';
 import { getRecipeName } from '~/store/recipes/selectors';
@@ -15,8 +16,9 @@ import { renderCustomBreadcrumb } from './render-breadcrumbs';
 export const Breadcrumbs = () => {
     const DEFAULT_SEGMENTS = ['the-juiciest', 'new-recipe', 'edit-recipe', 'blogs'];
     const location = useLocation();
-    const { categoryId, subcategoryId, recipeId } = useParams<PathParams>();
+    const { categoryId, subcategoryId, recipeId, userId } = useParams<PathParams>();
     const recipeName = useAppSelector(getRecipeName);
+    const bloggerName = useAppSelector(getBloggerName);
     const pathnames = location.pathname.split('/').filter(Boolean);
     const isDefaultSegment = (segment: string) => DEFAULT_SEGMENTS.includes(segment);
     const isLastFromDefault = (segment: string) => pathnames[pathnames.length - 1] === segment;
@@ -33,7 +35,7 @@ export const Breadcrumbs = () => {
     ).map((segment) => {
         const name = AppRouteToName[segment];
         const isLast = isLastFromDefault(segment);
-        return renderCustomBreadcrumb(segment, name, isLast);
+        return renderCustomBreadcrumb(segment, name, isLast, { currentLink: `/${segment}` });
     });
 
     const breadcrumbItems = pathnames.map((segment, index) => {
@@ -50,6 +52,12 @@ export const Breadcrumbs = () => {
 
         if (recipeId && segment === recipeId) {
             return renderCustomBreadcrumb(recipeId, recipeName, isLast, {
+                type: 'text',
+            });
+        }
+
+        if (userId && segment === userId) {
+            return renderCustomBreadcrumb(userId, bloggerName, isLast, {
                 type: 'text',
             });
         }

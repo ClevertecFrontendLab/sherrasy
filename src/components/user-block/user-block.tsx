@@ -1,9 +1,10 @@
 import { Avatar, HStack, Text, VStack } from '@chakra-ui/react';
 
 import userAvatar from '~/assets/images/avatar/photo-dekstop.jpg';
+import { getBloggerCardName } from '~/utils/helpers/blogger-author-helpers';
 
 export const UserBlock = () => {
-    const name = 'Екатерина Константинопольская';
+    const name = getBloggerCardName('Екатерина', 'Константинопольская');
     return (
         <HStack spacing={2} align='center' mr='40px'>
             <Avatar name={name} size={{ base: 'sm', sm: 'md' }} src={userAvatar} />

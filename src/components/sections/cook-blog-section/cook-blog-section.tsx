@@ -4,14 +4,14 @@ import { useNavigate } from 'react-router';
 import { useGetBloggersQuery } from '~/query/services/bloggers';
 import { Blogger } from '~/types/blogger.type';
 import { AppRoute, CardsLimit } from '~/utils/constant';
+import { getCurrentUserId } from '~/utils/helpers/blogger-author-helpers';
 import { getCookBlogQueryString } from '~/utils/helpers/get-request-query';
-import { getCurrentId } from '~/utils/helpers/helpers';
 
 import { CookBlogCard } from '../../cards/user-cards/cook-blog-card/cook-blog-card';
 import { SectionLayout } from '../../layout/section-layout/section-layout';
 
 export const CookBlogSection = () => {
-    const currentUserId = getCurrentId() ?? '';
+    const currentUserId = getCurrentUserId() ?? '';
     const query = getCookBlogQueryString({ limit: CardsLimit.CookBlogPreview, currentUserId });
     const { data, isFetching, isError } = useGetBloggersQuery(query);
     const navigate = useNavigate();
@@ -23,7 +23,12 @@ export const CookBlogSection = () => {
     }
     const cookBlog = data.others;
     return (
-        <SectionLayout type='cook-blog' onBtnClick={handleAllClick} isVibrant>
+        <SectionLayout
+            type='cook-blog'
+            title='Кулинарные блоги'
+            onBtnClick={handleAllClick}
+            isVibrant
+        >
             <SimpleGrid
                 maxW='100%'
                 gap={{ base: 3, lg: 4 }}

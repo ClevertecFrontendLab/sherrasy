@@ -1,14 +1,31 @@
 import { Avatar, Box, Button, Card, CardBody, CardHeader, Flex, Text } from '@chakra-ui/react';
+import { skipToken } from '@reduxjs/toolkit/query';
 
 import { PeopleIconOutline, SubscribeIcon } from '~/assets/icons/icons';
-import { Author } from '~/types/author.interface';
+import { useGetBloggerByIdQuery } from '~/query/services/bloggers';
+import {
+    checkRecipeAuthor,
+    getBloggerCardName,
+    getCurrentUserId,
+} from '~/utils/helpers/blogger-author-helpers';
+import { getCookBlogQueryString } from '~/utils/helpers/get-request-query';
 
 type AuthorCardProps = {
-    author: Author;
+    authorId: string;
 };
 
-export const AuthorCard = ({ author }: AuthorCardProps) => {
-    const { avatar, name, subscribers, nick } = author;
+export const AuthorCard = ({ authorId }: AuthorCardProps) => {
+    const currentUserId = getCurrentUserId() ?? '';
+    const bloggerQuery = getCookBlogQueryString({ currentUserId });
+    const isAuthor = checkRecipeAuthor(authorId);
+    const { data: author, error } = useGetBloggerByIdQuery(
+        isAuthor ? skipToken : `${authorId}?${bloggerQuery}`,
+    );
+    if (isAuthor) return null;
+    if (!author || error) return null;
+    const { bloggerInfo, totalSubscribers } = author;
+    const { firstName, lastName, login: nick } = bloggerInfo;
+    const name = getBloggerCardName(firstName, lastName);
     return (
         <Card
             variant='solid'
@@ -22,7 +39,7 @@ export const AuthorCard = ({ author }: AuthorCardProps) => {
             mr={{ base: 4, sm: 5 }}
             p={{ base: 3, sm: '22px' }}
         >
-            <Avatar size={{ base: 'xl' }} name={name} src={avatar} />
+            <Avatar size={{ base: 'xl' }} name={name} />
             <Flex direction='column' minW={{ base: '70%', sm: '82%', xl: '84%' }}>
                 <CardHeader
                     px={{ base: 2, sm: '1.125rem' }}
@@ -88,7 +105,7 @@ export const AuthorCard = ({ author }: AuthorCardProps) => {
                         iconSpacing='0.375rem'
                         h='100%'
                     >
-                        {subscribers}
+                        {totalSubscribers}
                     </Button>
                 </CardBody>
             </Flex>

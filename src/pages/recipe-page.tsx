@@ -3,7 +3,6 @@ import { skipToken } from '@reduxjs/toolkit/query';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
 
-import authorAvatar from '~/assets/images/avatar/author-avatar.jpg';
 import { AuthorCard } from '~/components/cards/user-cards/author-card';
 import { OverlayWithLoader } from '~/components/layout/overlay/overlayWithLoader';
 import { Layout } from '~/components/layout/page-layout/layout';
@@ -12,15 +11,6 @@ import { RecipeHeader } from '~/components/recipe-header/recipe-header';
 import { RecipeSteps } from '~/components/recipe-steps/recipe-steps';
 import { NewSection } from '~/components/sections/new-section/new-section';
 import { useGetRecipeByIdQuery } from '~/query/services/recipes';
-
-const MockAuthor = {
-    id: '16',
-    avatar: authorAvatar,
-    name: 'Сергей Разумов',
-    nick: '@serge25',
-    description: '',
-    subscribers: 125,
-};
 
 export const RecipePage = () => {
     const { recipeId } = useParams();
@@ -46,7 +36,7 @@ export const RecipePage = () => {
     if (!recipe || error) {
         return null;
     }
-    const { portions, nutritionValue, ingredients, steps } = recipe;
+    const { portions, nutritionValue, ingredients, steps, authorId } = recipe;
     return (
         <Layout>
             <Flex
@@ -62,7 +52,7 @@ export const RecipePage = () => {
                     ingredients={ingredients}
                 />
                 <RecipeSteps steps={steps} />
-                <AuthorCard author={MockAuthor} />
+                <AuthorCard authorId={authorId} />
             </Flex>
             <Box mt={{ base: 10, lg: '3.75rem' }}>
                 <NewSection />

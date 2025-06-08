@@ -1,6 +1,7 @@
 import { Avatar, Box, Card, CardBody, CardFooter, CardHeader, Flex, Text } from '@chakra-ui/react';
 
 import { Blogger } from '~/types/blogger.type';
+import { getBloggerCardName } from '~/utils/helpers/blogger-author-helpers';
 
 import { CookBlogCardControls } from './cook-blog-card-controls';
 
@@ -12,7 +13,7 @@ type CookCookBlogCardProps = {
 
 export const CookBlogCard = ({ author, isExtended, type }: CookCookBlogCardProps) => {
     const { firstName, lastName, login: nick, notes } = author;
-    const name = `${firstName} ${lastName}`;
+    const name = getBloggerCardName(firstName, lastName);
     const description = notes.length ? notes[0].text : '';
     const heightParams = isExtended
         ? ['13rem', null, null, null, '14rem']

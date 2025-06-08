@@ -22,6 +22,7 @@ export const CookBlogListSection = ({
     const columnParams = isFavorite
         ? 'repeat(2, minmax(40.5rem, 1fr))'
         : 'repeat(3, minmax(26.625rem, 1fr))';
+    const titleParam = isFavorite ? 'Избранные блоги' : null;
     if (!data.length) {
         return null;
     }
@@ -29,6 +30,7 @@ export const CookBlogListSection = ({
     return (
         <SectionLayout
             type={`cook-blog-${type}`}
+            title={titleParam}
             isDull={!isFavorite}
             isVibrant={isFavorite}
             onBtnClick={handleShowAll}

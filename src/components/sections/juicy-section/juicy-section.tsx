@@ -24,7 +24,7 @@ export const JuicySection = () => {
     };
 
     return (
-        <SectionLayout type='juiciest' onBtnClick={handleAllClick}>
+        <SectionLayout type='juiciest' title='Самое сочное' onBtnClick={handleAllClick}>
             <SimpleGrid
                 spacing={{ base: 2.5, xs: 3, md: '14px', lg: 4, '2xl': 5 }}
                 spacingY={{ '2xl': 6 }}

@@ -7,11 +7,11 @@ import { CookBlogListSection } from '~/components/sections/cook-blog-section/coo
 import { NewSection } from '~/components/sections/new-section/new-section';
 import { useGetBloggersQuery } from '~/query/services/bloggers';
 import { CardsLimit } from '~/utils/constant';
+import { getCurrentUserId } from '~/utils/helpers/blogger-author-helpers';
 import { getCookBlogQueryString } from '~/utils/helpers/get-request-query';
-import { getCurrentId } from '~/utils/helpers/helpers';
 
 export const CookBlogPage = () => {
-    const currentUserId = getCurrentId() ?? '';
+    const currentUserId = getCurrentUserId() ?? '';
     const [limit, setLimit] = useState<string | number>(CardsLimit.CookBlogOthers);
     const query = getCookBlogQueryString({ limit, currentUserId });
     const { data, isFetching, error } = useGetBloggersQuery(query);

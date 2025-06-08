@@ -8,6 +8,7 @@ type SectionType = 'juiciest' | 'new' | 'cook-blog' | 'cook-blog-favorite' | 'co
 
 type SectionLayoutProps = PropsWithChildren & {
     type: SectionType;
+    title: string | null;
     isVibrant?: boolean;
     isDull?: boolean;
     btnHidden?: boolean;
@@ -16,31 +17,26 @@ type SectionLayoutProps = PropsWithChildren & {
 
 const DEFAULT_CONFIG: Record<SectionType, Record<string, string | null>> = {
     new: {
-        title: 'Новые рецепты',
         btnName: null,
         testId: null,
         testIdMobile: null,
     },
     juiciest: {
-        title: 'Самое сочное',
         btnName: 'Вся подборка',
         testId: TestIdName.JuiciestLink,
         testIdMobile: TestIdName.JuiciestLinkMobile,
     },
     'cook-blog': {
-        title: 'Кулинарные блоги',
         btnName: 'Все авторы',
         testId: null,
         testIdMobile: null,
     },
     'cook-blog-favorite': {
-        title: 'Избранные блоги',
         btnName: null,
         testId: null,
         testIdMobile: null,
     },
     'cook-blog-others': {
-        title: null,
         btnName: 'Все авторы',
         testId: null,
         testIdMobile: null,
@@ -49,13 +45,14 @@ const DEFAULT_CONFIG: Record<SectionType, Record<string, string | null>> = {
 
 export const SectionLayout = ({
     type,
+    title,
     isVibrant,
     isDull,
     onBtnClick,
     btnHidden,
     children,
 }: SectionLayoutProps) => {
-    const { title, btnName, testId, testIdMobile } = DEFAULT_CONFIG[type];
+    const { btnName, testId, testIdMobile } = DEFAULT_CONFIG[type];
     return (
         <Stack
             w='100%'
