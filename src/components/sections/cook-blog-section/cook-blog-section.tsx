@@ -6,6 +6,7 @@ import { Blogger } from '~/types/blogger.type';
 import { AppRoute, CardsLimit } from '~/utils/constant';
 import { getCurrentUserId } from '~/utils/helpers/blogger-author-helpers';
 import { getCookBlogQueryString } from '~/utils/helpers/get-request-query';
+import { TestIdName } from '~/utils/testId-name.enum';
 
 import { CookBlogCard } from '../../cards/user-cards/cook-blog-card/cook-blog-card';
 import { SectionLayout } from '../../layout/section-layout/section-layout';
@@ -39,6 +40,7 @@ export const CookBlogSection = () => {
                     lg: 'repeat(3, minmax(16.625rem, 1fr))',
                     '2xl': 'repeat(3, minmax(26.625rem, 1fr))',
                 }}
+                data-test-id={TestIdName.MainPageBlogsGrid}
             >
                 {cookBlog.map((item: Blogger) => (
                     <CookBlogCard key={item._id} author={item} />

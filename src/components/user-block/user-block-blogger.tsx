@@ -1,8 +1,11 @@
-import { Avatar, Button, HStack, Text, Tooltip, VStack } from '@chakra-ui/react';
+import { Avatar, Button, Center, HStack, Text, Tooltip, VStack } from '@chakra-ui/react';
+import { useEffect, useState } from 'react';
 
 import { BookmarkIcon, PeopleIconOutline, SubscribeIcon } from '~/assets/icons/icons';
+import { useSubscribeToBloggerMutation } from '~/query/services/bloggers';
 import { BloggerFull } from '~/types/blogger.type';
-import { getBloggerCardName } from '~/utils/helpers/blogger-author-helpers';
+import { getBloggerCardName, getCurrentUserId } from '~/utils/helpers/blogger-author-helpers';
+import { TestIdName } from '~/utils/testId-name.enum';
 
 import { Loader } from '../layout/loader/loader';
 
@@ -11,11 +14,21 @@ type UserBlockBloggerProps = {
 };
 export const UserBlockBlogger = ({ blogger }: UserBlockBloggerProps) => {
     const { bloggerInfo, totalBookmarks, totalSubscribers, isFavorite } = blogger;
-    const { firstName, lastName, login: nick } = bloggerInfo;
+    const { firstName, lastName, login: nick, _id } = bloggerInfo;
+    const fromUserId = getCurrentUserId() ?? '';
+    const [isSubbed, setIsSubbed] = useState(isFavorite);
+
     const name = getBloggerCardName(firstName, lastName);
-    const isLoading = false;
     const TOOLTIP_TEXT = 'Нажмите, если хотите отписаться';
-    const toggleSubscription = () => console.log('clicked');
+    const [toggleSubscription, { isLoading, isSuccess }] = useSubscribeToBloggerMutation();
+
+    const handleSubscription = () => {
+        toggleSubscription({ fromUserId, toUserId: _id });
+    };
+    useEffect(() => {
+        isSuccess && setIsSubbed((prev) => !prev);
+    }, [isSuccess]);
+
     return (
         <HStack
             alignItems='center'
@@ -23,6 +36,8 @@ export const UserBlockBlogger = ({ blogger }: UserBlockBloggerProps) => {
             boxShadow='none'
             justifyContent='center'
             gap={6}
+            position='relative'
+            data-test-id={TestIdName.BloggerUserInfoBox}
         >
             <Avatar name={name} size='2xl' />
             <VStack alignItems='flex-start' w={{ base: '100%', sm: 'fit-content' }} maxW='100%'>
@@ -36,6 +51,7 @@ export const UserBlockBlogger = ({ blogger }: UserBlockBloggerProps) => {
                     textAlign={{ base: 'center', sm: 'left' }}
                     m={{ base: '0 auto', sm: '0' }}
                     wordBreak='break-word'
+                    data-test-id={TestIdName.BloggerUserInfoName}
                 >
                     {name}
                 </Text>
@@ -44,11 +60,12 @@ export const UserBlockBlogger = ({ blogger }: UserBlockBloggerProps) => {
                     fontSize={14}
                     color='blackAlpha.700'
                     margin={{ base: '0 auto', sm: '0' }}
+                    data-test-id={TestIdName.BloggerUserInfoLogin}
                 >
                     @{nick}
                 </Text>
                 <HStack p={0} justifyContent='space-between' w='100%'>
-                    {isFavorite ? (
+                    {isSubbed ? (
                         <Tooltip
                             label={TOOLTIP_TEXT}
                             w='148px'
@@ -69,32 +86,29 @@ export const UserBlockBlogger = ({ blogger }: UserBlockBloggerProps) => {
                             }}
                             placement='bottom-end'
                             offset={[50, 10]}
+                            data-test-id={TestIdName.BlogTooltip}
                         >
                             <Button
                                 variant='outline'
                                 colorScheme='black'
-                                color='blackAlpha.800'
-                                bgColor='white'
-                                borderColor='blackAlpha.600'
                                 size='xs'
                                 leftIcon={<SubscribeIcon />}
-                                onClick={toggleSubscription}
+                                onClick={handleSubscription}
                                 isLoading={isLoading}
+                                data-test-id={TestIdName.BlogToggleUnsubscribe}
                             >
                                 Вы подписаны
                             </Button>
                         </Tooltip>
                     ) : (
                         <Button
-                            variant='outline'
+                            variant='solid'
                             colorScheme='black'
-                            color='white'
-                            bgColor='black'
-                            borderColor='black'
                             size='xs'
                             leftIcon={<SubscribeIcon />}
-                            onClick={toggleSubscription}
+                            onClick={handleSubscription}
                             isLoading={isLoading}
+                            data-test-id={TestIdName.BlogToggleSubscribe}
                         >
                             Подписаться
                         </Button>
@@ -102,14 +116,18 @@ export const UserBlockBlogger = ({ blogger }: UserBlockBloggerProps) => {
 
                     <HStack>
                         <HStack>
-                            <HStack gap={1}>
+                            <HStack gap={1} data-test-id={TestIdName.BloggerFollowersBookmarks}>
                                 <BookmarkIcon color='black' boxSize={3} />
                                 <Text color='lime.600' fontWeight={600} fontSize={12}>
                                     {totalBookmarks}
                                 </Text>
                             </HStack>
 
-                            <HStack alignItems='center' gap={1}>
+                            <HStack
+                                alignItems='center'
+                                gap={1}
+                                data-test-id={TestIdName.BloggerFollowersCount}
+                            >
                                 <PeopleIconOutline color='black' boxSize={3} />
                                 <Text color='lime.600' fontWeight={600} fontSize={12}>
                                     {totalSubscribers}
@@ -119,7 +137,11 @@ export const UserBlockBlogger = ({ blogger }: UserBlockBloggerProps) => {
                     </HStack>
                 </HStack>
             </VStack>
-            {isLoading && <Loader type='search' />}
+            {isLoading && (
+                <Center position='absolute' data-test-id={TestIdName.LoaderMobile}>
+                    <Loader type='search' />
+                </Center>
+            )}
         </HStack>
     );
 };

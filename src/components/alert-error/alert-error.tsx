@@ -54,9 +54,20 @@ export const AlertError = ({ onClose, messageData, isCentered }: AlertErrrorProp
                 >
                     <AlertIcon boxSize={6} mr={3} />
                     <VStack alignItems='start' w='max-content'>
-                        <AlertTitle fontSize='md'>{title}</AlertTitle>
+                        <AlertTitle
+                            fontSize='md'
+                            data-test-id={type === 'error' ? TestIdName.ErrorNotificationTitle : ''}
+                        >
+                            {title}
+                        </AlertTitle>
                         {showDescription && (
-                            <AlertDescription maxWidth='sm' w='96%'>
+                            <AlertDescription
+                                maxWidth='sm'
+                                w='96%'
+                                data-test-id={
+                                    type === 'error' ? TestIdName.ErrorNotificationDescription : ''
+                                }
+                            >
                                 {description}
                             </AlertDescription>
                         )}

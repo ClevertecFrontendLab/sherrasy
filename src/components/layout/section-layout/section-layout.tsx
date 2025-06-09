@@ -18,6 +18,7 @@ type SectionLayoutProps = PropsWithChildren & {
 const DEFAULT_CONFIG: Record<SectionType, Record<string, string | null>> = {
     new: {
         btnName: null,
+        testIdBlock: null,
         testId: null,
         testIdMobile: null,
     },
@@ -28,16 +29,19 @@ const DEFAULT_CONFIG: Record<SectionType, Record<string, string | null>> = {
     },
     'cook-blog': {
         btnName: 'Все авторы',
-        testId: null,
-        testIdMobile: null,
+        testIdBlock: TestIdName.MainPageBlogsBox,
+        testId: TestIdName.MainPageBlogsButton,
+        testIdMobile: TestIdName.MainPageBlogsButton,
     },
     'cook-blog-favorite': {
         btnName: null,
+        testIdBlock: TestIdName.BlogsFavoritesBox,
         testId: null,
         testIdMobile: null,
     },
     'cook-blog-others': {
-        btnName: 'Все авторы',
+        btnName: null,
+        testIdBlock: TestIdName.BlogsOthersBox,
         testId: null,
         testIdMobile: null,
     },
@@ -52,7 +56,7 @@ export const SectionLayout = ({
     btnHidden,
     children,
 }: SectionLayoutProps) => {
-    const { btnName, testId, testIdMobile } = DEFAULT_CONFIG[type];
+    const { btnName, testId, testIdMobile, testIdBlock } = DEFAULT_CONFIG[type];
     return (
         <Stack
             w='100%'
@@ -66,6 +70,7 @@ export const SectionLayout = ({
                 align={{ base: 'start', sm: 'center' }}
                 flexDir={{ base: 'column', sm: 'row' }}
                 mb={4}
+                data-test-id={type === 'cook-blog' ? testIdBlock : ''}
             >
                 {title && (
                     <Heading

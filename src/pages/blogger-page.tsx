@@ -6,17 +6,21 @@ import { OverlayWithLoader } from '~/components/layout/overlay/overlayWithLoader
 import { Layout } from '~/components/layout/page-layout/layout';
 import { NotesSection } from '~/components/notes-section/notes-section';
 import { RecipesList } from '~/components/recipes-list/recipes-list';
-import { CookBlogOtherSection } from '~/components/sections/cook-blog-section/cook-blog-other-section';
+import { CookBlogUserOtherSection } from '~/components/sections/cook-blog-section/cook-blog-other-section';
 import { UserBlockBlogger } from '~/components/user-block/user-block-blogger';
 import { useGetBloggerByIdQuery, useGetBloggersQuery } from '~/query/services/bloggers';
 import { useGetRecipesByUserQuery } from '~/query/services/recipes';
+import { setBloggerName } from '~/store/blogger/blogger-slice';
+import { useAppDispatch } from '~/store/hooks';
 import { AppRoute, CardsLimit } from '~/utils/constant';
-import { getCurrentUserId } from '~/utils/helpers/blogger-author-helpers';
+import { getBloggerCardName, getCurrentUserId } from '~/utils/helpers/blogger-author-helpers';
 import { getCookBlogQueryString } from '~/utils/helpers/get-request-query';
+import { TestIdName } from '~/utils/testId-name.enum';
 
 export const BloggerPage = () => {
     const { userId = '' } = useParams();
     const navigate = useNavigate();
+    const dispatch = useAppDispatch();
     const currentUserId = getCurrentUserId() ?? '';
     const bloggerQuery = getCookBlogQueryString({ currentUserId });
     const listQuery = getCookBlogQueryString({ currentUserId, limit: CardsLimit.CookBlogPreview });
@@ -39,13 +43,18 @@ export const BloggerPage = () => {
         if (errorBlogger || !blogger) {
             navigate(AppRoute.Main);
         }
+        const name = getBloggerCardName(
+            blogger?.bloggerInfo.firstName ?? '',
+            blogger?.bloggerInfo.lastName ?? '',
+        );
+        dispatch(setBloggerName(`${name} (@${blogger?.bloggerInfo.login})`));
     }, [blogger, isFetchingBlogger, errorBlogger, navigate]);
 
     if (isFetchingBlogger) {
         return <OverlayWithLoader isOpen={isFetchingBlogger}></OverlayWithLoader>;
     }
 
-    if (!blogger || errorBlogger) {
+    if (!blogger) {
         return null;
     }
     const bloggerRecipies = showAll ? recipesData?.recipes : recipesData?.recipes?.slice(0, 8);
@@ -59,7 +68,10 @@ export const BloggerPage = () => {
                     justify='center'
                     mt={{ base: 4, lg: 6, xl: 8 }}
                 >
-                    <RecipesList recipes={bloggerRecipies ?? []} />
+                    <RecipesList
+                        recipes={bloggerRecipies ?? []}
+                        testId={TestIdName.RecipeCardList}
+                    />
                     {!showAll && (
                         <Button
                             bg='lime.400'
@@ -77,7 +89,7 @@ export const BloggerPage = () => {
             </Flex>
             <Box mt={{ base: 10, lg: '3.75rem' }}>
                 <NotesSection notes={recipesData?.notes ?? []} />
-                <CookBlogOtherSection bloggers={bloggersData?.others ?? []} />
+                <CookBlogUserOtherSection bloggers={bloggersData?.others ?? []} />
             </Box>
         </Layout>
     );

@@ -1,14 +1,27 @@
-import { Avatar, Box, Button, Card, CardBody, CardHeader, Flex, Text } from '@chakra-ui/react';
+import {
+    Avatar,
+    Box,
+    Button,
+    Card,
+    CardBody,
+    CardHeader,
+    Center,
+    Flex,
+    Text,
+} from '@chakra-ui/react';
 import { skipToken } from '@reduxjs/toolkit/query';
+import { useEffect, useState } from 'react';
 
 import { PeopleIconOutline, SubscribeIcon } from '~/assets/icons/icons';
-import { useGetBloggerByIdQuery } from '~/query/services/bloggers';
+import { Loader } from '~/components/layout/loader/loader';
+import { useGetBloggerByIdQuery, useSubscribeToBloggerMutation } from '~/query/services/bloggers';
 import {
     checkRecipeAuthor,
     getBloggerCardName,
     getCurrentUserId,
 } from '~/utils/helpers/blogger-author-helpers';
 import { getCookBlogQueryString } from '~/utils/helpers/get-request-query';
+import { TestIdName } from '~/utils/testId-name.enum';
 
 type AuthorCardProps = {
     authorId: string;
@@ -21,11 +34,25 @@ export const AuthorCard = ({ authorId }: AuthorCardProps) => {
     const { data: author, error } = useGetBloggerByIdQuery(
         isAuthor ? skipToken : `${authorId}?${bloggerQuery}`,
     );
+    const [isSubbed, setIsSubbed] = useState(false);
+    const fromUserId = getCurrentUserId() ?? '';
+    const [toggleSubscription, { isLoading, isSuccess }] = useSubscribeToBloggerMutation();
+
+    const handleSubscription = (toUserId: string) => {
+        toggleSubscription({ fromUserId, toUserId });
+    };
+    useEffect(() => {
+        isSuccess && setIsSubbed((prev) => !prev);
+    }, [isSuccess]);
+    useEffect(() => {
+        author && setIsSubbed(author.isFavorite);
+    }, [author]);
     if (isAuthor) return null;
     if (!author || error) return null;
     const { bloggerInfo, totalSubscribers } = author;
     const { firstName, lastName, login: nick } = bloggerInfo;
     const name = getBloggerCardName(firstName, lastName);
+
     return (
         <Card
             variant='solid'
@@ -38,6 +65,7 @@ export const AuthorCard = ({ authorId }: AuthorCardProps) => {
             ml={{ base: 4, sm: 5 }}
             mr={{ base: 4, sm: 5 }}
             p={{ base: 3, sm: '22px' }}
+            position='relative'
         >
             <Avatar size={{ base: 'xl' }} name={name} />
             <Flex direction='column' minW={{ base: '70%', sm: '82%', xl: '84%' }}>
@@ -87,12 +115,18 @@ export const AuthorCard = ({ authorId }: AuthorCardProps) => {
                     <Button
                         ml={{ sm: 3.5 }}
                         leftIcon={<SubscribeIcon />}
-                        variant='solid'
                         colorScheme='black'
-                        bg='black'
                         size='xs'
+                        variant={isSubbed ? 'outline' : 'solid'}
+                        onClick={() => handleSubscription(authorId)}
+                        isLoading={isLoading}
+                        data-test-id={
+                            isSubbed
+                                ? TestIdName.BlogToggleUnsubscribe
+                                : TestIdName.BlogToggleSubscribe
+                        }
                     >
-                        Подписаться
+                        {isSubbed ? 'Вы подписаны' : 'Подписаться'}
                     </Button>
                     <Button
                         leftIcon={<PeopleIconOutline color='black' boxSize={{ base: 3 }} />}
@@ -109,6 +143,17 @@ export const AuthorCard = ({ authorId }: AuthorCardProps) => {
                     </Button>
                 </CardBody>
             </Flex>
+            {isLoading && (
+                <Center
+                    position='absolute'
+                    left='50%'
+                    top='50%'
+                    transform='translate(-50%, -50%)'
+                    data-test-id={TestIdName.LoaderMobile}
+                >
+                    <Loader type='search' />
+                </Center>
+            )}
         </Card>
     );
 };

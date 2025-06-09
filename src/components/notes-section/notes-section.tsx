@@ -12,6 +12,7 @@ import { useState } from 'react';
 
 import { useHashScroll } from '~/hooks/useHashScroll';
 import { Note } from '~/types/blogger.type';
+import { TestIdName } from '~/utils/testId-name.enum';
 
 import { NoteCard } from '../cards/note-card';
 
@@ -47,6 +48,7 @@ export const NotesSection = ({ notes }: NotesSectionProps) => {
             pt={{ base: 6, sm: 5 }}
             gap={{ base: 2, sm: 3, md: 4 }}
             id='notes'
+            data-test-id={TestIdName.BlogNotesBox}
         >
             <HStack alignItems='center' m={0} w='100%' mb={{ base: 4, md: 3 }}>
                 <Heading fontSize={{ base: 20, md: 36 }} lineHeight='none' fontWeight={400}>
@@ -57,6 +59,7 @@ export const NotesSection = ({ notes }: NotesSectionProps) => {
                     color='blackAlpha.600'
                     fontSize={{ base: 20, md: 30 }}
                     fontWeight={400}
+                    data-test-id={TestIdName.BloggerUserNotesCount}
                 >
                     ({notesAmount})
                 </Text>
@@ -73,6 +76,7 @@ export const NotesSection = ({ notes }: NotesSectionProps) => {
                             base: '1',
                             md: 'repeat(3, 1fr)',
                         }}
+                        data-test-id={TestIdName.BloggerUserNotesGrid}
                     >
                         {notes.map((note, i) => (
                             <NoteCard key={`${note.date}-${i}`} note={note} />
@@ -88,6 +92,7 @@ export const NotesSection = ({ notes }: NotesSectionProps) => {
                     variant='ghost'
                     mt={{ base: 3, sm: 0 }}
                     onClick={toggleCollapse}
+                    data-test-id={TestIdName.BloggerUserNotesButton}
                 >
                     {toggleText}
                 </Button>

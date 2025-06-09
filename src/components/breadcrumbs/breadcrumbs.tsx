@@ -35,7 +35,10 @@ export const Breadcrumbs = () => {
     ).map((segment) => {
         const name = AppRouteToName[segment];
         const isLast = isLastFromDefault(segment);
-        return renderCustomBreadcrumb(segment, name, isLast, { currentLink: `/${segment}` });
+        return renderCustomBreadcrumb(segment, name, isLast, {
+            currentLink: `/${segment}`,
+            testId: `${segment === DEFAULT_SEGMENTS[3] ? TestIdName.BloggerUserBreadcrumbName : ''}`,
+        });
     });
 
     const breadcrumbItems = pathnames.map((segment, index) => {
@@ -59,6 +62,7 @@ export const Breadcrumbs = () => {
         if (userId && segment === userId) {
             return renderCustomBreadcrumb(userId, bloggerName, isLast, {
                 type: 'text',
+                testId: TestIdName.BloggerUserBreadcrumbSection,
             });
         }
 

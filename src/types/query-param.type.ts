@@ -17,3 +17,8 @@ export type CookBlogQueryParam = {
     limit?: number | string;
     currentUserId?: string;
 };
+
+export type SubscriptionBodyParam = {
+    toUserId: string;
+    fromUserId: string;
+};
