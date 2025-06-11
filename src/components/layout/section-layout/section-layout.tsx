@@ -64,13 +64,13 @@ export const SectionLayout = ({
             borderRadius='1rem'
             mt={isVibrant ? 8 : 0}
             bg={isVibrant ? 'lime.300' : isDull ? 'blackAlpha.50' : 'white'}
+            data-test-id={type.includes('cook-blog') ? testIdBlock : ''}
         >
             <Flex
                 justify='space-between'
                 align={{ base: 'start', sm: 'center' }}
                 flexDir={{ base: 'column', sm: 'row' }}
                 mb={4}
-                data-test-id={type === 'cook-blog' ? testIdBlock : ''}
             >
                 {title && (
                     <Heading

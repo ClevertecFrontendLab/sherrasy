@@ -1,5 +1,5 @@
 import { Avatar, Button, Center, HStack, Text, Tooltip, VStack } from '@chakra-ui/react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import { BookmarkIcon, PeopleIconOutline, SubscribeIcon } from '~/assets/icons/icons';
 import { useSubscribeToBloggerMutation } from '~/query/services/bloggers';
@@ -14,20 +14,25 @@ type UserBlockBloggerProps = {
 };
 export const UserBlockBlogger = ({ blogger }: UserBlockBloggerProps) => {
     const { bloggerInfo, totalBookmarks, totalSubscribers, isFavorite } = blogger;
-    const { firstName, lastName, login: nick, _id } = bloggerInfo;
+    const { firstName = '', lastName = '', login: nick = '', _id = '' } = bloggerInfo;
     const fromUserId = getCurrentUserId() ?? '';
-    const [isSubbed, setIsSubbed] = useState(isFavorite);
 
+    const [isSubbed, setIsSubbed] = useState(isFavorite);
     const name = getBloggerCardName(firstName, lastName);
     const TOOLTIP_TEXT = 'Нажмите, если хотите отписаться';
-    const [toggleSubscription, { isLoading, isSuccess }] = useSubscribeToBloggerMutation();
 
-    const handleSubscription = () => {
-        toggleSubscription({ fromUserId, toUserId: _id });
+    const [toggleSubscription, { isLoading }] = useSubscribeToBloggerMutation();
+
+    const handleSubscription = async () => {
+        try {
+            setIsSubbed((prev) => !prev);
+
+            await toggleSubscription({ fromUserId, toUserId: _id }).unwrap();
+        } catch (error) {
+            setIsSubbed((prev) => !prev);
+            console.error(error);
+        }
     };
-    useEffect(() => {
-        isSuccess && setIsSubbed((prev) => !prev);
-    }, [isSuccess]);
 
     return (
         <HStack

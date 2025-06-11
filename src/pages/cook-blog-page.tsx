@@ -1,31 +1,36 @@
-import { Heading, useMediaQuery, VStack } from '@chakra-ui/react';
-import { useState } from 'react';
+import { Heading, VStack } from '@chakra-ui/react';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router';
 
 import { OverlayWithLoader } from '~/components/layout/overlay/overlayWithLoader';
 import { Layout } from '~/components/layout/page-layout/layout';
 import { CookBlogListSection } from '~/components/sections/cook-blog-section/cook-blog-list-section';
 import { NewSection } from '~/components/sections/new-section/new-section';
 import { useGetBloggersQuery } from '~/query/services/bloggers';
-import { CardsLimit } from '~/utils/constant';
+import { AppRoute, CardsLimit } from '~/utils/constant';
 import { getCurrentUserId } from '~/utils/helpers/blogger-author-helpers';
 import { getCookBlogQueryString } from '~/utils/helpers/get-request-query';
 
 export const CookBlogPage = () => {
     const currentUserId = getCurrentUserId() ?? '';
-    const [isAllVisible, setIsAllVisible] = useState(false);
-    const limit = isAllVisible ? CardsLimit.CookBlogOthers : CardsLimit.All;
-    const query = getCookBlogQueryString({ limit, currentUserId });
-    const { data, isFetching, error } = useGetBloggersQuery(query);
-    const [isDesktop] = useMediaQuery('(min-width: 1920px)');
-    const handleShowAll = () => {
-        setIsAllVisible((prev) => !prev);
-    };
+    const navigate = useNavigate();
+    const [blogsPerView, setBlogsPerView] = useState<number | string>(CardsLimit.CookBlogOthers);
+    const query = getCookBlogQueryString({ limit: blogsPerView, currentUserId });
+    const { data, isFetching, isError } = useGetBloggersQuery(query);
 
-    if (!data || error) {
+    const handleChangeShowed = (value: string | number) => {
+        setBlogsPerView(value);
+    };
+    useEffect(() => {
+        if (isError) {
+            navigate(AppRoute.Main);
+        }
+    }, [isError, navigate]);
+
+    if (!data) {
         return null;
     }
-    const otherList =
-        !isDesktop && !isAllVisible ? data.others.slice(0, CardsLimit.Default) : data.others;
+
     return (
         <Layout>
             <OverlayWithLoader isOpen={isFetching} />
@@ -36,13 +41,12 @@ export const CookBlogPage = () => {
             >
                 Кулинарные блоги
             </Heading>
-            <VStack gap={{ base: 8, lg: 10 }}>
-                <CookBlogListSection type='favorite' data={data.favorites} />
+            <VStack gap={{ base: 8, lg: 10 }} w='100%'>
+                <CookBlogListSection type='favorite' data={data?.favorites ?? []} />
                 <CookBlogListSection
                     type='others'
-                    data={otherList}
-                    handleShowAll={handleShowAll}
-                    isAllVisible={isAllVisible}
+                    data={data?.others ?? []}
+                    handleChangeShowed={handleChangeShowed}
                 />
             </VStack>
             <NewSection />

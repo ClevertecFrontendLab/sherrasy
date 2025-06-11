@@ -9,6 +9,7 @@ import { TestIdName } from '~/utils/testId-name.enum';
 
 export const CookBlogUserOtherSection = ({ bloggers }: { bloggers: Blogger[] }) => {
     const navigate = useNavigate();
+
     const handleAllClick = async () => {
         navigate(AppRoute.CookBlog);
     };
@@ -37,7 +38,7 @@ export const CookBlogUserOtherSection = ({ bloggers }: { bloggers: Blogger[] }) 
                         fontSize={{ base: 'md', '2xl': 'lg' }}
                         lineHeight={{ base: 6, '2xl': 7 }}
                     >
-                        Все авторы
+                        Всe авторы
                     </Text>
                 </Button>
             </Flex>

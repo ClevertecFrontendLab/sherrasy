@@ -33,7 +33,7 @@ export const bloggersApiSlice = apiSlice
                     apiGroupName: ApiGroupNames.BLOGGERS,
                     name: EndpointNames.GET_BLOGGER_BY_ID,
                 }),
-                providesTags: (result) => [{ type: Tags.BLOGGER, id: result?.bloggerInfo._id }],
+                providesTags: [Tags.BLOGGERS],
             }),
             subscribeToBlogger: builder.mutation<unknown, SubscriptionBodyParam>({
                 query: (body) => ({

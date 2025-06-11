@@ -8,11 +8,12 @@ import { NotesSection } from '~/components/notes-section/notes-section';
 import { RecipesList } from '~/components/recipes-list/recipes-list';
 import { CookBlogUserOtherSection } from '~/components/sections/cook-blog-section/cook-blog-other-section';
 import { UserBlockBlogger } from '~/components/user-block/user-block-blogger';
+import { useBloggerErrorRedirect } from '~/hooks/useBloggerErrorRedirect';
 import { useGetBloggerByIdQuery, useGetBloggersQuery } from '~/query/services/bloggers';
 import { useGetRecipesByUserQuery } from '~/query/services/recipes';
 import { setBloggerName } from '~/store/blogger/blogger-slice';
 import { useAppDispatch } from '~/store/hooks';
-import { AppRoute, CardsLimit } from '~/utils/constant';
+import { CardsLimit } from '~/utils/constant';
 import { getBloggerCardName, getCurrentUserId } from '~/utils/helpers/blogger-author-helpers';
 import { getCookBlogQueryString } from '~/utils/helpers/get-request-query';
 import { TestIdName } from '~/utils/testId-name.enum';
@@ -23,7 +24,7 @@ export const BloggerPage = () => {
     const dispatch = useAppDispatch();
     const currentUserId = getCurrentUserId() ?? '';
     const bloggerQuery = getCookBlogQueryString({ currentUserId });
-    const listQuery = getCookBlogQueryString({ currentUserId, limit: CardsLimit.CookBlogPreview });
+    const listQuery = getCookBlogQueryString({ currentUserId, limit: '' });
     const [limit, setLimit] = useState<string | number>(CardsLimit.Default);
 
     const handleShowAll = () => {
@@ -34,15 +35,23 @@ export const BloggerPage = () => {
         data: blogger,
         isFetching: isFetchingBlogger,
         error: errorBlogger,
+        isError: isBloggerError,
     } = useGetBloggerByIdQuery(`${userId}?${bloggerQuery}`);
-    const { data: recipesData } = useGetRecipesByUserQuery(userId);
-    const { data: bloggersData } = useGetBloggersQuery(listQuery);
+    const {
+        data: recipesData,
+        isError: isRecipesError,
+        error: errorRecipes,
+    } = useGetRecipesByUserQuery(userId);
+    const { data: bloggersData, isError: isBloggersError } = useGetBloggersQuery(listQuery);
+
+    const { handleErrors } = useBloggerErrorRedirect();
+    const errors = { errorBlogger, isBloggerError, isRecipesError, errorRecipes, isBloggersError };
+    useEffect(() => {
+        handleErrors(errors);
+    }, [errors, handleErrors]);
 
     useEffect(() => {
-        if (isFetchingBlogger) return;
-        if (errorBlogger || !blogger) {
-            navigate(AppRoute.Main);
-        }
+        if (!blogger) return;
         const name = getBloggerCardName(
             blogger?.bloggerInfo.firstName ?? '',
             blogger?.bloggerInfo.lastName ?? '',
@@ -51,12 +60,13 @@ export const BloggerPage = () => {
     }, [blogger, isFetchingBlogger, errorBlogger, navigate]);
 
     if (isFetchingBlogger) {
-        return <OverlayWithLoader isOpen={isFetchingBlogger}></OverlayWithLoader>;
+        return <OverlayWithLoader isOpen={isFetchingBlogger} />;
     }
 
     if (!blogger) {
         return null;
     }
+
     const bloggerRecipies = showAll ? recipesData?.recipes : recipesData?.recipes?.slice(0, 8);
     return (
         <Layout>
@@ -79,6 +89,7 @@ export const BloggerPage = () => {
                             size='md'
                             alignSelf='center'
                             onClick={handleShowAll}
+                            data-test-id={TestIdName.LoadMoreBtn}
                         >
                             <Text fontWeight={600} fontSize='md' lineHeight={6}>
                                 Загрузить еще

@@ -61,8 +61,8 @@ export const getRecipeQueryString = (query: RecipeQueryParam) => {
 export const getCookBlogQueryString = (query: CookBlogQueryParam) => {
     const { limit, currentUserId } = query;
     const params = [
-        createQueryParam('limit', limit),
         createQueryParam('currentUserId', currentUserId),
+        `${limit !== undefined ? `limit=${limit}` : ''}`,
     ];
 
     return getQueryString(params);

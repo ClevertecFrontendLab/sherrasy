@@ -31,26 +31,32 @@ export const AuthorCard = ({ authorId }: AuthorCardProps) => {
     const currentUserId = getCurrentUserId() ?? '';
     const bloggerQuery = getCookBlogQueryString({ currentUserId });
     const isAuthor = checkRecipeAuthor(authorId);
-    const { data: author, error } = useGetBloggerByIdQuery(
+
+    const { data: author, isLoading: isAuthorLoading } = useGetBloggerByIdQuery(
         isAuthor ? skipToken : `${authorId}?${bloggerQuery}`,
     );
-    const [isSubbed, setIsSubbed] = useState(false);
-    const fromUserId = getCurrentUserId() ?? '';
-    const [toggleSubscription, { isLoading, isSuccess }] = useSubscribeToBloggerMutation();
 
-    const handleSubscription = (toUserId: string) => {
-        toggleSubscription({ fromUserId, toUserId });
+    const [isSubbed, setIsSubbed] = useState(false);
+    const [toggleSubscription, { isLoading: isSubscribing }] = useSubscribeToBloggerMutation();
+
+    const handleSubscription = () => {
+        if (!authorId) return;
+        toggleSubscription({ fromUserId: currentUserId, toUserId: authorId });
     };
+
     useEffect(() => {
-        isSuccess && setIsSubbed((prev) => !prev);
-    }, [isSuccess]);
-    useEffect(() => {
-        author && setIsSubbed(author.isFavorite);
-    }, [author]);
-    if (isAuthor) return null;
-    if (!author || error) return null;
-    const { bloggerInfo, totalSubscribers } = author;
-    const { firstName, lastName, login: nick } = bloggerInfo;
+        if (author?.isFavorite !== undefined) {
+            setIsSubbed(author.isFavorite);
+        }
+    }, [author?.isFavorite]);
+
+    if (isAuthor || !author || !author.bloggerInfo) return null;
+
+    const {
+        bloggerInfo: { firstName = '', lastName = '', login: nick = '' } = {},
+        totalSubscribers = 0,
+    } = author;
+
     const name = getBloggerCardName(firstName, lastName);
 
     return (
@@ -67,92 +73,69 @@ export const AuthorCard = ({ authorId }: AuthorCardProps) => {
             p={{ base: 3, sm: '22px' }}
             position='relative'
         >
-            <Avatar size={{ base: 'xl' }} name={name} />
-            <Flex direction='column' minW={{ base: '70%', sm: '82%', xl: '84%' }}>
-                <CardHeader
-                    px={{ base: 2, sm: '1.125rem' }}
-                    pt={{ base: 2, sm: 0.5 }}
-                    pb={{ base: 3.5, sm: 4 }}
-                    position='relative'
-                >
-                    <Flex>
-                        <Box>
-                            <Text
-                                fontSize={{ base: 'lg', sm: '2xl' }}
-                                lineHeight={{ base: 7, sm: 8 }}
-                                fontWeight={{ base: 'semibold', sm: 'bold' }}
-                                mb={{ sm: 1 }}
-                                isTruncated
-                            >
-                                {name}
-                            </Text>
-                            <Text
-                                fontSize={{ base: 'sm' }}
-                                lineHeight={{ base: 5 }}
-                                color='blackAlpha.700'
-                            >
-                                {nick}
-                            </Text>
-                        </Box>
-                        <Text
-                            fontSize={{ base: 'xs', sm: 'sm' }}
-                            lineHeight={{ base: 4, sm: 5 }}
-                            position='absolute'
-                            top={{ base: -1, sm: 0.5 }}
-                            right={0}
-                        >
-                            Автор рецепта
-                        </Text>
-                    </Flex>
-                </CardHeader>
-                <CardBody
-                    py={0}
-                    px={{ base: 2, sm: 1 }}
-                    display='flex'
-                    alignItems='center'
-                    justifyContent='space-between'
-                >
-                    <Button
-                        ml={{ sm: 3.5 }}
-                        leftIcon={<SubscribeIcon />}
-                        colorScheme='black'
-                        size='xs'
-                        variant={isSubbed ? 'outline' : 'solid'}
-                        onClick={() => handleSubscription(authorId)}
-                        isLoading={isLoading}
-                        data-test-id={
-                            isSubbed
-                                ? TestIdName.BlogToggleUnsubscribe
-                                : TestIdName.BlogToggleSubscribe
-                        }
-                    >
-                        {isSubbed ? 'Вы подписаны' : 'Подписаться'}
-                    </Button>
-                    <Button
-                        leftIcon={<PeopleIconOutline color='black' boxSize={{ base: 3 }} />}
-                        color='lime.600'
-                        bg='transparent'
-                        p={0}
-                        size='sm'
-                        fontSize='xs'
-                        lineHeight={4}
-                        iconSpacing='0.375rem'
-                        h='100%'
-                    >
-                        {totalSubscribers}
-                    </Button>
-                </CardBody>
-            </Flex>
-            {isLoading && (
-                <Center
-                    position='absolute'
-                    left='50%'
-                    top='50%'
-                    transform='translate(-50%, -50%)'
-                    data-test-id={TestIdName.LoaderMobile}
-                >
+            {isAuthorLoading || isSubscribing ? (
+                <Center position='absolute' inset={0} data-test-id={TestIdName.LoaderMobile}>
                     <Loader type='search' />
                 </Center>
+            ) : (
+                <>
+                    <Avatar size={{ base: 'xl' }} name={name} />
+                    <Flex direction='column' minW={{ base: '70%', sm: '82%', xl: '84%' }}>
+                        <CardHeader
+                            px={{ base: 2, sm: '1.125rem' }}
+                            pt={{ base: 2, sm: 0.5 }}
+                            pb={{ base: 3.5, sm: 4 }}
+                        >
+                            <Flex>
+                                <Box>
+                                    <Text
+                                        fontSize={{ base: 'lg', sm: '2xl' }}
+                                        fontWeight='bold'
+                                        isTruncated
+                                    >
+                                        {name}
+                                    </Text>
+                                    <Text fontSize='sm' color='blackAlpha.700'>
+                                        @{nick}
+                                    </Text>
+                                </Box>
+                                <Text fontSize='xs' position='absolute' top={0} right={0}>
+                                    Автор рецепта
+                                </Text>
+                            </Flex>
+                        </CardHeader>
+                        <CardBody
+                            py={0}
+                            px={{ base: 2, sm: 1 }}
+                            display='flex'
+                            justifyContent='space-between'
+                        >
+                            <Button
+                                leftIcon={<SubscribeIcon />}
+                                colorScheme='black'
+                                size='xs'
+                                variant={isSubbed ? 'outline' : 'solid'}
+                                onClick={handleSubscription}
+                                isLoading={isSubscribing}
+                                data-test-id={
+                                    isSubbed
+                                        ? TestIdName.BlogToggleUnsubscribe
+                                        : TestIdName.BlogToggleSubscribe
+                                }
+                            >
+                                {isSubbed ? 'Вы подписаны' : 'Подписаться'}
+                            </Button>
+                            <Button
+                                leftIcon={<PeopleIconOutline />}
+                                color='lime.600'
+                                bg='transparent'
+                                size='sm'
+                            >
+                                {totalSubscribers}
+                            </Button>
+                        </CardBody>
+                    </Flex>
+                </>
             )}
         </Card>
     );

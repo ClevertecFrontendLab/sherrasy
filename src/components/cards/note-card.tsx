@@ -15,6 +15,7 @@ export const NoteCard = ({ note }: NoteCardProps) => {
             w='100%'
             maxW='100%'
             minH={{ base: '12.75rem', sm: '15.25rem', lg: '12.75rem', xl: '10.25rem' }}
+            p={6}
         >
             <CardHeader p={6} pb={4}>
                 <Text fontSize='sm' color='lime.600' data-test-id={TestIdName.NotesCardDate}>
