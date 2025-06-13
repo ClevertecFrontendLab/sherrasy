@@ -6,8 +6,8 @@ import { FullRecipe } from '~/types/recipe.interface';
 import { AppRoute, CardsLimit, SortingBy, SortingDirection } from '~/utils/constant';
 import { getRecipeQueryString } from '~/utils/helpers/get-request-query';
 
-import { RecipeCard } from '../cards/recipe-cards/recipe-card';
-import { SectionLayout } from '../layout/section-layout/section-layout';
+import { RecipeCard } from '../../cards/recipe-cards/recipe-card';
+import { SectionLayout } from '../../layout/section-layout/section-layout';
 
 export const JuicySection = () => {
     const query = getRecipeQueryString({
@@ -24,7 +24,7 @@ export const JuicySection = () => {
     };
 
     return (
-        <SectionLayout type='juiciest' onBtnClick={handleAllClick}>
+        <SectionLayout type='juiciest' title='Самое сочное' onBtnClick={handleAllClick}>
             <SimpleGrid
                 spacing={{ base: 2.5, xs: 3, md: '14px', lg: 4, '2xl': 5 }}
                 spacingY={{ '2xl': 6 }}

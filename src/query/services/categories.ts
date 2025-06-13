@@ -23,7 +23,7 @@ export const categoryApiSlice = apiSlice
                     name: EndpointNames.GET_CATEGORIES,
                 }),
                 providesTags: [Tags.CATEGORIES],
-                transformResponse: (data: Category[]) =>
+                transformResponse: (data: Category[] = []) =>
                     data
                         .filter((item: Category) => item.subCategories)
                         .map((item) => ({ ...item, icon: updateImagePath(item.icon) })),

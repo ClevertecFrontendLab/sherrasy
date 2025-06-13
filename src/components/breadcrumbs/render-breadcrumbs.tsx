@@ -36,17 +36,20 @@ export const renderCustomBreadcrumb = (
         categoryId?: string;
         subcategories?: Subcategory[];
         currentLink?: string;
+        testId?: string;
     },
 ) => {
-    const { type = 'link', categoryId, subcategories, currentLink } = options || {};
+    const { type = 'link', categoryId, subcategories, currentLink, testId = '' } = options || {};
 
     const linkName = subcategories
-        ? subcategories.find((c) => c.category === id)?.title || subcategories[0]?.title || id
+        ? subcategories.find((subcategory) => subcategory.category === id)?.title ||
+          subcategories[0]?.title ||
+          id
         : name;
-
     const href = currentLink || (categoryId ? `/${categoryId}/${id}` : undefined);
+
     return (
-        <BreadcrumbItem key={id} isCurrentPage={isLast}>
+        <BreadcrumbItem key={id} isCurrentPage={isLast} data-test-id={testId}>
             <BreadcrumbLink {...linkProps[type]} to={href}>
                 <Text {...textStyles[type]}>{linkName}</Text>
             </BreadcrumbLink>

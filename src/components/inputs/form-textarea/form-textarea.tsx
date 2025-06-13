@@ -58,7 +58,7 @@ export function FormTextarea<T extends FieldValues>({
                 {...register(name)}
                 onBlur={handleBlur}
                 variant='outline'
-                size='lg'
+                size='sm'
                 resize='vertical'
                 placeholder={placeholderText}
                 data-test-id={testId}

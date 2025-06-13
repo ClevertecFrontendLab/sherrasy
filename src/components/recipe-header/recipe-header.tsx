@@ -18,16 +18,17 @@ import {
 
 import { BookmarkIcon, HeartEyesIcon, TimeIcon } from '~/assets/icons/icons';
 import { FullRecipe } from '~/types/recipe.interface';
-import { checkRecipeAuthor } from '~/utils/helpers/helpers';
+import { checkRecipeAuthor } from '~/utils/helpers/blogger-author-helpers';
 
 import { BadgesList } from '../badges-list/badges-list';
 import { RecipeControls } from '../recipe-controls/recipe-controls';
 
 type RecipeHeaderProps = {
     recipe: FullRecipe;
+    onDeleteStart?: () => void;
 };
 
-export const RecipeHeader = ({ recipe }: RecipeHeaderProps) => {
+export const RecipeHeader = ({ recipe, onDeleteStart }: RecipeHeaderProps) => {
     const { _id, title, time, description, categoriesIds, bookmarks, likes, image, authorId } =
         recipe;
     const isAuthor = checkRecipeAuthor(authorId);
@@ -149,7 +150,11 @@ export const RecipeHeader = ({ recipe }: RecipeHeaderProps) => {
                         </Icon>
                         <Text>{time} минут</Text>
                     </Badge>
-                    <RecipeControls isAuthor={isAuthor} recipeId={_id} />
+                    <RecipeControls
+                        isAuthor={isAuthor}
+                        recipeId={_id}
+                        onDeleteStart={onDeleteStart}
+                    />
                 </CardFooter>
             </Stack>
         </Card>

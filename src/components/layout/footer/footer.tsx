@@ -12,6 +12,7 @@ export const Footer = () => {
     const [isDesktop] = useMediaQuery('(min-width: 1440px)');
     const navigate = useNavigate();
     const handleCreateNewClick = () => navigate(AppRoute.NewRecipe);
+    const handleMainClick = () => navigate(AppRoute.Main);
     return (
         <Box
             minW='100%'
@@ -44,6 +45,7 @@ export const Footer = () => {
                             _focus={{
                                 bg: 'transparent',
                             }}
+                            onClick={handleMainClick}
                         >
                             <HomeIcon color='black' />
                         </Circle>

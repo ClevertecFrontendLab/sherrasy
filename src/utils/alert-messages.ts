@@ -4,7 +4,7 @@ export const ALERT_MESSAGES: Record<string, AlertMessage> = {
     serverError: {
         id: 'serverError',
         title: 'Ошибка сервера',
-        description: 'Попробуйте немного позже',
+        description: 'Попробуйте немного позже.',
         type: 'error',
     },
     searchError: {

@@ -6,9 +6,10 @@ import { RecipeCard } from '../cards/recipe-cards/recipe-card';
 
 type RecipesListProps = {
     recipes: FullRecipe[] | null;
+    testId?: string;
 };
 
-export const RecipesList = ({ recipes }: RecipesListProps) => {
+export const RecipesList = ({ recipes, testId = '' }: RecipesListProps) => {
     if (!recipes || recipes.length === 0) {
         return <Text> Элементы с такими данными не найдены</Text>;
     }
@@ -22,6 +23,7 @@ export const RecipesList = ({ recipes }: RecipesListProps) => {
                 lg: 'repeat(1, 1fr)',
                 xl: 'repeat(2, 1fr)',
             }}
+            data-test-id={testId}
         >
             {recipes.map((item: FullRecipe, i: number) => (
                 <RecipeCard

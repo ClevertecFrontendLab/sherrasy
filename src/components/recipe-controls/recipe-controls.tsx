@@ -7,11 +7,19 @@ import {
     useBookmarkRecipeMutation,
     useDeleteRecipeMutation,
     useLikeRecipeMutation,
-} from '~/query/services/recipes';
+} from '~/query/services/recipe';
 import { AppRoute } from '~/utils/constant';
 import { TestIdName } from '~/utils/testId-name.enum';
 
-export const RecipeControls = ({ isAuthor, recipeId }: { isAuthor: boolean; recipeId: string }) => {
+export const RecipeControls = ({
+    isAuthor,
+    recipeId,
+    onDeleteStart,
+}: {
+    isAuthor: boolean;
+    recipeId: string;
+    onDeleteStart?: () => void;
+}) => {
     const { pathname } = useLocation();
     const [likeRecipe] = useLikeRecipeMutation();
     const [bookmarkRecipe] = useBookmarkRecipeMutation();
@@ -19,11 +27,14 @@ export const RecipeControls = ({ isAuthor, recipeId }: { isAuthor: boolean; reci
     const navigate = useNavigate();
     const handleLikeClick = async () => await likeRecipe(recipeId);
     const handleBookmarkClick = async () => await bookmarkRecipe(recipeId);
-    const handleDeleteClick = async () => await deleteRecipe(recipeId);
+    const handleDeleteClick = async () => {
+        onDeleteStart?.();
+        await deleteRecipe(recipeId);
+    };
     const handleNavigateClick = () => navigate(`/edit-recipe${pathname}`);
     useEffect(() => {
         if (isDeleted) {
-            navigate(AppRoute.Main);
+            navigate(AppRoute.Main, { replace: true });
         }
     }, [isDeleted, navigate]);
     return (

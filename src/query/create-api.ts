@@ -35,6 +35,7 @@ export const updatedBaseQuery: BaseQueryFn<
 > = async (args, api, extraOptions) => {
     const { endpoint } = api;
     const isFiltering = endpoint === EndpointNames.GET_RECIPES;
+    const isSubscription = endpoint === EndpointNames.SUBSCRIBE_TO_BLOGGER;
     const isAuth = [
         EndpointNames.AUTH_CHECK_AUTH,
         EndpointNames.AUTH_VERIFY_OTP,
@@ -47,7 +48,9 @@ export const updatedBaseQuery: BaseQueryFn<
         EndpointNames.SAVE_RECIPE_DRAFT,
     ].some((item) => item.includes(endpoint)); // TODO: временное, изменить отображение ошибок
     try {
-        setLoadingState(api, isFiltering, true);
+        if (!isSubscription) {
+            setLoadingState(api, isFiltering, true);
+        }
         let result = await baseQuery(args, api, extraOptions);
 
         if (result?.error?.status === 401 || result?.error?.status === 403) {
@@ -94,7 +97,9 @@ export const updatedBaseQuery: BaseQueryFn<
         handleError(api, ALERT_MESSAGES.serverError);
         throw error;
     } finally {
-        setLoadingState(api, isFiltering, false);
+        if (!isSubscription) {
+            setLoadingState(api, isFiltering, false);
+        }
     }
 };
 

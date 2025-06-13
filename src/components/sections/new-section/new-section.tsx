@@ -9,8 +9,8 @@ import { useGetNewRecipesQuery } from '~/query/services/recipes';
 import { FullRecipe } from '~/types/recipe.interface';
 import { TestIdName } from '~/utils/testId-name.enum';
 
-import { RecipeCard } from '../cards/recipe-cards/recipe-card';
-import { SectionLayout } from '../layout/section-layout/section-layout';
+import { RecipeCard } from '../../cards/recipe-cards/recipe-card';
+import { SectionLayout } from '../../layout/section-layout/section-layout';
 
 export const NewSection = () => {
     const swiperBreakponts = {
@@ -36,7 +36,7 @@ export const NewSection = () => {
         return <Box mt={{ base: 3.5, xs: 4, lg: '2.5rem' }} pl={0}></Box>;
     }
     return (
-        <SectionLayout type='new'>
+        <SectionLayout type='new' title='Новые рецепты'>
             <Box maxW='100%' ml={{ lg: 2 }}>
                 <Box
                     position='relative'

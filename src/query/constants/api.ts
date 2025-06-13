@@ -3,6 +3,7 @@ export enum ApiEndpoints {
     RECIPE_DRAFT = '/recipe/draft',
     RECIPIES_BY_CATEGORY = '/recipe/category',
     RECIPIES_BY_USER = '/recipe/user',
+    RECOMMEND_RECIPE = '/recipe/recommend',
     CATEGORY = '/category',
     AUTH_SIGNUP = '/auth/signup',
     AUTH_LOGIN = '/auth/login',
@@ -16,4 +17,6 @@ export enum ApiEndpoints {
     LIKE = 'like',
     BOOKMARK = 'bookmark',
     UPLOAD_FILE = '/file/upload',
+    BLOGGERS = '/bloggers',
+    BLOGGER_SUBSCRIBE = '/users/toggle-subscription',
 }

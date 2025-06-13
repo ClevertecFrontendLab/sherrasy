@@ -7,6 +7,7 @@ import { RecipeFilters } from '~/types/state.type';
 import filterData from '~/utils/data/filters-data.json';
 import { cookBlog } from '~/utils/data/mock-cards.json';
 import { getMultiselectCategories } from '~/utils/helpers/categories-helpers';
+import { findNameById } from '~/utils/helpers/helpers';
 import { TestIdName } from '~/utils/testId-name.enum';
 
 type FilterTagProps = {
@@ -25,13 +26,13 @@ const FilterTag = ({ filterType, value, onRemove }: FilterTagProps) => {
     const getDisplayName = (id: string, type: keyof RecipeFilters): string => {
         switch (type) {
             case 'categories':
-                return categories.find((c) => c.elements === id)?.name || id;
+                return findNameById(categories, id, (category) => category.elements);
             case 'author':
-                return cookBlog.find((a) => a.id === id)?.name || id;
+                return findNameById(cookBlog, id, (blogger) => blogger.id);
             case 'meat_type':
-                return filterData[0].elements.find((m) => m.id === id)?.name || id;
+                return findNameById(filterData[0].elements, id, (meat) => meat.id);
             case 'side_type':
-                return filterData[1].elements.find((s) => s.id === id)?.name || id;
+                return findNameById(filterData[1].elements, id, (side) => side.id);
             default:
                 return id;
         }

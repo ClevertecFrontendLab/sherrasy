@@ -1,20 +1,69 @@
-import { RecipeQueryParam } from '~/types/query-param.type';
+import { CookBlogQueryParam, RecipeQueryParam } from '~/types/query-param.type';
 
 import { CardsLimit } from '../constant';
 
+const createQueryParam = (key: string, value: unknown, defaultValue?: string | number): string => {
+    if (Array.isArray(value)) {
+        return value.length > 0 ? `${key}=${value.join(',')}` : '';
+    }
+
+    if (value === null || typeof value === 'undefined' || value === '') {
+        if (defaultValue !== undefined && defaultValue !== null) {
+            return `${key}=${defaultValue}`;
+        }
+        return '';
+    }
+
+    if (typeof value === 'boolean') {
+        return `${key}=${value}`;
+    }
+
+    if (typeof value === 'number' || typeof value === 'string') {
+        return `${key}=${value}`;
+    }
+
+    return '';
+};
+
+const getQueryString = (values: string[]) => values.filter(Boolean).join('&');
+
 export const getRecipeQueryString = (query: RecipeQueryParam) => {
-    const subcatIds = query.subcategoriesIds ? query.subcategoriesIds : query.categories?.join(',');
-    const limit = query.limit ? `limit=${query.limit}` : `limit=${CardsLimit.Default}`;
-    const page = query.page ? `&page=${query.page}` : ``;
-    const allergens =
-        query.allergens && query.allergens.length ? `&allergens=${query.allergens.join(',')}` : '';
-    const searchString = query.searchString ? `&searchString=${query.searchString}` : ``;
-    const meat =
-        query.meat_type && query.meat_type.length ? `&meat=${query.meat_type.join(',')}` : '';
-    const garnish =
-        query.side_type && query.side_type.length ? `&garnish=${query.side_type.join(',')}` : '';
-    const subcategories = subcatIds ? `&subcategoriesIds=${subcatIds}` : '';
-    const sortBy = query.sortBy ? `&sortBy=${query.sortBy}` : ``;
-    const sortOrder = query.sortOrder ? `&sortOrder=${query.sortOrder}` : ``;
-    return `?${limit}${page}${allergens}${searchString}${meat}${garnish}${subcategories}${sortBy}${sortOrder}`;
+    const {
+        subcategoriesIds,
+        categories,
+        limit,
+        page,
+        allergens,
+        searchString,
+        meat_type,
+        side_type,
+        sortBy,
+        sortOrder,
+    } = query;
+
+    const subcatIds = subcategoriesIds || categories?.join(',');
+
+    const params = [
+        createQueryParam('limit', limit, CardsLimit.Default),
+        createQueryParam('page', page),
+        createQueryParam('allergens', allergens),
+        createQueryParam('searchString', searchString),
+        createQueryParam('meat', meat_type),
+        createQueryParam('garnish', side_type),
+        createQueryParam('subcategoriesIds', subcatIds),
+        createQueryParam('sortBy', sortBy),
+        createQueryParam('sortOrder', sortOrder),
+    ];
+
+    return getQueryString(params);
+};
+
+export const getCookBlogQueryString = (query: CookBlogQueryParam) => {
+    const { limit, currentUserId } = query;
+    const params = [
+        createQueryParam('currentUserId', currentUserId),
+        `${limit !== undefined ? `limit=${limit}` : ''}`,
+    ];
+
+    return getQueryString(params);
 };

@@ -59,7 +59,7 @@ export const SubcategoriesMultiSelect = <T extends FieldValues>({
 
     return (
         <FormControl isInvalid={isInvalid}>
-            <Flex direction='row' justifyContent='space-between'>
+            <Flex direction='row' justifyContent='space-between' alignItems='end' mb={1}>
                 <FormLabel
                     color='black'
                     fontSize={{ base: 'sm', lg: 'md' }}

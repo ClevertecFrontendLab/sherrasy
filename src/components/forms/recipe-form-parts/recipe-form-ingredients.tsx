@@ -22,7 +22,7 @@ export const RecipeFormIngredients = ({
         <VStack alignItems='start'>
             <HStack
                 alignItems='center'
-                mb={4}
+                mb={2}
                 fontSize={{ base: 'sm', lg: 'md' }}
                 lineHeight={{ base: 5, lg: 6 }}
                 fontWeight='semibold'

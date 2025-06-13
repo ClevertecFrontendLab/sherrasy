@@ -1,5 +1,5 @@
-export interface IFile {
+export type TFile = {
     _id: string;
     name: string;
     url: string;
-}
+};

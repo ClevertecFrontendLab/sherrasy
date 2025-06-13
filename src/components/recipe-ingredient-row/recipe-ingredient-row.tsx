@@ -51,15 +51,23 @@ export const RecipeIngredientRow = ({
         measureUnit: errors.ingredients?.[index]?.measureUnit?.message,
     };
     return (
-        <Flex w='100%' gap={4} mb={2} flexWrap='wrap'>
+        <Flex
+            w='100%'
+            gap={{ base: 4, sm: 0 }}
+            mb={2}
+            flexDir='row'
+            flexWrap='wrap'
+            position='relative'
+        >
             <FormControl
-                w={{ base: '100%', sm: undefined }}
-                flex={{ base: undefined, sm: '3' }}
                 isInvalid={!!errors.ingredients?.[index]?.title}
+                w='min-content'
+                mr={{ base: 0, sm: 4 }}
             >
                 {showLabel && (
                     <FormLabel
                         ml={6}
+                        mb={4}
                         color='lime.600'
                         lineHeight={6}
                         fontSize='xs'
@@ -72,14 +80,17 @@ export const RecipeIngredientRow = ({
                     placeholder='Ингредиент'
                     {...register(`ingredients.${index}.title` as const)}
                     data-test-id={`${TestIdName.RecipeIngredientsTitle}-${index}`}
+                    w={{ base: '20.5rem', sm: '15.0625rem', lg: '18.4375rem' }}
+                    maxW={{ lg: '18.4375rem' }}
                 />
                 {errorText && <FormErrorMessage>{errorText.title}</FormErrorMessage>}
             </FormControl>
 
-            <FormControl flex='1' isInvalid={!!errors.ingredients?.[index]?.count}>
+            <FormControl isInvalid={!!errors.ingredients?.[index]?.count} w='min-content'>
                 {showLabel && (
                     <FormLabel
-                        ml={6}
+                        ml={3}
+                        mb={4}
                         color='lime.600'
                         lineHeight={6}
                         fontSize='xs'
@@ -92,7 +103,7 @@ export const RecipeIngredientRow = ({
                     control={control}
                     name={`ingredients.${index}.count`}
                     render={({ field: { onChange, value } }) => (
-                        <NumberInput value={value} onChange={onChange}>
+                        <NumberInput value={value} onChange={onChange} w='5rem' maxW='5rem'>
                             <NumberInputField
                                 placeholder='100'
                                 data-test-id={`${TestIdName.RecipeIngredientsCount}-${index}`}
@@ -102,10 +113,11 @@ export const RecipeIngredientRow = ({
                 />
                 {errorText && <FormErrorMessage>{errorText.count}</FormErrorMessage>}
             </FormControl>
-            <FormControl flex='2' isInvalid={!!errors.ingredients?.[index]?.measureUnit}>
+            <FormControl isInvalid={!!errors.ingredients?.[index]?.measureUnit} w='min-content'>
                 {showLabel && (
                     <FormLabel
-                        ml={6}
+                        ml={8}
+                        mb={4}
                         color='lime.600'
                         lineHeight={6}
                         fontSize='xs'
@@ -119,6 +131,8 @@ export const RecipeIngredientRow = ({
                     name={`ingredients.${index}.measureUnit`}
                     render={({ field: { onChange, value } }) => (
                         <Select
+                            w={{ base: '192px', sm: '215px' }}
+                            maxW={{ sm: '215px' }}
                             placeholder='Единица измерения'
                             color={!measureUnitValue ? 'blackAlpha.700' : 'current'}
                             _placeholder={{ color: 'blackAlpha.700' }}
@@ -149,7 +163,9 @@ export const RecipeIngredientRow = ({
                     variant='dark'
                     icon={<AddItemIcon w={8} h={8} />}
                     onClick={onAdd}
-                    mt={showLabel ? 8 : undefined}
+                    position='absolute'
+                    right={-2}
+                    bottom={0}
                     data-test-id={TestIdName.RecipeAddIngredientsButton}
                 />
             ) : (
@@ -159,7 +175,9 @@ export const RecipeIngredientRow = ({
                     colorScheme='lime'
                     icon={<RemoveIcon w={{ base: 4 }} h={{ base: 4 }} />}
                     onClick={onRemove}
-                    mt={showLabel ? 8 : undefined}
+                    position='absolute'
+                    right={-2}
+                    bottom={0}
                     data-test-id={`${TestIdName.RecipeIngredientsRemoveIngredients}-${index}`}
                 />
             )}

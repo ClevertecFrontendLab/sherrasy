@@ -46,8 +46,16 @@ export const ImageModalBody = ({
     }, [isSuccess]);
 
     return (
-        <Center w={{ base: '15.75rem', lg: '20.75rem' }}>
-            <form onSubmit={handleSubmit(handleUpload)}>
+        <Center w={{ base: '15.75rem', lg: '20.75rem' }} alignItems='center'>
+            <form
+                onSubmit={handleSubmit(handleUpload)}
+                style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    marginTop: '10px',
+                }}
+            >
                 <Center
                     w='12.875rem'
                     h='12.875rem'
@@ -59,6 +67,7 @@ export const ImageModalBody = ({
                     position='relative'
                     overflow='hidden'
                     data-test-id={TestIdName.RecipeImageModalImageBlock}
+                    mb={2}
                 >
                     <Input
                         type='file'
@@ -88,7 +97,7 @@ export const ImageModalBody = ({
                     )}
                 </Center>
                 {(file || url) && (
-                    <VStack gap='1.625rem' mt={4} w='100%'>
+                    <VStack gap='1.625rem' mt={5} w={{ base: '15.75rem', lg: '20.75rem' }}>
                         <Button
                             size='lg'
                             colorScheme='black'

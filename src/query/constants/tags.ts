@@ -5,4 +5,6 @@ export enum Tags {
     CATEGORIES = 'categories',
     CATEGORY = 'category',
     AUTH = 'auth',
+    BLOGGERS = 'bloggers',
+    BLOGGER = 'blogger',
 }
