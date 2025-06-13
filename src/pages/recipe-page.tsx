@@ -11,10 +11,13 @@ import { RecipeHeader } from '~/components/recipe-header/recipe-header';
 import { RecipeSteps } from '~/components/recipe-steps/recipe-steps';
 import { NewSection } from '~/components/sections/new-section/new-section';
 import { useGetRecipeByIdQuery } from '~/query/services/recipes';
+import { useAppDispatch } from '~/store/hooks';
+import { setRecipeName } from '~/store/recipes/recipes-slice';
 
 export const RecipePage = () => {
     const { recipeId } = useParams();
     const navigate = useNavigate();
+    const dispatch = useAppDispatch();
     const [isDeleting, setIsDeleting] = useState(false);
     const {
         data: recipe,
@@ -26,6 +29,9 @@ export const RecipePage = () => {
         if (isFetching) return;
         if (error || !recipe) {
             navigate(-1);
+        }
+        if (recipe) {
+            dispatch(setRecipeName(recipe.title));
         }
     }, [recipe, isFetching, error, navigate]);
 

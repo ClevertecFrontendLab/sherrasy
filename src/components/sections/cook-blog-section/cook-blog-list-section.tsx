@@ -24,7 +24,7 @@ export const CookBlogListSection = ({
     const [isDesktop] = useMediaQuery('(min-width: 1920px)');
     const isFavorite = type === 'favorite';
     const columnParams = isFavorite
-        ? 'repeat(2, minmax(40.5rem, 1fr))'
+        ? 'repeat(2, minmax(35rem,40.5rem ))'
         : 'repeat(3, minmax(23.5rem, 26.625rem))';
     const titleParam = isFavorite ? 'Избранные блоги' : null;
     if (!data?.length) return null;

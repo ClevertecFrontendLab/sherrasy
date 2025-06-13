@@ -41,7 +41,7 @@ export const CookBlogPage = () => {
             >
                 Кулинарные блоги
             </Heading>
-            <VStack gap={{ base: 8, lg: 10 }} w='100%'>
+            <VStack gap={{ base: 8, lg: 10 }} w='100%' px={{ sm: 3, lg: 5 }}>
                 <CookBlogListSection type='favorite' data={data?.favorites ?? []} />
                 <CookBlogListSection
                     type='others'
