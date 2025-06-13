@@ -86,7 +86,7 @@ export const AuthorCard = ({ authorId }: AuthorCardProps) => {
                             pt={{ base: 2, sm: 0.5 }}
                             pb={{ base: 3.5, sm: 4 }}
                         >
-                            <Flex>
+                            <Flex width='100%' justifyContent='space-between'>
                                 <Box>
                                     <Text
                                         fontSize={{ base: 'lg', sm: '2xl' }}
@@ -99,14 +99,12 @@ export const AuthorCard = ({ authorId }: AuthorCardProps) => {
                                         @{nick}
                                     </Text>
                                 </Box>
-                                <Text fontSize='xs' position='absolute' top={0} right={0}>
-                                    Автор рецепта
-                                </Text>
+                                <Text fontSize='xs'>Автор рецепта</Text>
                             </Flex>
                         </CardHeader>
                         <CardBody
                             py={0}
-                            px={{ base: 2, sm: 1 }}
+                            px={{ base: 2, sm: '1.125rem' }}
                             display='flex'
                             justifyContent='space-between'
                         >
