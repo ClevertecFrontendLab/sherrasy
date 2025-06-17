@@ -7,6 +7,7 @@ import { JuicyPage } from '~/pages/juicy-page';
 import { MainPage } from '~/pages/main-page';
 import { NewRecipePage } from '~/pages/new-recipe-page';
 import { NotFoundPage } from '~/pages/not-found-page';
+import { ProfilePage } from '~/pages/profile-page';
 import { RecipePage } from '~/pages/recipe-page';
 import { SignInPage } from '~/pages/sign-in-page';
 import { SignUpPage } from '~/pages/sign-up-page';
@@ -51,6 +52,14 @@ const router = createBrowserRouter([
     {
         path: AppRoute.Blogger,
         element: protectedRoute(<BloggerPage />),
+    },
+    {
+        path: AppRoute.Profile,
+        element: protectedRoute(<ProfilePage />),
+    },
+    {
+        path: `${AppRoute.Profile}${AppRoute.Settings}`,
+        element: protectedRoute(<ProfilePage />),
     },
     {
         path: AppRoute.SignIn,

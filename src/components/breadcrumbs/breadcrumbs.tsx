@@ -14,7 +14,14 @@ import { TestIdName } from '~/utils/testId-name.enum';
 import { renderCustomBreadcrumb } from './render-breadcrumbs';
 
 export const Breadcrumbs = () => {
-    const DEFAULT_SEGMENTS = ['the-juiciest', 'new-recipe', 'edit-recipe', 'blogs'];
+    const DEFAULT_SEGMENTS = [
+        'the-juiciest',
+        'new-recipe',
+        'edit-recipe',
+        'blogs',
+        'profile',
+        'settings',
+    ];
     const location = useLocation();
     const { categoryId, subcategoryId, recipeId, userId } = useParams<PathParams>();
     const recipeName = useAppSelector(getRecipeName);

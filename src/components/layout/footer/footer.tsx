@@ -13,6 +13,9 @@ export const Footer = () => {
     const navigate = useNavigate();
     const handleCreateNewClick = () => navigate(AppRoute.NewRecipe);
     const handleMainClick = () => navigate(AppRoute.Main);
+    const handleProfileRedirect = () => {
+        navigate(AppRoute.Profile);
+    };
     return (
         <Box
             minW='100%'
@@ -93,6 +96,7 @@ export const Footer = () => {
                     size='lg'
                     w={{ base: '5.625rem', sm: '12rem' }}
                     className={styles.footerBtn}
+                    onClick={handleProfileRedirect}
                 >
                     <Flex
                         h={{ base: '61px' }}

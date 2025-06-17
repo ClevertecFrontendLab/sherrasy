@@ -15,6 +15,9 @@ export const AppRoute = {
     EditRecipe: '/edit-recipe/:categoryId/:subcategoryId/:recipeId',
     CookBlog: '/blogs',
     Blogger: '/blogs/:userId',
+    Profile: '/profile',
+    Settings: '/settings',
+    EditDraft: '/edit-draft/:draftId',
 } as const;
 
 export const ApiBase = {
@@ -43,6 +46,8 @@ export const AppRouteToName: Record<string, string> = {
     'the-juiciest': 'Самое сочное',
     'new-recipe': 'Новый рецепт',
     blogs: 'Блоги',
+    profile: 'Мой профиль',
+    settings: 'Настройки',
 };
 
 export const NutritionToName: Record<string, string> = {
