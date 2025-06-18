@@ -5,4 +5,5 @@ export enum ApiGroupNames {
     CATEGORIES = 'category',
     AUTH = 'auth',
     BLOGGERS = 'bloggers',
+    PROFILE = 'profile',
 }

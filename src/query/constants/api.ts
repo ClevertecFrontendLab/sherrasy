@@ -19,4 +19,12 @@ export enum ApiEndpoints {
     UPLOAD_FILE = '/file/upload',
     BLOGGERS = '/bloggers',
     BLOGGER_SUBSCRIBE = '/users/toggle-subscription',
+    USERS = '/users/all',
+    PROFILE = '/users/me',
+    PROFILE_UPDATE = 'update-info',
+    PROFILE_UPDATE_PASSWORD = 'update-password',
+    PROFILE_NOTE = 'note',
+    PROFILE_PHOTO = 'photo',
+    PROFILE_STATISTIC = '/statistic',
+    PROFILE_DELETE = '/profile',
 }

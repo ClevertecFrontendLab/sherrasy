@@ -7,4 +7,8 @@ export enum Tags {
     AUTH = 'auth',
     BLOGGERS = 'bloggers',
     BLOGGER = 'blogger',
+    PROFILE = 'profile',
+    STATISTIC = 'statistic',
+    USERS = 'users',
+    NOTES = 'notes',
 }
