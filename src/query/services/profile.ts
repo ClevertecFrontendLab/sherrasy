@@ -1,4 +1,5 @@
 import { TFile } from '~/types/file.type';
+import { Profile, ProfileStats } from '~/types/profile.type';
 
 import { ApiEndpoints } from '../constants/api';
 import { ApiGroupNames } from '../constants/api-group-names';
@@ -12,7 +13,7 @@ export const profileApiSlice = apiSlice
     })
     .injectEndpoints({
         endpoints: (builder) => ({
-            getAllUsers: builder.query<unknown, undefined>({
+            getAllUsers: builder.query<unknown, void>({
                 query: () => ({
                     url: ApiEndpoints.USERS,
                     method: 'GET',
@@ -21,7 +22,7 @@ export const profileApiSlice = apiSlice
                 }),
                 providesTags: [Tags.USERS],
             }),
-            getProfile: builder.query<unknown, undefined>({
+            getProfile: builder.query<Profile, void>({
                 query: () => ({
                     url: ApiEndpoints.PROFILE,
                     method: 'GET',
@@ -30,7 +31,7 @@ export const profileApiSlice = apiSlice
                 }),
                 providesTags: [Tags.PROFILE],
             }),
-            getStats: builder.query<unknown, undefined>({
+            getStats: builder.query<ProfileStats, void>({
                 query: () => ({
                     url: ApiEndpoints.PROFILE_STATISTIC,
                     method: 'GET',

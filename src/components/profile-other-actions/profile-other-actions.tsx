@@ -12,7 +12,6 @@ export const ProfileOtherActions = () => {
         <VStack w='100%' align='start' textAlign='start' gap={{ base: 6, lg: '2.5rem' }}>
             <VStack align='start'>
                 <Heading fontSize={{ base: 'lg', lg: 'xl' }} lineHeight={7}>
-                    {' '}
                     О проекте
                 </Heading>
                 <HStack>

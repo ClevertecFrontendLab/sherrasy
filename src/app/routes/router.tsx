@@ -9,6 +9,7 @@ import { NewRecipePage } from '~/pages/new-recipe-page';
 import { NotFoundPage } from '~/pages/not-found-page';
 import { ProfilePage } from '~/pages/profile-page';
 import { RecipePage } from '~/pages/recipe-page';
+import { SettingsPage } from '~/pages/settings-page';
 import { SignInPage } from '~/pages/sign-in-page';
 import { SignUpPage } from '~/pages/sign-up-page';
 import { VeganPage } from '~/pages/vegan-page';
@@ -59,7 +60,7 @@ const router = createBrowserRouter([
     },
     {
         path: `${AppRoute.Profile}${AppRoute.Settings}`,
-        element: protectedRoute(<ProfilePage />),
+        element: protectedRoute(<SettingsPage />),
     },
     {
         path: AppRoute.SignIn,

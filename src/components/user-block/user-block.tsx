@@ -2,12 +2,16 @@ import { Avatar, HStack, Text, VStack } from '@chakra-ui/react';
 import { useNavigate } from 'react-router';
 
 import userAvatar from '~/assets/images/avatar/photo-dekstop.jpg';
+import { useGetProfileQuery } from '~/query/services/profile';
 import { AppRoute } from '~/utils/constant';
 import { getBloggerCardName } from '~/utils/helpers/blogger-author-helpers';
 
 export const UserBlock = () => {
-    const name = getBloggerCardName('Екатерина', 'Константинопольская');
     const navigate = useNavigate();
+    const { data, isLoading } = useGetProfileQuery();
+    if (isLoading || !data) return null;
+    const { firstName = '', lastName = '', login = '' } = data;
+    const name = getBloggerCardName(firstName, lastName);
     const handleProfileRedirect = () => {
         navigate(AppRoute.Profile);
     };
@@ -24,7 +28,7 @@ export const UserBlock = () => {
                     {name}
                 </Text>
                 <Text fontSize='sm' lineHeight={5} color='blackAlpha.700'>
-                    @bake_and_pie
+                    @{login}
                 </Text>
             </VStack>
         </HStack>

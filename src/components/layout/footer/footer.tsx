@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router';
 
 import { HomeIcon, PenIcon, SearchIcon } from '~/assets/icons/icons';
 import userAvatar from '~/assets/images/avatar/photo-dekstop.jpg';
+import { useGetProfileQuery } from '~/query/services/profile';
 import { AppRoute } from '~/utils/constant';
 import { TestIdName } from '~/utils/testId-name.enum';
 
@@ -11,6 +12,9 @@ import styles from './footer.module.css';
 export const Footer = () => {
     const [isDesktop] = useMediaQuery('(min-width: 1440px)');
     const navigate = useNavigate();
+    const { data, isLoading } = useGetProfileQuery();
+    if (isLoading || !data) return null;
+    const { firstName = '', lastName = '' } = data;
     const handleCreateNewClick = () => navigate(AppRoute.NewRecipe);
     const handleMainClick = () => navigate(AppRoute.Main);
     const handleProfileRedirect = () => {
@@ -106,7 +110,7 @@ export const Footer = () => {
                         gap={{ base: 1.5, sm: 1 }}
                     >
                         <Avatar
-                            name='Екатерина Константинопольская'
+                            name={`${firstName} ${lastName}`}
                             src={userAvatar}
                             size='md'
                             maxH='2.5rem'
