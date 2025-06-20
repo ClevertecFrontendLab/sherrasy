@@ -16,7 +16,7 @@ export const AppRoute = {
     CookBlog: '/blogs',
     Blogger: '/blogs/:userId',
     Profile: '/profile',
-    Settings: '/settings',
+    Settings: 'settings',
     EditDraft: '/edit-draft/:draftId',
 } as const;
 

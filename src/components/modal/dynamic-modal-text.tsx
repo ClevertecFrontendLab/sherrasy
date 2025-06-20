@@ -5,6 +5,7 @@ type DynamicModalTextProps = Partial<{
     highlightIndex: number;
     highlightCondition: boolean;
     customText: string;
+    isDeleteModal: boolean;
 }>;
 
 export const DynamicModalText = ({
@@ -12,6 +13,7 @@ export const DynamicModalText = ({
     highlightIndex = -1,
     highlightCondition = true,
     customText,
+    isDeleteModal,
 }: DynamicModalTextProps) => {
     if (!textData || !Array.isArray(textData)) {
         return null;
@@ -29,6 +31,7 @@ export const DynamicModalText = ({
                         fontSize='md'
                         lineHeight={6}
                         fontWeight={isHighlighted ? 'bold' : 'normal'}
+                        mb={index == 0 && isDeleteModal ? 4 : 0}
                     >
                         {isHighlighted ? customText : text}
                     </Text>

@@ -59,7 +59,7 @@ const router = createBrowserRouter([
         element: protectedRoute(<ProfilePage />),
     },
     {
-        path: `${AppRoute.Profile}${AppRoute.Settings}`,
+        path: `${AppRoute.Profile}/${AppRoute.Settings}`,
         element: protectedRoute(<SettingsPage />),
     },
     {

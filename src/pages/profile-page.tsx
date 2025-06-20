@@ -19,10 +19,16 @@ export const ProfilePage = () => {
     console.log(data);
     return (
         <Layout>
-            <Flex direction='column' justify='center' align='center' mt={{ base: 4, lg: 6, xl: 8 }}>
+            <Flex
+                direction='column'
+                justify='center'
+                align='center'
+                mt={{ base: 4, lg: 6, xl: 8 }}
+                width='100%'
+            >
                 <UserBlockProfile profile={profileData} />{' '}
+                <NotesSection notes={profileData?.notes ?? []} />
             </Flex>
-            <NotesSection notes={profileData?.notes ?? []} />
         </Layout>
     );
 };

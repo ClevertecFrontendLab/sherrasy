@@ -11,6 +11,17 @@ export const MODAL_CONFIGS: Record<ModalType, ModalConfig> = {
         icon: loginErrorImage,
         type: 'login',
     },
+    deleteProfile: {
+        bodyText: [
+            'Если вы удалите аккаунт, вы больше не сможете всеми функциями сервиса, которые вы использовали.',
+            'Мы удалим все ваши опубликованные рецепты и записи в блоге.',
+        ],
+        header: 'Действительно хотите удалить свой аккаунт?',
+        footerText: 'Остались вопросы? Свяжитесь',
+
+        icon: loginErrorImage,
+        type: 'deleteProfile',
+    },
     exitRecipe: {
         bodyText: ['Чтобы сохранить, нажмите кнопку \n сохранить черновик'],
         header: 'Выйти без сохранения?',

@@ -37,7 +37,8 @@ export const UniversalModal = ({
     if (!config) return null;
 
     const showEmail = config.type === 'verification' || config.type === 'recoveryPin';
-    const hasSupportLink = config.type.includes('verification');
+    const isDeleteModal = config.type === 'deleteProfile';
+    const hasSupportLink = config.type.includes('verification') || isDeleteModal;
     const isImageModal = config.type === 'imageLoad';
     const isDraftModal = config.type === 'exitRecipe';
     return (
@@ -74,6 +75,7 @@ export const UniversalModal = ({
                         highlightIndex={1}
                         highlightCondition={showEmail}
                         customText={email || ''}
+                        isDeleteModal={isDeleteModal}
                     />
                     {children}
                 </ModalBody>

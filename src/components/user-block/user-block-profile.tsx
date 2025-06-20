@@ -1,6 +1,9 @@
-import { Avatar, HStack, Text, VStack } from '@chakra-ui/react';
+import { Avatar, Button, HStack, Text, VStack } from '@chakra-ui/react';
+import { useNavigate } from 'react-router';
 
+import { GearIconSolid } from '~/assets/icons/icons';
 import { Profile } from '~/types/profile.type';
+import { AppRoute } from '~/utils/constant';
 import { getBloggerCardName } from '~/utils/helpers/blogger-author-helpers';
 
 type UserBlockProfileProps = {
@@ -9,15 +12,17 @@ type UserBlockProfileProps = {
 export const UserBlockProfile = ({ profile }: UserBlockProfileProps) => {
     const { firstName = '', lastName = '', login: nick = '' } = profile;
     const name = getBloggerCardName(firstName, lastName);
-
+    const navigate = useNavigate();
+    const handleSettingsClick = () => navigate(AppRoute.Settings);
     return (
         <HStack
             alignItems='center'
             flexDir={{ base: 'column', sm: 'row' }}
             boxShadow='none'
-            justifyContent='center'
+            justifyContent={{ base: 'center', sm: 'start' }}
             gap={6}
             position='relative'
+            width='100%'
         >
             <Avatar name={name} size='2xl' />
             <VStack alignItems='flex-start' w={{ base: '100%', sm: 'fit-content' }} maxW='100%'>
@@ -67,6 +72,15 @@ export const UserBlockProfile = ({ profile }: UserBlockProfileProps) => {
                     </HStack>
                 </HStack> */}
             </VStack>
+            <Button
+                position='absolute'
+                right={0}
+                top={0}
+                variant='ghost'
+                onClick={handleSettingsClick}
+            >
+                <GearIconSolid />
+            </Button>
         </HStack>
     );
 };

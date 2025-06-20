@@ -10,7 +10,7 @@ import { useAppDispatch } from '~/store/hooks';
 import { Blogger } from '~/types/blogger.type';
 import { AppRoute } from '~/utils/constant';
 import { getBloggerCardName, getCurrentUserId } from '~/utils/helpers/blogger-author-helpers';
-import { getRecipeText } from '~/utils/helpers/helpers';
+import { getRecipeText } from '~/utils/helpers/get-plural-label-name';
 import { TestIdName } from '~/utils/testId-name.enum';
 
 type BloggerStatsProps = {
