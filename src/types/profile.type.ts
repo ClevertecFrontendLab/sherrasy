@@ -3,16 +3,17 @@ import { RecipeDraftFormData } from '~/components/forms/validation-scheme/recipe
 import { Note } from './blogger.type';
 
 export type Profile = {
+    _id: string;
     drafts: RecipeDraftFormData[];
     email: string;
     firstName: string;
     lastName: string;
     login: string;
     notes: Note[];
-    recipesIds: string[] | null;
-    subscribers: string[] | null;
-    subscriptions: string[] | null;
-    _id: string;
+    recipesIds: string[];
+    subscribers: string[];
+    subscriptions: string[];
+    photoLink?: string;
 };
 
 export type ProfileStat = {

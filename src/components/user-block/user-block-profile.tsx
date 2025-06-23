@@ -5,12 +5,13 @@ import { GearIconSolid } from '~/assets/icons/icons';
 import { Profile } from '~/types/profile.type';
 import { AppRoute } from '~/utils/constant';
 import { getBloggerCardName } from '~/utils/helpers/blogger-author-helpers';
+import { updateImagePath } from '~/utils/helpers/format-images';
 
 type UserBlockProfileProps = {
     profile: Profile;
 };
 export const UserBlockProfile = ({ profile }: UserBlockProfileProps) => {
-    const { firstName = '', lastName = '', login: nick = '' } = profile;
+    const { firstName = '', lastName = '', login: nick = '', photoLink = '' } = profile;
     const name = getBloggerCardName(firstName, lastName);
     const navigate = useNavigate();
     const handleSettingsClick = () => navigate(AppRoute.Settings);
@@ -24,7 +25,7 @@ export const UserBlockProfile = ({ profile }: UserBlockProfileProps) => {
             position='relative'
             width='100%'
         >
-            <Avatar name={name} size='2xl' />
+            <Avatar name={name} size='2xl' src={updateImagePath(photoLink)} />
             <VStack alignItems='flex-start' w={{ base: '100%', sm: 'fit-content' }} maxW='100%'>
                 <Text
                     p={0}

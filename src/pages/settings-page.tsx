@@ -6,6 +6,7 @@ import { OverlayWithLoader } from '~/components/layout/overlay/overlayWithLoader
 import { Layout } from '~/components/layout/page-layout/layout';
 import { ProfileGraphs } from '~/components/profile-graphs/profile-graphs';
 import { ProfileOtherActions } from '~/components/profile-other-actions/profile-other-actions';
+import { RecommendationBanner } from '~/components/recommend-banner/recommend-banner';
 import { useGetProfileQuery, useGetStatsQuery } from '~/query/services/profile';
 
 export const SettingsPage = () => {
@@ -28,6 +29,10 @@ export const SettingsPage = () => {
                     <ProfileGraphs stats={statsData.likes} type='likes' />
                 </>
             )}
+            <RecommendationBanner
+                totalBookmarks={statsData?.bookmarks.length ?? 0}
+                totalSubscribers={profileData?.subscribers.length ?? 0}
+            />
             <ProfileOtherActions />
         </Layout>
     );
