@@ -1,3 +1,4 @@
+import { BloggerShort } from '~/types/blogger.type';
 import { TFile } from '~/types/file.type';
 import { Profile, ProfileStats } from '~/types/profile.type';
 
@@ -13,7 +14,7 @@ export const profileApiSlice = apiSlice
     })
     .injectEndpoints({
         endpoints: (builder) => ({
-            getAllUsers: builder.query<unknown, void>({
+            getAllUsers: builder.query<BloggerShort[], void>({
                 query: () => ({
                     url: ApiEndpoints.USERS,
                     method: 'GET',

@@ -36,3 +36,11 @@ export type BloggersFullData = {
     favorites: Blogger[];
     others: Blogger[];
 };
+
+export type BloggerShort = {
+    firstName: string;
+    id: string;
+    lastName: string;
+    login: string;
+    photo?: string;
+};

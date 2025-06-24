@@ -40,3 +40,10 @@ export const getBookmarkText = (count: number): string =>
         few: 'сохранения',
         many: 'сохранений',
     });
+
+export const getSubscribersText = (count: number): string =>
+    getPluralLabelName(count, {
+        singular: 'подписчик',
+        few: 'подписчика',
+        many: 'подписчиков',
+    });

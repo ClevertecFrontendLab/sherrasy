@@ -45,38 +45,40 @@ export const ProfileGraphs = ({ stats, type }: ProfileGraphsProps) => {
                         {label}
                     </Heading>
                 </HStack>
-                <Box style={{ width: '100%', height: 300, minWidth: '55rem' }} mt='0.875rem'>
-                    <ResponsiveContainer width='100%' height='100%'>
-                        <LineChart data={weeklyStats}>
-                            <CartesianGrid strokeDasharray='3 3' />
-                            <XAxis
-                                dataKey='displayDate'
-                                tick={{ fontSize: 12 }}
-                                interval={0}
-                                height={60}
-                                tickMargin={8}
-                                tickLine={false}
-                                axisLine={{ stroke: '#ffffd3' }}
-                            />
-                            <YAxis
-                                domain={[0, yMax]}
-                                ticks={yTicks}
-                                allowDecimals={false}
-                                tickLine={false}
-                                tick={{ fontSize: 12 }}
-                                tickMargin={22}
-                                axisLine={{ stroke: '#ffffd3' }}
-                            />
-                            <Line
-                                type='monotone'
-                                dataKey='count'
-                                stroke={stroke}
-                                strokeWidth={2}
-                                dot={{ r: 4 }}
-                            />
-                        </LineChart>
-                    </ResponsiveContainer>
-                </Box>
+                {count > 0 && (
+                    <Box style={{ width: '100%', height: 300, minWidth: '55rem' }} mt='0.875rem'>
+                        <ResponsiveContainer width='100%' height='100%'>
+                            <LineChart data={weeklyStats}>
+                                <CartesianGrid strokeDasharray='3 3' />
+                                <XAxis
+                                    dataKey='displayDate'
+                                    tick={{ fontSize: 12 }}
+                                    interval={0}
+                                    height={60}
+                                    tickMargin={8}
+                                    tickLine={false}
+                                    axisLine={{ stroke: '#ffffd3' }}
+                                />
+                                <YAxis
+                                    domain={[0, yMax]}
+                                    ticks={yTicks}
+                                    allowDecimals={false}
+                                    tickLine={false}
+                                    tick={{ fontSize: 12 }}
+                                    tickMargin={22}
+                                    axisLine={{ stroke: '#ffffd3' }}
+                                />
+                                <Line
+                                    type='monotone'
+                                    dataKey='count'
+                                    stroke={stroke}
+                                    strokeWidth={2}
+                                    dot={{ r: 4 }}
+                                />
+                            </LineChart>
+                        </ResponsiveContainer>
+                    </Box>
+                )}
             </Box>
         </Box>
     );

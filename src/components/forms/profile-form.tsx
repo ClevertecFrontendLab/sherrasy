@@ -28,11 +28,11 @@ export const ProfileForm = () => {
             px={3}
         >
             <VStack spacing={6} w='100%' data-test-id={TestIdName.SignUpForm}>
-                <HStack>
+                <HStack w='100%'>
                     <FormInput<ProfileFormData> name='firstName' formMethods={formMethods} />
                     <FormInput<ProfileFormData> name='lastName' formMethods={formMethods} />
                 </HStack>
-                <HStack>
+                <HStack w='100%'>
                     <FormInput<ProfileFormData>
                         name='email'
                         type='email'
@@ -45,7 +45,7 @@ export const ProfileForm = () => {
                     />
                 </HStack>
 
-                <Button mt={4} colorScheme='black' type='submit' w='100%'>
+                <Button mt={4} colorScheme='black' type='submit' alignSelf='start'>
                     Сохранить изменения
                 </Button>
             </VStack>

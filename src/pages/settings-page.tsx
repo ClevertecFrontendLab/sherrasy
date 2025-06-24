@@ -1,4 +1,4 @@
-import { Flex } from '@chakra-ui/react';
+import { Heading, VStack } from '@chakra-ui/react';
 import { useNavigate } from 'react-router';
 
 import { ProfileForm } from '~/components/forms/profile-form';
@@ -7,6 +7,7 @@ import { Layout } from '~/components/layout/page-layout/layout';
 import { ProfileGraphs } from '~/components/profile-graphs/profile-graphs';
 import { ProfileOtherActions } from '~/components/profile-other-actions/profile-other-actions';
 import { RecommendationBanner } from '~/components/recommend-banner/recommend-banner';
+import { SubscribersList } from '~/components/subscribers-list/subscribers-list';
 import { useGetProfileQuery, useGetStatsQuery } from '~/query/services/profile';
 
 export const SettingsPage = () => {
@@ -20,14 +21,24 @@ export const SettingsPage = () => {
     }
     return (
         <Layout>
-            <Flex direction='column' justify='center' align='center' mt={{ base: 4, lg: 6, xl: 8 }}>
+            <VStack
+                direction='column'
+                justify='center'
+                align='center'
+                mt={{ base: 4, lg: 6, xl: 8 }}
+                minW='100%'
+            >
                 <ProfileForm />
-            </Flex>
+            </VStack>
             {statsData && (
-                <>
+                <VStack gap={4} w='100%' alignItems='start' mb={{ base: 6, lg: '2.5rem' }}>
+                    <Heading fontSize={{ base: 'lg', lg: 'xl' }} lineHeight={7}>
+                        Статистика
+                    </Heading>
+                    <SubscribersList subscribers={profileData.subscribers} />
                     <ProfileGraphs stats={statsData.bookmarks} type='bookmarks' />
                     <ProfileGraphs stats={statsData.likes} type='likes' />
-                </>
+                </VStack>
             )}
             <RecommendationBanner
                 totalBookmarks={statsData?.bookmarks.length ?? 0}

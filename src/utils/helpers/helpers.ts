@@ -1,3 +1,4 @@
+import { BloggerShort } from '~/types/blogger.type';
 import { ModalType } from '~/types/modal.type';
 
 import { AppRoute } from '../constant';
@@ -45,3 +46,7 @@ export const findNameById = <T extends { name?: string }>(
     const item = array.find((item) => getId(item) === id);
     return item?.name || id;
 };
+
+export function getSubscribersList(users: BloggerShort[], subscribers: string[]): BloggerShort[] {
+    return users.filter((user) => subscribers.includes(user.id));
+}
