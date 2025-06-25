@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router';
 import { ProfileForm } from '~/components/forms/profile-form';
 import { OverlayWithLoader } from '~/components/layout/overlay/overlayWithLoader';
 import { Layout } from '~/components/layout/page-layout/layout';
+import { AvatarUploadModal } from '~/components/modal/avatar-upload-modal/avatar-upload-modal';
 import { ProfileGraphs } from '~/components/profile-graphs/profile-graphs';
 import { ProfileOtherActions } from '~/components/profile-other-actions/profile-other-actions';
 import { RecommendationBanner } from '~/components/recommend-banner/recommend-banner';
@@ -21,30 +22,36 @@ export const SettingsPage = () => {
     }
     return (
         <Layout>
-            <VStack
-                direction='column'
-                justify='center'
-                align='center'
-                mt={{ base: 4, lg: 6, xl: 8 }}
-                minW='100%'
-            >
-                <ProfileForm />
-            </VStack>
-            {statsData && (
-                <VStack gap={4} w='100%' alignItems='start' mb={{ base: 6, lg: '2.5rem' }}>
+            <VStack w='100%' gap={{ base: 4, lg: '2.5rem' }}>
+                <VStack
+                    direction='column'
+                    justify='center'
+                    align='center'
+                    mt={{ base: 4, lg: 6, xl: 8 }}
+                    w='100%'
+                >
                     <Heading fontSize={{ base: 'lg', lg: 'xl' }} lineHeight={7}>
-                        Статистика
+                        Авторизация и персонализация
                     </Heading>
-                    <SubscribersList subscribers={profileData.subscribers} />
-                    <ProfileGraphs stats={statsData.bookmarks} type='bookmarks' />
-                    <ProfileGraphs stats={statsData.likes} type='likes' />
+                    <AvatarUploadModal initialImage={profileData.photoLink} />
+                    <ProfileForm profile={profileData} />
                 </VStack>
-            )}
-            <RecommendationBanner
-                totalBookmarks={statsData?.bookmarks.length ?? 0}
-                totalSubscribers={profileData?.subscribers.length ?? 0}
-            />
-            <ProfileOtherActions />
+                {statsData && (
+                    <VStack gap={4} w='100%' alignItems='start'>
+                        <Heading fontSize={{ base: 'lg', lg: 'xl' }} lineHeight={7}>
+                            Статистика
+                        </Heading>
+                        <SubscribersList subscribers={profileData.subscribers} />
+                        <ProfileGraphs stats={statsData.bookmarks} type='bookmarks' />
+                        <ProfileGraphs stats={statsData.likes} type='likes' />
+                    </VStack>
+                )}
+                <RecommendationBanner
+                    totalBookmarks={statsData?.bookmarks.length ?? 0}
+                    totalSubscribers={profileData?.subscribers.length ?? 0}
+                />
+                <ProfileOtherActions />
+            </VStack>
         </Layout>
     );
 };

@@ -18,6 +18,7 @@ interface FormInputProps<T extends FieldValues> extends Omit<InputProps, 'name'>
     onSubmit?: () => void;
     testId?: string;
     textHelper?: string;
+    labelText?: string;
     stepOneValid?: boolean;
 }
 
@@ -26,6 +27,7 @@ export const FormInput = <T extends FieldValues>({
     formMethods,
     testId,
     textHelper,
+    labelText,
     onSubmit,
     stepOneValid,
     ...props
@@ -48,7 +50,7 @@ export const FormInput = <T extends FieldValues>({
                 fontWeight='normal'
                 htmlFor={name.toString()}
             >
-                {InputNameToLabel[name]}
+                {labelText ? labelText : InputNameToLabel[name]}
             </FormLabel>
             <Input
                 id={name.toString()}
