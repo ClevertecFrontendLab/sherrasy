@@ -54,7 +54,7 @@ export const Layout = ({ children }: LayoutProps) => {
                             {children}
                         </Flex>
 
-                        {isDesktop && <Sidebar />}
+                        {isDesktop && <Sidebar type='desktop' />}
                     </Flex>
                 </Center>
                 <AlertToastContainer />

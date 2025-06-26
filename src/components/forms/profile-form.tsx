@@ -2,6 +2,7 @@ import { Button, Center, HStack, VStack } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
 
 import { FormInput } from '~/components/inputs/form-input/form-input';
+import { useUpdateUserMutation } from '~/query/services/profile';
 import { Profile } from '~/types/profile.type';
 import { InputNameToHelper } from '~/utils/forms.constant';
 import { TestIdName } from '~/utils/testId-name.enum';
@@ -9,6 +10,8 @@ import { TestIdName } from '~/utils/testId-name.enum';
 import { ProfileFormData } from './validation-scheme/profile.scheme';
 
 export const ProfileForm = ({ profile }: { profile: Profile }) => {
+    const [updateUser] = useUpdateUserMutation();
+
     const { firstName = '', lastName = '', login = '', email = '' } = profile;
     const formMethods = useForm<ProfileFormData>({
         mode: 'onSubmit',
@@ -16,10 +19,13 @@ export const ProfileForm = ({ profile }: { profile: Profile }) => {
         shouldFocusError: false,
         defaultValues: { firstName, lastName, login, email },
     });
-    const { handleSubmit } = formMethods;
+    const {
+        handleSubmit,
+        formState: { isDirty, isValid },
+    } = formMethods;
 
-    const onSubmit = (data: ProfileFormData) => {
-        console.log(data);
+    const onSubmit = async (data: ProfileFormData) => {
+        await updateUser(data);
     };
 
     return (
@@ -62,7 +68,13 @@ export const ProfileForm = ({ profile }: { profile: Profile }) => {
                     />
                 </HStack>
 
-                <Button mt={4} colorScheme='black' type='submit' alignSelf='start'>
+                <Button
+                    mt={4}
+                    colorScheme='black'
+                    type='submit'
+                    alignSelf='start'
+                    isDisabled={!isDirty || !isValid}
+                >
                     Сохранить изменения
                 </Button>
             </VStack>

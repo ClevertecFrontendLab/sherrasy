@@ -41,7 +41,7 @@ export const profileApiSlice = apiSlice
                 }),
                 providesTags: [Tags.STATISTIC],
             }),
-            deleteProfile: builder.mutation<unknown, undefined>({
+            deleteProfile: builder.mutation<void, void>({
                 query: () => ({
                     url: ApiEndpoints.PROFILE_DELETE,
                     method: 'DELETE',

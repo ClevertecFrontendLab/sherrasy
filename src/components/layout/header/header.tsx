@@ -10,7 +10,7 @@ import { BurgerMenu } from '../../burger-menu/burger-menu';
 import { UserBlock } from '../../user-block/user-block';
 import { Logo } from '../logo/logo';
 import { Overlay } from '../overlay/overlay';
-import { SidebarMobile } from '../sidebar/sidebar';
+import { Sidebar } from '../sidebar/sidebar';
 
 export const Header = () => {
     const [isDesktop] = useMediaQuery('(min-width: 1440px)');
@@ -42,7 +42,7 @@ export const Header = () => {
                     <Logo />
                     {isDesktop && <Breadcrumbs />}
                     <Spacer minW={isDesktop ? '200px' : 0} />
-                    {showSidebar && <SidebarMobile />}
+                    {showSidebar && <Sidebar type='mobile' />}
                     {isDesktop && <UserBlock />}
                     <BurgerMenu isMenuOpen={isMenuOpen} handleMenuOpen={handleMenuOpen} />
                 </Flex>

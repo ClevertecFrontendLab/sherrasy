@@ -21,11 +21,13 @@ import { memo } from 'react';
 import { BookmarkIcon, HeartEyesIcon } from '~/assets/icons/icons';
 import { BadgesList } from '~/components/badges-list/badges-list';
 import { withRecipeNavigation } from '~/hoc/withRecipeNavigation';
+import { useGetAllUsersQuery } from '~/query/services/profile';
 import { useBookmarkRecipeMutation } from '~/query/services/recipe';
 import { useAppSelector } from '~/store/hooks';
 import { getRecipesSearchString } from '~/store/recipes/selectors';
 import { FullRecipe } from '~/types/recipe.interface';
-import { cookBlog } from '~/utils/data/mock-cards.json';
+import { getBloggerCardName } from '~/utils/helpers/blogger-author-helpers';
+import { updateImagePath } from '~/utils/helpers/format-images';
 import { TestIdName } from '~/utils/testId-name.enum';
 
 type CardProps = {
@@ -134,13 +136,14 @@ const HorizontalRecipeCard = ({ recipe, onClick, testI }: CardProps) => {
         categoriesIds,
         bookmarks,
         likes,
-        recommendedBy,
+        recommendedByUserId,
     } = recipe;
+    const { data: allUsers } = useGetAllUsersQuery();
     const searchString = useAppSelector(getRecipesSearchString);
     const [bookmarkRecipe] = useBookmarkRecipeMutation();
-    const author = recommendedBy
-        ? cookBlog.find((item) => +item.id === recommendedBy) || null
-        : null;
+    const author = allUsers?.find((item) => item.id === recommendedByUserId?.[0]);
+    const { firstName = '', lastName = '', photo = '' } = author ?? {};
+    const name = getBloggerCardName(firstName, lastName);
     const [isDesktop] = useMediaQuery('(min-width: 1440px)');
     const hilghlightStr = searchString ? searchString : '';
     const handleBookmarkClick = async () => await bookmarkRecipe(_id);
@@ -188,11 +191,11 @@ const HorizontalRecipeCard = ({ recipe, onClick, testI }: CardProps) => {
                             <Avatar
                                 size='xs'
                                 boxSize={4}
-                                name={author.name}
-                                src={author.avatar}
+                                name={name}
+                                src={updateImagePath(photo)}
                                 mr={2}
                             />
-                            <Text>{author.name} рекомендует</Text>
+                            <Text>{name} рекомендует</Text>
                         </Flex>
                     </Badge>
                 )}

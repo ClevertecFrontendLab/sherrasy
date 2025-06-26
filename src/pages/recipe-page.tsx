@@ -9,7 +9,9 @@ import { Layout } from '~/components/layout/page-layout/layout';
 import { RecipeDetails } from '~/components/recipe-details/recipe-details';
 import { RecipeHeader } from '~/components/recipe-header/recipe-header';
 import { RecipeSteps } from '~/components/recipe-steps/recipe-steps';
+import { RecommendButton } from '~/components/recomendButton/recommendButton';
 import { NewSection } from '~/components/sections/new-section/new-section';
+import { useGetProfileQuery, useGetStatsQuery } from '~/query/services/profile';
 import { useGetRecipeByIdQuery } from '~/query/services/recipes';
 import { useAppDispatch } from '~/store/hooks';
 import { setRecipeName } from '~/store/recipes/recipes-slice';
@@ -24,7 +26,8 @@ export const RecipePage = () => {
         isFetching,
         error,
     } = useGetRecipeByIdQuery(isDeleting || !recipeId ? skipToken : recipeId);
-
+    const { data: profileData } = useGetProfileQuery();
+    const { data: statsData } = useGetStatsQuery();
     useEffect(() => {
         if (isFetching) return;
         if (error || !recipe) {
@@ -59,6 +62,12 @@ export const RecipePage = () => {
                 />
                 <RecipeSteps steps={steps} />
                 <AuthorCard authorId={authorId} />
+                <RecommendButton
+                    id={recipe._id}
+                    recomendations={recipe.recommendedByUserId}
+                    totalBookmarks={statsData?.bookmarks.length}
+                    totalSubscribers={profileData?.subscribers.length}
+                />
             </Flex>
             <Box mt={{ base: 10, lg: '3.75rem' }}>
                 <NewSection />

@@ -1,22 +1,39 @@
 import { Button, Circle, Flex, Text } from '@chakra-ui/react';
 import { useLocation, useNavigate } from 'react-router';
 
-import { BookmarkIcon, HeartEyesIcon, PenIcon, PeopleIcon } from '~/assets/icons/icons';
+import {
+    BookmarkIcon,
+    HeartEyesIcon,
+    PenIcon,
+    PeopleIcon,
+    RecommendIcon,
+} from '~/assets/icons/icons';
+import { useGetProfileQuery, useGetStatsQuery } from '~/query/services/profile';
 import { AppRoute } from '~/utils/constant';
 import { isRecipeEditOrCreatePath } from '~/utils/helpers/helpers';
 import { TestIdName } from '~/utils/testId-name.enum';
 
 import styles from './sidebar.module.css';
 
-const bookmarks = 185;
-const people = 589;
-const likes = 587;
+type SidebarProps = {
+    bookmarks: number;
+    people: number;
+    likes: number;
+    recommendations: number;
+    canRecommend: boolean;
+    isHidden?: boolean;
+    handleCreateNewClick?: () => void;
+};
 
-export const Sidebar = () => {
-    const { pathname } = useLocation();
-    const isHidden = isRecipeEditOrCreatePath(pathname);
-    const navigate = useNavigate();
-    const handleCreateNewClick = () => navigate(AppRoute.NewRecipe);
+const SidebarDesktop = ({
+    bookmarks,
+    people,
+    likes,
+    recommendations,
+    canRecommend,
+    isHidden,
+    handleCreateNewClick,
+}: SidebarProps) => {
     if (isHidden) return null;
     return (
         <Flex
@@ -34,6 +51,20 @@ export const Sidebar = () => {
             zIndex={{ base: '10' }}
         >
             <Flex flexDirection={{ lg: 'column' }} gap={{ lg: 6 }}>
+                {canRecommend && (
+                    <Button
+                        variant='ghost'
+                        leftIcon={<RecommendIcon color='black' />}
+                        w='min-content'
+                        color='lime.600'
+                        bg='transparent'
+                        fontSize={{ lg: 'md' }}
+                        iconSpacing={{ lg: '8px' }}
+                        pl={0}
+                    >
+                        {recommendations}
+                    </Button>
+                )}
                 <Button
                     variant='ghost'
                     leftIcon={<BookmarkIcon color='black' />}
@@ -96,7 +127,13 @@ export const Sidebar = () => {
     );
 };
 
-export const SidebarMobile = () => (
+const SidebarMobile = ({
+    bookmarks,
+    people,
+    likes,
+    recommendations,
+    canRecommend,
+}: SidebarProps) => (
     <Flex
         direction={{ base: 'row' }}
         alignSelf='end'
@@ -109,6 +146,20 @@ export const SidebarMobile = () => (
         zIndex={{ base: '10' }}
     >
         <Flex gap={{ base: 0 }}>
+            {canRecommend && (
+                <Button
+                    variant='ghost'
+                    leftIcon={<RecommendIcon color='black' />}
+                    w='min-content'
+                    color='lime.600'
+                    bg='transparent'
+                    fontSize={{ base: 'xs' }}
+                    iconSpacing={{ base: '7px' }}
+                    pl={0}
+                >
+                    {recommendations}
+                </Button>
+            )}
             <Button
                 variant='ghost'
                 leftIcon={<BookmarkIcon color='black' />}
@@ -149,3 +200,38 @@ export const SidebarMobile = () => (
         </Flex>
     </Flex>
 );
+
+export const Sidebar = ({ type }: { type: 'desktop' | 'mobile' }) => {
+    const { data: profileData } = useGetProfileQuery();
+    const { data: statsData } = useGetStatsQuery();
+    const { pathname } = useLocation();
+    const navigate = useNavigate();
+    const isHidden = isRecipeEditOrCreatePath(pathname);
+
+    const bookmarks = statsData?.bookmarks.length ?? 0;
+    const people = profileData?.subscribers.length ?? 0;
+    const likes = statsData?.likes.length ?? 0;
+    const recommendations = statsData?.recommendationsCount ?? 0;
+    const canRecommend = bookmarks > 200 && people > 100;
+    const handleCreateNewClick = () => navigate(AppRoute.NewRecipe);
+
+    return type === 'desktop' ? (
+        <SidebarDesktop
+            bookmarks={bookmarks}
+            people={people}
+            likes={likes}
+            recommendations={recommendations}
+            canRecommend={canRecommend}
+            isHidden={isHidden}
+            handleCreateNewClick={handleCreateNewClick}
+        />
+    ) : (
+        <SidebarMobile
+            bookmarks={bookmarks}
+            people={people}
+            likes={likes}
+            recommendations={recommendations}
+            canRecommend={canRecommend}
+        />
+    );
+};

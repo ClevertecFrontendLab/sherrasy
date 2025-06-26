@@ -15,6 +15,7 @@ export type Blogger = {
     notes: Note[];
     subscribersCount: number;
     _id: string;
+    photoLink?: string;
 };
 export type BloggerFull = {
     bloggerInfo: {
@@ -26,6 +27,7 @@ export type BloggerFull = {
         notes: Note[];
         recipes: FullRecipe[];
         subscribers: string[];
+        photoLink?: string;
     };
     isFavorite: boolean;
     totalBookmarks: number;

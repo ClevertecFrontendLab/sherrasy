@@ -1,21 +1,31 @@
 import { Button, Heading, HStack, Text, VStack } from '@chakra-ui/react';
-import { useCallback } from 'react';
-import { Link } from 'react-router';
+import { useCallback, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router';
 
 import { ArrowRightIcon } from '~/assets/icons/icons';
 import { useUniversalModal } from '~/hooks/useUniversalModal';
-import { getCurrentUserId } from '~/utils/helpers/blogger-author-helpers';
+import { useDeleteProfileMutation } from '~/query/services/profile';
+import { AppRoute } from '~/utils/constant';
 
 import { UniversalModal } from '../modal/universal-modal';
 
 export const ProfileOtherActions = () => {
-    const currentUserId = getCurrentUserId() ?? '';
+    const navigate = useNavigate();
+    const [deleteProfile, { isSuccess: isDeleted }] = useDeleteProfileMutation();
     const { isOpen, openModal, closeModal, config } = useUniversalModal();
+
     const handleOpenModal = useCallback(() => {
         openModal('deleteProfile');
     }, []);
 
-    const handleDeleteProfile = () => console.log(currentUserId);
+    const handleDeleteProfile = async () => await deleteProfile();
+
+    useEffect(() => {
+        if (isDeleted) {
+            navigate(AppRoute.SignIn, { replace: true });
+        }
+    }, [isDeleted, navigate]);
+
     return (
         <VStack w='100%' align='start' textAlign='start' gap={{ base: 6, lg: '2.5rem' }}>
             <VStack align='start'>

@@ -45,5 +45,5 @@ export interface FullRecipe {
     meat?: string;
     garnish: string;
     authorId: string;
-    recommendedBy?: number | null; //temp
+    recommendedByUserId?: string[];
 }

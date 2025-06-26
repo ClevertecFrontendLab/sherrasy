@@ -2,6 +2,7 @@ import { Avatar, Box, Card, CardBody, CardFooter, CardHeader, Flex, Text } from 
 
 import { Blogger } from '~/types/blogger.type';
 import { getBloggerCardName } from '~/utils/helpers/blogger-author-helpers';
+import { updateImagePath } from '~/utils/helpers/format-images';
 import { TestIdName } from '~/utils/testId-name.enum';
 
 import { CookBlogCardControls } from './cook-blog-card-controls';
@@ -13,7 +14,7 @@ type CookCookBlogCardProps = {
 };
 
 export const CookBlogCard = ({ author, isExtended, type }: CookCookBlogCardProps) => {
-    const { firstName = '', lastName = '', login: nick = '', notes = [] } = author;
+    const { firstName = '', lastName = '', login: nick = '', notes = [], photoLink = '' } = author;
     const name = getBloggerCardName(firstName, lastName);
     const description = notes.length ? notes[0].text : '';
     const isFavorite = type === 'favorite';
@@ -32,7 +33,11 @@ export const CookBlogCard = ({ author, isExtended, type }: CookCookBlogCardProps
         >
             <CardHeader p={{ base: 3.5, xs: 4, '2xl': 6 }}>
                 <Flex flex='1' gap={{ base: 2, lg: 4, '2xl': 3.5 }} alignItems='center'>
-                    <Avatar size={{ base: 'sm', lg: 'md' }} name={name} />
+                    <Avatar
+                        size={{ base: 'sm', lg: 'md' }}
+                        name={name}
+                        src={updateImagePath(photoLink)}
+                    />
                     <Box
                         maxW={
                             isFavorite

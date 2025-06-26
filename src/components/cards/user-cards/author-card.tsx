@@ -20,6 +20,7 @@ import {
     getBloggerCardName,
     getCurrentUserId,
 } from '~/utils/helpers/blogger-author-helpers';
+import { updateImagePath } from '~/utils/helpers/format-images';
 import { getCookBlogQueryString } from '~/utils/helpers/get-request-query';
 import { TestIdName } from '~/utils/testId-name.enum';
 
@@ -53,7 +54,7 @@ export const AuthorCard = ({ authorId }: AuthorCardProps) => {
     if (isAuthor || !author || !author.bloggerInfo) return null;
 
     const {
-        bloggerInfo: { firstName = '', lastName = '', login: nick = '' } = {},
+        bloggerInfo: { firstName = '', lastName = '', login: nick = '', photoLink = '' } = {},
         totalSubscribers = 0,
     } = author;
 
@@ -79,7 +80,7 @@ export const AuthorCard = ({ authorId }: AuthorCardProps) => {
                 </Center>
             ) : (
                 <>
-                    <Avatar size={{ base: 'xl' }} name={name} />
+                    <Avatar size={{ base: 'xl' }} name={name} src={updateImagePath(photoLink)} />
                     <Flex direction='column' minW={{ base: '70%', sm: '82%', xl: '84%' }}>
                         <CardHeader
                             px={{ base: 2, sm: '1.125rem' }}

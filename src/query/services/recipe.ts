@@ -152,4 +152,5 @@ export const {
     useDeleteRecipeMutation,
     useLikeRecipeMutation,
     useBookmarkRecipeMutation,
+    useRecommendRecipeMutation,
 } = recipeApiSlice;
